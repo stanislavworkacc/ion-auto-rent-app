@@ -1,0 +1,29 @@
+.custom-toggle {
+  width: 50px;
+  height: 28px;
+  border-radius: 14px;
+  background-color: #e6e9ed;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.custom-toggle.active {
+  background-color: #374765;
+}
+
+.custom-toggle .toggle-knob {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition: left 0.3s;
+}
+
+.custom-toggle .toggle-knob.active {
+  left: calc(100% - 26px);
+}
+

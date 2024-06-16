@@ -1,0 +1,16 @@
+
+ion-tab-button {
+  --ripple-color: transparent;
+}
+
+.active-tab {
+  //color: #6fff97;
+  //background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+  transform: scale(1.05);
+  color: #3760a7;
+  background: #e0f7fa;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+

@@ -4,10 +4,12 @@
   --background: #2a3c4e;
   --ion-background-color: #2a3c4e;
   --color: #000000;
+  backdrop-filter: blur(10px) brightness(2.5);
 }
 
 ion-header {
   box-shadow: none;
+  padding: 10px;
 }
 
 ion-toolbar {
@@ -19,5 +21,10 @@ ion-toolbar {
     right: 10px;
   }
 }
-
+ion-buttons ion-button {
+  --background: transparent;
+  --color: #e0f7fa;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  border-radius: 50%;
+}
 

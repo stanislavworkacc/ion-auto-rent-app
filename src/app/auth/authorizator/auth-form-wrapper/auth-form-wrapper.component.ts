@@ -1,7 +1,12 @@
-import {ChangeDetectionStrategy, Component, OnInit, ViewChild} from '@angular/core';
-import {IonicModule, IonModal} from "@ionic/angular";
-import {FormsModule} from "@angular/forms";
+import {AfterViewInit, ChangeDetectionStrategy, Component, inject, OnInit, ViewChild} from '@angular/core';
+import {IonicModule, IonModal, NavController} from "@ionic/angular";
+import {FormBuilder, FormGroup, FormsModule, Validators} from "@angular/forms";
 import {CloseBtnComponent} from "../../../shared/ui-kit/components/close-btn/close-btn.component";
+import {SignUpFormComponent} from "../sign-up-form/sign-up-form.component";
+import {NgIf} from "@angular/common";
+import {SegmentsComponent} from "../../../shared/ui-kit/components/segments/segments.component";
+import {isAndroid, isIOS} from "../../../shared/utils/detect-device.utils";
+import {BackButtonComponent} from "../../../shared/ui-kit/components/back-button/back-button.component";
 
 @Component({
   selector: 'auth-form-wrapper',
@@ -13,26 +18,68 @@ import {CloseBtnComponent} from "../../../shared/ui-kit/components/close-btn/clo
     FormsModule,
     IonicModule,
     CloseBtnComponent,
+    SignUpFormComponent,
+    NgIf,
+    SegmentsComponent,
+    BackButtonComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AuthFormWrapperComponent  implements OnInit {
-
+export class AuthFormWrapperComponent  implements OnInit, AfterViewInit {
+  private navCtrl: NavController = inject(NavController);
+  private fb: FormBuilder = inject(FormBuilder);
   @ViewChild(IonModal) modal!: IonModal;
 
   public initialBreakpoint: number = 0.5;
+  public signUpForm!: FormGroup;
+  public selectedSegment: string = 'standard';
 
-  ngOnInit() {
-    setTimeout(() => {
-      this.openModal();
-    }, 500);
+  public options!: { value: string, icon: string, label: string }[];
+
+  navigateBack(): void {
+    this.closeModal();
+    this.navCtrl.back();
   }
 
-  openModal() {
+  openModal(): void {
     this.modal.present();
   }
 
-  closeModal() {
+  closeModal(): void {
     this.modal.dismiss();
   }
+
+  onSignUpSegmentChanged(ev: any): void {
+    this.selectedSegment = ev.detail.value;
+  }
+
+  initSignUpForm(): void {
+    this.signUpForm = this.fb.group({
+      name: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
+    });
+  }
+
+  checkNativeDevice(): void {
+    const isAndroidDevice: boolean = isAndroid();
+    const isIOSDevice: boolean = isIOS();
+
+    this.options = [
+      { value: 'standard', icon: 'person-outline', label: 'Реєстрація' },
+      { value: 'google', icon: 'logo-google', label: 'Увійти з Google' },
+      { value: 'apple', icon: 'logo-apple', label: 'Увійти з Apple', isVisible: isIOSDevice },
+      { value: 'android', icon: 'logo-android', label: 'Увійти з Android', isVisible: isAndroidDevice }
+    ].filter(option => option.isVisible !== false);
+  }
+  ngOnInit(): void {
+    this.initSignUpForm();
+    this.checkNativeDevice();
+  }
+
+  ngAfterViewInit(): void {
+    this.openModal();
+  }
+
+  constructor() {}
 }

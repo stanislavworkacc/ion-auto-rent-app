@@ -1,0 +1,25 @@
+ion-segment {
+  --background: #f8f8f8;
+  --indicator-color: #1e90ff;
+  --color-checked: #1e90ff;
+  border-radius: 10px;
+  margin: 10px 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+ion-segment-button {
+  --color-checked: #090909;
+  --indicator-color: #d0e7f2;
+  border-radius: 10px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  padding: 10px;
+  --color: #000000;
+}
+
+ion-segment-button:hover {
+  --background: #d0e7f2;
+}
+
+ion-segment-button ion-icon {
+  margin-right: 8px;
+}
