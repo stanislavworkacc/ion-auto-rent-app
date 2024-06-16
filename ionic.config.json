@@ -1,0 +1,7 @@
+{
+  "name": "ion-rent-auto",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
