@@ -1,5 +1,6 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {IonicModule} from "@ionic/angular";
+import {IonFabComponent} from "../../shared/ui-kit/components/ion-fab/ion-fab.component";
 
 @Component({
   selector: 'app-dashboard',
@@ -7,7 +8,8 @@ import {IonicModule} from "@ionic/angular";
   styleUrls: ['./dashboard.component.scss'],
   standalone: true,
   imports: [
-    IonicModule
+    IonicModule,
+    IonFabComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
