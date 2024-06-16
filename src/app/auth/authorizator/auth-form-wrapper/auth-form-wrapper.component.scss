@@ -1,0 +1,23 @@
+.auth-modal {
+  --border-radius: 16px 16px 0 0;
+  --max-height: 90%;
+  --background: #2a3c4e;
+  --ion-background-color: #2a3c4e;
+  --color: #000000;
+}
+
+ion-header {
+  box-shadow: none;
+}
+
+ion-toolbar {
+  border-radius: 16px 16px 0 0;
+  --background: #2a3c4e;
+  --color: #white;
+  app-close-btn {
+    top: 10px;
+    right: 10px;
+  }
+}
+
+

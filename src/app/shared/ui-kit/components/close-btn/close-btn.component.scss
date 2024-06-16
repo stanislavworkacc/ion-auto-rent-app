@@ -1,0 +1,29 @@
+:host {
+  position: absolute;
+}
+.custom-icon {
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.hover-circle {
+  opacity: 1;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.line1, .line2 {
+  transition: transform 0.2s;
+  transform-origin: center;
+}
+
+.custom-icon:active .line1 {
+  transform: rotate(45deg);
+}
+
+.custom-icon:active .line2 {
+  transform: rotate(-45deg);
+}
