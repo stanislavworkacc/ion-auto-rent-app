@@ -1,0 +1,75 @@
+.android-card {
+  --background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  padding: 20px;
+  margin: 10px;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.android-sso-container {
+  text-align: center;
+  position: relative;
+}
+
+.android-logo {
+  font-size: 4rem;
+  color: #3ddc84;
+  margin-bottom: 20px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+p {
+  font-size: 16px;
+  color: var(--ion-color-medium);
+  margin-bottom: 20px;
+  animation: fadeIn 1s ease-in-out;
+}
+
+ion-card-title {
+  font-size: 1.5rem;
+  text-align: center;
+  color: #3ddc84;
+  margin-bottom: 20px;
+}
+
+ion-button {
+  --background: #3ddc84;
+  --color: white;
+  --border-radius: 10px;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.button-icon {
+  animation: iconPulse 1s infinite;
+}
+
+@keyframes iconPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

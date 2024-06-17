@@ -10,6 +10,7 @@ import {BackButtonComponent} from "../../../shared/ui-kit/components/back-button
 import {SegmentType} from "./auth-enums";
 import {GoogleSsoComponent} from "../google-sso/google-sso.component";
 import {AppleIosComponent} from "../apple-ios/apple-ios.component";
+import {AndroidFormComponent} from "../android-form/android-form.component";
 
 @Component({
   selector: 'auth-form-wrapper',
@@ -27,6 +28,7 @@ import {AppleIosComponent} from "../apple-ios/apple-ios.component";
     BackButtonComponent,
     GoogleSsoComponent,
     AppleIosComponent,
+    AndroidFormComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })

@@ -3,9 +3,9 @@ import {IonicModule} from "@ionic/angular";
 import {PrivacyPolicyComponent} from "../privacy-policy/privacy-policy.component";
 
 @Component({
-  selector: 'app-google-sso',
-  templateUrl: './google-sso.component.html',
-  styleUrls: ['./google-sso.component.scss'],
+  selector: 'app-android-form',
+  templateUrl: './android-form.component.html',
+  styleUrls: ['./android-form.component.scss'],
   standalone: true,
   imports: [
     IonicModule,
@@ -13,10 +13,8 @@ import {PrivacyPolicyComponent} from "../privacy-policy/privacy-policy.component
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class GoogleSsoComponent  implements OnInit {
+export class AndroidFormComponent  implements OnInit {
 
-  signInWithGoogle(): void {
-  }
   constructor() { }
 
   ngOnInit() {}

@@ -7,6 +7,7 @@ import {NgIf} from "@angular/common";
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {ValidateInputDirective} from "../../../shared/directives/validate-input.directive";
 import {matchingPasswordsValidator} from "../../../shared/utils/validators/matchingPasswordValidator";
+import {PrivacyPolicyComponent} from "../privacy-policy/privacy-policy.component";
 
 @Component({
   selector: 'sign-up-form',
@@ -21,14 +22,14 @@ import {matchingPasswordsValidator} from "../../../shared/utils/validators/match
     LocalLoaderComponent,
     NgIf,
     ReactiveFormsModule,
-    ValidateInputDirective
+    ValidateInputDirective,
+    PrivacyPolicyComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SignUpFormComponent  implements OnInit {
 
   private fb: FormBuilder = inject(FormBuilder);
-
   public form!: FormGroup;
   public name!: FormControl;
   public email!: FormControl;
