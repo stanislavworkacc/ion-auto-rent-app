@@ -8,15 +8,8 @@ ion-label {
   align-items: center;
   padding: 5px;
   border-right: 0.1px solid black;
-
-  .code-tel {
-    margin-left: 15px;
-  }
-}
-
-.centered {
-  display: flex;
-  justify-content: center !important;
+  justify-content: center;
+  position: relative;
 }
 
 .form-input {
@@ -33,13 +26,21 @@ ion-input {
   margin-left: 10px;
 }
 
+.checkmark-icon {
+  position: absolute;
+  top: -7px;
+  right: 5px;
+  color: green;
+  font-size: 20px;
+}
+
 .agreements {
   display: flex;
   align-items: center;
   margin-top: 20px;
   padding: 10px;
-  background: rgba(248, 248, 248, 0.66);
-  border-radius: 10px;
+  background: #abd8a2;
+  border-radius: 2px;
   color: black;
 }
 

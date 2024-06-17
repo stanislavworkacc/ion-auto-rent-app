@@ -1,33 +1,81 @@
-<ion-list>
-  <div class="form-input">
-    <ion-label position="static">
-      Ім'я
+<ion-list [formGroup]="form">
+  <div class="form-input" #nameRef [appValidateInput]="nameRef">
+    <ion-label position="static" [class.focused]="isFocused['name']">
+      <span *ngIf="!isFocused['name']"
+      >Ім'я
+      </span>
+      <ion-icon *ngIf="name.valid && !isFocused['name']" name="checkmark-circle-outline" class="checkmark-icon"></ion-icon>
+      <ion-spinner *ngIf="isFocused['name']" name="dots" color="primary"></ion-spinner>
     </ion-label>
-    <ion-input type="text" class="aligned-input"></ion-input>
+
+    <ion-input
+      type="text"
+      class="aligned-input"
+      placeholder="Введіть ваше ім'я"
+      [formControl]="name"
+      (ionFocus)="onFocus('name')"
+      (ionBlur)="onBlur('name')"
+    ></ion-input>
+
+    <div [appValidateInput]="nameRef"  [control]="name">
+      <!-- Контейнер для помилки -->
+    </div>
+  </div>
+
+  <div class="form-input" #emailRef [appValidateInput]="emailRef">
+    <ion-label position="static" [class.focused]="isFocused['google']">
+      <ion-icon *ngIf="!isFocused['google']" name="logo-google"></ion-icon>
+
+      <ion-icon *ngIf="email.valid && !isFocused['google']" name="checkmark-circle-outline" class="checkmark-icon"></ion-icon>
+      <ion-spinner *ngIf="isFocused['google']" name="dots" color="primary"></ion-spinner>
+    </ion-label>
+    <ion-input
+      type="text"
+      class="aligned-input"
+      placeholder="Введіть поштову адресу"
+      [formControl]="email"
+      (ionFocus)="onFocus('google')"
+      (ionBlur)="onBlur('google')"
+    ></ion-input>
+
+    <div [appValidateInput]="emailRef"  [control]="email">
+      <!-- Контейнер для помилки -->
+    </div>
   </div>
 
   <div class="form-input">
-    <ion-label position="static">
-      Прізвище
+    <ion-label position="static" [class.focused]="isFocused['lockOpen']">
+      <ion-icon *ngIf="!isFocused['lockOpen']" name="lock-open-outline"></ion-icon>
+
+      <ion-icon *ngIf="password.valid && !isFocused['lockOpen']" name="checkmark-circle-outline" class="checkmark-icon"></ion-icon>
+      <ion-spinner *ngIf="isFocused['lockOpen']" name="dots" color="primary"></ion-spinner>
     </ion-label>
-    <ion-input type="text" class="aligned-input"></ion-input>
+    <ion-input
+      type="text"
+      class="aligned-input"
+      placeholder="Пароль"
+      [formControl]="password"
+      (ionFocus)="onFocus('lockOpen')"
+      (ionBlur)="onBlur('lockOpen')"
+    ></ion-input>
   </div>
 
   <div class="form-input">
-    <ion-label position="static" class="centered">
-      <ion-icon name="logo-google"></ion-icon>
-    </ion-label>
-    <ion-input type="text" class="aligned-input"></ion-input>
-  </div>
+    <ion-label position="static" [class.focused]="isFocused['lockClosed']">
+      <ion-icon *ngIf="!isFocused['lockClosed']" name="lock-closed-outline"></ion-icon>
 
-  <div class="form-input">
-    <ion-label position="static">
-      <ion-icon name="call-outline"></ion-icon>
-      <span class="code-tel">+380</span>
+      <ion-icon *ngIf="confirmPassword.valid && !isFocused['lockClosed']" name="checkmark-circle-outline" class="checkmark-icon"></ion-icon>
+      <ion-spinner *ngIf="isFocused['lockClosed']" name="dots" color="primary"></ion-spinner>
     </ion-label>
-    <ion-input type="text" class="aligned-input"></ion-input>
+    <ion-input
+      type="text"
+      class="aligned-input"
+      placeholder="Підтвердити пароль"
+      [formControl]="confirmPassword"
+      (ionFocus)="onFocus('lockClosed')"
+      (ionBlur)="onBlur('lockClosed')"
+    ></ion-input>
   </div>
-
 
   <div class="agreements">
     <span>
@@ -47,6 +95,7 @@
   shape="round"
   fill="outline"
   type="submit"
+  (click)="onSubmit()"
 >
   <div class="btn-text">
   Реєстрація
