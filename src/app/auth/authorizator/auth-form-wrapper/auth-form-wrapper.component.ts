@@ -9,6 +9,7 @@ import {isAndroid, isIOS} from "../../../shared/utils/detect-device.utils";
 import {BackButtonComponent} from "../../../shared/ui-kit/components/back-button/back-button.component";
 import {SegmentType} from "./auth-enums";
 import {GoogleSsoComponent} from "../google-sso/google-sso.component";
+import {AppleIosComponent} from "../apple-ios/apple-ios.component";
 
 @Component({
   selector: 'auth-form-wrapper',
@@ -25,6 +26,7 @@ import {GoogleSsoComponent} from "../google-sso/google-sso.component";
     SegmentsComponent,
     BackButtonComponent,
     GoogleSsoComponent,
+    AppleIosComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })

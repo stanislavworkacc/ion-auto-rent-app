@@ -1,4 +1,5 @@
 export enum SegmentType {
   STANTDART = 'standard',
-  GOOGLE = 'google'
+  GOOGLE = 'google',
+  APPLE = 'apple'
 }
