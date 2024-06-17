@@ -1,7 +1,7 @@
 <ion-modal [cssClass]="'auth-modal'"
            [initialBreakpoint]="1"
            [breakpoints]="[0, 1]"
-           (didDismiss)="closeModal()"
+           (didDismiss)="navigateBack()"
 >
   <ng-template>
     <ion-header>

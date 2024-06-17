@@ -56,16 +56,12 @@ export class AuthFormWrapperComponent  implements OnInit, AfterViewInit {
   iosLogin() {
   }
   navigateBack(): void {
-    this.closeModal();
     this.navCtrl.back();
+    this.modal.dismiss();
   }
 
   openModal(): void {
     this.modal.present();
-  }
-
-  closeModal(): void {
-    this.modal.dismiss();
   }
 
   onSignUpSegmentChanged(ev: any): void {
