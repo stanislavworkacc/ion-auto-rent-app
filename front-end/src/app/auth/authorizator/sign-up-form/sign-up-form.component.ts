@@ -1,7 +1,6 @@
 import {ChangeDetectionStrategy, Component, inject, OnInit} from '@angular/core';
 import {IonicModule} from "@ionic/angular";
 import {SwitcherComponent} from "../../../shared/ui-kit/components/switcher/switcher.component";
-import {RxIf} from "@rx-angular/template/if";
 import {LocalLoaderComponent} from "../../../shared/ui-kit/components/local-loader/local-loader.component";
 import {NgIf} from "@angular/common";
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
@@ -17,8 +16,6 @@ import {PrivacyPolicyComponent} from "../privacy-policy/privacy-policy.component
   imports: [
     IonicModule,
     SwitcherComponent,
-    LocalLoaderComponent,
-    RxIf,
     LocalLoaderComponent,
     NgIf,
     ReactiveFormsModule,
