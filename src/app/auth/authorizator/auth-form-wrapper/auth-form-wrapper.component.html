@@ -14,7 +14,9 @@
     </ion-header>
 
     <ion-content>
-      <sign-up-form></sign-up-form>
+      @if (selectedSegment === SegmentType.STANTDART) {
+        <sign-up-form></sign-up-form>
+      }
     </ion-content>
   </ng-template>
 </ion-modal>

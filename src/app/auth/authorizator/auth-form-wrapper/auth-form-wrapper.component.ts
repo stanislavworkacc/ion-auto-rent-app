@@ -7,6 +7,7 @@ import {NgIf} from "@angular/common";
 import {SegmentsComponent} from "../../../shared/ui-kit/components/segments/segments.component";
 import {isAndroid, isIOS} from "../../../shared/utils/detect-device.utils";
 import {BackButtonComponent} from "../../../shared/ui-kit/components/back-button/back-button.component";
+import {SegmentType} from "./auth-enums";
 
 @Component({
   selector: 'auth-form-wrapper',
@@ -28,11 +29,13 @@ import {BackButtonComponent} from "../../../shared/ui-kit/components/back-button
 export class AuthFormWrapperComponent  implements OnInit, AfterViewInit {
   private navCtrl: NavController = inject(NavController);
   private fb: FormBuilder = inject(FormBuilder);
+
   @ViewChild(IonModal) modal!: IonModal;
 
+  SegmentType = SegmentType;
   public initialBreakpoint: number = 0.5;
   public signUpForm!: FormGroup;
-  public selectedSegment: string = 'standard';
+  public selectedSegment: string = SegmentType.STANTDART;
 
   public options!: { value: string, icon: string, label: string }[];
 
@@ -50,7 +53,7 @@ export class AuthFormWrapperComponent  implements OnInit, AfterViewInit {
   }
 
   onSignUpSegmentChanged(ev: any): void {
-    this.selectedSegment = ev.detail.value;
+    this.selectedSegment = ev;
   }
 
   initSignUpForm(): void {
