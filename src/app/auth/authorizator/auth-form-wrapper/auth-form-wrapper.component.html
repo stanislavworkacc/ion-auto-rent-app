@@ -9,6 +9,9 @@
         <ion-buttons slot="start">
           <app-back-button [navigateBack]="navigateBack.bind(this)"></app-back-button>
         </ion-buttons>
+        <ion-buttons slot="end">
+          <app-fab [fabItems]="fabItems" title="ВХІД"></app-fab>
+        </ion-buttons>
       </ion-toolbar>
       <app-segments [options]="options" (segmentChanged)="onSignUpSegmentChanged($event)"></app-segments>
     </ion-header>
@@ -31,3 +34,4 @@
     </ion-content>
   </ng-template>
 </ion-modal>
+

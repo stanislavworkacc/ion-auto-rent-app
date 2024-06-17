@@ -11,6 +11,7 @@ import {SegmentType} from "./auth-enums";
 import {GoogleSsoComponent} from "../google-sso/google-sso.component";
 import {AppleIosComponent} from "../apple-ios/apple-ios.component";
 import {AndroidFormComponent} from "../android-form/android-form.component";
+import {IonFabComponent} from "../../../shared/ui-kit/components/ion-fab/ion-fab.component";
 
 @Component({
   selector: 'auth-form-wrapper',
@@ -29,6 +30,7 @@ import {AndroidFormComponent} from "../android-form/android-form.component";
     GoogleSsoComponent,
     AppleIosComponent,
     AndroidFormComponent,
+    IonFabComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -39,12 +41,20 @@ export class AuthFormWrapperComponent  implements OnInit, AfterViewInit {
   @ViewChild(IonModal) modal!: IonModal;
 
   SegmentType = SegmentType;
-  public initialBreakpoint: number = 0.5;
   public signUpForm!: FormGroup;
   public selectedSegment: string = SegmentType.STANTDART;
 
   public options!: { value: string, icon: string, label: string }[];
+  fabItems!: { icon: string, action : () => void }[];
 
+  defaultLogin() {
+  }
+
+  googleSSO() {
+  }
+
+  iosLogin() {
+  }
   navigateBack(): void {
     this.closeModal();
     this.navCtrl.back();
@@ -81,9 +91,22 @@ export class AuthFormWrapperComponent  implements OnInit, AfterViewInit {
       { value: 'android', icon: 'logo-android', label: 'Увійти з Android', isVisible: isAndroidDevice }
     ].filter(option => option.isVisible !== false);
   }
+
+  initIonFab(): void {
+    const isAndroidDevice: boolean = isAndroid();
+    const isIOSDevice: boolean = isIOS();
+
+    this.fabItems = [
+      { icon: 'log-in-outline', action: this.defaultLogin.bind(this) },
+      { icon: 'logo-google', action: this.googleSSO.bind(this) },
+      { icon: 'logo-apple', action: this.iosLogin.bind(this), isVisible: isIOSDevice },
+      { icon: 'logo-android', action: this.iosLogin.bind(this), isVisible: isAndroidDevice },
+    ].filter(fab => fab.isVisible !== false)
+  }
   ngOnInit(): void {
     this.initSignUpForm();
     this.checkNativeDevice();
+    this.initIonFab()
   }
 
   ngAfterViewInit(): void {
