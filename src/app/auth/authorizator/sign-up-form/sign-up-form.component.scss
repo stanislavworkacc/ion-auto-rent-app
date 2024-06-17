@@ -37,7 +37,7 @@ ion-input {
 .agreements {
   display: flex;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 10px;
   padding: 10px;
   background: #abd8a2;
   border-radius: 2px;
@@ -71,3 +71,35 @@ ion-button {
   --color: #a9a9a9;
   --box-shadow: none;
 }
+
+.error-container {
+  margin: 0 auto;
+}
+
+.password-requirements {
+  margin-top: 10px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  color: #fff;
+  font-size: 14px;
+}
+
+.password-requirements ul {
+  padding-left: 20px;
+}
+
+.password-requirements li {
+  margin-bottom: 5px;
+}
+
+.valid-description {
+  font-size: 20px;
+  color: #66e566;
+}
+.valid-field {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+

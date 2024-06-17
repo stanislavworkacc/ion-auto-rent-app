@@ -43,7 +43,7 @@
     </div>
   </div>
 
-  <div class="form-input">
+  <div class="form-input" #passRef [appValidateInput]="passRef">
     <ion-label position="static" [class.focused]="isFocused['lockOpen']">
       <ion-icon *ngIf="!isFocused['lockOpen']" name="lock-open-outline"></ion-icon>
 
@@ -58,6 +58,10 @@
       (ionFocus)="onFocus('lockOpen')"
       (ionBlur)="onBlur('lockOpen')"
     ></ion-input>
+
+    <div [appValidateInput]="passRef"  [control]="password">
+      <!-- Контейнер для помилки -->
+    </div>
   </div>
 
   <div class="form-input" #confirmRef [appValidateInput]="confirmRef">
@@ -79,6 +83,19 @@
     <div [appValidateInput]="confirmRef"  [control]="confirmPassword">
       <!-- Контейнер для помилки -->
     </div>
+  </div>
+
+  <div class="password-requirements">
+    <ul>
+      <li [class.valid-field]="password.valid">
+        <ion-icon *ngIf="password.valid" name="checkmark-circle-outline" class="valid-description"></ion-icon>
+        Пароль повинен містити не менше 8 символів.
+      </li>
+      <li [class.valid-field]="confirmPassword.valid"
+      ><ion-icon *ngIf="confirmPassword.valid" name="checkmark-circle-outline" class="valid-description"></ion-icon>
+        Пароль повинен співпадати.
+      </li>
+    </ul>
   </div>
 
   <div class="agreements">

@@ -25,8 +25,8 @@ export class ValidateInputDirective implements OnInit, OnDestroy, AfterViewInit 
   private destroyRef: DestroyRef = inject(DestroyRef);
   private defaultErrorMessages: { [key: string]: string } = {
     required: 'Поле обов\'язкове до заповнення.',
-    maxlength: 'Максимальну кількість символів досягнуто.',
-    minlength: 'Мінімальна кількість символів не досягнута.',
+    maxlength: 'Максимальну к-ть символів досягнуто.',
+    minlength: 'Мінімальна к-ть символів не досягнута.',
     email: 'Введіть дійсну адресу електронної пошти.',
     min: 'Значення повинно бути не менше ${min}.',
     max: 'Значення повинно бути не більше ${max}.',
@@ -48,13 +48,16 @@ export class ValidateInputDirective implements OnInit, OnDestroy, AfterViewInit 
     this.setErrorMessages();
   }
   createErrorDiv(): void {
-    this.errorDiv = this.renderer.createElement('div');
-    this.renderer.setStyle(this.errorDiv, 'color', 'red');
-    this.renderer.setStyle(this.errorDiv, 'font-size', '14px');
-    this.renderer.setStyle(this.errorDiv, 'min-height', '1.4em');
-    this.renderer.setStyle(this.errorDiv, 'opacity', '0');
-    this.renderer.setStyle(this.errorDiv, 'transition', 'opacity 0.5s ease, transform 0.5s ease');
-    this.renderer.appendChild(this.el.nativeElement.parentNode, this.errorDiv);
+    if(this.control?.errors) {
+      this.errorDiv = this.renderer.createElement('div');
+      this.renderer.setStyle(this.errorDiv, 'color', 'red');
+      this.renderer.setStyle(this.errorDiv, 'font-size', '14px');
+      this.renderer.setStyle(this.errorDiv, 'min-height', '1.4em');
+      this.renderer.setStyle(this.errorDiv, 'opacity', '0');
+      this.renderer.setStyle(this.errorDiv, 'text-align', 'end');
+      this.renderer.setStyle(this.errorDiv, 'transition', 'opacity 0.5s ease, transform 0.5s ease');
+      this.renderer.appendChild(this.el.nativeElement.parentNode, this.errorDiv);
+    }
   }
 
   private setErrorMessages(): void {
@@ -83,9 +86,11 @@ export class ValidateInputDirective implements OnInit, OnDestroy, AfterViewInit 
       this.renderer.setStyle(this.errorDiv, 'transform', 'translateY(0)');
     } else {
       this.renderer.removeClass(this.el.nativeElement, 'invalid-input');
-      this.renderer.setProperty(this.errorDiv, 'textContent', '');
-      this.renderer.setStyle(this.errorDiv, 'opacity', '0');
-      this.renderer.setStyle(this.errorDiv, 'transform', 'translateY(-10px)');
+      if(this.errorDiv) {
+        this.renderer.setProperty(this.errorDiv, 'textContent', '');
+        this.renderer.setStyle(this.errorDiv, 'opacity', '0');
+        this.renderer.setStyle(this.errorDiv, 'transform', 'translateY(-10px)');
+      }
     }
   }
 
