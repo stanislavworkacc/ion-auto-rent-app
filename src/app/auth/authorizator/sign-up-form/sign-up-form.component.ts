@@ -6,6 +6,7 @@ import {LocalLoaderComponent} from "../../../shared/ui-kit/components/local-load
 import {NgIf} from "@angular/common";
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {ValidateInputDirective} from "../../../shared/directives/validate-input.directive";
+import {matchingPasswordsValidator} from "../../../shared/utils/validators/matchingPasswordValidator";
 
 @Component({
   selector: 'sign-up-form',
@@ -65,7 +66,7 @@ export class SignUpFormComponent  implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
       confirmPassword: ['', Validators.required]
-    });
+    }, { validator: matchingPasswordsValidator('password', 'confirmPassword') });
 
     this.assignFormControls();
   }

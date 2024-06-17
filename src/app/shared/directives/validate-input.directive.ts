@@ -30,7 +30,8 @@ export class ValidateInputDirective implements OnInit, OnDestroy, AfterViewInit 
     email: 'Введіть дійсну адресу електронної пошти.',
     min: 'Значення повинно бути не менше ${min}.',
     max: 'Значення повинно бути не більше ${max}.',
-    phoneLength: 'Стандартизована довжина телефону 9 символів.'
+    phoneLength: 'Стандартизована довжина телефону 9 символів.',
+    passwordMismatch: 'Паролі не співпадають.'
   };
 
   controlSubscription(): void {
@@ -71,6 +72,10 @@ export class ValidateInputDirective implements OnInit, OnDestroy, AfterViewInit 
 
       if (firstErrorKey === 'min') {
         message = message.replace(`\${${firstErrorKey}}`, errors?.min?.min);
+      }
+
+      if (firstErrorKey === 'matchingPasswords') {
+        message =  this.defaultErrorMessages['passwordMismatch'];
       }
 
       this.renderer.setProperty(this.errorDiv, 'textContent', message);

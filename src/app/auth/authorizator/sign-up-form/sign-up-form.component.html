@@ -60,7 +60,7 @@
     ></ion-input>
   </div>
 
-  <div class="form-input">
+  <div class="form-input" #confirmRef [appValidateInput]="confirmRef">
     <ion-label position="static" [class.focused]="isFocused['lockClosed']">
       <ion-icon *ngIf="!isFocused['lockClosed']" name="lock-closed-outline"></ion-icon>
 
@@ -75,6 +75,10 @@
       (ionFocus)="onFocus('lockClosed')"
       (ionBlur)="onBlur('lockClosed')"
     ></ion-input>
+
+    <div [appValidateInput]="confirmRef"  [control]="confirmPassword">
+      <!-- Контейнер для помилки -->
+    </div>
   </div>
 
   <div class="agreements">
@@ -85,7 +89,7 @@
       <a href="#" target="_blank">Політикою конфіденційності</a>,
       і погоджуюся з їх умовами.
     </span>
-    <app-switcher ></app-switcher>
+    <app-switcher></app-switcher>
   </div>
 </ion-list>
 
