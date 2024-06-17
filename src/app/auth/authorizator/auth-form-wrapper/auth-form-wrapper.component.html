@@ -14,8 +14,13 @@
     </ion-header>
 
     <ion-content>
-      @if (selectedSegment === SegmentType.STANTDART) {
-        <sign-up-form></sign-up-form>
+      @switch (selectedSegment) {
+        @case (SegmentType.STANTDART) {
+          <sign-up-form></sign-up-form>
+        }
+        @case (SegmentType.GOOGLE) {
+          <app-google-sso></app-google-sso>
+        }
       }
     </ion-content>
   </ng-template>

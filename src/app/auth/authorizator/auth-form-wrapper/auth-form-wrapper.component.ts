@@ -8,6 +8,7 @@ import {SegmentsComponent} from "../../../shared/ui-kit/components/segments/segm
 import {isAndroid, isIOS} from "../../../shared/utils/detect-device.utils";
 import {BackButtonComponent} from "../../../shared/ui-kit/components/back-button/back-button.component";
 import {SegmentType} from "./auth-enums";
+import {GoogleSsoComponent} from "../google-sso/google-sso.component";
 
 @Component({
   selector: 'auth-form-wrapper',
@@ -23,6 +24,7 @@ import {SegmentType} from "./auth-enums";
     NgIf,
     SegmentsComponent,
     BackButtonComponent,
+    GoogleSsoComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
