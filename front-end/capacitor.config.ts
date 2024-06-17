@@ -5,8 +5,16 @@ const config: CapacitorConfig = {
   appName: 'ion-rent-auto',
   webDir: 'www',
   server: {
-    androidScheme: 'https'
+    androidScheme: 'https',
+    "url": "http://localhost:4200",
+    "cleartext": true
+  },
+  plugins: {
+    CapacitorHttp: {
+      enabled: true
+    }
   }
 };
+
 
 export default config;
