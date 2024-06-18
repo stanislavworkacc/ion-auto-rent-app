@@ -1,5 +1,12 @@
-import {AfterViewInit, ChangeDetectionStrategy, Component, inject, OnInit, ViewChild} from '@angular/core';
-import {IonicModule, IonModal, NavController} from "@ionic/angular";
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnInit,
+  ViewEncapsulation
+} from '@angular/core';
+import {IonicModule, NavController} from "@ionic/angular";
 import {FormBuilder, FormGroup, FormsModule, Validators} from "@angular/forms";
 import {CloseBtnComponent} from "../../../shared/ui-kit/components/close-btn/close-btn.component";
 import {SignUpFormComponent} from "../sign-up-form/sign-up-form.component";
@@ -12,6 +19,7 @@ import {GoogleSsoComponent} from "../google-sso/google-sso.component";
 import {AppleIosComponent} from "../apple-ios/apple-ios.component";
 import {AndroidFormComponent} from "../android-form/android-form.component";
 import {IonFabComponent} from "../../../shared/ui-kit/components/ion-fab/ion-fab.component";
+import {ModalController} from "@ionic/angular/standalone";
 
 @Component({
   selector: 'auth-form-wrapper',
@@ -32,13 +40,13 @@ import {IonFabComponent} from "../../../shared/ui-kit/components/ion-fab/ion-fab
     AndroidFormComponent,
     IonFabComponent,
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None
 })
 export class AuthFormWrapperComponent  implements OnInit, AfterViewInit {
   private navCtrl: NavController = inject(NavController);
+  private modalCtrl: ModalController = inject(ModalController);
   private fb: FormBuilder = inject(FormBuilder);
-
-  @ViewChild(IonModal) modal!: IonModal;
 
   SegmentType = SegmentType;
   public signUpForm!: FormGroup;
@@ -56,12 +64,8 @@ export class AuthFormWrapperComponent  implements OnInit, AfterViewInit {
   iosLogin() {
   }
   navigateBack(): void {
+    this.modalCtrl.dismiss()
     this.navCtrl.back();
-    this.modal.dismiss();
-  }
-
-  openModal(): void {
-    this.modal.present();
   }
 
   onSignUpSegmentChanged(ev: any): void {
@@ -106,7 +110,7 @@ export class AuthFormWrapperComponent  implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.openModal();
+
   }
 
   constructor() {}

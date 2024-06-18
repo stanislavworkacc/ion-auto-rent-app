@@ -5,25 +5,27 @@
   --ion-background-color: #2a3c4e;
   --color: #000000;
   backdrop-filter: blur(10px) brightness(2.5);
-}
 
-ion-header {
-  box-shadow: none;
-  padding: 10px;
-}
-
-ion-toolbar {
-  border-radius: 16px 16px 0 0;
-  --background: #2a3c4e;
-  --color: #white;
-  --padding-bottom: 5px;
-  --padding-top: 5px;
-  app-close-btn {
-    top: 10px;
-    right: 10px;
+  ion-header {
+    box-shadow: none;
+    padding: 10px;
   }
+
+  ion-toolbar {
+    border-radius: 16px 16px 0 0;
+    --background: #2a3c4e;
+    --color: #white;
+    --padding-bottom: 5px;
+    --padding-top: 5px;
+    app-close-btn {
+      top: 10px;
+      right: 10px;
+    }
+  }
+
+  app-fab {
+    padding-bottom: 70px;
+  }
+
 }
 
-app-fab {
-  padding-bottom: 70px;
-}

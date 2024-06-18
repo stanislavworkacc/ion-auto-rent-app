@@ -1,5 +1,5 @@
-import {AfterViewInit, ChangeDetectionStrategy, Component, OnInit, ViewChild} from '@angular/core';
-import {IonicModule, IonModal} from "@ionic/angular";
+import {ChangeDetectionStrategy, Component, inject, OnInit} from '@angular/core';
+import {IonicModule, NavController} from "@ionic/angular";
 import {IonFabComponent} from "../../shared/ui-kit/components/ion-fab/ion-fab.component";
 import {AuthFormWrapperComponent} from "../../auth/authorizator/auth-form-wrapper/auth-form-wrapper.component";
 import {AuthorizatorComponent} from "../../auth/authorizator/authorizator.component";
@@ -30,20 +30,28 @@ import {ModalController} from "@ionic/angular/standalone";
     ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DashboardComponent  implements OnInit, AfterViewInit {
-  async openModal() {
-    const modal = await this.modalController.create({
+export class DashboardComponent  implements OnInit {
+
+  private modalCtrl: ModalController = inject(ModalController);
+  private navCtrl: NavController = inject(NavController);
+
+  async openModal(): Promise<void> {
+    const modal: HTMLIonModalElement = await this.modalCtrl.create({
       component: AuthorizatorComponent,
       cssClass: 'auth-modal',
       initialBreakpoint: 1,
       breakpoints: [0, 1]
     });
-    return await modal.present();
+
+    await modal.present();
+
+    modal.onWillDismiss().then((): void => {
+      this.navCtrl.back();
+    })
   }
-  ngOnInit() {}
-  ngAfterViewInit(): void {
+  ngOnInit(): void {
     this.openModal();
   }
 
-  constructor(private modalController: ModalController) { }
+  constructor() {}
 }
