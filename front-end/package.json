@@ -10,8 +10,9 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
-    "run-build-ios": "rm -rf dist && rm -rf ios && ng build && npx cap add ios && npx cap open ios",
-    "run-build-android": "rm -rf dist && rm -rf android && ng build && npx cap add android && npx cap sync android && npx cap open android"
+    "run-build-ios": "rm -rf dist && rm -rf ios && ng build && npx cap add ios && npx cap sync && npx cap open ios",
+    "run-build-android": "rm -rf dist && rm -rf android && ng build && npx cap add android && npx cap sync android && npx cap open android",
+    "run-build-android1": "rm -rf dist && rm -rf android && ng build && npx cap add android && npx cap sync android && npx cap run android"
   },
   "private": true,
   "dependencies": {

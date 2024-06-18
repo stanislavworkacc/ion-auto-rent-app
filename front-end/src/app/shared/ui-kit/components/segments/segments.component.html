@@ -1,4 +1,4 @@
-<ion-segment mode="ios" (ionChange)="onSegmentChanged($event)" [value]="selectedSegment">
+<ion-segment  (ionChange)="onSegmentChanged($event)" [value]="selectedSegment">
   <ion-segment-button *ngFor="let option of options" [value]="option.value" [hidden]="!option.isVisible">
     <ion-icon [name]="option.icon"></ion-icon>
     <ion-label>{{ option.label }}</ion-label>

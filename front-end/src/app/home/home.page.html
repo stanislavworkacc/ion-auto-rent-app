@@ -1,44 +1,14 @@
-<!--<ion-router-outlet></ion-router-outlet>-->
+<ion-tabs>
+  <ion-tab-bar slot="bottom">
+    @for (tab of homeTabs; track tab.route) {
+      <ion-tab-button
+        [routerLink]="tab.route"
+        routerLinkActive="active-tab"
+      >
+        <ion-icon [name]="tab.icon"></ion-icon>
+        <ion-label>{{ tab.label }}</ion-label>
+      </ion-tab-button>
+    }
+  </ion-tab-bar>
+</ion-tabs>
 
-<!--<router-outlet></router-outlet>-->
-
-<!--<ion-footer>-->
-<!--  <ion-toolbar>-->
-    <ion-tabs>
-      <ion-tab-bar slot="bottom">
-        @for (tab of homeTabs; track tab.route) {
-          <ion-tab-button
-            [routerLink]="tab.route"
-            routerLinkActive="active-tab"
-          >
-            <ion-icon [name]="tab.icon"></ion-icon>
-            <ion-label>{{ tab.label }}</ion-label>
-          </ion-tab-button>
-        }
-      </ion-tab-bar>
-    </ion-tabs>
-<!--  </ion-toolbar>-->
-<!--</ion-footer>-->
-
-
-<!--EXAMPLE-->
-<!--<ion-tabs>-->
-<!--  <ion-tab-bar slot="bottom">-->
-<!--    <ion-tab-button tab="home">-->
-<!--      <ion-icon name="play-circle"></ion-icon>-->
-<!--      Listen Now-->
-<!--    </ion-tab-button>-->
-<!--    <ion-tab-button tab="radio">-->
-<!--      <ion-icon name="radio"></ion-icon>-->
-<!--      Radio-->
-<!--    </ion-tab-button>-->
-<!--    <ion-tab-button tab="library">-->
-<!--      <ion-icon name="library"></ion-icon>-->
-<!--      Library-->
-<!--    </ion-tab-button>-->
-<!--    <ion-tab-button tab="search">-->
-<!--      <ion-icon name="search"></ion-icon>-->
-<!--      Search-->
-<!--    </ion-tab-button>-->
-<!--  </ion-tab-bar>-->
-<!--</ion-tabs>-->
