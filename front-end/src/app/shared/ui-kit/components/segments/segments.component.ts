@@ -1,4 +1,13 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  signal,
+  WritableSignal
+} from '@angular/core';
 import {IonicModule} from "@ionic/angular";
 import {NgForOf} from "@angular/common";
 import {SegmentType} from "../../../../auth/authorizator/auth-form-wrapper/auth-enums";
@@ -20,7 +29,7 @@ import {IonIcon, IonLabel, IonSegment, IonSegmentButton} from "@ionic/angular/st
 })
 export class SegmentsComponent  implements OnInit {
 
-  @Input() options: { value: string, icon: string, label: string, isVisible?: boolean }[] = [];
+  @Input() options: WritableSignal<{ value: string, icon: string, label: string, isVisible?: boolean } []>  = signal([]);
   @Output() segmentChanged: EventEmitter<string> = new EventEmitter<string>();
 
   selectedSegment: string = SegmentType.STANTDART;

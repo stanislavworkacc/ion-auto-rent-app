@@ -3,8 +3,8 @@ import {
   ChangeDetectionStrategy,
   Component,
   inject,
-  OnInit,
-  ViewEncapsulation
+  OnInit, signal,
+  ViewEncapsulation, WritableSignal
 } from '@angular/core';
 import {NavController, Platform} from "@ionic/angular";
 import {FormBuilder, FormGroup, FormsModule, Validators} from "@angular/forms";
@@ -68,10 +68,25 @@ export class AuthFormWrapperComponent  implements OnInit, AfterViewInit {
   public signUpForm!: FormGroup;
   public selectedSegment: string = SegmentType.STANTDART;
 
-  public options!: { value: string, icon: string, label: string }[];
+  public options: WritableSignal<{ value: string, icon: string, label: string }[]> = signal([]);
   fabItems!: { icon: string, action : () => void }[];
 
-  defaultLogin() {
+  defaultLogin(): void {
+    this.selectedSegment = SegmentType.STANTDART;
+    if(this.selectedSegment === SegmentType.STANTDART) {
+      this.updateOptionLabel()
+    }
+  }
+
+  updateOptionLabel(): void {
+    this.options.update(options => {
+      return options.map(option => {
+        if (option.value === SegmentType.STANTDART) {
+          return { ...option, label: 'Увійти' };
+        }
+        return option;
+      });
+    });
   }
 
   googleSSO() {
@@ -101,12 +116,12 @@ export class AuthFormWrapperComponent  implements OnInit, AfterViewInit {
     const isAndroidDevice: boolean = this.platform.is('android');
     const isIOSDevice: boolean = this.platform.is('ios');
 
-    this.options = [
+    this.options.set([
       { value: 'standard', icon: 'person-outline', label: 'Реєстрація' },
       { value: 'google', icon: 'logo-google', label: 'Увійти з Google' },
       { value: 'apple', icon: 'logo-apple', label: 'Увійти з Apple', isVisible: isIOSDevice },
       { value: 'android', icon: 'logo-android', label: 'Увійти з Android', isVisible: isAndroidDevice }
-    ].filter(option => option.isVisible !== false);
+    ].filter(option => option.isVisible !== false))
   }
 
   initIonFab(): void {
