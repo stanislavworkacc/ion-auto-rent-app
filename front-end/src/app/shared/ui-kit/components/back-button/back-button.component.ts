@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
-import {IonicModule} from "@ionic/angular";
+import {IonButton, IonIcon} from "@ionic/angular/standalone";
 
 @Component({
   selector: 'app-back-button',
@@ -7,7 +7,8 @@ import {IonicModule} from "@ionic/angular";
   styleUrls: ['./back-button.component.scss'],
   standalone: true,
   imports: [
-    IonicModule
+    IonButton,
+    IonIcon
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })

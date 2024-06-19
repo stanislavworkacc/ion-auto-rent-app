@@ -2,6 +2,7 @@ import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output}
 import {IonicModule} from "@ionic/angular";
 import {NgForOf} from "@angular/common";
 import {SegmentType} from "../../../../auth/authorizator/auth-form-wrapper/auth-enums";
+import {IonIcon, IonLabel, IonSegment, IonSegmentButton} from "@ionic/angular/standalone";
 
 @Component({
   selector: 'app-segments',
@@ -9,8 +10,11 @@ import {SegmentType} from "../../../../auth/authorizator/auth-form-wrapper/auth-
   styleUrls: ['./segments.component.scss'],
   standalone: true,
   imports: [
-    IonicModule,
-    NgForOf
+    NgForOf,
+    IonSegment,
+    IonSegmentButton,
+    IonIcon,
+    IonLabel
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })

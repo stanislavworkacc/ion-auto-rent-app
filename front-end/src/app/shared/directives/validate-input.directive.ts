@@ -27,7 +27,7 @@ export class ValidateInputDirective implements OnInit, OnDestroy, AfterViewInit 
     required: 'Поле обов\'язкове до заповнення.',
     maxlength: 'Максимальну к-ть символів досягнуто.',
     minlength: 'Мінімальна к-ть символів не досягнута.',
-    email: 'Введіть дійсну адресу електронної пошти.',
+    email: 'Введіть дійсну електронну адресу.',
     min: 'Значення повинно бути не менше ${min}.',
     max: 'Значення повинно бути не більше ${max}.',
     phoneLength: 'Стандартизована довжина телефону 9 символів.',
@@ -50,11 +50,10 @@ export class ValidateInputDirective implements OnInit, OnDestroy, AfterViewInit 
   createErrorDiv(): void {
     if(this.control?.errors) {
       this.errorDiv = this.renderer.createElement('div');
-      this.renderer.setStyle(this.errorDiv, 'color', 'red');
-      this.renderer.setStyle(this.errorDiv, 'font-size', '14px');
-      this.renderer.setStyle(this.errorDiv, 'min-height', '1.4em');
+      this.renderer.setStyle(this.errorDiv, 'color', '#dc4747');
+      this.renderer.setStyle(this.errorDiv, 'font-size', '11px');
       this.renderer.setStyle(this.errorDiv, 'opacity', '0');
-      this.renderer.setStyle(this.errorDiv, 'text-align', 'end');
+      this.renderer.setStyle(this.errorDiv, 'text-align', 'justify');
       this.renderer.setStyle(this.errorDiv, 'transition', 'opacity 0.5s ease, transform 0.5s ease');
       this.renderer.appendChild(this.el.nativeElement.parentNode, this.errorDiv);
     }

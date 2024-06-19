@@ -1,5 +1,6 @@
 import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
-import {IonicModule} from "@ionic/angular";
+import {IonItem} from "@ionic/angular/standalone";
+import {IonSpinner} from "@ionic/angular/standalone";
 
 @Component({
   selector: 'local-loader',
@@ -7,7 +8,8 @@ import {IonicModule} from "@ionic/angular";
   styleUrls: ['./local-loader.component.scss'],
   standalone: true,
   imports: [
-    IonicModule
+    IonItem,
+    IonSpinner
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })

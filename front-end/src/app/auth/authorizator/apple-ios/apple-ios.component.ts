@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {IonicModule} from "@ionic/angular";
 import {PrivacyPolicyComponent} from "../privacy-policy/privacy-policy.component";
+import {IonButton, IonCard, IonCardContent, IonIcon} from "@ionic/angular/standalone";
 
 @Component({
   selector: 'app-apple-ios',
@@ -8,8 +8,11 @@ import {PrivacyPolicyComponent} from "../privacy-policy/privacy-policy.component
   styleUrls: ['./apple-ios.component.scss'],
   standalone: true,
     imports: [
-        IonicModule,
-        PrivacyPolicyComponent
+      IonIcon,
+      IonButton,
+      IonCard,
+      IonCardContent,
+      PrivacyPolicyComponent
     ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })

@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {IonicModule} from "@ionic/angular";
 import {PrivacyPolicyComponent} from "../privacy-policy/privacy-policy.component";
+import {IonButton, IonCard, IonCardContent, IonIcon} from "@ionic/angular/standalone";
 
 @Component({
   selector: 'app-google-sso',
@@ -8,8 +8,11 @@ import {PrivacyPolicyComponent} from "../privacy-policy/privacy-policy.component
   styleUrls: ['./google-sso.component.scss'],
   standalone: true,
   imports: [
-    IonicModule,
-    PrivacyPolicyComponent
+    PrivacyPolicyComponent,
+    IonIcon,
+    IonButton,
+    IonCard,
+    IonCardContent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })

@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {IonicModule} from "@ionic/angular";
 import {PrivacyPolicyComponent} from "../privacy-policy/privacy-policy.component";
+import {IonButton, IonCard, IonCardContent, IonIcon} from "@ionic/angular/standalone";
 
 @Component({
   selector: 'app-android-form',
@@ -8,7 +8,10 @@ import {PrivacyPolicyComponent} from "../privacy-policy/privacy-policy.component
   styleUrls: ['./android-form.component.scss'],
   standalone: true,
   imports: [
-    IonicModule,
+    IonIcon,
+    IonButton,
+    IonCard,
+    IonCardContent,
     PrivacyPolicyComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush

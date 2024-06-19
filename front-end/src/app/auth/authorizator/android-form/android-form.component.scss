@@ -3,7 +3,8 @@
   --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   border-radius: 15px;
   padding: 20px;
-  margin: 10px;
+  margin: 0 auto;
+  width: 100%;
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
@@ -50,10 +51,12 @@ ion-button {
   --color: white;
   --border-radius: 10px;
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
 }
 
 .button-icon {
-  animation: iconPulse 1s infinite;
+  animation: iconPulse 2s infinite;
 }
 
 @keyframes iconPulse {

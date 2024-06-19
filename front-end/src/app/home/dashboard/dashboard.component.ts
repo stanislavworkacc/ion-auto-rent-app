@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, inject, OnInit} from '@angular/core';
-import {IonicModule, NavController} from "@ionic/angular";
+import {NavController} from "@ionic/angular";
 import {IonFabComponent} from "../../shared/ui-kit/components/ion-fab/ion-fab.component";
 import {AuthFormWrapperComponent} from "../../auth/authorizator/auth-form-wrapper/auth-form-wrapper.component";
 import {AuthorizatorComponent} from "../../auth/authorizator/authorizator.component";
@@ -17,7 +17,6 @@ import {ModalController} from "@ionic/angular/standalone";
   styleUrls: ['./dashboard.component.scss'],
   standalone: true,
     imports: [
-        IonicModule,
         IonFabComponent,
         AuthFormWrapperComponent,
         AuthorizatorComponent,

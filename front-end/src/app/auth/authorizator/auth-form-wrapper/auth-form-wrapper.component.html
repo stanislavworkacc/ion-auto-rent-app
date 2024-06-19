@@ -10,7 +10,7 @@
   <app-segments [options]="options" (segmentChanged)="onSignUpSegmentChanged($event)"></app-segments>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
   @switch (selectedSegment) {
     @case (SegmentType.STANTDART) {
       <sign-up-form></sign-up-form>

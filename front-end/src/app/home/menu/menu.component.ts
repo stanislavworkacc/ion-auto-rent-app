@@ -1,5 +1,4 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {IonicModule} from "@ionic/angular";
 
 @Component({
   selector: 'app-menu',
@@ -7,7 +6,7 @@ import {IonicModule} from "@ionic/angular";
   styleUrls: ['./menu.component.scss'],
   standalone: true,
   imports: [
-    IonicModule
+
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })

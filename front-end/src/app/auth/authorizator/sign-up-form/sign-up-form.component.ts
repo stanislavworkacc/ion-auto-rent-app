@@ -7,6 +7,7 @@ import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} fr
 import {ValidateInputDirective} from "../../../shared/directives/validate-input.directive";
 import {matchingPasswordsValidator} from "../../../shared/utils/validators/matchingPasswordValidator";
 import {PrivacyPolicyComponent} from "../privacy-policy/privacy-policy.component";
+import {IonButton, IonIcon, IonInput, IonLabel, IonList, IonSpinner} from "@ionic/angular/standalone";
 
 @Component({
   selector: 'sign-up-form',
@@ -14,13 +15,18 @@ import {PrivacyPolicyComponent} from "../privacy-policy/privacy-policy.component
   styleUrls: ['./sign-up-form.component.scss'],
   standalone: true,
   imports: [
-    IonicModule,
     SwitcherComponent,
     LocalLoaderComponent,
     NgIf,
     ReactiveFormsModule,
     ValidateInputDirective,
-    PrivacyPolicyComponent
+    PrivacyPolicyComponent,
+    IonList,
+    IonLabel,
+    IonIcon,
+    IonSpinner,
+    IonInput,
+    IonButton
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })

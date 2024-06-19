@@ -1,6 +1,7 @@
 import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {IonicModule} from "@ionic/angular";
 import {NgForOf} from "@angular/common";
+import {IonFab, IonFabButton, IonFabList, IonIcon} from "@ionic/angular/standalone";
 
 @Component({
   selector: 'app-fab',
@@ -8,8 +9,11 @@ import {NgForOf} from "@angular/common";
   styleUrls: ['./ion-fab.component.scss'],
   standalone: true,
   imports: [
-    IonicModule,
-    NgForOf
+    NgForOf,
+    IonFab,
+    IonFabButton,
+    IonFabList,
+    IonIcon
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })

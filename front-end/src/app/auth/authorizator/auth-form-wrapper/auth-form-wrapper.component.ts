@@ -6,20 +6,27 @@ import {
   OnInit,
   ViewEncapsulation
 } from '@angular/core';
-import {IonicModule, NavController} from "@ionic/angular";
+import {NavController, Platform} from "@ionic/angular";
 import {FormBuilder, FormGroup, FormsModule, Validators} from "@angular/forms";
 import {CloseBtnComponent} from "../../../shared/ui-kit/components/close-btn/close-btn.component";
 import {SignUpFormComponent} from "../sign-up-form/sign-up-form.component";
-import {NgIf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 import {SegmentsComponent} from "../../../shared/ui-kit/components/segments/segments.component";
-import {isAndroid, isIOS} from "../../../shared/utils/detect-device.utils";
 import {BackButtonComponent} from "../../../shared/ui-kit/components/back-button/back-button.component";
 import {SegmentType} from "./auth-enums";
 import {GoogleSsoComponent} from "../google-sso/google-sso.component";
 import {AppleIosComponent} from "../apple-ios/apple-ios.component";
 import {AndroidFormComponent} from "../android-form/android-form.component";
 import {IonFabComponent} from "../../../shared/ui-kit/components/ion-fab/ion-fab.component";
-import {ModalController} from "@ionic/angular/standalone";
+import {
+  IonButton,
+  IonButtons, IonContent,
+  IonFab,
+  IonFabButton, IonFabList,
+  IonHeader, IonIcon,
+  IonToolbar,
+  ModalController
+} from "@ionic/angular/standalone";
 
 @Component({
   selector: 'auth-form-wrapper',
@@ -27,9 +34,7 @@ import {ModalController} from "@ionic/angular/standalone";
   styleUrls: ['./auth-form-wrapper.component.scss'],
   standalone: true,
   imports: [
-    IonicModule,
     FormsModule,
-    IonicModule,
     CloseBtnComponent,
     SignUpFormComponent,
     NgIf,
@@ -39,6 +44,16 @@ import {ModalController} from "@ionic/angular/standalone";
     AppleIosComponent,
     AndroidFormComponent,
     IonFabComponent,
+    NgForOf,
+    IonHeader,
+    IonToolbar,
+    IonButtons,
+    IonButton,
+    IonFab,
+    IonFabButton,
+    IonFabList,
+    IonIcon,
+    IonContent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
@@ -47,6 +62,7 @@ export class AuthFormWrapperComponent  implements OnInit, AfterViewInit {
   private navCtrl: NavController = inject(NavController);
   private modalCtrl: ModalController = inject(ModalController);
   private fb: FormBuilder = inject(FormBuilder);
+  private platform: Platform = inject(Platform);
 
   SegmentType = SegmentType;
   public signUpForm!: FormGroup;
@@ -63,8 +79,9 @@ export class AuthFormWrapperComponent  implements OnInit, AfterViewInit {
 
   iosLogin() {
   }
+
   navigateBack(): void {
-    this.modalCtrl.dismiss()
+    this.modalCtrl.dismiss();
     this.navCtrl.back();
   }
 
@@ -81,8 +98,8 @@ export class AuthFormWrapperComponent  implements OnInit, AfterViewInit {
   }
 
   checkNativeDevice(): void {
-    const isAndroidDevice: boolean = isAndroid();
-    const isIOSDevice: boolean = isIOS();
+    const isAndroidDevice: boolean = this.platform.is('android');
+    const isIOSDevice: boolean = this.platform.is('ios');
 
     this.options = [
       { value: 'standard', icon: 'person-outline', label: 'Реєстрація' },
@@ -93,8 +110,8 @@ export class AuthFormWrapperComponent  implements OnInit, AfterViewInit {
   }
 
   initIonFab(): void {
-    const isAndroidDevice: boolean = isAndroid();
-    const isIOSDevice: boolean = isIOS();
+    const isAndroidDevice: boolean = this.platform.is('android');
+    const isIOSDevice: boolean = this.platform.is('ios');
 
     this.fabItems = [
       { icon: 'log-in-outline', action: this.defaultLogin.bind(this) },

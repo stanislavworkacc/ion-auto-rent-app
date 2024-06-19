@@ -1,5 +1,4 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {IonicModule} from "@ionic/angular";
 
 @Component({
   selector: 'app-chat',
@@ -7,7 +6,6 @@ import {IonicModule} from "@ionic/angular";
   styleUrls: ['./chat.component.scss'],
   standalone: true,
   imports: [
-    IonicModule
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
