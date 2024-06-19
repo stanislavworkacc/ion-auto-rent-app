@@ -25,9 +25,10 @@ export class AppComponent {
 
     const browserLang = this.translate.getBrowserLang();
     if (browserLang) {
-      this.translate.use(browserLang.match(/en|uk/) ? browserLang : 'uk');
+      // this.translate.use(browserLang.match(/en|uk/) ? browserLang : 'uk');
+      this.translate.use('uk');
     } else {
-      this.translate.use('ua');
+      this.translate.use('uk');
     }
   }
 }

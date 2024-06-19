@@ -1,6 +1,6 @@
 import {
   ChangeDetectionStrategy,
-  Component, inject,
+  Component, DestroyRef, inject, signal, WritableSignal,
 } from '@angular/core';
 import {RouterLink, RouterLinkActive, RouterOutlet} from "@angular/router";
 import {tabConfig, TabConfig} from "./tab-config";
@@ -20,6 +20,7 @@ import {
   IonToolbar
 } from "@ionic/angular/standalone";
 import {TranslateService} from "@ngx-translate/core";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 @Component({
   selector: 'app-home',
@@ -30,30 +31,30 @@ import {TranslateService} from "@ngx-translate/core";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomePage {
-
   private translate: TranslateService = inject(TranslateService);
+  private destroyRef: DestroyRef = inject(DestroyRef);
 
-  public tabs: TabConfig[] = [];
+  public tabs: WritableSignal<TabConfig[]> = signal<TabConfig[]>([]);
 
-  langSubscription(): void {
-    this.tabs = tabConfig.map((tab: TabConfig) => ({
+  private translateLabels(): void {
+    const translatedTabs = tabConfig.map((tab: TabConfig) => ({
       ...tab,
       label: this.translate.instant(tab.label)
     }));
-
-    this.translate.onLangChange.subscribe(() => {
-      this.tabs = tabConfig.map((tab: TabConfig) => ({
-        ...tab,
-        label: this.translate.instant(tab.label)
-      }));
-    });
+    this.tabs.set(translatedTabs);
   }
 
   ngOnInit(): void {
-   this.langSubscription();
+    this.translateLabels();
+
+    this.translate.onLangChange.pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe((): void => {
+      this.translateLabels();
+    });
   }
 
-  constructor() {
+  initIcons(): void {
     addIcons({ logOutOutline });
 
     for (const iconName in icons) {
@@ -61,4 +62,7 @@ export class HomePage {
     }
   }
 
+  constructor() {
+   this.initIcons();
+  }
 }
