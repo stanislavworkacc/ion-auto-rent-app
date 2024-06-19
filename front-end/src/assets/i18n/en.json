@@ -1,6 +1,10 @@
 {
-  "HOME": {
-    "TITLE": "Welcome to Our Application",
-    "DESCRIPTION": "This is a simple example of ngx-translate usage."
+  "TAB": {
+    "DASHBOARD": "Dashboard",
+    "LOCATOR": "Locator",
+    "ADD": "Add",
+    "CHAT": "Chat",
+    "MENU": "Menu"
   }
 }
+

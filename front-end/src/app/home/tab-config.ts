@@ -1,3 +1,5 @@
+import {marker} from "@biesbjerg/ngx-translate-extract-marker";
+
 export interface TabConfig {
   route: string;
   icon: string;
@@ -8,26 +10,26 @@ export const tabConfig: TabConfig[] = [
   {
     route: 'dashboard',
     icon: 'apps-outline',
-    label: 'Головна'
+    label: marker('TAB.DASHBOARD')
   },
   {
     route: 'locator',
     icon: 'compass-outline',
-    label: 'Локатор'
+    label: marker('TAB.LOCATOR')
   },
   {
     route: 'add',
     icon: 'add-circle-outline',
-    label: 'Додати'
+    label: marker('TAB.ADD')
   },
   {
     route: 'chat',
     icon: 'chatbubbles-outline',
-    label: 'Чат'
+    label: marker('TAB.CHAT')
   },
   {
     route: 'menu',
     icon: 'person-circle-outline',
-    label: 'Меню'
+    label: marker('TAB.MENU')
   }
 ];

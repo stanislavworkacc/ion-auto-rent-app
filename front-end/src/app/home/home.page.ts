@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   Component, inject,
 } from '@angular/core';
-import {NavController} from "@ionic/angular";
 import {RouterLink, RouterLinkActive, RouterOutlet} from "@angular/router";
 import {tabConfig, TabConfig} from "./tab-config";
 import {NgForOf} from "@angular/common";
@@ -20,6 +19,7 @@ import {
   IonTabs,
   IonToolbar
 } from "@ionic/angular/standalone";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-home',
@@ -30,9 +30,28 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomePage {
-  public homeTabs: TabConfig[] = tabConfig;
 
-  ngOnInit(): void {}
+  private translate: TranslateService = inject(TranslateService);
+
+  public tabs: TabConfig[] = [];
+
+  langSubscription(): void {
+    this.tabs = tabConfig.map((tab: TabConfig) => ({
+      ...tab,
+      label: this.translate.instant(tab.label)
+    }));
+
+    this.translate.onLangChange.subscribe(() => {
+      this.tabs = tabConfig.map((tab: TabConfig) => ({
+        ...tab,
+        label: this.translate.instant(tab.label)
+      }));
+    });
+  }
+
+  ngOnInit(): void {
+   this.langSubscription();
+  }
 
   constructor() {
     addIcons({ logOutOutline });
