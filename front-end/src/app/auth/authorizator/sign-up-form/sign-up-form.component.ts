@@ -1,6 +1,6 @@
 import {
   ChangeDetectionStrategy,
-  Component, ElementRef,
+  Component, effect, ElementRef,
   inject,
   input,
   InputSignal,
@@ -17,6 +17,7 @@ import {matchingPasswordsValidator} from "../../../shared/utils/validators/match
 import {PrivacyPolicyComponent} from "../privacy-policy/privacy-policy.component";
 import {IonButton, IonIcon, IonInput, IonLabel, IonList, IonSpinner} from "@ionic/angular/standalone";
 import {PhoneNumberFormatterDirective} from "../../../shared/directives/phone-formatter.directive";
+import {animate, state, style, transition, trigger} from "@angular/animations";
 
 @Component({
   selector: 'sign-up-form',
@@ -111,5 +112,11 @@ export class SignUpFormComponent  implements OnInit {
   ngOnInit(): void {
     this.initForm();
   }
-  constructor() {}
+  constructor() {
+    effect(() => {
+      if(this.isLogin() || !this.isLogin() ) {
+        this.form.reset()
+      }
+    });
+  }
 }
