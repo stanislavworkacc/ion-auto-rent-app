@@ -64,6 +64,7 @@ export class SignUpFormComponent  implements OnInit {
     phone: false,
   };
   showPassword: boolean = false;
+  showConfirmPassword: boolean = false;
 
   onFocus(field: string): void {
     this.isFocused[field] = true;
@@ -76,6 +77,15 @@ export class SignUpFormComponent  implements OnInit {
   onSubmit(): void {
 
   }
+
+  toggleShowPassword() {
+    this.showPassword = !this.showPassword;
+  }
+
+  toggleShowConfirmPassword() {
+    this.showConfirmPassword = !this.showConfirmPassword;
+  }
+
   assignFormControls(): void {
     this.name = this.form.get('name') as FormControl;
     this.email = this.form.get('email') as FormControl;

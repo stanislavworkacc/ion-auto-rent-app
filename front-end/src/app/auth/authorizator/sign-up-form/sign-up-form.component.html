@@ -83,13 +83,20 @@
       <ion-spinner *ngIf="isFocused['lockOpen']" name="dots" color="primary"></ion-spinner>
     </ion-label>
     <ion-input
-      type="password"
+      [type]="showConfirmPassword ? 'text' : 'password'"
       class="aligned-input"
       placeholder="Пароль"
       [formControl]="password"
       (ionFocus)="onFocus('lockOpen')"
       (ionBlur)="onBlur('lockOpen')"
     ></ion-input>
+    @if (password.dirty) {
+      <ion-icon class="eye-icon"
+                [name]="showConfirmPassword ? 'eye-off-outline' : 'eye-outline'"
+                (click)="toggleShowConfirmPassword()">
+      </ion-icon>
+    }
+
 
     <div [appValidateInput]="passRef"  [control]="password">
       <!-- Контейнер для помилки -->
@@ -103,16 +110,22 @@
 
       <ion-icon *ngIf="confirmPassword.valid && !isFocused['lockClosed']" name="checkmark-circle-outline" class="checkmark-icon"></ion-icon>
       <ion-spinner *ngIf="isFocused['lockClosed']" name="dots" color="primary"></ion-spinner>
-<!--      <ion-icon *ngIf="isFocused['lockClosed']" name="eye-outline" (click)="toggleShowPassword()"></ion-icon>-->
-<!--      <ion-icon *ngIf="isFocused['lockClosed'] && showPassword" name="eye-off-outline" (click)="toggleShowPassword()"></ion-icon>-->
     </ion-label>
     <ion-input
+      [type]="showPassword ? 'text' : 'password'"
       class="aligned-input"
       placeholder="Підтвердити пароль"
       [formControl]="confirmPassword"
       (ionFocus)="onFocus('lockClosed')"
       (ionBlur)="onBlur('lockClosed')"
     ></ion-input>
+    @if (confirmPassword.dirty) {
+      <ion-icon class="eye-icon"
+                *ngIf="isFocused"
+                [name]="showPassword ? 'eye-off-outline' : 'eye-outline'"
+                (click)="toggleShowPassword()">
+      </ion-icon>
+    }
 
     <div [appValidateInput]="confirmRef"  [control]="confirmPassword">
       <!-- Контейнер для помилки -->
