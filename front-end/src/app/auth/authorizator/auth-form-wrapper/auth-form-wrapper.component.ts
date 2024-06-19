@@ -64,18 +64,18 @@ export class AuthFormWrapperComponent  implements OnInit, AfterViewInit {
   private fb: FormBuilder = inject(FormBuilder);
   private platform: Platform = inject(Platform);
 
-  SegmentType = SegmentType;
+  public SegmentType = SegmentType;
   public signUpForm!: FormGroup;
-
-  fabItems!: { icon: string, action : () => void }[];
-  private firstChange: boolean = true;
+  public fabItems!: { icon: string, action : () => void }[];
 
   public selectedSegment: WritableSignal<string> = signal(SegmentType.STANTDART);
   public options: WritableSignal<{ value: string, icon: string, label: string }[]> = signal([]);
 
   defaultLogin(): void {
     this.selectedSegment.set(SegmentType.STANTDART);
-    this.firstChange = false;
+    if (this.selectedSegment() === SegmentType.STANTDART) {
+      this.updateOptionLabel('standard', 'Увійти');
+    }
   }
 
   private updateOptionLabel(value: string, newLabel: string): void {
@@ -145,11 +145,5 @@ export class AuthFormWrapperComponent  implements OnInit, AfterViewInit {
 
   }
 
-  constructor() {
-    effect(() => {
-      if (this.selectedSegment() === SegmentType.STANTDART && !this.firstChange) {
-        this.updateOptionLabel('standard', 'Увійти');
-      }
-    }, { allowSignalWrites: true });
-  }
+  constructor() {}
 }
