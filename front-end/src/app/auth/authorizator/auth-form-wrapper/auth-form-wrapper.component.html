@@ -9,7 +9,6 @@
   </ion-toolbar>
   <app-segments
     [options]="options"
-    (segmentChanged)="onSignUpSegmentChanged($event)"
     [selectedSegment]="selectedSegment"
   ></app-segments>
 </ion-header>
@@ -17,7 +16,7 @@
 <ion-content class="ion-padding">
   @switch (selectedSegment()) {
     @case (SegmentType.STANTDART) {
-      <sign-up-form></sign-up-form>
+      <sign-up-form [isLogin]="isLogin()"></sign-up-form>
     }
     @case (SegmentType.GOOGLE) {
       <app-google-sso></app-google-sso>

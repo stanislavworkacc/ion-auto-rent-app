@@ -31,13 +31,11 @@ export class SegmentsComponent  implements OnInit {
   @Input() options: WritableSignal<{ value: string, icon: string, label: string, isVisible?: boolean } []>  = signal([]);
   @Input() selectedSegment: WritableSignal<string> = signal(SegmentType.STANTDART);
 
-  @Output() segmentChanged: EventEmitter<string> = new EventEmitter<string>();
-
   onSegmentChanged(event: any): void {
-    this.selectedSegment.set(event.detail.value)
-    this.segmentChanged.emit(this.selectedSegment());
+    this.selectedSegment.update(() => event.detail.value);
   }
   constructor() { }
+
 
   ngOnInit() {}
 

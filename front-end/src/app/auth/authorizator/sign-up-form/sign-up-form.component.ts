@@ -1,5 +1,13 @@
-import {ChangeDetectionStrategy, Component, inject, OnInit} from '@angular/core';
-import {IonicModule} from "@ionic/angular";
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  input,
+  InputSignal,
+  OnInit,
+  signal,
+  WritableSignal
+} from '@angular/core';
 import {SwitcherComponent} from "../../../shared/ui-kit/components/switcher/switcher.component";
 import {LocalLoaderComponent} from "../../../shared/ui-kit/components/local-loader/local-loader.component";
 import {NgIf} from "@angular/common";
@@ -33,9 +41,14 @@ import {IonButton, IonIcon, IonInput, IonLabel, IonList, IonSpinner} from "@ioni
 export class SignUpFormComponent  implements OnInit {
 
   private fb: FormBuilder = inject(FormBuilder);
+
+  public isLogin: InputSignal<boolean> = input(false);
+  public isMobileLogin: WritableSignal<boolean> = signal(false);
+
   public form!: FormGroup;
   public name!: FormControl;
   public email!: FormControl;
+  public phone!: FormControl;
   public password!: FormControl;
   public confirmPassword!: FormControl;
 
@@ -44,6 +57,7 @@ export class SignUpFormComponent  implements OnInit {
     google: false,
     lockOpen: false,
     lockClosed: false,
+    phone: false,
   };
 
   onFocus(field: string): void {
@@ -60,13 +74,18 @@ export class SignUpFormComponent  implements OnInit {
   assignFormControls(): void {
     this.name = this.form.get('name') as FormControl;
     this.email = this.form.get('email') as FormControl;
+    this.phone = this.form.get('phone') as FormControl;
     this.password = this.form.get('password') as FormControl;
     this.confirmPassword = this.form.get('confirmPassword') as FormControl;
   }
 
+  onToggleChange(isMobileLogin: boolean): void {
+    this.isMobileLogin.set(isMobileLogin);
+  }
   initForm(): void {
     this.form = this.fb.group({
       name: ['', Validators.required],
+      phone: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', [Validators.required]]
@@ -77,5 +96,5 @@ export class SignUpFormComponent  implements OnInit {
   ngOnInit(): void {
     this.initForm();
   }
-  constructor() { }
+  constructor() {}
 }

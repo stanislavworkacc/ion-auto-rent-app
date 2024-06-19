@@ -67,6 +67,7 @@ export class AuthFormWrapperComponent  implements OnInit, AfterViewInit {
   public SegmentType = SegmentType;
   public signUpForm!: FormGroup;
   public fabItems!: { icon: string, action : () => void }[];
+  public isLogin: WritableSignal<boolean> = signal(false);
 
   public selectedSegment: WritableSignal<string> = signal(SegmentType.STANTDART);
   public options: WritableSignal<{ value: string, icon: string, label: string }[]> = signal([]);
@@ -87,6 +88,7 @@ export class AuthFormWrapperComponent  implements OnInit, AfterViewInit {
         return option;
       });
     });
+    this.isLogin.set(true);
   }
 
   googleSSO() {
@@ -98,10 +100,6 @@ export class AuthFormWrapperComponent  implements OnInit, AfterViewInit {
   navigateBack(): void {
     this.modalCtrl.dismiss();
     this.navCtrl.back();
-  }
-
-  onSignUpSegmentChanged(ev: any): void {
-    this.selectedSegment.update(() => ev);
   }
 
   initSignUpForm(): void {

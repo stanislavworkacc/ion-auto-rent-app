@@ -1,46 +1,78 @@
 <ion-list [formGroup]="form">
-  <div class="form-input" #nameRef [appValidateInput]="nameRef">
-    <ion-label position="static" [class.focused]="isFocused['name']">
+
+  @if (!isLogin()) {
+    <div class="form-input" #nameRef [appValidateInput]="nameRef">
+      <ion-label position="static" [class.focused]="isFocused['name']">
       <span *ngIf="!isFocused['name']"
       >Ім'я
       </span>
-      <ion-icon *ngIf="name.valid && !isFocused['name']" name="checkmark-circle-outline" class="checkmark-icon"></ion-icon>
-      <ion-spinner *ngIf="isFocused['name']" name="dots" color="primary"></ion-spinner>
-    </ion-label>
+        <ion-icon *ngIf="name.valid && !isFocused['name']" name="checkmark-circle-outline" class="checkmark-icon"></ion-icon>
+        <ion-spinner *ngIf="isFocused['name']" name="dots" color="primary"></ion-spinner>
+      </ion-label>
 
-    <ion-input
-      type="text"
-      class="aligned-input"
-      placeholder="Введіть ваше ім'я"
-      [formControl]="name"
-      (ionFocus)="onFocus('name')"
-      (ionBlur)="onBlur('name')"
-    ></ion-input>
+      <ion-input
+        type="text"
+        class="aligned-input"
+        placeholder="Введіть ваше ім'я"
+        [formControl]="name"
+        (ionFocus)="onFocus('name')"
+        (ionBlur)="onBlur('name')"
+      ></ion-input>
 
-    <div [appValidateInput]="nameRef"  [control]="name">
-      <!-- Контейнер для помилки -->
+      <div [appValidateInput]="nameRef"  [control]="name">
+        <!-- Контейнер для помилки -->
+      </div>
     </div>
-  </div>
-
-  <div class="form-input" #emailRef [appValidateInput]="emailRef">
-    <ion-label position="static" [class.focused]="isFocused['google']">
-      <ion-icon *ngIf="!isFocused['google']" name="logo-google"></ion-icon>
-
-      <ion-icon *ngIf="email.valid && !isFocused['google']" name="checkmark-circle-outline" class="checkmark-icon"></ion-icon>
-      <ion-spinner *ngIf="isFocused['google']" name="dots" color="primary"></ion-spinner>
-    </ion-label>
-    <ion-input
-      type="text"
-      class="aligned-input"
-      placeholder="Введіть поштову адресу"
-      [formControl]="email"
-      (ionFocus)="onFocus('google')"
-      (ionBlur)="onBlur('google')"
-    ></ion-input>
-    <div [appValidateInput]="emailRef"  [control]="email">
-      <!-- Контейнер для помилки -->
+  }
+  @if (isLogin()) {
+    <div class="login-email-container">
+      <app-switcher (toggleChange)="onToggleChange($event)"></app-switcher>
+      <ion-icon name="call-outline"></ion-icon>
     </div>
-  </div>
+  }
+
+  @if (!isMobileLogin()) {
+    <div class="form-input" #emailRef [appValidateInput]="emailRef">
+      <ion-label position="static" [class.focused]="isFocused['google']">
+        <ion-icon *ngIf="!isFocused['google']" name="logo-google"></ion-icon>
+
+        <ion-icon *ngIf="email.valid && !isFocused['google']" name="checkmark-circle-outline" class="checkmark-icon"></ion-icon>
+        <ion-spinner *ngIf="isFocused['google']" name="dots" color="primary"></ion-spinner>
+      </ion-label>
+      <ion-input
+        type="text"
+        class="aligned-input"
+        placeholder="Введіть поштову адресу"
+        [formControl]="email"
+        (ionFocus)="onFocus('google')"
+        (ionBlur)="onBlur('google')"
+      ></ion-input>
+      <div [appValidateInput]="emailRef"  [control]="email">
+        <!-- Контейнер для помилки -->
+      </div>
+    </div>
+  } @else {
+    <div class="form-input" #mobileRef [appValidateInput]="mobileRef">
+      <ion-label position="static" [class.focused]="isFocused['phone']">
+        <ion-icon *ngIf="!isFocused['phone']" name="call-outline"></ion-icon>
+
+        <ion-icon *ngIf="phone.valid && !isFocused['phone']" name="checkmark-circle-outline" class="checkmark-icon"></ion-icon>
+        <ion-spinner *ngIf="isFocused['phone']" name="dots" color="primary"></ion-spinner>
+      </ion-label>
+      <ion-input
+        type="text"
+        class="aligned-input"
+        [formControl]="phone"
+        (ionFocus)="onFocus('phone')"
+        (ionBlur)="onBlur('phone')"
+      ></ion-input>
+      <div [appValidateInput]="mobileRef"  [control]="phone">
+        <!-- Контейнер для помилки -->
+      </div>
+    </div>
+  }
+
+
 
   <div class="form-input" #passRef [appValidateInput]="passRef">
     <ion-label position="static" [class.focused]="isFocused['lockOpen']">
@@ -63,6 +95,7 @@
     </div>
   </div>
 
+  @if (!isLogin()) {
   <div class="form-input" #confirmRef [appValidateInput]="confirmRef">
     <ion-label position="static" [class.focused]="isFocused['lockClosed']">
       <ion-icon *ngIf="!isFocused['lockClosed']" name="lock-closed-outline"></ion-icon>
@@ -83,7 +116,9 @@
       <!-- Контейнер для помилки -->
     </div>
   </div>
+  }
 
+  @if (!isLogin()) {
   <div class="password-requirements">
     <ul>
       <li [class.valid-field]="password.valid">
@@ -98,6 +133,7 @@
   </div>
 
   <app-privacy-policy></app-privacy-policy>
+  }
 </ion-list>
 
 <ion-button
