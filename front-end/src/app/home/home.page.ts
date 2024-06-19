@@ -1,8 +1,7 @@
 import {
   ChangeDetectionStrategy,
-  Component, inject,
+  Component, DestroyRef, inject, signal, WritableSignal,
 } from '@angular/core';
-import {NavController} from "@ionic/angular";
 import {RouterLink, RouterLinkActive, RouterOutlet} from "@angular/router";
 import {tabConfig, TabConfig} from "./tab-config";
 import {NgForOf} from "@angular/common";
@@ -20,6 +19,8 @@ import {
   IonTabs,
   IonToolbar
 } from "@ionic/angular/standalone";
+import {TranslateService} from "@ngx-translate/core";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 @Component({
   selector: 'app-home',
@@ -30,11 +31,30 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomePage {
-  public homeTabs: TabConfig[] = tabConfig;
+  private translate: TranslateService = inject(TranslateService);
+  private destroyRef: DestroyRef = inject(DestroyRef);
 
-  ngOnInit(): void {}
+  public tabs: WritableSignal<TabConfig[]> = signal<TabConfig[]>([]);
 
-  constructor() {
+  private translateLabels(): void {
+    const translatedTabs = tabConfig.map((tab: TabConfig) => ({
+      ...tab,
+      label: this.translate.instant(tab.label)
+    }));
+    this.tabs.set(translatedTabs);
+  }
+
+  ngOnInit(): void {
+    this.translateLabels();
+
+    this.translate.onLangChange.pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe((): void => {
+      this.translateLabels();
+    });
+  }
+
+  initIcons(): void {
     addIcons({ logOutOutline });
 
     for (const iconName in icons) {
@@ -42,4 +62,7 @@ export class HomePage {
     }
   }
 
+  constructor() {
+   this.initIcons();
+  }
 }
