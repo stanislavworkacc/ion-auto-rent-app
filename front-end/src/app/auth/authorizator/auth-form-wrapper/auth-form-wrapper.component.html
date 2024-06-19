@@ -7,11 +7,15 @@
       <app-fab [fabItems]="fabItems" title="ВХІД"></app-fab>
     </ion-buttons>
   </ion-toolbar>
-  <app-segments [options]="options" (segmentChanged)="onSignUpSegmentChanged($event)"></app-segments>
+  <app-segments
+    [options]="options"
+    (segmentChanged)="onSignUpSegmentChanged($event)"
+    [selectedSegment]="selectedSegment"
+  ></app-segments>
 </ion-header>
 
 <ion-content class="ion-padding">
-  @switch (selectedSegment) {
+  @switch (selectedSegment()) {
     @case (SegmentType.STANTDART) {
       <sign-up-form></sign-up-form>
     }

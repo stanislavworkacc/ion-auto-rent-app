@@ -1,7 +1,7 @@
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
-  Component,
+  Component, effect,
   inject,
   OnInit, signal,
   ViewEncapsulation, WritableSignal
@@ -66,23 +66,23 @@ export class AuthFormWrapperComponent  implements OnInit, AfterViewInit {
 
   SegmentType = SegmentType;
   public signUpForm!: FormGroup;
-  public selectedSegment: string = SegmentType.STANTDART;
 
-  public options: WritableSignal<{ value: string, icon: string, label: string }[]> = signal([]);
   fabItems!: { icon: string, action : () => void }[];
+  private firstChange: boolean = true;
+
+  public selectedSegment: WritableSignal<string> = signal(SegmentType.STANTDART);
+  public options: WritableSignal<{ value: string, icon: string, label: string }[]> = signal([]);
 
   defaultLogin(): void {
-    this.selectedSegment = SegmentType.STANTDART;
-    if(this.selectedSegment === SegmentType.STANTDART) {
-      this.updateOptionLabel()
-    }
+    this.selectedSegment.set(SegmentType.STANTDART);
+    this.firstChange = false;
   }
 
-  updateOptionLabel(): void {
+  private updateOptionLabel(value: string, newLabel: string): void {
     this.options.update(options => {
       return options.map(option => {
-        if (option.value === SegmentType.STANTDART) {
-          return { ...option, label: 'Увійти' };
+        if (option.value === value) {
+          return { ...option, label: newLabel };
         }
         return option;
       });
@@ -101,7 +101,7 @@ export class AuthFormWrapperComponent  implements OnInit, AfterViewInit {
   }
 
   onSignUpSegmentChanged(ev: any): void {
-    this.selectedSegment = ev;
+    this.selectedSegment.update(() => ev);
   }
 
   initSignUpForm(): void {
@@ -145,5 +145,11 @@ export class AuthFormWrapperComponent  implements OnInit, AfterViewInit {
 
   }
 
-  constructor() {}
+  constructor() {
+    effect(() => {
+      if (this.selectedSegment() === SegmentType.STANTDART && !this.firstChange) {
+        this.updateOptionLabel('standard', 'Увійти');
+      }
+    }, { allowSignalWrites: true });
+  }
 }
