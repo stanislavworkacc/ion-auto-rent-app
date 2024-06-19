@@ -54,14 +54,17 @@
   } @else {
     <div class="form-input" #mobileRef [appValidateInput]="mobileRef">
       <ion-label position="static" [class.focused]="isFocused['phone']">
-        <ion-icon *ngIf="!isFocused['phone']" name="call-outline"></ion-icon>
-
+        <div class="phone-container">
+          <ion-icon name="call-outline"></ion-icon>
+          <span>+380</span>
+        </div>
         <ion-icon *ngIf="phone.valid && !isFocused['phone']" name="checkmark-circle-outline" class="checkmark-icon"></ion-icon>
-        <ion-spinner *ngIf="isFocused['phone']" name="dots" color="primary"></ion-spinner>
       </ion-label>
       <ion-input
         type="text"
         class="aligned-input"
+        phoneFormatter
+        placeholder="(XX)-XXX-XX-XX"
         [formControl]="phone"
         (ionFocus)="onFocus('phone')"
         (ionBlur)="onBlur('phone')"
@@ -72,8 +75,6 @@
     </div>
   }
 
-
-
   <div class="form-input" #passRef [appValidateInput]="passRef">
     <ion-label position="static" [class.focused]="isFocused['lockOpen']">
       <ion-icon *ngIf="!isFocused['lockOpen']" name="lock-open-outline"></ion-icon>
@@ -82,7 +83,7 @@
       <ion-spinner *ngIf="isFocused['lockOpen']" name="dots" color="primary"></ion-spinner>
     </ion-label>
     <ion-input
-      type="text"
+      type="password"
       class="aligned-input"
       placeholder="Пароль"
       [formControl]="password"
@@ -102,9 +103,10 @@
 
       <ion-icon *ngIf="confirmPassword.valid && !isFocused['lockClosed']" name="checkmark-circle-outline" class="checkmark-icon"></ion-icon>
       <ion-spinner *ngIf="isFocused['lockClosed']" name="dots" color="primary"></ion-spinner>
+<!--      <ion-icon *ngIf="isFocused['lockClosed']" name="eye-outline" (click)="toggleShowPassword()"></ion-icon>-->
+<!--      <ion-icon *ngIf="isFocused['lockClosed'] && showPassword" name="eye-off-outline" (click)="toggleShowPassword()"></ion-icon>-->
     </ion-label>
     <ion-input
-      type="text"
       class="aligned-input"
       placeholder="Підтвердити пароль"
       [formControl]="confirmPassword"
@@ -144,7 +146,7 @@
   (click)="onSubmit()"
 >
   <div class="btn-text">
-  Реєстрація
+  {{ isLogin() ? 'Увійти' : 'Реєстрація'}}
   <ion-icon name="enter-outline"></ion-icon>
   </div>
 </ion-button>

@@ -1,6 +1,9 @@
 <ion-fab slot="fixed" vertical="top" horizontal="end">
   <ion-fab-button>
     {{title}}
+    @if (!title) {
+      <ion-icon [name]="icon"></ion-icon>
+    }
   </ion-fab-button>
   <ion-fab-list side="start">
     <ion-fab-button *ngFor="let item of fabItems" (click)="item.action()">

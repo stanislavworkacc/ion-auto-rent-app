@@ -1,11 +1,11 @@
 import {
   ChangeDetectionStrategy,
-  Component,
+  Component, ElementRef,
   inject,
   input,
   InputSignal,
   OnInit,
-  signal,
+  signal, ViewChild,
   WritableSignal
 } from '@angular/core';
 import {SwitcherComponent} from "../../../shared/ui-kit/components/switcher/switcher.component";
@@ -16,6 +16,7 @@ import {ValidateInputDirective} from "../../../shared/directives/validate-input.
 import {matchingPasswordsValidator} from "../../../shared/utils/validators/matchingPasswordValidator";
 import {PrivacyPolicyComponent} from "../privacy-policy/privacy-policy.component";
 import {IonButton, IonIcon, IonInput, IonLabel, IonList, IonSpinner} from "@ionic/angular/standalone";
+import {PhoneNumberFormatterDirective} from "../../../shared/directives/phone-formatter.directive";
 
 @Component({
   selector: 'sign-up-form',
@@ -34,13 +35,16 @@ import {IonButton, IonIcon, IonInput, IonLabel, IonList, IonSpinner} from "@ioni
     IonIcon,
     IonSpinner,
     IonInput,
-    IonButton
+    IonButton,
+    PhoneNumberFormatterDirective
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SignUpFormComponent  implements OnInit {
 
   private fb: FormBuilder = inject(FormBuilder);
+
+  @ViewChild('passwordInput', { static: false }) passwordInput!: ElementRef;
 
   public isLogin: InputSignal<boolean> = input(false);
   public isMobileLogin: WritableSignal<boolean> = signal(false);
@@ -59,6 +63,7 @@ export class SignUpFormComponent  implements OnInit {
     lockClosed: false,
     phone: false,
   };
+  showPassword: boolean = false;
 
   onFocus(field: string): void {
     this.isFocused[field] = true;
@@ -85,7 +90,7 @@ export class SignUpFormComponent  implements OnInit {
   initForm(): void {
     this.form = this.fb.group({
       name: ['', Validators.required],
-      phone: ['', Validators.required],
+      phone: ['', [Validators.required, Validators.minLength(14)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', [Validators.required]]

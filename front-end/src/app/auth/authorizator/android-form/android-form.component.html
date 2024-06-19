@@ -2,7 +2,11 @@
   <ion-card-content>
     <div class="android-sso-container">
       <ion-icon name="logo-android" class="android-logo"></ion-icon>
-      <p>Увійдіть за допомогою вашого Android акаунту для швидкого та безпечного доступу.</p>
+      @if(!isLogin()) {
+        <p>Зареєструйтесь та увійдіть за допомогою вашого Android акаунту для швидкого та безпечного доступу.</p>
+      } @else {
+        <p>Увійдіть за допомогою вашого Android акаунту для швидкого та безпечного доступу.</p>
+      }
       <div class="tooltip">
         <ion-button expand="full" color="success">
           <ion-icon slot="start" name="logo-android" class="button-icon"></ion-icon>
@@ -10,6 +14,8 @@
         </ion-button>
       </div>
     </div>
-    <app-privacy-policy></app-privacy-policy>
+    @if(!isLogin()) {
+      <app-privacy-policy></app-privacy-policy>
+    }
   </ion-card-content>
 </ion-card>

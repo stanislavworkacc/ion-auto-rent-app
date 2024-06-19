@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, input, InputSignal, OnInit} from '@angular/core';
 import {PrivacyPolicyComponent} from "../privacy-policy/privacy-policy.component";
 import {IonButton, IonCard, IonCardContent, IonIcon} from "@ionic/angular/standalone";
 
@@ -18,6 +18,7 @@ import {IonButton, IonCard, IonCardContent, IonIcon} from "@ionic/angular/standa
 })
 export class AndroidFormComponent  implements OnInit {
 
+  public isLogin: InputSignal<boolean> = input(false);
   constructor() { }
 
   ngOnInit() {}

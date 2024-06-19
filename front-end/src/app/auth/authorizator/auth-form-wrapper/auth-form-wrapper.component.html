@@ -4,7 +4,15 @@
       <app-back-button [navigateBack]="navigateBack.bind(this)"></app-back-button>
     </ion-buttons>
     <ion-buttons slot="end">
-      <app-fab [fabItems]="fabItems" title="ВХІД"></app-fab>
+      @if(!isLogin()) {
+        <app-fab [fabItems]="fabItems"
+                 title="{{ !isLogin() ? 'ВХІД' : '' }}"
+        ></app-fab>
+      } @else {
+        <ion-button (click)="handleFab()" class="handler-fab-btn">
+          <ion-icon name="log-in-outline"></ion-icon>
+        </ion-button>
+      }
     </ion-buttons>
   </ion-toolbar>
   <app-segments
@@ -19,13 +27,13 @@
       <sign-up-form [isLogin]="isLogin()"></sign-up-form>
     }
     @case (SegmentType.GOOGLE) {
-      <app-google-sso></app-google-sso>
+      <app-google-sso [isLogin]="isLogin()"></app-google-sso>
     }
     @case (SegmentType.APPLE) {
-      <app-apple-ios></app-apple-ios>
+      <app-apple-ios [isLogin]="isLogin()"></app-apple-ios>
     }
     @case (SegmentType.ANDROID) {
-    <app-android-form></app-android-form>
+      <app-android-form [isLogin]="isLogin()"></app-android-form>
     }
   }
 </ion-content>

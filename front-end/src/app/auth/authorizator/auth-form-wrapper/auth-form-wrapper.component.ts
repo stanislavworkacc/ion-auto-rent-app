@@ -76,6 +76,7 @@ export class AuthFormWrapperComponent  implements OnInit, AfterViewInit {
     this.selectedSegment.set(SegmentType.STANTDART);
     if (this.selectedSegment() === SegmentType.STANTDART) {
       this.updateOptionLabel('standard', 'Увійти');
+      this.isLogin.set(true);
     }
   }
 
@@ -88,13 +89,40 @@ export class AuthFormWrapperComponent  implements OnInit, AfterViewInit {
         return option;
       });
     });
-    this.isLogin.set(true);
   }
 
-  googleSSO() {
+  handleFab(): void {
+    this.isLogin.set(false);
+    this.selectedSegment.set(SegmentType.STANTDART);
+
+    this.updateOptionLabel('standard', 'Реєстрація');
   }
 
-  iosLogin() {
+  googleSSO(): void {
+    this.selectedSegment.set(SegmentType.GOOGLE);
+
+    if (this.selectedSegment() === SegmentType.GOOGLE) {
+      this.updateOptionLabel('standard', 'Увійти');
+      this.isLogin.set(true);
+    }
+  }
+
+  iosLogin(): void {
+    this.selectedSegment.set(SegmentType.APPLE);
+
+    if (this.selectedSegment() === SegmentType.APPLE) {
+      this.updateOptionLabel('standard', 'Увійти');
+      this.isLogin.set(true);
+    }
+  }
+
+  androidLogin(): void {
+    this.selectedSegment.set(SegmentType.ANDROID);
+
+    if (this.selectedSegment() === SegmentType.ANDROID) {
+      this.updateOptionLabel('standard', 'Увійти');
+      this.isLogin.set(true);
+    }
   }
 
   navigateBack(): void {
@@ -130,7 +158,7 @@ export class AuthFormWrapperComponent  implements OnInit, AfterViewInit {
       { icon: 'log-in-outline', action: this.defaultLogin.bind(this) },
       { icon: 'logo-google', action: this.googleSSO.bind(this) },
       { icon: 'logo-apple', action: this.iosLogin.bind(this), isVisible: isIOSDevice },
-      { icon: 'logo-android', action: this.iosLogin.bind(this), isVisible: isAndroidDevice },
+      { icon: 'logo-android', action: this.androidLogin.bind(this), isVisible: isAndroidDevice },
     ].filter(fab => fab.isVisible !== false)
   }
   ngOnInit(): void {

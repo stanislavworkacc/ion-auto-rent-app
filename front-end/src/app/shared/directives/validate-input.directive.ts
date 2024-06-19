@@ -50,7 +50,7 @@ export class ValidateInputDirective implements OnInit, OnDestroy, AfterViewInit 
   createErrorDiv(): void {
     if(this.control?.errors) {
       this.errorDiv = this.renderer.createElement('div');
-      this.renderer.setStyle(this.errorDiv, 'color', '#dc4747');
+      this.renderer.setStyle(this.errorDiv, 'color', '#5252529c');
       this.renderer.setStyle(this.errorDiv, 'font-size', '11px');
       this.renderer.setStyle(this.errorDiv, 'opacity', '0');
       this.renderer.setStyle(this.errorDiv, 'text-align', 'justify');

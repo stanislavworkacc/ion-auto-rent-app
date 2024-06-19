@@ -2,7 +2,11 @@
   <ion-card-content>
     <div class="apple-sso-container">
       <ion-icon name="logo-apple" class="apple-logo"></ion-icon>
-      <p>Увійдіть за допомогою вашого Apple ID для швидкого та безпечного доступу.</p>
+      @if(!isLogin()) {
+        <p>Зареєструйтесь та увійдіть за допомогою вашого Apple ID для швидкого та безпечного доступу.</p>
+      } @else {
+        <p>Увійдіть за допомогою вашого Apple ID для швидкого та безпечного доступу.</p>
+      }
       <div class="tooltip">
         <ion-button expand="full" color="dark">
           <ion-icon slot="start" name="logo-apple" class="button-icon"></ion-icon>
@@ -10,6 +14,8 @@
         </ion-button>
       </div>
     </div>
-    <app-privacy-policy></app-privacy-policy>
+    @if(!isLogin()) {
+      <app-privacy-policy></app-privacy-policy>
+    }
   </ion-card-content>
 </ion-card>
