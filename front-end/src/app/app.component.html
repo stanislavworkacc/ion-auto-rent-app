@@ -1,4 +1,19 @@
 <ion-app>
-  <router-outlet></router-outlet>
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>{{ 'HOME.TITLE' | translate }}</ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="switchLanguage('en')">EN</ion-button>
+        <ion-button (click)="switchLanguage('uk')">UK</ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <p>{{ 'HOME.DESCRIPTION' | translate }}</p>
+  </ion-content>
+
+
+  <!--  <router-outlet></router-outlet>-->
 </ion-app>
 
