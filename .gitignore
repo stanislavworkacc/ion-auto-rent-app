@@ -1,0 +1,12 @@
+front-end/ios
+front-end/android
+front-end/www
+front-end/.vscode
+front-end/node_modules
+front-end/.angular
+
+
+
+back-end/.vscode
+back-end/node_modules
+
