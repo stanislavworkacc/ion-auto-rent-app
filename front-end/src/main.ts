@@ -9,6 +9,8 @@ import { environment } from './environments/environment';
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
+import {CrudHttpService} from "../libs/collection/src/lib/crud-http.service";
+import {HttpService} from "./app/shared/services/http-service.service";
 
 if (environment.production) {
   enableProdMode();
@@ -32,6 +34,7 @@ bootstrapApplication(AppComponent, {
           deps: [HttpClient]
         }
       })
-    )
+    ),
+    {provide: CrudHttpService, useClass: HttpService},
   ],
 });
