@@ -1,0 +1,7 @@
+<ng-container *rxFor="let toast of toasts$; let i = index">
+  <toaster
+    [toast]="toast"
+    [i]="i"
+    (remove)="remove($event)"
+  ></toaster>
+</ng-container>

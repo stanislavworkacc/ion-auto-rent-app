@@ -17,11 +17,10 @@ const login = async (req, res, { userModel }) => {
   const UserModel = mongoose.model(userModel);
   const { email, password } = req.body;
 
-  // validate
   const objectSchema = Joi.object({
     email: Joi.string()
-      .email({ tlds: { allow: true } })
-      .required(),
+        .email({ tlds: { allow: true } })
+        .required(),
     password: Joi.string().required(),
   });
 
@@ -36,9 +35,8 @@ const login = async (req, res, { userModel }) => {
     });
   }
 
-  const user = await UserModel.findOne({ email: email, removed: false });
+  const user = await UserModel.findOne({ email: email });
 
-  // console.log(user);
   if (!user)
     return res.status(404).json({
       success: false,
@@ -46,7 +44,7 @@ const login = async (req, res, { userModel }) => {
       message: 'No account with this email has been registered.',
     });
 
-  const databasePassword = await UserPasswordModel.findOne({ user: user._id, removed: false });
+  const databasePassword = await UserPasswordModel.findOne({ user: user._id});
 
   if (!user.enabled)
     return res.status(409).json({

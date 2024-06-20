@@ -14,9 +14,8 @@ if (major < 20) {
 require('dotenv').config({ path: '.env' });
 require('dotenv').config({ path: '.env.local' });
 
-const dbUrl = `mongodb+srv://vsu554124:726RQM6soPj4b0Ch@vsu-claster.gcwp6uw.mongodb.net/?retryWrites=true&w=majority&appName=AtlasApp`;
+const dbUrl = `mongodb+srv://vsu554124:726RQM6soPj4b0Ch@vsu-claster.gcwp6uw.mongodb.net/rent-auto?retryWrites=true&w=majority&appName=AtlasApp`;
 
-console.log('dbUrl', dbUrl);
 mongoose.connect(dbUrl);
 
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
@@ -36,7 +35,7 @@ for (const filePath of modelsFiles) {
 
 // Start our server!
 const app = require('./app');
-app.set('port', process.env.PORT || 8888);
+app.set('port', process.env.PORT || 8000);
 const server = app.listen(app.get('port'), () => {
   console.log(`Express running → On PORT : ${server.address().port}`);
 });

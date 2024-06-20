@@ -5,7 +5,7 @@ const fs = require('fs');
 const { generate: uniqueId } = require('shortid');
 
 const mongoose = require('mongoose');
-const dbUrl = `mongodb+srv://vsu554124:726RQM6soPj4b0Ch@vsu-claster.gcwp6uw.mongodb.net/?retryWrites=true&w=majority&appName=AtlasApp`;
+const dbUrl = `mongodb+srv://vsu554124:726RQM6soPj4b0Ch@vsu-claster.gcwp6uw.mongodb.net/rent-auto?retryWrites=true&w=majority&appName=AtlasApp`;
 
 mongoose.connect(dbUrl);
 

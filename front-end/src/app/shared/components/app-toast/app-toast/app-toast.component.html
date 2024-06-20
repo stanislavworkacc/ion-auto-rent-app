@@ -1,0 +1,38 @@
+<div class="flex flex-col flex-grow w-[360px] min-h-[70px] bg-home-e-bg blur-effect mb-[15px] animate-show-next relative"
+  [@fadeAnimation]="{
+    value: animationState,
+    params: {
+      fadeIn: toastConfig.animation?.fadeIn,
+      fadeOut: toastConfig.animation?.fadeOut
+    }
+  }"
+  (@fadeAnimation.done)="onFadeFinished($event)"
+>
+  <div class="toast-status flex-auto flex w-full h-[6px]" [ngClass]="toastState"></div>
+
+  <div class="flex flex-1 justify-around items-center py-2 shadow-table-box-shadow">
+    <div class="toast__icon flex flex-0 py-0 px-4">
+      <span class="block w-[25px] h-[25px]">
+<!--        <mat-icon [ngClass]="toastState">-->
+<!--          {{ getIconName(toastState) }}-->
+<!--        </mat-icon>-->
+        icon
+      </span>
+    </div>
+
+    <div class="flex flex-col py-1 flex-1 pr-2">
+      <div class="text-range-dark text-[16px] mb-1 capitalize">
+        {{ toastState }}
+      </div>
+
+      <div class="text-range-dark pr-1 text-[13px] ">
+        {{ toast.message }}
+      </div>
+    </div>
+
+    <div class="group absolute top-[10px] right-[5px] cursor-pointer text-[25px] flex justify-center items-center w-10 h-10 rounded-full bg-gray-200 hover:bg-gray-400 transition-colors duration-300"
+      (click)="closeToast()">
+      <ion-icon name="close" class="text-gray-600 group-hover:text-white transition-colors duration-300"></ion-icon>
+    </div>
+  </div>
+</div>

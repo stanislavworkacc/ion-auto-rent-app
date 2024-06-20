@@ -1,0 +1,49 @@
+.toast {
+  animation: show-next 0.3s both;
+}
+
+.toast-status {
+  position: relative;
+  overflow: hidden;
+}
+
+.toast-status::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background-color: #bdb3b3;
+  animation: slideEffect 2s linear infinite;
+}
+
+.toast-status.success {
+  background-color: var(--green-light-color);
+}
+
+.toast-status.error {
+  background-color: #ED1D24;
+}
+
+.toast-status.warning {
+  background-color: var(--yellow-status);
+}
+
+.toast-status.info {
+  background-color: var(--main-bg-gradient);
+}
+
+@keyframes slideEffect {
+  from { left: -100%; }
+  to { left: 100%; }
+}
+
+@keyframes show-next {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
