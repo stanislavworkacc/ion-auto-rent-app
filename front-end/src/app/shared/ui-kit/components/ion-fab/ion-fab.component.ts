@@ -17,10 +17,12 @@ import {IonFab, IonFabButton, IonFabList, IonIcon} from "@ionic/angular/standalo
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class IonFabComponent  implements OnInit {
+export class IonFabComponent implements OnInit {
 
   @Input() fabItems: { icon: string, action: () => void }[] = [];
   @Input() icon: string = '';
   @Input() title: string = '';
-  ngOnInit() {}
+
+  ngOnInit() {
+  }
 }

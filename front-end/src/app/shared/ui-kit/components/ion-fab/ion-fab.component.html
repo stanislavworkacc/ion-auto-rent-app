@@ -1,12 +1,12 @@
-<ion-fab slot="fixed" vertical="top" horizontal="end">
+<ion-fab horizontal="end">
   <ion-fab-button>
-    {{title}}
+    {{ title }}
     @if (!title) {
       <ion-icon [name]="icon"></ion-icon>
     }
   </ion-fab-button>
-  <ion-fab-list side="start">
-    <ion-fab-button *ngFor="let item of fabItems" (click)="item.action()">
+  <ion-fab-list side="bottom">
+    <ion-fab-button (click)="item.action()" *ngFor="let item of fabItems">
       <ion-icon [name]="item.icon"></ion-icon>
     </ion-fab-button>
   </ion-fab-list>

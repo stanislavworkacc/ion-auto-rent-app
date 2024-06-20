@@ -3,17 +3,6 @@
     <ion-buttons slot="start">
       <app-back-button [navigateBack]="navigateBack.bind(this)"></app-back-button>
     </ion-buttons>
-    <ion-buttons slot="end">
-      @if(!isLogin()) {
-        <app-fab [fabItems]="fabItems"
-                 title="{{ !isLogin() ? 'ВХІД' : '' }}"
-        ></app-fab>
-      } @else {
-        <ion-button (click)="handleFab()" class="handler-fab-btn">
-          <ion-icon name="log-in-outline"></ion-icon>
-        </ion-button>
-      }
-    </ion-buttons>
   </ion-toolbar>
   <app-segments
     [options]="options"
@@ -35,6 +24,20 @@
     @case (SegmentType.ANDROID) {
       <app-android-form [isLogin]="isLogin()"></app-android-form>
     }
+  }
+
+  @if (isLogin()) {
+    <div class="register-prompt">
+      <div class="register-prompt-desc">
+        <span class="register-prompt-desc-text">Досі не маєш профілю?</span>
+        <span class="register-link">Зареєструватись</span>
+      </div>
+
+
+      <app-fab [fabItems]="fabItems"
+               icon="enter-outline"
+      ></app-fab>
+    </div>
   }
 </ion-content>
 

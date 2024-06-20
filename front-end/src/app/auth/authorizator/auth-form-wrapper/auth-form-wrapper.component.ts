@@ -58,37 +58,27 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class AuthFormWrapperComponent  implements OnInit, AfterViewInit {
+export class AuthFormWrapperComponent implements OnInit, AfterViewInit {
+  public SegmentType = SegmentType;
+  public signUpForm!: FormGroup;
+  public fabItems!: { icon: string, action: () => void }[];
+  public isLogin: WritableSignal<boolean> = signal(false);
+  public selectedSegment: WritableSignal<string> = signal(SegmentType.STANTDART);
+  public options: WritableSignal<{ value: string, icon: string, label: string }[]> = signal([]);
   private navCtrl: NavController = inject(NavController);
   private modalCtrl: ModalController = inject(ModalController);
   private fb: FormBuilder = inject(FormBuilder);
   private platform: Platform = inject(Platform);
 
-  public SegmentType = SegmentType;
-  public signUpForm!: FormGroup;
-  public fabItems!: { icon: string, action : () => void }[];
-  public isLogin: WritableSignal<boolean> = signal(false);
-
-  public selectedSegment: WritableSignal<string> = signal(SegmentType.STANTDART);
-  public options: WritableSignal<{ value: string, icon: string, label: string }[]> = signal([]);
-
-  defaultLogin(): void {
-    this.selectedSegment.set(SegmentType.STANTDART);
-    if (this.selectedSegment() === SegmentType.STANTDART) {
-      this.updateOptionLabel('standard', 'Увійти');
-      this.isLogin.set(true);
-    }
+  constructor() {
   }
 
-  private updateOptionLabel(value: string, newLabel: string): void {
-    this.options.update(options => {
-      return options.map(option => {
-        if (option.value === value) {
-          return { ...option, label: newLabel };
-        }
-        return option;
-      });
-    });
+  defaultRegister(): void {
+    this.selectedSegment.set(SegmentType.STANTDART);
+    if (this.selectedSegment() === SegmentType.STANTDART) {
+      this.updateOptionLabel('standard', 'Реєстрація');
+      this.isLogin.set(false);
+    }
   }
 
   handleFab(): void {
@@ -102,26 +92,26 @@ export class AuthFormWrapperComponent  implements OnInit, AfterViewInit {
     this.selectedSegment.set(SegmentType.GOOGLE);
 
     if (this.selectedSegment() === SegmentType.GOOGLE) {
-      this.updateOptionLabel('standard', 'Увійти');
-      this.isLogin.set(true);
+      this.updateOptionLabel('standard', 'Реєстрація');
+      this.isLogin.set(false);
     }
   }
 
-  iosLogin(): void {
+  iosRegister(): void {
     this.selectedSegment.set(SegmentType.APPLE);
 
     if (this.selectedSegment() === SegmentType.APPLE) {
-      this.updateOptionLabel('standard', 'Увійти');
-      this.isLogin.set(true);
+      this.updateOptionLabel('standard', 'Реєстрація');
+      this.isLogin.set(false);
     }
   }
 
-  androidLogin(): void {
+  androidRegister(): void {
     this.selectedSegment.set(SegmentType.ANDROID);
 
     if (this.selectedSegment() === SegmentType.ANDROID) {
-      this.updateOptionLabel('standard', 'Увійти');
-      this.isLogin.set(true);
+      this.updateOptionLabel('standard', 'Реєстрація');
+      this.isLogin.set(false);
     }
   }
 
@@ -143,10 +133,10 @@ export class AuthFormWrapperComponent  implements OnInit, AfterViewInit {
     const isIOSDevice: boolean = this.platform.is('ios');
 
     this.options.set([
-      { value: 'standard', icon: 'person-outline', label: 'Реєстрація' },
-      { value: 'google', icon: 'logo-google', label: 'Увійти з Google' },
-      { value: 'apple', icon: 'logo-apple', label: 'Увійти з Apple', isVisible: isIOSDevice },
-      { value: 'android', icon: 'logo-android', label: 'Увійти з Android', isVisible: isAndroidDevice }
+      {value: 'standard', icon: 'person-outline', label: 'Реєстрація'},
+      {value: 'google', icon: 'logo-google', label: 'Увійти з Google'},
+      {value: 'apple', icon: 'logo-apple', label: 'Увійти з Apple', isVisible: isIOSDevice},
+      {value: 'android', icon: 'logo-android', label: 'Увійти з Android', isVisible: isAndroidDevice}
     ].filter(option => option.isVisible !== false))
   }
 
@@ -155,21 +145,34 @@ export class AuthFormWrapperComponent  implements OnInit, AfterViewInit {
     const isIOSDevice: boolean = this.platform.is('ios');
 
     this.fabItems = [
-      { icon: 'log-in-outline', action: this.defaultLogin.bind(this) },
-      { icon: 'logo-google', action: this.googleSSO.bind(this) },
-      { icon: 'logo-apple', action: this.iosLogin.bind(this), isVisible: isIOSDevice },
-      { icon: 'logo-android', action: this.androidLogin.bind(this), isVisible: isAndroidDevice },
+      {icon: 'log-in-outline', action: this.defaultRegister.bind(this)},
+      {icon: 'logo-google', action: this.googleSSO.bind(this)},
+      {icon: 'logo-apple', action: this.iosRegister.bind(this), isVisible: isIOSDevice},
+      {icon: 'logo-android', action: this.androidRegister.bind(this), isVisible: isAndroidDevice},
     ].filter(fab => fab.isVisible !== false)
   }
+
   ngOnInit(): void {
     this.initSignUpForm();
     this.checkNativeDevice();
     this.initIonFab()
+
+    this.isLogin.set(true)
+    this.updateOptionLabel('standard', 'Увійти');
   }
 
   ngAfterViewInit(): void {
 
   }
 
-  constructor() {}
+  private updateOptionLabel(value: string, newLabel: string): void {
+    this.options.update(options => {
+      return options.map(option => {
+        if (option.value === value) {
+          return {...option, label: newLabel};
+        }
+        return option;
+      });
+    });
+  }
 }

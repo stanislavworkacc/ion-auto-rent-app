@@ -12,8 +12,9 @@ ion-list {
 
 .login-email-container ion-icon {
   font-size: 24px;
-  color: #85e2b7;
+  color: #d1d5db;
 }
+
 ion-label {
   min-width: 90px;
   display: flex;
@@ -41,13 +42,14 @@ ion-button {
   --color: black;
   --border-radius: 20px !important;
   margin-top: 20px;
-  padding: 0 5px;
+
   .btn-text {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 5px;
     padding: 7px 0;
+
     ion-icon {
       font-size: 25px;
     }
@@ -85,6 +87,7 @@ ion-button {
   font-size: 20px;
   color: #66e566;
 }
+
 .valid-field {
   display: flex;
   align-items: center;
@@ -96,6 +99,7 @@ ion-button {
   padding-right: 10px;
   color: #868686;
 }
+
 .form-input ion-label {
   flex: 1;
 }
