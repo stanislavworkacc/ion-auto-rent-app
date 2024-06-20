@@ -41,22 +41,17 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SignUpFormComponent  implements OnInit {
+export class SignUpFormComponent implements OnInit {
 
-  private fb: FormBuilder = inject(FormBuilder);
-
-  @ViewChild('passwordInput', { static: false }) passwordInput!: ElementRef;
-
+  @ViewChild('passwordInput', {static: false}) passwordInput!: ElementRef;
   public isLogin: InputSignal<boolean> = input(false);
-  public isMobileLogin: WritableSignal<boolean> = signal(false);
-
+  public loginByPhone: WritableSignal<boolean> = signal(false);
   public form!: FormGroup;
   public name!: FormControl;
   public email!: FormControl;
   public phone!: FormControl;
   public password!: FormControl;
   public confirmPassword!: FormControl;
-
   public isFocused: { [key: string]: boolean } = {
     name: false,
     google: false,
@@ -66,6 +61,16 @@ export class SignUpFormComponent  implements OnInit {
   };
   showPassword: boolean = false;
   showConfirmPassword: boolean = false;
+  private fb: FormBuilder = inject(FormBuilder);
+
+  constructor() {
+    effect((): void => {
+      if (this.isLogin() || !this.isLogin()) {
+        this.form.reset();
+        this.onToggleChange(false)
+      }
+    }, {allowSignalWrites: true})
+  }
 
   onFocus(field: string): void {
     this.isFocused[field] = true;
@@ -96,8 +101,9 @@ export class SignUpFormComponent  implements OnInit {
   }
 
   onToggleChange(isMobileLogin: boolean): void {
-    this.isMobileLogin.set(isMobileLogin);
+    this.loginByPhone.set(isMobileLogin);
   }
+
   initForm(): void {
     this.form = this.fb.group({
       name: ['', Validators.required],
@@ -105,18 +111,12 @@ export class SignUpFormComponent  implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', [Validators.required]]
-    }, { validator: matchingPasswordsValidator('password', 'confirmPassword') });
+    }, {validator: matchingPasswordsValidator('password', 'confirmPassword')});
 
     this.assignFormControls();
   }
+
   ngOnInit(): void {
     this.initForm();
-  }
-  constructor() {
-    effect(() => {
-      if(this.isLogin() || !this.isLogin() ) {
-        this.form.reset()
-      }
-    });
   }
 }

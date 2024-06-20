@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {
   IonApp,
 } from '@ionic/angular/standalone';
@@ -6,12 +6,15 @@ import {logOutOutline} from 'ionicons/icons';
 import {addIcons} from "ionicons";
 import {RouterOutlet} from "@angular/router";
 import {TranslateService} from "@ngx-translate/core";
+import {
+  AppToastContainerComponent
+} from "./shared/components/app-toast/app-toast-container/app-toast-container.component";
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   standalone: true,
-  imports: [IonApp, RouterOutlet],
+  imports: [IonApp, RouterOutlet, AppToastContainerComponent],
 })
 export class AppComponent {
 
@@ -32,4 +35,5 @@ export class AppComponent {
     }
   }
 }
-addIcons({ logOutOutline });
+
+addIcons({logOutOutline});

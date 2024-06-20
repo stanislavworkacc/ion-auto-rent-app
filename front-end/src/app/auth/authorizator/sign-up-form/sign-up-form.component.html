@@ -4,9 +4,19 @@
     <div class="form-input" #nameRef [appValidateInput]="nameRef">
       <div class="input-row">
         <ion-label position="static" [class.focused]="isFocused['name']">
-          <span *ngIf="!isFocused['name']">Ім'я</span>
-          <ion-icon *ngIf="name.valid && !isFocused['name']" name="checkmark-circle-outline" class="checkmark-icon"></ion-icon>
-          <ion-spinner *ngIf="isFocused['name']" name="dots" color="primary"></ion-spinner>
+
+          @if (!isFocused['name'] || name.valid) {
+            <span>Ім'я</span>
+          }
+
+          @if (name.valid) {
+            <ion-icon name="checkmark-circle-outline" class="checkmark-icon"></ion-icon>
+          }
+
+          @if (isFocused['name'] && !name.valid) {
+            <ion-spinner name="dots" color="primary"></ion-spinner>
+          }
+
         </ion-label>
 
         <ion-input
@@ -32,13 +42,22 @@
     </div>
   }
 
-  @if (!isMobileLogin()) {
+  @if (!loginByPhone()) {
     <div class="form-input" #emailRef [appValidateInput]="emailRef">
       <div class="input-row">
+
         <ion-label position="static" [class.focused]="isFocused['google']">
-          <ion-icon *ngIf="!isFocused['google']" name="logo-google"></ion-icon>
-          <ion-icon *ngIf="email.valid && !isFocused['google']" name="checkmark-circle-outline" class="checkmark-icon"></ion-icon>
-          <ion-spinner *ngIf="isFocused['google']" name="dots" color="primary"></ion-spinner>
+          @if (!isFocused['google'] || email.valid) {
+            <ion-icon name="logo-google"></ion-icon>
+          }
+
+          @if (email.valid) {
+            <ion-icon name="checkmark-circle-outline" class="checkmark-icon"></ion-icon>
+          }
+
+          @if (isFocused['google'] && !email.valid) {
+            <ion-spinner name="dots" color="primary"></ion-spinner>
+          }
         </ion-label>
 
         <ion-input
@@ -56,7 +75,7 @@
       </div>
     </div>
 
-  } @else {
+  } @else if (isLogin()) {
     <div class="form-input" #mobileRef [appValidateInput]="mobileRef">
       <div class="input-row">
         <ion-label position="static" [class.focused]="isFocused['phone']">
@@ -64,7 +83,9 @@
             <ion-icon name="call-outline"></ion-icon>
             <span>+380</span>
           </div>
-          <ion-icon *ngIf="phone.valid && !isFocused['phone']" name="checkmark-circle-outline" class="checkmark-icon"></ion-icon>
+          @if (phone.valid) {
+            <ion-icon name="checkmark-circle-outline" class="checkmark-icon"></ion-icon>
+          }
         </ion-label>
 
         <ion-input
@@ -84,26 +105,36 @@
     </div>
   }
 
-  <div class="form-input" #passRef [appValidateInput]="passRef">
+  <div #passRef [appValidateInput]="passRef" class="form-input">
     <div class="input-row">
-      <ion-label position="static" [class.focused]="isFocused['lockOpen']">
-        <ion-icon *ngIf="!isFocused['lockOpen']" name="lock-open-outline"></ion-icon>
-        <ion-icon *ngIf="password.valid && !isFocused['lockOpen']" name="checkmark-circle-outline" class="checkmark-icon"></ion-icon>
-        <ion-spinner *ngIf="isFocused['lockOpen']" name="dots" color="primary"></ion-spinner>
+      <ion-label [class.focused]="isFocused['lockOpen']" position="static">
+
+        @if (!isFocused['lockOpen'] || password.valid) {
+          <ion-icon name="lock-open-outline"></ion-icon>
+        }
+
+        @if (password.valid) {
+          <ion-icon class="checkmark-icon" name="checkmark-circle-outline"></ion-icon>
+        }
+
+        @if (isFocused['lockOpen'] && !password.valid) {
+          <ion-spinner name="dots" color="primary"></ion-spinner>
+        }
+
       </ion-label>
 
       <ion-input
+        (ionBlur)="onBlur('lockOpen')"
+        (ionFocus)="onFocus('lockOpen')"
+        [formControl]="password"
         [type]="showPassword ? 'text' : 'password'"
         class="aligned-input"
         placeholder="Пароль"
-        [formControl]="password"
-        (ionFocus)="onFocus('lockOpen')"
-        (ionBlur)="onBlur('lockOpen')"
       ></ion-input>
 
-      <ion-icon class="eye-icon"
+      <ion-icon (click)="toggleShowPassword()"
                 [name]="showPassword ? 'eye-outline' : 'eye-off-outline'"
-                (click)="toggleShowPassword()"
+                class="eye-icon"
       >
       </ion-icon>
     </div>
@@ -117,9 +148,19 @@
     <div class="form-input" #confirmRef [appValidateInput]="confirmRef">
       <div class="input-row">
         <ion-label position="static" [class.focused]="isFocused['lockClosed']">
-          <ion-icon *ngIf="!isFocused['lockClosed']" name="lock-closed-outline"></ion-icon>
-          <ion-icon *ngIf="confirmPassword.valid && !isFocused['lockClosed']" name="checkmark-circle-outline" class="checkmark-icon"></ion-icon>
-          <ion-spinner *ngIf="isFocused['lockClosed']" name="dots" color="primary"></ion-spinner>
+
+          @if (!isFocused['lockClosed'] || confirmPassword.valid) {
+            <ion-icon name="lock-closed-outline"></ion-icon>
+          }
+
+          @if (confirmPassword.valid) {
+            <ion-icon class="checkmark-icon" name="checkmark-circle-outline"></ion-icon>
+          }
+
+          @if (isFocused['lockClosed'] && !confirmPassword.valid) {
+            <ion-spinner name="dots" color="primary"></ion-spinner>
+          }
+
         </ion-label>
 
         <ion-input
@@ -145,33 +186,34 @@
   }
 
   @if (!isLogin()) {
-  <div class="password-requirements">
-    <ul>
-      <li [class.valid-field]="password.valid">
-        <ion-icon *ngIf="password.valid" name="checkmark-circle-outline" class="valid-description"></ion-icon>
-        Пароль повинен містити не менше 8 символів.
-      </li>
-      <li [class.valid-field]="confirmPassword.valid"
-      ><ion-icon *ngIf="confirmPassword.valid" name="checkmark-circle-outline" class="valid-description"></ion-icon>
-        Пароль повинен співпадати.
-      </li>
-    </ul>
-  </div>
+    <div class="password-requirements">
+      <ul>
+        <li [class.valid-field]="password.valid">
+          <ion-icon *ngIf="password.valid" name="checkmark-circle-outline" class="valid-description"></ion-icon>
+          Пароль повинен містити не менше 8 символів.
+        </li>
+        <li [class.valid-field]="confirmPassword.valid"
+        >
+          <ion-icon *ngIf="confirmPassword.valid" name="checkmark-circle-outline" class="valid-description"></ion-icon>
+          Пароль повинен співпадати.
+        </li>
+      </ul>
+    </div>
 
-  <app-privacy-policy></app-privacy-policy>
+    <app-privacy-policy></app-privacy-policy>
   }
 </form>
 
 <ion-button
-  expand="block"
-  shape="round"
-  fill="outline"
-  type="submit"
   (click)="onSubmit()"
+  expand="block"
+  fill="outline"
+  shape="round"
+  type="submit"
 >
   <div class="btn-text">
-  {{ isLogin() ? 'Увійти' : 'Реєстрація'}}
-  <ion-icon name="enter-outline"></ion-icon>
+    {{ isLogin() ? 'Увійти' : 'Реєстрація' }}
+    <ion-icon name="enter-outline"></ion-icon>
   </div>
 </ion-button>
 

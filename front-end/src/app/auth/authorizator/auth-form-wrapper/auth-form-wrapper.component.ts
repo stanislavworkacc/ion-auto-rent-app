@@ -23,7 +23,7 @@ import {
   IonButtons, IonContent,
   IonFab,
   IonFabButton, IonFabList,
-  IonHeader, IonIcon,
+  IonHeader, IonIcon, IonText,
   IonToolbar,
   ModalController
 } from "@ionic/angular/standalone";
@@ -54,6 +54,7 @@ import {
     IonFabList,
     IonIcon,
     IonContent,
+    IonText,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
@@ -116,8 +117,13 @@ export class AuthFormWrapperComponent implements OnInit, AfterViewInit {
   }
 
   navigateBack(): void {
-    this.modalCtrl.dismiss();
-    this.navCtrl.back();
+    this.resetLogin();
+  }
+
+  closeModal(): void {
+    this.modalCtrl.dismiss().then((): void => {
+      this.navCtrl.navigateForward('home/menu');
+    })
   }
 
   initSignUpForm(): void {
@@ -152,13 +158,18 @@ export class AuthFormWrapperComponent implements OnInit, AfterViewInit {
     ].filter(fab => fab.isVisible !== false)
   }
 
+  resetLogin(): void {
+    this.isLogin.set(true)
+    this.updateOptionLabel('standard', 'Увійти');
+    this.selectedSegment.set(SegmentType.STANTDART);
+  }
+
   ngOnInit(): void {
     this.initSignUpForm();
     this.checkNativeDevice();
-    this.initIonFab()
+    this.initIonFab();
 
-    this.isLogin.set(true)
-    this.updateOptionLabel('standard', 'Увійти');
+    this.resetLogin();
   }
 
   ngAfterViewInit(): void {

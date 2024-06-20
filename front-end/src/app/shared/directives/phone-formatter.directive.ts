@@ -7,7 +7,8 @@ import {Directive, ElementRef, HostListener} from "@angular/core";
 export class PhoneNumberFormatterDirective {
   private previousValue: string = '';
 
-  constructor(private el: ElementRef) {}
+  constructor(private el: ElementRef) {
+  }
 
   @HostListener('ionInput', ['$event'])
   onInput(event: KeyboardEvent): void {
@@ -23,7 +24,7 @@ export class PhoneNumberFormatterDirective {
   @HostListener('ionFocus', ['$event'])
   onFocus(event: FocusEvent): void {
     const input = event.target as HTMLInputElement;
-    if (!input.value.startsWith('(')) {
+    if (!input?.value?.startsWith('(')) {
       input.value = '(' + input.value;
     }
   }
