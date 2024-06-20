@@ -33,11 +33,11 @@ export class CommonHttpService {
         url: this.setUrl(url, this.getStringParams(getOptions(params, additionalOptions))),
         headers: this.addHeader(),
       })).pipe(
-        map((responseData) => ({
-          meta: responseData?.data?.meta || [],
-          items: responseData?.data?.items || [],
-          ...responseData,
-        }))
+        // map((responseData) => ({
+        //   meta: responseData?.data?.meta || [],
+        //   items: responseData?.data?.items || [],
+        //   ...responseData,
+        // }))
       )
     );
   }
