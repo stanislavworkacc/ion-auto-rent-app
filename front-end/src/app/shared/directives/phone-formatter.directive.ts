@@ -24,7 +24,7 @@ export class PhoneNumberFormatterDirective {
   @HostListener('ionFocus', ['$event'])
   onFocus(event: FocusEvent): void {
     const input = event.target as HTMLInputElement;
-    if (!input?.value?.startsWith('(')) {
+    if (!input.value.startsWith('(')) {
       input.value = '(' + input.value;
     }
   }

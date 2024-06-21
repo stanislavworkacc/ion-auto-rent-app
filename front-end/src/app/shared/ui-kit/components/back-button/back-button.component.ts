@@ -1,5 +1,6 @@
 import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
-import {IonButton, IonIcon} from "@ionic/angular/standalone";
+import {IonButton, IonIcon, IonLabel, IonText, IonTitle} from "@ionic/angular/standalone";
+import {IonicModule} from "@ionic/angular";
 
 @Component({
   selector: 'app-back-button',
@@ -8,15 +9,21 @@ import {IonButton, IonIcon} from "@ionic/angular/standalone";
   standalone: true,
   imports: [
     IonButton,
-    IonIcon
+    IonIcon,
+    IonText,
+    IonTitle,
+    IonLabel
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BackButtonComponent  implements OnInit {
+export class BackButtonComponent implements OnInit {
 
   @Input() navigateBack!: () => void;
-  constructor() { }
 
-  ngOnInit() {}
+  constructor() {
+  }
+
+  ngOnInit() {
+  }
 
 }

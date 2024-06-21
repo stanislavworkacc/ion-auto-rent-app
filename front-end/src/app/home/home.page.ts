@@ -62,6 +62,8 @@ export class HomePage {
       this.translateLabels();
     });
 
+    this.toaster.show({type: 'success', message: 'ssss'})
+
     // setInterval(() => {
     //   this.toaster.show({type: 'success', message: 'ssss'})
     //
