@@ -2,6 +2,12 @@ ion-card {
   --background: transparent;
   box-shadow: none;
   border-radius: 0;
+
+  .mock-img {
+    width: 100%;
+    min-height: 210px !important;
+    background: black;
+  }
 }
 
 .card-content-ios {

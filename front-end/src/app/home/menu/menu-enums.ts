@@ -6,3 +6,7 @@ export enum MenuPage {
   NEWS = 'news',
   SETTINGS = 'settings'
 }
+
+export enum ProfileMenuItem {
+  PREMIUM = 'premium',
+}

@@ -46,6 +46,99 @@
   --ion-background-color: #2a3b4e;
 }
 
+.auth-modal {
+  --border-radius: 16px 16px 0 0;
+
+  &::part(content) {
+    --border-radius: 16px 16px 0 0;
+  }
+}
+
+// flex classes
+.flex-center {
+  display: flex;
+  align-items: center;
+}
+
+.flex-start {
+  display: flex;
+  align-items: flex-start;
+}
+
+.flex-end {
+  display: flex;
+  align-items: flex-end;
+}
+
+// Justification Classes
+.justify-center {
+  display: flex;
+  justify-content: center;
+}
+
+.justify-start {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.justify-end {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.justify-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+.justify-around {
+  display: flex;
+  justify-content: space-around;
+}
+
+.justify-evenly {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+// Combination Classes
+.flex-center-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-start-center {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.flex-end-center {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.flex-center-start {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.flex-center-end {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+// Alignment Classes for Columns
+.flex-col-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .flex-col-start {
   display: flex;
   flex-direction: column;

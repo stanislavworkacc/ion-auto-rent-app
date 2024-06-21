@@ -13,7 +13,7 @@ import {
 } from "@ionic/angular/standalone";
 import {NgForOf, NgIf} from "@angular/common";
 import {MenuPage} from "../menu-enums";
-import {Platform} from "@ionic/angular";
+import {NavController, Platform} from "@ionic/angular";
 
 @Component({
   selector: 'menu-profile',
@@ -45,9 +45,15 @@ import {Platform} from "@ionic/angular";
 export class MenuProfileComponent implements OnInit {
 
   public platform: Platform = inject(Platform);
+  private navCtrl: NavController = inject(NavController);
+
   public pages: InputSignal<{ value: string, icon: string, label: string }[]> = input([]);
 
   public MenuPage = MenuPage;
+
+  openPage(page: { value: string, icon: string, label: string }): void {
+    this.navCtrl.navigateForward('/home/menu/profile')
+  }
 
   constructor() {
   }

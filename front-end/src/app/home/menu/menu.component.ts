@@ -21,6 +21,7 @@ import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {ProfileGreetingsComponent} from "./profile-greetings/profile-greetings.component";
 import {SegmentsComponent} from "../../shared/ui-kit/components/segments/segments.component";
 import {MenuProfileComponent} from "./menu-profile/menu-profile.component";
+import {RouterOutlet} from "@angular/router";
 
 @Component({
   selector: 'app-menu',
@@ -28,7 +29,7 @@ import {MenuProfileComponent} from "./menu-profile/menu-profile.component";
   styleUrls: ['./menu.component.scss'],
   standalone: true,
   imports: [
-    IonHeader, IonToolbar, IonTitle, IonContent, TranslateModule, IonButtons, IonButton, ProfileGreetingsComponent, SegmentsComponent, IonChip, IonIcon, IonLabel, MenuProfileComponent
+    IonHeader, IonToolbar, IonTitle, IonContent, TranslateModule, IonButtons, IonButton, ProfileGreetingsComponent, SegmentsComponent, IonChip, IonIcon, IonLabel, MenuProfileComponent, RouterOutlet
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
