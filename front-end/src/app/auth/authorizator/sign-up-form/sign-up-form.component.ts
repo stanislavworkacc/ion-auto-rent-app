@@ -1,5 +1,5 @@
 import {
-  ChangeDetectionStrategy,
+  ChangeDetectionStrategy, ChangeDetectorRef,
   Component, effect, ElementRef,
   inject,
   input,
@@ -43,7 +43,11 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
 })
 export class SignUpFormComponent implements OnInit {
 
+  private fb: FormBuilder = inject(FormBuilder);
+  private cdRef: ChangeDetectorRef = inject(ChangeDetectorRef);
+
   @ViewChild('passwordInput', {static: false}) passwordInput!: ElementRef;
+
   public isLogin: InputSignal<boolean> = input(false);
   public loginByPhone: WritableSignal<boolean> = signal(false);
   public form!: FormGroup;
@@ -61,16 +65,6 @@ export class SignUpFormComponent implements OnInit {
   };
   showPassword: boolean = false;
   showConfirmPassword: boolean = false;
-  private fb: FormBuilder = inject(FormBuilder);
-
-  constructor() {
-    effect((): void => {
-      if (this.isLogin() || !this.isLogin()) {
-        this.form.reset();
-        this.onToggleChange(false)
-      }
-    }, {allowSignalWrites: true})
-  }
 
   onFocus(field: string): void {
     this.isFocused[field] = true;
@@ -118,5 +112,27 @@ export class SignUpFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
+  }
+
+  resetForm() {
+    this.form.reset();
+    this.form.markAsUntouched()
+    Object.keys(this.form.controls).forEach(key => {
+      this.form.get(key)?.setErrors(null);
+      this.form.get(key)?.markAsPristine();
+      this.form.get(key)?.markAsUntouched();
+      this.form.get(key)?.updateValueAndValidity();
+    });
+
+    this.cdRef.markForCheck()
+  }
+
+  constructor() {
+    effect((): void => {
+      if (this.isLogin() || !this.isLogin()) {
+        this.resetForm();
+        this.onToggleChange(false)
+      }
+    }, {allowSignalWrites: true})
   }
 }

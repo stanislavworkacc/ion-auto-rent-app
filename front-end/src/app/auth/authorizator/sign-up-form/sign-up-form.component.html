@@ -189,12 +189,15 @@
     <div class="password-requirements">
       <ul>
         <li [class.valid-field]="password.valid">
-          <ion-icon *ngIf="password.valid" name="checkmark-circle-outline" class="valid-description"></ion-icon>
+          @if (password.valid) {
+            <ion-icon name="checkmark-circle-outline" class="valid-description"></ion-icon>
+          }
           Пароль повинен містити не менше 8 символів.
         </li>
-        <li [class.valid-field]="confirmPassword.valid"
-        >
-          <ion-icon *ngIf="confirmPassword.valid" name="checkmark-circle-outline" class="valid-description"></ion-icon>
+        <li [class.valid-field]="confirmPassword.valid">
+          @if (confirmPassword.valid) {
+            <ion-icon name="checkmark-circle-outline" class="valid-description"></ion-icon>
+          }
           Пароль повинен співпадати.
         </li>
       </ul>
