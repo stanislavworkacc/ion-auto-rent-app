@@ -51,7 +51,6 @@ export class MenuComponent implements OnInit {
       {value: 'carPark', icon: 'car-sport-outline', label: 'Автопарк'},
       {value: 'carPark', icon: 'folder-open-outline', label: 'Файли'},
       {value: 'geo', icon: 'location-outline', label: 'Гео'},
-      {value: 'help', icon: 'information-circle-outline', label: 'Допомога'},
     ]);
   }
 
@@ -63,6 +62,7 @@ export class MenuComponent implements OnInit {
       {value: 'create', icon: 'add-circle-outline', label: 'Оголошення'},
       {value: 'news', icon: 'book-outline', label: 'Наші новини'},
       {value: 'settings', icon: 'settings-outline', label: 'Налаштування'},
+      {value: 'help', icon: 'information-circle-outline', label: 'Допомога'},
     ]);
   }
 

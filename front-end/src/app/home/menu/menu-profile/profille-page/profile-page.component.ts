@@ -75,6 +75,7 @@ export class ProfilePage implements OnInit {
       {value: 'profile', icon: 'wallet-outline', label: 'Рахунок'},
       {value: 'premium', icon: 'trending-up-outline', label: 'Преміум'},
       {value: 'profile', icon: 'bar-chart-outline', label: 'Рейтинг'},
+      {value: 'profile', icon: 'qr-code-outline', label: 'Промо-код'},
       {value: 'profile', icon: 'document-lock-outline', label: 'Захист даних'},
       {value: 'profile', icon: 'person-circle-outline', label: 'Редагувати'},
     ]);

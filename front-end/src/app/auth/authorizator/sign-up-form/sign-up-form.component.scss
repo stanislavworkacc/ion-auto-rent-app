@@ -2,6 +2,11 @@ ion-list {
   background: #2a3c4e;
 }
 
+form {
+  min-height: 100vh !important;
+  overflow-y: auto;
+}
+
 .login-email-container {
   display: flex;
   align-items: center;
@@ -37,24 +42,6 @@ ion-input {
   font-size: 20px;
 }
 
-ion-button {
-  --background: #d0e7f2;
-  --color: black;
-  --border-radius: 20px !important;
-  margin-top: 20px;
-
-  .btn-text {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
-    padding: 7px 0;
-
-    ion-icon {
-      font-size: 25px;
-    }
-  }
-}
 
 .custom-button:disabled {
   --background: #d3d3d3;

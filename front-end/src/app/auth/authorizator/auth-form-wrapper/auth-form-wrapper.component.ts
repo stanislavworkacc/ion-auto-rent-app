@@ -22,11 +22,12 @@ import {
   IonButton,
   IonButtons, IonContent,
   IonFab,
-  IonFabButton, IonFabList,
+  IonFabButton, IonFabList, IonFooter,
   IonHeader, IonIcon, IonLabel, IonSegment, IonSegmentButton, IonText,
   IonToolbar,
   ModalController
 } from "@ionic/angular/standalone";
+import {LogOutComponent} from "../../../home/menu/menu-profile/log-out/log-out.component";
 
 @Component({
   selector: 'auth-form-wrapper',
@@ -58,6 +59,8 @@ import {
     IonLabel,
     IonSegment,
     IonSegmentButton,
+    IonFooter,
+    LogOutComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
