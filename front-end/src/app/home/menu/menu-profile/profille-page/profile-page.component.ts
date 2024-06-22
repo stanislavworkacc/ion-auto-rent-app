@@ -2,8 +2,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   inject,
-  input,
-  InputSignal,
   OnInit,
   signal,
   WritableSignal
@@ -16,13 +14,13 @@ import {
   IonHeader, IonIcon, IonItem, IonLabel, IonList,
   IonModal, IonRow, IonSearchbar, IonTitle,
   IonToolbar,
-  ModalController
 } from "@ionic/angular/standalone";
 import {BackButtonComponent} from "../../../../shared/ui-kit/components/back-button/back-button.component";
 import {NavController, Platform} from "@ionic/angular";
-import {MenuPage, ProfileMenuItem} from "../../menu-enums";
+import {ProfileMenuItem} from "../../menu-enums";
 import {LogOutComponent} from "../log-out/log-out.component";
 import {NotificationsPreviewComponent} from "../notifications-preview/notifications-preview.component";
+import {RouterOutlet} from "@angular/router";
 
 @Component({
   selector: 'app-profile-page',
@@ -55,13 +53,13 @@ import {NotificationsPreviewComponent} from "../notifications-preview/notificati
     IonGrid,
     IonRow,
     LogOutComponent,
-    NotificationsPreviewComponent
+    NotificationsPreviewComponent,
+    RouterOutlet
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfilePage implements OnInit {
 
-  private modalCtrl: ModalController = inject(ModalController);
   private navCtrl: NavController = inject(NavController);
   public platform: Platform = inject(Platform);
 
@@ -74,22 +72,22 @@ export class ProfilePage implements OnInit {
 
   setMenuItems(): void {
     this.menuItems.set([
-      {value: 'profile', icon: 'wallet-outline', label: 'Рахунок'},
-      {value: 'premium', icon: 'trending-up-outline', label: 'Преміум'},
-      {value: 'profile', icon: 'bar-chart-outline', label: 'Рейтинг'},
-      {value: 'profile', icon: 'qr-code-outline', label: 'Промо-код'},
-      {value: 'profile', icon: 'document-lock-outline', label: 'Захист даних'},
-      {value: 'profile', icon: 'person-circle-outline', label: 'Редагувати'},
+      {value: ProfileMenuItem.PROFILE, icon: 'wallet-outline', label: 'Рахунок'},
+      {value: ProfileMenuItem.PREMIUM, icon: 'trending-up-outline', label: 'Преміум'},
+      {value: ProfileMenuItem.RATING, icon: 'bar-chart-outline', label: 'Рейтинг'},
+      {value: ProfileMenuItem.PROMO_CODE, icon: 'qr-code-outline', label: 'Промо-код'},
+      {value: ProfileMenuItem.PRIVACY_POLICY, icon: 'document-lock-outline', label: 'Захист даних'},
+      {value: ProfileMenuItem.EDIT, icon: 'person-circle-outline', label: 'Редагувати'},
     ]);
-  }
-
-  toggleTheme() {
-    document.body.classList.toggle('dark');
   }
 
 
   openProfilePage(page: { value: string, icon: string, label: string }): void {
-
+    switch (page.value) {
+      case ProfileMenuItem.EDIT: {
+        this.navCtrl.navigateForward('home/menu/edit')
+      }
+    }
   }
 
   ngOnInit(): void {

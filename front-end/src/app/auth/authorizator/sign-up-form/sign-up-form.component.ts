@@ -17,7 +17,6 @@ import {matchingPasswordsValidator} from "../../../shared/utils/validators/match
 import {PrivacyPolicyComponent} from "../privacy-policy/privacy-policy.component";
 import {IonButton, IonIcon, IonInput, IonLabel, IonList, IonSpinner} from "@ionic/angular/standalone";
 import {PhoneNumberFormatterDirective} from "../../../shared/directives/phone-formatter.directive";
-import {animate, state, style, transition, trigger} from "@angular/animations";
 
 @Component({
   selector: 'sign-up-form',

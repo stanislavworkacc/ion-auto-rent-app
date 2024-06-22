@@ -1,4 +1,12 @@
-import {ChangeDetectionStrategy, Component, input, InputSignal, OnInit, ViewEncapsulation} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component, effect, Input,
+  input,
+  InputSignal,
+  OnInit,
+  ViewEncapsulation,
+  WritableSignal
+} from '@angular/core';
 import {
   IonButton,
   IonCard,
@@ -35,12 +43,17 @@ import {NotificationsPreviewComponent} from "../menu-profile/notifications-previ
 export class ProfileGreetingsComponent implements OnInit {
 
   public options: InputSignal<{ value: string, icon: string, label: string }[]> = input([]);
+  @Input() selected: WritableSignal<string>;
 
-  constructor() {
+  chipSelected(type: string): void {
+    this.selected.set(type);
   }
 
   ngOnInit() {
 
   }
 
+  constructor() {
+
+  }
 }

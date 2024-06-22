@@ -1,11 +1,15 @@
 <ion-card class="ion-no-margin">
   <div class="mock-img relative">
-    <notifications-preview class="absolute bottom-0" [styles]="'text-[#eff8ff]'"></notifications-preview>
+    <notifications-preview class="absolute bottom-0 right-[15px]" [styles]="'text-[#eff8ff]'"></notifications-preview>
   </div>
   <ion-card-content>
     <div class="chip-container">
       @for (chip of options(); track chip.value) {
-        <ion-chip outline="outline">
+        <ion-chip
+          [class.bg-[#dce1e4]]="chip.value === selected()"
+          outline="outline"
+          (click)="chipSelected(chip.value)"
+        >
           <ion-icon [name]="chip.icon" color="primary"></ion-icon>
           <ion-label>{{ chip.label }}</ion-label>
         </ion-chip>

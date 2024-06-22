@@ -149,10 +149,10 @@ export class AuthFormWrapperComponent implements OnInit, AfterViewInit {
     const isIOSDevice: boolean = this.platform.is('ios');
 
     this.options.set([
-      {value: 'standard', icon: 'person-outline', label: 'Реєстрація', isVisible: true},
-      {value: 'google', icon: 'logo-google', label: 'Увійти з Google', isVisible: true},
-      {value: 'apple', icon: 'logo-apple', label: 'Увійти з Apple', isVisible: isIOSDevice},
-      {value: 'android', icon: 'logo-android', label: 'Увійти з Android', isVisible: isAndroidDevice}
+      {value: SegmentType.STANTDART, icon: 'person-outline', label: 'Реєстрація', isVisible: true},
+      {value: SegmentType.GOOGLE, icon: 'logo-google', label: 'Увійти з Google', isVisible: true},
+      {value: SegmentType.APPLE, icon: 'logo-apple', label: 'Увійти з Apple', isVisible: isIOSDevice},
+      {value: SegmentType.ANDROID, icon: 'logo-android', label: 'Увійти з Android', isVisible: isAndroidDevice}
     ].filter(option => option.isVisible !== false))
   }
 
