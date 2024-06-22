@@ -1,9 +1,12 @@
+
 .auth-modal {
   --border-radius: 16px 16px 0 0;
   --max-height: 90%;
   --background: #2a3c4e;
   --ion-background-color: #2a3c4e;
   --color: #000000;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
   backdrop-filter: blur(10px) brightness(2.5);
 
   ion-header {

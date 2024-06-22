@@ -26,17 +26,20 @@ import {IonIcon, IonLabel, IonSegment, IonSegmentButton} from "@ionic/angular/st
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SegmentsComponent  implements OnInit {
+export class SegmentsComponent implements OnInit {
 
-  @Input() options: WritableSignal<{ value: string, icon: string, label: string, isVisible?: boolean } []>  = signal([]);
+  @Input() options: WritableSignal<{ value: string, icon: string, label: string, isVisible?: boolean } []> = signal([]);
   @Input() selectedSegment: WritableSignal<string> = signal(SegmentType.STANTDART);
+  @Input() styles: string;
+
+  constructor() {
+  }
 
   onSegmentChanged(event: any): void {
     this.selectedSegment.update(() => event.detail.value);
   }
-  constructor() { }
 
-
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
 }

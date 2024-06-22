@@ -1,0 +1,14 @@
+<ion-card class="ion-no-margin">
+  <div class="mock-img"></div>
+
+  <ion-card-content>
+    <div class="chip-container">
+      @for (chip of options(); track chip.value) {
+        <ion-chip outline="outline">
+          <ion-icon [name]="chip.icon" color="primary"></ion-icon>
+          <ion-label>{{ chip.label }}</ion-label>
+        </ion-chip>
+      }
+    </div>
+  </ion-card-content>
+</ion-card>

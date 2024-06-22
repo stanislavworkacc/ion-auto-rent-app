@@ -1,5 +1,5 @@
 import {
-  ChangeDetectionStrategy,
+  ChangeDetectionStrategy, ChangeDetectorRef,
   Component, effect, ElementRef,
   inject,
   input,
@@ -41,22 +41,21 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SignUpFormComponent  implements OnInit {
+export class SignUpFormComponent implements OnInit {
 
   private fb: FormBuilder = inject(FormBuilder);
+  private cdRef: ChangeDetectorRef = inject(ChangeDetectorRef);
 
-  @ViewChild('passwordInput', { static: false }) passwordInput!: ElementRef;
+  @ViewChild('passwordInput', {static: false}) passwordInput!: ElementRef;
 
   public isLogin: InputSignal<boolean> = input(false);
-  public isMobileLogin: WritableSignal<boolean> = signal(false);
-
+  public loginByPhone: WritableSignal<boolean> = signal(false);
   public form!: FormGroup;
   public name!: FormControl;
   public email!: FormControl;
   public phone!: FormControl;
   public password!: FormControl;
   public confirmPassword!: FormControl;
-
   public isFocused: { [key: string]: boolean } = {
     name: false,
     google: false,
@@ -96,8 +95,9 @@ export class SignUpFormComponent  implements OnInit {
   }
 
   onToggleChange(isMobileLogin: boolean): void {
-    this.isMobileLogin.set(isMobileLogin);
+    this.loginByPhone.set(isMobileLogin);
   }
+
   initForm(): void {
     this.form = this.fb.group({
       name: ['', Validators.required],
@@ -105,18 +105,34 @@ export class SignUpFormComponent  implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', [Validators.required]]
-    }, { validator: matchingPasswordsValidator('password', 'confirmPassword') });
+    }, {validator: matchingPasswordsValidator('password', 'confirmPassword')});
 
     this.assignFormControls();
   }
+
   ngOnInit(): void {
     this.initForm();
   }
-  constructor() {
-    effect(() => {
-      if(this.isLogin() || !this.isLogin() ) {
-        this.form.reset()
-      }
+
+  resetForm() {
+    this.form.reset();
+    this.form.markAsUntouched()
+    Object.keys(this.form.controls).forEach(key => {
+      this.form.get(key)?.setErrors(null);
+      this.form.get(key)?.markAsPristine();
+      this.form.get(key)?.markAsUntouched();
+      this.form.get(key)?.updateValueAndValidity();
     });
+
+    this.cdRef.markForCheck()
+  }
+
+  constructor() {
+    effect((): void => {
+      if (this.isLogin() || !this.isLogin()) {
+        this.resetForm();
+        this.onToggleChange(false)
+      }
+    }, {allowSignalWrites: true})
   }
 }

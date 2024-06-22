@@ -7,7 +7,8 @@ import {Directive, ElementRef, HostListener} from "@angular/core";
 export class PhoneNumberFormatterDirective {
   private previousValue: string = '';
 
-  constructor(private el: ElementRef) {}
+  constructor(private el: ElementRef) {
+  }
 
   @HostListener('ionInput', ['$event'])
   onInput(event: KeyboardEvent): void {

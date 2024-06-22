@@ -1,4 +1,4 @@
-import { AnimationEvent } from '@angular/animations';
+import {AnimationEvent} from '@angular/animations';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -11,14 +11,15 @@ import {
   Output
 } from '@angular/core';
 
-import { setTimeout, clearTimeout } from '@rx-angular/cdk/zone-less/browser';
+import {setTimeout, clearTimeout} from '@rx-angular/cdk/zone-less/browser';
 import {toastAnimations, ToastAnimationState} from "./toast-animation";
 import {Toast} from "../toast.interface";
 import {DefaultToastConfig} from "./toast.config";
-import {NgClass, NgIf} from "@angular/common";
+import {CommonModule, NgClass, NgIf} from "@angular/common";
 import {ToastStatusEnum} from "../toast-status.enum";
 import {SoundService} from "./sound-service";
 import {IonIcon} from "@ionic/angular/standalone";
+import {BrowserAnimationsModule, NoopAnimationsModule} from "@angular/platform-browser/animations";
 
 
 @Component({
@@ -30,7 +31,7 @@ import {IonIcon} from "@ionic/angular/standalone";
   imports: [
     NgClass,
     NgIf,
-    IonIcon
+    IonIcon,
   ],
   standalone: true
 })
@@ -45,12 +46,15 @@ export class AppToastComponent implements OnInit, OnDestroy {
 
   private intervalId: number | any;
 
+  constructor(private _cdr: ChangeDetectorRef) {
+  }
+
   closeToast() {
     this.remove.next(this.i);
   }
 
   onFadeFinished(event: AnimationEvent) {
-    const { toState } = event;
+    const {toState} = event;
 
     const isFadeOut = (toState as ToastAnimationState) === 'closing';
     const itFinished = this.animationState === 'closing';
@@ -63,20 +67,17 @@ export class AppToastComponent implements OnInit, OnDestroy {
   getIconName(state: string): string {
     switch (state) {
       case ToastStatusEnum.Success:
-        return 'recommend';
+        return 'checkmark-circle-outline';
       case ToastStatusEnum.Error:
-        return 'priority_high';
+        return 'alert-circle-outline';
       case ToastStatusEnum.Warning:
-        return 'running_with_errors';
+        return 'warning-outline';
       case ToastStatusEnum.Info:
-        return 'info';
+        return 'information-circle-outline';
       default:
-        return 'info';
+        return 'information-circle-outline';
     }
   }
-
-
-
 
   ngOnInit(): void {
     this.toastState = this.toast.type;
@@ -90,9 +91,4 @@ export class AppToastComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     clearTimeout(this.intervalId);
   }
-
-  constructor(private _cdr: ChangeDetectorRef,
-              private _el: ElementRef,
-              private soundService: SoundService
-              ) { }
 }

@@ -1,0 +1,41 @@
+ion-card {
+  --background: transparent;
+  box-shadow: none;
+  border-radius: 0;
+
+  .mock-img {
+    width: 100%;
+    min-height: 210px !important;
+    background: black;
+  }
+}
+
+.card-content-ios {
+  padding: 0 !important;
+}
+
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 10px;
+}
+
+.chip-container {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  white-space: nowrap;
+  flex: 1;
+  min-width: 100%;
+}
+
+ion-chip {
+  background: #fff;
+  color: #333333;
+  border: 0.1px solid #d1d1d1;
+  min-width: 112px;
+  display: flex;
+  justify-content: center;
+}
+

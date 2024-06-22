@@ -1,7 +1,12 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <app-back-button [navigateBack]="navigateBack.bind(this)"></app-back-button>
+    @if (!isLogin()) {
+      <ion-buttons slot="start">
+        <app-back-button [navigateBack]="navigateBack.bind(this)"></app-back-button>
+      </ion-buttons>
+    }
+    <ion-buttons slot="end">
+      <app-close-btn (click)="closeModal()"></app-close-btn>
     </ion-buttons>
   </ion-toolbar>
   <app-segments
@@ -29,8 +34,8 @@
   @if (isLogin()) {
     <div class="register-prompt">
       <div class="register-prompt-desc">
-        <span class="register-prompt-desc-text">Досі не маєш профілю?</span>
-        <span class="register-link">Зареєструватись</span>
+        <span class="register-prompt-desc-text">Не маєш профілю?</span>
+        <span class="register-link">Реєстрація</span>
       </div>
 
 

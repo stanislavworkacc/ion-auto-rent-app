@@ -16,23 +16,26 @@ import {ModalController} from "@ionic/angular/standalone";
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
   standalone: true,
-    imports: [
-        IonFabComponent,
-        AuthFormWrapperComponent,
-        AuthorizatorComponent,
-        AndroidFormComponent,
-        AppleIosComponent,
-        BackButtonComponent,
-        GoogleSsoComponent,
-        SegmentsComponent,
-        SignUpFormComponent
-    ],
+  imports: [
+    IonFabComponent,
+    AuthFormWrapperComponent,
+    AuthorizatorComponent,
+    AndroidFormComponent,
+    AppleIosComponent,
+    BackButtonComponent,
+    GoogleSsoComponent,
+    SegmentsComponent,
+    SignUpFormComponent
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DashboardComponent  implements OnInit {
+export class DashboardComponent implements OnInit {
 
   private modalCtrl: ModalController = inject(ModalController);
   private navCtrl: NavController = inject(NavController);
+
+  constructor() {
+  }
 
   async openModal(): Promise<void> {
     const modal: HTMLIonModalElement = await this.modalCtrl.create({
@@ -45,12 +48,11 @@ export class DashboardComponent  implements OnInit {
     await modal.present();
 
     modal.onWillDismiss().then((): void => {
-      this.navCtrl.back();
+      this.navCtrl.navigateForward('home/menu');
     })
   }
+
   ngOnInit(): void {
     this.openModal();
   }
-
-  constructor() {}
 }

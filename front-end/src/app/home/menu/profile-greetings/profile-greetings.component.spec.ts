@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { SignInFormComponent } from './sign-in-form.component';
+import { ProfileGreetingsComponent } from './profile-greetings.component';
 
-describe('SignInFormComponent', () => {
-  let component: SignInFormComponent;
-  let fixture: ComponentFixture<SignInFormComponent>;
+describe('ProfileGreetingsComponent', () => {
+  let component: ProfileGreetingsComponent;
+  let fixture: ComponentFixture<ProfileGreetingsComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ SignInFormComponent ],
+      declarations: [ ProfileGreetingsComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(SignInFormComponent);
+    fixture = TestBed.createComponent(ProfileGreetingsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));
