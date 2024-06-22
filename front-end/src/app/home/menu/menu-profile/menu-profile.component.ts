@@ -14,6 +14,7 @@ import {
 import {NgForOf, NgIf} from "@angular/common";
 import {MenuPage} from "../menu-enums";
 import {NavController, Platform} from "@ionic/angular";
+import {LogOutComponent} from "./log-out/log-out.component";
 
 @Component({
   selector: 'menu-profile',
@@ -37,7 +38,8 @@ import {NavController, Platform} from "@ionic/angular";
     IonCardContent,
     IonText,
     IonBadge,
-    NgIf
+    NgIf,
+    LogOutComponent
   ],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush

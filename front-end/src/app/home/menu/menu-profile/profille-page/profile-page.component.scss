@@ -2,7 +2,7 @@ ion-header {
   box-shadow: none;
 
   ion-toolbar {
-    --background: #5d759f9c;
+    --background: #f0f8ff !important;
 
     .upper-block {
       padding: 7px;
@@ -22,13 +22,13 @@ ion-header {
 }
 
 ion-content {
-  --background: #394761 !important;
+  --background: linear-gradient(to bottom, #f0f4f7, #b3bac0) !important;
 }
 
 ion-card {
   background-color: white;
   border-radius: 6px;
-  box-shadow: 1px 20px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 1px 8px 8px rgba(0, 0, 0, 0.1);
   height: 90px;
   display: flex;
   flex-direction: column;
@@ -50,7 +50,14 @@ ion-card {
   ion-card-content .left-padding {
     padding-left: 20px;
   }
+
+  ion-card-content {
+    ion-label {
+      text-wrap: nowrap;
+    }
+  }
 }
+
 
 .premium {
   background-color: #e1ecff;

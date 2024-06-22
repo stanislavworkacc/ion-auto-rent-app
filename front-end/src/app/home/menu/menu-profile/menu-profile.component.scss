@@ -29,22 +29,6 @@ ion-card {
   }
 }
 
-ion-button {
-  display: flex;
-  align-items: center;
-  position: absolute;
-  bottom: 10px;
-  width: 98%;
-  padding: 0 5px;
-  --background: #e1e5ec9c;
-  --border-color: transparent;
-  --color: #646565;
-
-  ion-icon {
-    margin-right: 5px;
-  }
-}
-
 .create {
   background-color: aliceblue;
 }

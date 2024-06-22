@@ -21,6 +21,7 @@ import {
 import {BackButtonComponent} from "../../../../shared/ui-kit/components/back-button/back-button.component";
 import {NavController, Platform} from "@ionic/angular";
 import {MenuPage, ProfileMenuItem} from "../../menu-enums";
+import {LogOutComponent} from "../log-out/log-out.component";
 
 @Component({
   selector: 'app-profile-page',
@@ -51,7 +52,8 @@ import {MenuPage, ProfileMenuItem} from "../../menu-enums";
     IonBadge,
     IonCol,
     IonGrid,
-    IonRow
+    IonRow,
+    LogOutComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
