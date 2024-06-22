@@ -1,4 +1,3 @@
-
 .auth-modal {
   --border-radius: 16px 16px 0 0;
   --max-height: 90%;
@@ -21,6 +20,7 @@
     --padding-bottom: 5px;
     --padding-top: 5px;
     --min-height: 80px;
+    padding: 0 !important;
 
     app-close-btn {
       top: 10px;

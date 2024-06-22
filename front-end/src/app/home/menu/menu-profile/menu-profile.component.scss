@@ -6,13 +6,15 @@ ion-card {
   background-color: white;
   border-radius: 6px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  height: 90px;
+  height: 85px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   margin: 0;
 
   ion-card-header {
+    padding: 10px;
+
     ion-card-subtitle {
       text-align: left;
 
@@ -24,8 +26,15 @@ ion-card {
     }
   }
 
-  ion-card-content .left-padding {
-    padding-left: 20px;
+  ion-card-content {
+    --padding-inline-start: 0 !important;
+    padding-inline-start: 0 !important;
+
+    ion-label {
+      padding: 10px !important;
+      --padding-inline-start: 0 !important;
+    }
+
   }
 }
 

@@ -21,6 +21,20 @@
   @switch (selectedSegment()) {
     @case (SegmentType.STANTDART) {
       <sign-up-form [isLogin]="isLogin()"></sign-up-form>
+      
+      @if (isLogin()) {
+        <div class="register-prompt">
+          <div class="register-prompt-desc">
+            <span class="register-prompt-desc-text">Не маєш профілю?</span>
+            <span class="register-link">Реєстрація</span>
+          </div>
+
+
+          <app-fab [fabItems]="fabItems"
+                   icon="enter-outline"
+          ></app-fab>
+        </div>
+      }
     }
     @case (SegmentType.GOOGLE) {
       <app-google-sso [isLogin]="isLogin()"></app-google-sso>
@@ -31,20 +45,6 @@
     @case (SegmentType.ANDROID) {
       <app-android-form [isLogin]="isLogin()"></app-android-form>
     }
-  }
-
-  @if (isLogin()) {
-    <div class="register-prompt">
-      <div class="register-prompt-desc">
-        <span class="register-prompt-desc-text">Не маєш профілю?</span>
-        <span class="register-link">Реєстрація</span>
-      </div>
-
-
-      <app-fab [fabItems]="fabItems"
-               icon="enter-outline"
-      ></app-fab>
-    </div>
   }
 </ion-content>
 

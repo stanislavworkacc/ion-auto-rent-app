@@ -72,11 +72,11 @@ export class ProfilePage implements OnInit {
 
   setMenuItems(): void {
     this.menuItems.set([
-      {value: 'profile', icon: 'wallet-outline', label: 'Особистий рахунок'},
+      {value: 'profile', icon: 'wallet-outline', label: 'Рахунок'},
       {value: 'premium', icon: 'trending-up-outline', label: 'Преміум'},
       {value: 'profile', icon: 'bar-chart-outline', label: 'Рейтинг'},
-      {value: 'profile', icon: 'document-lock-outline', label: 'Конфеденційність'},
-      {value: 'profile', icon: 'person-circle-outline', label: 'Редагувати профіль'},
+      {value: 'profile', icon: 'document-lock-outline', label: 'Захист даних'},
+      {value: 'profile', icon: 'person-circle-outline', label: 'Редагувати'},
     ]);
   }
 
