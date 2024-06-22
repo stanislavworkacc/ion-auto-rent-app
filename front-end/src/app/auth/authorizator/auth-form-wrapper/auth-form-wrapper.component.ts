@@ -23,7 +23,7 @@ import {
   IonButtons, IonContent,
   IonFab,
   IonFabButton, IonFabList,
-  IonHeader, IonIcon, IonText,
+  IonHeader, IonIcon, IonLabel, IonSegment, IonSegmentButton, IonText,
   IonToolbar,
   ModalController
 } from "@ionic/angular/standalone";
@@ -55,6 +55,9 @@ import {
     IonIcon,
     IonContent,
     IonText,
+    IonLabel,
+    IonSegment,
+    IonSegmentButton,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
@@ -87,6 +90,10 @@ export class AuthFormWrapperComponent implements OnInit, AfterViewInit {
     this.selectedSegment.set(SegmentType.STANTDART);
 
     this.updateOptionLabel('standard', 'Реєстрація');
+  }
+
+  onSegmentChanged(event: any): void {
+    this.selectedSegment.update(() => event.detail.value);
   }
 
   googleSSO(): void {
@@ -139,8 +146,8 @@ export class AuthFormWrapperComponent implements OnInit, AfterViewInit {
     const isIOSDevice: boolean = this.platform.is('ios');
 
     this.options.set([
-      {value: 'standard', icon: 'person-outline', label: 'Реєстрація'},
-      {value: 'google', icon: 'logo-google', label: 'Увійти з Google'},
+      {value: 'standard', icon: 'person-outline', label: 'Реєстрація', isVisible: true},
+      {value: 'google', icon: 'logo-google', label: 'Увійти з Google', isVisible: true},
       {value: 'apple', icon: 'logo-apple', label: 'Увійти з Apple', isVisible: isIOSDevice},
       {value: 'android', icon: 'logo-android', label: 'Увійти з Android', isVisible: isAndroidDevice}
     ].filter(option => option.isVisible !== false))

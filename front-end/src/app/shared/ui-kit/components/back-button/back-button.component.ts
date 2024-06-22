@@ -19,6 +19,7 @@ import {IonicModule} from "@ionic/angular";
 export class BackButtonComponent implements OnInit {
 
   @Input() navigateBack!: () => void;
+  @Input() styles: string;
 
   constructor() {
   }
