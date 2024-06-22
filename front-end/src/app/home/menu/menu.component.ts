@@ -13,7 +13,7 @@ import {
   IonChip,
   IonContent,
   IonHeader,
-  IonIcon, IonLabel,
+  IonIcon, IonLabel, IonSearchbar,
   IonTitle,
   IonToolbar
 } from "@ionic/angular/standalone";
@@ -23,6 +23,7 @@ import {SegmentsComponent} from "../../shared/ui-kit/components/segments/segment
 import {MenuProfileComponent} from "./menu-profile/menu-profile.component";
 import {RouterOutlet} from "@angular/router";
 import {LogOutComponent} from "./menu-profile/log-out/log-out.component";
+import {NotificationsPreviewComponent} from "./menu-profile/notifications-preview/notifications-preview.component";
 
 @Component({
   selector: 'app-menu',
@@ -30,7 +31,7 @@ import {LogOutComponent} from "./menu-profile/log-out/log-out.component";
   styleUrls: ['./menu.component.scss'],
   standalone: true,
   imports: [
-    IonHeader, IonToolbar, IonTitle, IonContent, TranslateModule, IonButtons, IonButton, ProfileGreetingsComponent, SegmentsComponent, IonChip, IonIcon, IonLabel, MenuProfileComponent, RouterOutlet, LogOutComponent
+    IonHeader, IonToolbar, IonTitle, IonContent, TranslateModule, IonButtons, IonButton, ProfileGreetingsComponent, SegmentsComponent, IonChip, IonIcon, IonLabel, MenuProfileComponent, RouterOutlet, LogOutComponent, IonSearchbar, NotificationsPreviewComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

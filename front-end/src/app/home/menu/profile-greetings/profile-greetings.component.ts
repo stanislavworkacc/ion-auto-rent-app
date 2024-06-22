@@ -9,6 +9,7 @@ import {
   IonIcon, IonLabel
 } from "@ionic/angular/standalone";
 import {SegmentsComponent} from "../../../shared/ui-kit/components/segments/segments.component";
+import {NotificationsPreviewComponent} from "../menu-profile/notifications-preview/notifications-preview.component";
 
 @Component({
   selector: 'app-profile-greetings',
@@ -26,6 +27,7 @@ import {SegmentsComponent} from "../../../shared/ui-kit/components/segments/segm
     SegmentsComponent,
     IonChip,
     IonLabel,
+    NotificationsPreviewComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None

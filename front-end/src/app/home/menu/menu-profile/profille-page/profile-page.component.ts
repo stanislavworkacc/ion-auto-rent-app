@@ -22,6 +22,7 @@ import {BackButtonComponent} from "../../../../shared/ui-kit/components/back-but
 import {NavController, Platform} from "@ionic/angular";
 import {MenuPage, ProfileMenuItem} from "../../menu-enums";
 import {LogOutComponent} from "../log-out/log-out.component";
+import {NotificationsPreviewComponent} from "../notifications-preview/notifications-preview.component";
 
 @Component({
   selector: 'app-profile-page',
@@ -53,7 +54,8 @@ import {LogOutComponent} from "../log-out/log-out.component";
     IonCol,
     IonGrid,
     IonRow,
-    LogOutComponent
+    LogOutComponent,
+    NotificationsPreviewComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -79,6 +81,15 @@ export class ProfilePage implements OnInit {
       {value: 'profile', icon: 'document-lock-outline', label: 'Захист даних'},
       {value: 'profile', icon: 'person-circle-outline', label: 'Редагувати'},
     ]);
+  }
+
+  toggleTheme() {
+    document.body.classList.toggle('dark');
+  }
+
+
+  openProfilePage(page: { value: string, icon: string, label: string }): void {
+
   }
 
   ngOnInit(): void {

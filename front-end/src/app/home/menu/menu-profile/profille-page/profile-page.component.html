@@ -1,6 +1,6 @@
 <ion-header>
-  <ion-toolbar>
-    <div class="flex justify-between upper-block">
+  <ion-toolbar class="p-2">
+    <div class="flex justify-between items-center py-2">
       <ion-buttons slot="start">
         <app-back-button [navigateBack]="goBack.bind(this)"></app-back-button>
       </ion-buttons>
@@ -10,17 +10,19 @@
         </ion-avatar>
       </ion-buttons>
     </div>
-    <ion-searchbar></ion-searchbar>
+    <notifications-preview></notifications-preview>
   </ion-toolbar>
-
 </ion-header>
+
 
 <ion-content class="ion-no-padding">
   <ion-grid>
     <ion-row>
       @for (page of menuItems(); track page.value) {
         <ion-col size="6">
-          <ion-card [class.premium]="page.value === ProfileMenuItem.PREMIUM">
+          <ion-card [class.premium]="page.value === ProfileMenuItem.PREMIUM"
+                    (click)="openProfilePage(page)"
+          >
             <ion-card-header>
               <ion-card-subtitle>
                 <ion-icon [name]="page.icon"></ion-icon>

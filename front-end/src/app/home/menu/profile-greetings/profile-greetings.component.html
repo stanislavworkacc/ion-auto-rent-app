@@ -1,6 +1,7 @@
 <ion-card class="ion-no-margin">
-  <div class="mock-img"></div>
-
+  <div class="mock-img relative">
+    <notifications-preview class="absolute bottom-0" [styles]="'text-[#eff8ff]'"></notifications-preview>
+  </div>
   <ion-card-content>
     <div class="chip-container">
       @for (chip of options(); track chip.value) {
@@ -11,4 +12,5 @@
       }
     </div>
   </ion-card-content>
+
 </ion-card>
