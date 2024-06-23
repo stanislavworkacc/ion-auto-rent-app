@@ -1,4 +1,12 @@
-import {ChangeDetectionStrategy, Component, input, InputSignal, OnInit, ViewEncapsulation} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component, effect, Input,
+  input,
+  InputSignal,
+  OnInit,
+  ViewEncapsulation,
+  WritableSignal
+} from '@angular/core';
 import {
   IonButton,
   IonCard,
@@ -9,6 +17,7 @@ import {
   IonIcon, IonLabel
 } from "@ionic/angular/standalone";
 import {SegmentsComponent} from "../../../shared/ui-kit/components/segments/segments.component";
+import {NotificationsPreviewComponent} from "../menu-profile/notifications-preview/notifications-preview.component";
 
 @Component({
   selector: 'app-profile-greetings',
@@ -26,6 +35,7 @@ import {SegmentsComponent} from "../../../shared/ui-kit/components/segments/segm
     SegmentsComponent,
     IonChip,
     IonLabel,
+    NotificationsPreviewComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
@@ -33,12 +43,17 @@ import {SegmentsComponent} from "../../../shared/ui-kit/components/segments/segm
 export class ProfileGreetingsComponent implements OnInit {
 
   public options: InputSignal<{ value: string, icon: string, label: string }[]> = input([]);
+  @Input() selected: WritableSignal<string>;
 
-  constructor() {
+  chipSelected(type: string): void {
+    this.selected.set(type);
   }
 
   ngOnInit() {
 
   }
 
+  constructor() {
+
+  }
 }

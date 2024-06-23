@@ -9,16 +9,34 @@
       <app-close-btn (click)="closeModal()"></app-close-btn>
     </ion-buttons>
   </ion-toolbar>
+
   <app-segments
     [options]="options"
     [selectedSegment]="selectedSegment"
   ></app-segments>
+
 </ion-header>
 
-<ion-content class="ion-padding">
+<ion-content class="ion-padding" [scrollEvents]="true">
   @switch (selectedSegment()) {
     @case (SegmentType.STANTDART) {
-      <sign-up-form [isLogin]="isLogin()"></sign-up-form>
+      <sign-up-form [isLogin]="isLogin()">
+        @if (isLogin()) {
+          <div class="register-prompt">
+            <div class="register-prompt-desc">
+              <span class="register-prompt-desc-text">Не маєш профілю?</span>
+              <span class="register-link">Реєстрація</span>
+            </div>
+
+
+            <app-fab [fabItems]="fabItems"
+                     icon="enter-outline"
+            ></app-fab>
+          </div>
+        }
+      </sign-up-form>
+
+
     }
     @case (SegmentType.GOOGLE) {
       <app-google-sso [isLogin]="isLogin()"></app-google-sso>
@@ -30,19 +48,4 @@
       <app-android-form [isLogin]="isLogin()"></app-android-form>
     }
   }
-
-  @if (isLogin()) {
-    <div class="register-prompt">
-      <div class="register-prompt-desc">
-        <span class="register-prompt-desc-text">Не маєш профілю?</span>
-        <span class="register-link">Реєстрація</span>
-      </div>
-
-
-      <app-fab [fabItems]="fabItems"
-               icon="enter-outline"
-      ></app-fab>
-    </div>
-  }
 </ion-content>
-

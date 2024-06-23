@@ -1,7 +1,14 @@
 <ion-content>
-  <app-profile-greetings [options]="options()"></app-profile-greetings>
-  <menu-profile [pages]="profilePages()"></menu-profile>
+  <app-profile-greetings [options]="options()" [selected]="selected"></app-profile-greetings>
+
+  @switch (selected()) {
+    @case (MenuSection.PROFILE) {
+      <menu-profile [pages]="profilePages()"></menu-profile>
+    }
+  }
 </ion-content>
+
+<log-out class="bg-[#b3bac0]"></log-out>
 
 <!--  <ion-button (click)="switchLanguage('uk')">UK</ion-button>-->
 <!--  <ion-button (click)="switchLanguage('en')">EN</ion-button>-->

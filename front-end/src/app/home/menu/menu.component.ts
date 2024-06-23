@@ -4,7 +4,6 @@ import {
   inject,
   OnInit,
   signal,
-  ViewEncapsulation,
   WritableSignal
 } from '@angular/core';
 import {
@@ -13,7 +12,7 @@ import {
   IonChip,
   IonContent,
   IonHeader,
-  IonIcon, IonLabel,
+  IonIcon, IonLabel, IonSearchbar,
   IonTitle,
   IonToolbar
 } from "@ionic/angular/standalone";
@@ -22,6 +21,11 @@ import {ProfileGreetingsComponent} from "./profile-greetings/profile-greetings.c
 import {SegmentsComponent} from "../../shared/ui-kit/components/segments/segments.component";
 import {MenuProfileComponent} from "./menu-profile/menu-profile.component";
 import {RouterOutlet} from "@angular/router";
+import {LogOutComponent} from "./menu-profile/log-out/log-out.component";
+import {NotificationsPreviewComponent} from "./menu-profile/notifications-preview/notifications-preview.component";
+import {IonFabComponent} from "../../shared/ui-kit/components/ion-fab/ion-fab.component";
+import {SignUpFormComponent} from "../../auth/authorizator/sign-up-form/sign-up-form.component";
+import {MenuPage, MenuSection} from "./menu-enums";
 
 @Component({
   selector: 'app-menu',
@@ -29,7 +33,7 @@ import {RouterOutlet} from "@angular/router";
   styleUrls: ['./menu.component.scss'],
   standalone: true,
   imports: [
-    IonHeader, IonToolbar, IonTitle, IonContent, TranslateModule, IonButtons, IonButton, ProfileGreetingsComponent, SegmentsComponent, IonChip, IonIcon, IonLabel, MenuProfileComponent, RouterOutlet
+    IonHeader, IonToolbar, IonTitle, IonContent, TranslateModule, IonButtons, IonButton, ProfileGreetingsComponent, SegmentsComponent, IonChip, IonIcon, IonLabel, MenuProfileComponent, RouterOutlet, LogOutComponent, IonSearchbar, NotificationsPreviewComponent, IonFabComponent, SignUpFormComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -38,7 +42,10 @@ export class MenuComponent implements OnInit {
   private translate: TranslateService = inject(TranslateService);
 
   public options: WritableSignal<{ value: string, icon: string, label: string }[]> = signal([]);
+  public selected: WritableSignal<string> = signal('profile');
+
   public profilePages: WritableSignal<{ value: string, icon: string, label: string }[]> = signal([]);
+  public MenuSection = MenuSection;
 
   switchLanguage(language: string) {
     this.translate.use(language);
@@ -46,21 +53,22 @@ export class MenuComponent implements OnInit {
 
   setOptions(): void {
     this.options.set([
-      {value: 'profile', icon: 'person-circle-outline', label: 'Профіль'},
-      {value: 'carPark', icon: 'car-sport-outline', label: 'Автопарк'},
-      {value: 'geo', icon: 'location-outline', label: 'Гео'},
-      {value: 'help', icon: 'information-circle-outline', label: 'Допомога'},
+      {value: MenuSection.PROFILE, icon: 'person-circle-outline', label: 'Профіль'},
+      {value: MenuSection.CAR_PARK, icon: 'car-sport-outline', label: 'Автопарк'},
+      {value: MenuSection.FILES, icon: 'folder-open-outline', label: 'Файли'},
+      {value: MenuSection.GEO, icon: 'location-outline', label: 'Гео'},
     ]);
   }
 
   setProfilePages(): void {
     this.profilePages.set([
-      {value: 'profile', icon: 'person-circle-outline', label: 'Мій профіль'},
-      {value: 'search', icon: 'search-outline', label: 'Пошук'},
-      {value: 'sale', icon: 'gift-outline', label: 'Акції'},
-      {value: 'create', icon: 'add-circle-outline', label: 'Додати оголошення'},
-      {value: 'news', icon: 'book-outline', label: 'Наші новини'},
-      {value: 'settings', icon: 'settings-outline', label: 'Налаштування'},
+      {value: MenuPage.PROFILE, icon: 'person-circle-outline', label: 'Мій профіль'},
+      {value: MenuPage.SEARCH, icon: 'search-outline', label: 'Пошук'},
+      {value: MenuPage.SALE, icon: 'gift-outline', label: 'Акції'},
+      {value: MenuPage.CREATE, icon: 'add-circle-outline', label: 'Оголошення'},
+      {value: MenuPage.NEWS, icon: 'book-outline', label: 'Наші новини'},
+      {value: MenuPage.SETTINGS, icon: 'settings-outline', label: 'Налаштування'},
+      {value: MenuPage.HELP, icon: 'information-circle-outline', label: 'Допомога'},
     ]);
   }
 
