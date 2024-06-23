@@ -14,7 +14,7 @@
         </span>
       </ion-button>
 
-      <ion-popover [trigger]="mark.value"
+      <ion-popover [trigger]="mark.value" [showBackdrop]="false"
                    [dismissOnSelect]="true">
         <ng-template>
           <ion-content>
@@ -41,12 +41,12 @@
         <span class="ml-1 text-white font-bold">{{ carMark.count }}</span>
       </ion-button>
 
-      <ion-popover [trigger]="carMark.value"
+      <ion-popover [trigger]="carMark.value" [showBackdrop]="false" side="bottom" alignment="center"
                    [dismissOnSelect]="true">
         <ng-template>
           <ion-content>
             <ion-list>
-              <ion-item [button]="true" [detail]="false">
+              <ion-item [button]="true" [detail]="false" id="nested-car">
                 {{ carMark.description }}
                 <ion-buttons slot="end">
                   <ion-button>

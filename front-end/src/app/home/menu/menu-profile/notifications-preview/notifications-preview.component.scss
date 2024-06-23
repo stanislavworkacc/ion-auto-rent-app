@@ -3,3 +3,7 @@ ion-button {
   --background-activated: #e3e7ef85;
   --box-shadow: none;
 }
+
+.nested-popover {
+  --offset-distance: -100%;
+}
