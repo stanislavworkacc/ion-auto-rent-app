@@ -10,7 +10,7 @@
           *ngFor="let breadcrumb of breadcrumbsService.breadcrumbsRoutes()"
           [href]="breadcrumb.url"
         >
-          {{ breadcrumb.label }}
+          {{ breadcrumb.label | breadcrumbLabel }}
         </ion-breadcrumb>
       </ion-breadcrumbs>
     </div>

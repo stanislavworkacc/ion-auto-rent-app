@@ -24,6 +24,7 @@ import {RouterOutlet} from "@angular/router";
 import {ProfileGreetingsComponent} from "../../profile-greetings/profile-greetings.component";
 import {AsyncPipe, JsonPipe, NgForOf} from "@angular/common";
 import {BreadcrumbService} from "../../../../shared/services/breadcrumb.service";
+import {BreadcrumbLabelPipe} from "../../../../shared/breadcrumb-map-name.pipe";
 
 @Component({
   selector: 'app-profile-page',
@@ -64,7 +65,8 @@ import {BreadcrumbService} from "../../../../shared/services/breadcrumb.service"
     NgForOf,
     IonPopover,
     AsyncPipe,
-    JsonPipe
+    JsonPipe,
+    BreadcrumbLabelPipe
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
