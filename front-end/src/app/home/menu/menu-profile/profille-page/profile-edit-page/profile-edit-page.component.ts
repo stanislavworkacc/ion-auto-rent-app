@@ -1,14 +1,14 @@
-import {ChangeDetectionStrategy, Component, inject, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, OnInit, signal, WritableSignal} from '@angular/core';
 import {
   AlertController,
   IonAlert,
   IonAvatar,
-  IonButton, IonButtons,
+  IonButton, IonButtons, IonChip,
   IonContent,
   IonHeader, IonIcon,
   IonInput,
   IonItem, IonItemDivider,
-  IonLabel, IonRange, IonSpinner,
+  IonLabel, IonList, IonPopover, IonRange, IonSpinner,
   IonTitle,
   IonToolbar
 } from "@ionic/angular/standalone";
@@ -50,6 +50,9 @@ import {PhoneNumberFormatterDirective} from "../../../../../shared/directives/ph
     PhoneNumberFormatterDirective,
     IonItemDivider,
     IonAlert,
+    IonChip,
+    IonPopover,
+    IonList,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -64,14 +67,12 @@ export class ProfileEditPage implements OnInit {
   public lastName!: FormControl;
   public email!: FormControl;
   public phone!: FormControl;
-  public oldPassword!: FormControl;
   public password!: FormControl;
   public confirmPassword!: FormControl;
   public isFocused: { [key: string]: boolean } = {
     name: false,
     lastName: false,
     google: false,
-    oldOpen: false,
     lockOpen: false,
     lockClosed: false,
     phone: false,
@@ -96,7 +97,8 @@ export class ProfileEditPage implements OnInit {
 
   showPassword: boolean = false;
   showConfirmPassword: boolean = false;
-  isBlurred: boolean = true;
+  passwordBlurred: WritableSignal<boolean> = signal(true);
+  isBlurred: WritableSignal<boolean> = signal(true);
 
   goBack(): void {
     this.navCtrl.back()
@@ -153,12 +155,64 @@ export class ProfileEditPage implements OnInit {
     await alert.present();
   }
 
+  async deleteAccount(): Promise<void> {
+    const alert: HTMLIonAlertElement = await this.alertCtrl.create({
+      header: 'Дійсно бажаєте видалити свій профіль?',
+      buttons: [
+        {
+          text: 'Скасувати',
+          role: 'cancel',
+          handler: () => {
+          }
+        },
+        {
+          text: 'Підтвердити',
+          role: 'confirm',
+          handler: () => {
+            this.onDeleteAccount('confirm')
+          }
+        },
+      ]
+    });
+
+    await alert.present()
+  }
+
+  async confirmEditPassword(): Promise<void> {
+    const alert: HTMLIonAlertElement = await this.alertCtrl.create({
+      header: 'Введіть пароль',
+      inputs: [
+        {
+          name: 'password',
+          type: 'password',
+          placeholder: 'Пароль'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Скасувати',
+          role: 'cancel',
+          handler: () => {
+          }
+        },
+        {
+          text: 'Підтвердити',
+          role: 'confirm',
+          handler: () => {
+            this.passwordBlurred.set(false);
+          }
+        },
+      ]
+    });
+
+    await alert.present();
+  }
+
   assignFormControls(): void {
     this.name = this.form.get('name') as FormControl;
     this.lastName = this.form.get('lastName') as FormControl;
     this.email = this.form.get('email') as FormControl;
     this.phone = this.form.get('phone') as FormControl;
-    this.oldPassword = this.form.get('oldPassword') as FormControl;
     this.password = this.form.get('password') as FormControl;
     this.confirmPassword = this.form.get('confirmPassword') as FormControl;
   }
@@ -170,7 +224,6 @@ export class ProfileEditPage implements OnInit {
       phone: ['', [Validators.required, Validators.minLength(14)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
-      oldPassword: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', [Validators.required]]
     }, {validator: matchingPasswordsValidator('password', 'confirmPassword')});
 

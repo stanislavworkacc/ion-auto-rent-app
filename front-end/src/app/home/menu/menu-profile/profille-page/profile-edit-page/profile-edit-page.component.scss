@@ -1,5 +1,5 @@
 ion-content {
-  --background: #1f1f1f !important;
+  --background: #b3bac0;
 
   .wrapper {
     background: linear-gradient(to bottom, #f0f4f7, #b3bac0);
@@ -8,6 +8,7 @@ ion-content {
     form {
       min-height: 100vh !important;
       overflow-y: auto;
+
 
       .login-email-container {
         display: flex;
@@ -86,6 +87,7 @@ ion-content {
       .blurred {
         filter: blur(5px);
         transition: filter 0.3s ease-in-out;
+        pointer-events: none;
       }
     }
   }
