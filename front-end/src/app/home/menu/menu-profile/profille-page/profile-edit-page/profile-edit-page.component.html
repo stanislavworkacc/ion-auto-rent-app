@@ -1,0 +1,42 @@
+<ion-header class="!shadow-none">
+  <ion-toolbar>
+    <div class="flex justify-between items-center">
+      <ion-buttons slot="start">
+        <app-back-button [navigateBack]="goBack.bind(this)"></app-back-button>
+      </ion-buttons>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="wrapper bg-white h-full rounded-tl-[30px] rounded-tr-[30px]">
+    <div class="flex justify-between items-center bg-[#d0d5db] rounded-tl-[30px] rounded-tr-[30px]">
+      <div class="flex items-center p-3 bg-[#d0d5db] rounded-tl-[30px]">
+        <ion-avatar slot="start">
+          <img class="rounded-[15px]" src="https://ionicframework.com/docs/img/demos/avatar.svg"/>
+        </ion-avatar>
+        <div class="ml-4">
+          <p class="text-[18px] font-bold text-gray-800">Станіслав</p>
+          <p class="text-sm text-gray-600">+380(93)-567-890</p>
+          <p class="text-sm text-blue-600">johndoe.com</p>
+        </div>
+      </div>
+      <div class="mx-4 text-2xl font-bold text-gray-800" [ngClass]="getTextColor(profileCompletion)">
+        {{ profileCompletion }}%
+      </div>
+    </div>
+
+    <div class="bg-[#d0d5db]">
+      <ion-range
+        min="0"
+        max="100"
+        step="1"
+        [(ngModel)]="profileCompletion"
+        class="px-3"
+        [ngStyle]="{ '--bar-background-active': getRangeGradient(profileCompletion) }">
+      </ion-range>
+    </div>
+
+  </div>
+
+</ion-content>

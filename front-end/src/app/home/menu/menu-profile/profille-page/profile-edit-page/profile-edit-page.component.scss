@@ -1,0 +1,20 @@
+ion-content {
+  --background: #1f1f1f !important;
+
+  .wrapper {
+    background: linear-gradient(to bottom, #f0f4f7, #b3bac0);
+  }
+}
+
+ion-range {
+  --bar-height: 18px;
+  --bar-background: #d1d5db;
+  --knob-background: transparent;
+  --knob-box-shadow: none;
+  --bar-border-radius: 20px;
+  --knob-border-radius: 50%;
+  --knob-size: 20px;
+  --pin-background: #3b82f6;
+  --pin-color: white;
+  --pin-font-size: 12px;
+}
