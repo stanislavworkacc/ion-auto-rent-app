@@ -21,22 +21,267 @@
           <p class="text-sm text-blue-600">johndoe.com</p>
         </div>
       </div>
-      <div class="mx-4 text-2xl font-bold text-gray-800" [ngClass]="getTextColor(profileCompletion)">
-        {{ profileCompletion }}%
+    </div>
+
+    <form [formGroup]="form" class="px-3 my-3">
+
+      <ion-label class="text-[#1f2937] !border-none mb-2">Особиста інформація</ion-label>
+      <div class="form-input" #nameRef [appValidateInput]="nameRef">
+        <div class="input-row">
+          <ion-label position="static" [class.focused]="isFocused['name']">
+
+            @if (!isFocused['name'] || name.valid) {
+              <span>Ім'я</span>
+            }
+
+            @if (name.valid) {
+              <ion-icon name="checkmark-circle-outline" class="checkmark-icon"></ion-icon>
+            }
+
+            @if (isFocused['name'] && !name.valid) {
+              <ion-spinner name="dots" color="primary"></ion-spinner>
+            }
+
+          </ion-label>
+
+          <ion-input
+            type="text"
+            class="aligned-input"
+            placeholder="Введіть ваше ім'я"
+            [formControl]="name"
+            (ionFocus)="onFocus('name')"
+            (ionBlur)="onBlur('name')"
+          ></ion-input>
+        </div>
+
+        <div [appValidateInput]="nameRef" [control]="name" class="error-container">
+          <!-- Контейнер для помилки -->
+        </div>
       </div>
-    </div>
 
-    <div class="bg-[#d0d5db]">
-      <ion-range
-        min="0"
-        max="100"
-        step="1"
-        [(ngModel)]="profileCompletion"
-        class="px-3"
-        [ngStyle]="{ '--bar-background-active': getRangeGradient(profileCompletion) }">
-      </ion-range>
-    </div>
+      <div class="form-input" #lastNameRef [appValidateInput]="lastNameRef">
+        <div class="input-row">
+          <ion-label position="static" [class.focused]="isFocused['lastName']">
 
+            @if (!isFocused['lastName'] || lastName.valid) {
+              <span>Прізвище</span>
+            }
+
+            @if (lastName.valid) {
+              <ion-icon name="checkmark-circle-outline" class="checkmark-icon"></ion-icon>
+            }
+
+            @if (isFocused['lastName'] && !lastName.valid) {
+              <ion-spinner name="dots" color="primary"></ion-spinner>
+            }
+
+          </ion-label>
+
+          <ion-input
+            type="text"
+            class="aligned-input"
+            placeholder="Додайте прізвище"
+            [formControl]="lastName"
+            (ionFocus)="onFocus('lastName')"
+            (ionBlur)="onBlur('lastName')"
+          ></ion-input>
+        </div>
+
+        <div [appValidateInput]="lastNameRef" [control]="lastName" class="error-container">
+          <!-- Контейнер для помилки -->
+        </div>
+      </div>
+
+      <div class="form-input" #mobileRef [appValidateInput]="mobileRef">
+        <div class="input-row">
+          <ion-label position="static" [class.focused]="isFocused['phone']">
+            <div class="phone-container">
+              <ion-icon name="call-outline"></ion-icon>
+              <span>+380</span>
+            </div>
+            @if (phone.valid) {
+              <ion-icon name="checkmark-circle-outline" class="checkmark-icon"></ion-icon>
+            }
+          </ion-label>
+
+          <ion-input
+            type="text"
+            class="aligned-input"
+            phoneFormatter
+            placeholder="(XX)-XXX-XX-XX"
+            [formControl]="phone"
+            (ionFocus)="onFocus('phone')"
+            (ionBlur)="onBlur('phone')"
+          ></ion-input>
+        </div>
+
+        <div [appValidateInput]="mobileRef" [control]="phone" class="error-container">
+          <!-- Контейнер для помилки -->
+        </div>
+      </div>
+
+      <div class="form-input" #emailRef [appValidateInput]="emailRef">
+        <div class="input-row">
+
+          <ion-label position="static" [class.focused]="isFocused['google']" class="flex !justify-center">
+            @if (!isFocused['google'] || email.valid) {
+              <ion-icon name="logo-google"></ion-icon>
+            }
+
+            @if (email.valid) {
+              <ion-icon name="checkmark-circle-outline" class="checkmark-icon"></ion-icon>
+            }
+
+            @if (isFocused['google'] && !email.valid) {
+              <ion-spinner name="dots" color="primary"></ion-spinner>
+            }
+          </ion-label>
+
+          <ion-input
+            type="text"
+            class="aligned-input"
+            placeholder="Введіть поштову адресу"
+            [formControl]="email"
+            (ionFocus)="onFocus('google')"
+            (ionBlur)="onBlur('google')"
+          ></ion-input>
+        </div>
+
+        <div [appValidateInput]="emailRef" [control]="email" class="error-container">
+          <!-- Контейнер для помилки -->
+        </div>
+      </div>
+
+      <ion-label class="text-[#1f2937] !border-none mb-2">Безпека даних</ion-label>
+
+      <div #oldRef [appValidateInput]="oldRef" class="form-input">
+        <div class="input-row">
+          <ion-label [class.focused]="isFocused['oldOpen']" position="static" class="flex !justify-center">
+
+            @if (!isFocused['oldOpen'] || password.valid) {
+              <ion-icon name="lock-open-outline"></ion-icon>
+            }
+
+            @if (password.valid) {
+              <ion-icon class="checkmark-icon" name="checkmark-circle-outline"></ion-icon>
+            }
+
+            @if (isFocused['oldOpen'] && !password.valid) {
+              <ion-spinner name="dots" color="primary"></ion-spinner>
+            }
+
+          </ion-label>
+
+          <ion-input
+            (ionBlur)="onBlur('oldOpen')"
+            (ionFocus)="onFocus('oldOpen')"
+            [formControl]="oldPassword"
+            class="aligned-input"
+            placeholder="Ваш пароль"
+          ></ion-input>
+        </div>
+
+        <div [appValidateInput]="oldRef" [control]="password" class="error-container">
+          <!-- Контейнер для помилки -->
+        </div>
+      </div>
+
+
+      <div [class.blurred]="isBlurred" (click)="isBlurred = false;">
+        <div #passRef [appValidateInput]="passRef" class="form-input">
+          <div class="input-row">
+            <ion-label [class.focused]="isFocused['lockOpen']" position="static" class="flex !justify-center">
+
+              @if (!isFocused['lockOpen'] || password.valid) {
+                <ion-icon name="lock-open-outline"></ion-icon>
+              }
+
+              @if (password.valid) {
+                <ion-icon class="checkmark-icon" name="checkmark-circle-outline"></ion-icon>
+              }
+
+              @if (isFocused['lockOpen'] && !password.valid) {
+                <ion-spinner name="dots" color="primary"></ion-spinner>
+              }
+
+            </ion-label>
+
+            <ion-input
+              (ionBlur)="onBlur('lockOpen')"
+              (ionFocus)="onFocus('lockOpen')"
+              [formControl]="password"
+              [type]="showPassword ? 'text' : 'password'"
+              class="aligned-input"
+              placeholder="Пароль"
+            ></ion-input>
+
+            <ion-icon (click)="toggleShowPassword()"
+                      [name]="showPassword ? 'eye-outline' : 'eye-off-outline'"
+                      class="eye-icon"
+            >
+            </ion-icon>
+          </div>
+
+          <div [appValidateInput]="passRef" [control]="password" class="error-container">
+            <!-- Контейнер для помилки -->
+          </div>
+        </div>
+
+        <div class="form-input" #confirmRef [appValidateInput]="confirmRef">
+          <div class="input-row">
+            <ion-label position="static" [class.focused]="isFocused['lockClosed']" class="flex !justify-center">
+
+              @if (!isFocused['lockClosed'] || confirmPassword.valid) {
+                <ion-icon name="lock-closed-outline"></ion-icon>
+              }
+
+              @if (confirmPassword.valid) {
+                <ion-icon class="checkmark-icon" name="checkmark-circle-outline"></ion-icon>
+              }
+
+              @if (isFocused['lockClosed'] && !confirmPassword.valid) {
+                <ion-spinner name="dots" color="primary"></ion-spinner>
+              }
+
+            </ion-label>
+
+            <ion-input
+              [type]="showConfirmPassword ? 'text' : 'password'"
+              class="aligned-input"
+              placeholder="Підтвердити пароль"
+              [formControl]="confirmPassword"
+              (ionFocus)="onFocus('lockClosed')"
+              (ionBlur)="onBlur('lockClosed')"
+            ></ion-input>
+
+            <ion-icon class="eye-icon"
+                      [name]="showConfirmPassword ? 'eye-outline' : 'eye-off-outline'"
+                      (click)="toggleShowConfirmPassword()">
+            </ion-icon>
+          </div>
+
+          <div [appValidateInput]="confirmRef" [control]="confirmPassword" class="error-container">
+            <!-- Контейнер для помилки -->
+          </div>
+        </div>
+      </div>
+    </form>
   </div>
 
 </ion-content>
+<ion-button
+  expand="block"
+  fill="outline"
+  shape="round"
+  id="delete-alert"
+  type="button"
+>
+  <span>Видалити аккаунт</span>
+  <ion-icon name="person-remove-outline"></ion-icon>
+</ion-button>
+
+<ion-alert
+  trigger="delete-alert"
+  header="Ви впевнені, що хочете видалити профіль?"
+  [buttons]="alertButtons"
+></ion-alert>
