@@ -11,7 +11,6 @@ import {
   Output
 } from '@angular/core';
 
-import {setTimeout, clearTimeout} from '@rx-angular/cdk/zone-less/browser';
 import {toastAnimations, ToastAnimationState} from "./toast-animation";
 import {Toast} from "../toast.interface";
 import {DefaultToastConfig} from "./toast.config";

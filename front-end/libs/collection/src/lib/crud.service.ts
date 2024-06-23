@@ -13,7 +13,7 @@ import { UpdateEntityModel } from './models/update-entity.model';
   providedIn: 'root'
 })
 export class CrudService {
-  version: string = 'v1';
+  version: string = '';
 
   constructor(private httpService: CrudHttpService) {
   }
@@ -23,7 +23,8 @@ export class CrudService {
     if (version) {
        apiVersion = version;
     }
-    return `${apiVersion}/${url}`;
+    // return `${apiVersion}/${url}`;
+    return `${url}`;
   }
 
   /**

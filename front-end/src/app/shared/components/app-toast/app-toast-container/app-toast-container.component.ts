@@ -7,7 +7,6 @@ import {
 import {BehaviorSubject} from 'rxjs';
 import {Toast} from '../toast.interface';
 import {ToasterService} from "../toaster.service";
-import {RxFor} from "@rx-angular/template/for";
 import {AppToastComponent} from "../app-toast/app-toast.component";
 import {AsyncPipe, NgForOf} from "@angular/common";
 
@@ -17,7 +16,6 @@ import {AsyncPipe, NgForOf} from "@angular/common";
   styleUrls: ['./app-toast-container.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    RxFor,
     AppToastComponent,
     NgForOf,
     AsyncPipe

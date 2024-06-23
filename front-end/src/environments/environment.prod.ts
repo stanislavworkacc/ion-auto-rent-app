@@ -1,5 +1,8 @@
-export const domainName = 'http://192.241.159.197:8000';
+// export const domainName = 'http://143.198.120.163:8000';
+export const domainName = 'http://localhost:8000';
 
 export const environment = {
-  production: true
+  production: true,
+  login: 'api/login',
+  test: 'api/test'
 };
