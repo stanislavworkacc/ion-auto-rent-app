@@ -28,6 +28,8 @@ export class MenuDataService {
     label: string
   }[]> = signal([]);
 
+  public selectedMenuChip: WritableSignal<string> = signal('profile');
+
   setOptions(options: { value: string, icon: string, label: string }[]): void {
     this.options.set(options)
   }

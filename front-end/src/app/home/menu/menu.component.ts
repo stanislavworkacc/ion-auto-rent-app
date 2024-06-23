@@ -43,7 +43,7 @@ export class MenuComponent implements OnInit {
   private translate: TranslateService = inject(TranslateService);
   private menuDataService: MenuDataService = inject(MenuDataService);
 
-  public selected: WritableSignal<string> = signal('profile');
+  public selectedMenuChip: WritableSignal<string> = this.dataService.selectedMenuChip;
 
   public MenuSection = MenuSection;
 
