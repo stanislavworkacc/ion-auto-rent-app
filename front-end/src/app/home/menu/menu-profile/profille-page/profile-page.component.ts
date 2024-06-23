@@ -3,16 +3,16 @@ import {
   Component,
   inject,
   OnInit,
-  signal,
+  signal, ViewChild,
   WritableSignal
 } from '@angular/core';
 import {
   IonAvatar,
-  IonBackButton, IonBadge, IonButton,
+  IonBackButton, IonBadge, IonBreadcrumb, IonBreadcrumbs, IonButton,
   IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCol,
   IonContent, IonGrid,
   IonHeader, IonIcon, IonItem, IonLabel, IonList,
-  IonModal, IonRow, IonSearchbar, IonTitle,
+  IonModal, IonPopover, IonRow, IonSearchbar, IonTitle,
   IonToolbar,
 } from "@ionic/angular/standalone";
 import {BackButtonComponent} from "../../../../shared/ui-kit/components/back-button/back-button.component";
@@ -21,8 +21,9 @@ import {ProfileMenuItem} from "../../menu-enums";
 import {LogOutComponent} from "../log-out/log-out.component";
 import {NotificationsPreviewComponent} from "../notifications-preview/notifications-preview.component";
 import {RouterOutlet} from "@angular/router";
-import {MenuDataService} from "../../menu-data.serivce";
 import {ProfileGreetingsComponent} from "../../profile-greetings/profile-greetings.component";
+import {AsyncPipe, JsonPipe, NgForOf} from "@angular/common";
+import {BreadcrumbService} from "../../../../shared/services/breadcrumb.service";
 
 @Component({
   selector: 'app-profile-page',
@@ -57,25 +58,35 @@ import {ProfileGreetingsComponent} from "../../profile-greetings/profile-greetin
     LogOutComponent,
     NotificationsPreviewComponent,
     RouterOutlet,
-    ProfileGreetingsComponent
+    ProfileGreetingsComponent,
+    IonBreadcrumbs,
+    IonBreadcrumb,
+    NgForOf,
+    IonPopover,
+    AsyncPipe,
+    JsonPipe
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfilePage implements OnInit {
 
   private navCtrl: NavController = inject(NavController);
-  private menuDataService: MenuDataService = inject(MenuDataService);
+  private breadcrumbs: BreadcrumbService = inject(BreadcrumbService);
   public platform: Platform = inject(Platform);
 
   public menuItems: WritableSignal<{ value: string, icon: string, label: string }[]> = signal([]);
   public ProfileMenuItem = ProfileMenuItem;
+  public collapsedBreadcrumbs: any[] = [];
+  public isBreadCrumbPopoverOpen: boolean = false;
 
-  get dataService() {
-    return this.menuDataService;
-  }
+  @ViewChild('popover') popover;
 
   goBack(): void {
     this.navCtrl.back()
+  }
+
+  get breadcrumbsService() {
+    return this.breadcrumbs;
   }
 
   setMenuItems(): void {
@@ -93,9 +104,16 @@ export class ProfilePage implements OnInit {
   openProfilePage(page: { value: string, icon: string, label: string }): void {
     switch (page.value) {
       case ProfileMenuItem.EDIT: {
-        this.navCtrl.navigateForward('home/menu/edit')
+        this.navCtrl.navigateForward('home/menu/profile/edit')
       }
     }
+  }
+
+  async presentPopover(e: Event): Promise<void> {
+    const eventDetail = (e as CustomEvent).detail;
+    this.collapsedBreadcrumbs = this.breadcrumbsService.buildCollapsedBreadcrumbs(eventDetail.collapsedBreadcrumbs);
+    this.popover.event = e;
+    this.isBreadCrumbPopoverOpen = true;
   }
 
   ngOnInit(): void {

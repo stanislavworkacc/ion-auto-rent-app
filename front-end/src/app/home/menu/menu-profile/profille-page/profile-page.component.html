@@ -4,22 +4,24 @@
       <ion-buttons slot="start">
         <app-back-button [navigateBack]="goBack.bind(this)"></app-back-button>
       </ion-buttons>
-      <ion-buttons slot="end">
-        <ion-avatar>
-          <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg"/>
-        </ion-avatar>
-      </ion-buttons>
+
+      <ion-breadcrumbs [maxItems]="2" (ionCollapsedClick)="presentPopover($event)" [itemsBeforeCollapse]="0">
+        <ion-breadcrumb
+          *ngFor="let breadcrumb of breadcrumbsService.breadcrumbsRoutes()"
+          [href]="breadcrumb.url"
+        >
+          {{ breadcrumb.label }}
+        </ion-breadcrumb>
+      </ion-breadcrumbs>
     </div>
-    <notifications-preview
-      [socialMarks]="dataService.getSocialMarks()"
-      [carsMarks]="dataService.getCarsMarks()"
-    ></notifications-preview>
+
+    <ion-searchbar></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
-
 <ion-content class="ion-no-padding">
   <router-outlet></router-outlet>
+
   <ion-grid>
     <ion-row>
       @for (page of menuItems(); track page.value) {
@@ -47,3 +49,21 @@
 </ion-content>
 <log-out class="bg-[#b3bac0]"></log-out>
 
+<ion-popover #popover
+             [isOpen]="isBreadCrumbPopoverOpen"
+             (didDismiss)="isBreadCrumbPopoverOpen = false"
+>
+  <ng-template>
+    <ion-content>
+      <ion-list>
+        <ion-item
+          *ngFor="let breadcrumb of collapsedBreadcrumbs; last as isLast"
+          [href]="breadcrumb?.url"
+          [lines]="isLast ? 'none' : null"
+        >
+          <ion-label>{{ breadcrumb?.label }}</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ng-template>
+</ion-popover>

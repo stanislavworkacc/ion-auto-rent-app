@@ -11,9 +11,12 @@ export const MENU_ROUTES: Routes = [
   {
     path: 'profile',
     component: ProfilePage,
+    children: [
+      {
+        path: 'edit',
+        component: ProfileEditPage
+      }
+    ]
   },
-  {
-    path: 'edit',
-    component: ProfileEditPage
-  }
+
 ]
