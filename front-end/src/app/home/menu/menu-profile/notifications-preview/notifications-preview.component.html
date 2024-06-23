@@ -1,6 +1,6 @@
 <div class="flex flex-col">
   <div class="flex justify-end items-center space-x-3 down-toolbar">
-    @for (mark of socialMarks; track mark.value) {
+    @for (mark of socialMarks(); track mark.value) {
       <ion-button class="relative flex items-center border-gray-300" [id]="mark.value">
         <ion-icon slot="icon-only" [name]="mark.icon" class="text-gray-700"></ion-icon>
         <span class="ml-1 text-white font-bold">
@@ -35,7 +35,7 @@
   </div>
 
   <div class="car-info flex justify-end">
-    @for (carMark of carsMarks; track carMark.value) {
+    @for (carMark of carsMarks(); track carMark.value) {
       <ion-button class="relative flex items-center border-gray-300" [id]="carMark.value">
         <ion-icon slot="icon-only" [name]="carMark.icon" class="text-gray-700"></ion-icon>
         <span class="ml-1 text-white font-bold">{{ carMark.count }}</span>

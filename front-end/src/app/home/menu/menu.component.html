@@ -1,9 +1,17 @@
 <ion-content>
-  <app-profile-greetings [options]="options()" [selected]="selected"></app-profile-greetings>
+  <app-profile-greetings
+    [options]="dataService.getOptions()"
+    [selected]="selected"
+    [socialMarks]="dataService.getSocialMarks()"
+    [carsMarks]="dataService.getCarsMarks()"
+  >
+  </app-profile-greetings>
 
   @switch (selected()) {
     @case (MenuSection.PROFILE) {
-      <menu-profile [pages]="profilePages()"></menu-profile>
+      <menu-profile
+        [pages]="dataService.getProfilePages()"
+      ></menu-profile>
     }
   }
 </ion-content>

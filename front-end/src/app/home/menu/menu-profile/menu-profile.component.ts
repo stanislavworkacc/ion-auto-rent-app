@@ -15,6 +15,7 @@ import {NgForOf, NgIf} from "@angular/common";
 import {MenuPage} from "../menu-enums";
 import {NavController, Platform} from "@ionic/angular";
 import {LogOutComponent} from "./log-out/log-out.component";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'menu-profile',
@@ -54,7 +55,7 @@ export class MenuProfileComponent implements OnInit {
   public MenuPage = MenuPage;
 
   openPage(page: { value: string, icon: string, label: string }): void {
-    this.navCtrl.navigateForward('/home/menu/profile')
+    this.navCtrl.navigateForward(['/home/menu/profile']);
   }
 
   constructor() {

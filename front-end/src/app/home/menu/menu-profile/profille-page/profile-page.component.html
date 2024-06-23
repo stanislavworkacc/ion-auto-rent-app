@@ -10,7 +10,10 @@
         </ion-avatar>
       </ion-buttons>
     </div>
-    <notifications-preview></notifications-preview>
+    <notifications-preview
+      [socialMarks]="dataService.getSocialMarks()"
+      [carsMarks]="dataService.getCarsMarks()"
+    ></notifications-preview>
   </ion-toolbar>
 </ion-header>
 

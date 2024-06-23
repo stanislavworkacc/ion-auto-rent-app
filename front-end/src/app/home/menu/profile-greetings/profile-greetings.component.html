@@ -1,6 +1,12 @@
 <ion-card class="ion-no-margin">
   <div class="mock-img relative">
-    <notifications-preview class="absolute bottom-0 right-[15px]" [styles]="'text-[#eff8ff]'"></notifications-preview>
+    <notifications-preview
+      class="absolute bottom-0 right-[15px]"
+      [styles]="'text-[#eff8ff]'"
+      [socialMarks]="socialMarks()"
+      [carsMarks]="carsMarks()"
+    >
+    </notifications-preview>
   </div>
   <ion-card-content>
     <div class="chip-container">

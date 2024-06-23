@@ -21,6 +21,8 @@ import {ProfileMenuItem} from "../../menu-enums";
 import {LogOutComponent} from "../log-out/log-out.component";
 import {NotificationsPreviewComponent} from "../notifications-preview/notifications-preview.component";
 import {RouterOutlet} from "@angular/router";
+import {MenuDataService} from "../../menu-data.serivce";
+import {ProfileGreetingsComponent} from "../../profile-greetings/profile-greetings.component";
 
 @Component({
   selector: 'app-profile-page',
@@ -54,17 +56,23 @@ import {RouterOutlet} from "@angular/router";
     IonRow,
     LogOutComponent,
     NotificationsPreviewComponent,
-    RouterOutlet
+    RouterOutlet,
+    ProfileGreetingsComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfilePage implements OnInit {
 
   private navCtrl: NavController = inject(NavController);
+  private menuDataService: MenuDataService = inject(MenuDataService);
   public platform: Platform = inject(Platform);
 
   public menuItems: WritableSignal<{ value: string, icon: string, label: string }[]> = signal([]);
   public ProfileMenuItem = ProfileMenuItem;
+
+  get dataService() {
+    return this.menuDataService;
+  }
 
   goBack(): void {
     this.navCtrl.back()

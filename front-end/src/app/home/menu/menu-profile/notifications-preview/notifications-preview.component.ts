@@ -1,4 +1,13 @@
-import {ChangeDetectionStrategy, Component, inject, Input, OnInit} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject, input,
+  Input,
+  InputSignal,
+  OnInit,
+  signal,
+  WritableSignal
+} from '@angular/core';
 import {
   IonButton, IonButtons,
   IonContent,
@@ -31,17 +40,19 @@ export class NotificationsPreviewComponent implements OnInit {
 
   @Input() styles: string;
 
-  socialMarks = [
-    {icon: 'notifications-outline', count: 3, description: 'Системні повідомлення', value: 'notifications'},
-    {icon: 'chatbubbles-outline', count: 3, description: 'Вхідні повідомлення', value: 'chat'},
-    {icon: 'heart-outline', count: 2, description: 'Вподобайки', value: 'likes'},
-    {icon: 'heart-dislike-outline', count: 2, description: 'Дизлайки', value: 'dislikes'}
-  ];
+  socialMarks: InputSignal<{
+    icon: string,
+    count: number,
+    description: string,
+    value: string
+  }[]> = input([]);
 
-  carsMarks = [
-    {icon: 'car-outline', count: 4, description: 'Транспортні засоби', value: 'car'},
-    {icon: 'checkmark-circle-outline', count: 4, description: 'Здано в оренду', value: 'checkmark'}
-  ];
+  carsMarks: InputSignal<{
+    icon: string,
+    count: number,
+    description: string,
+    value: string
+  }[]> = input([]);
 
   constructor() {
   }
