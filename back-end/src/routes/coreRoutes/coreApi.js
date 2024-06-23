@@ -10,6 +10,10 @@ const emailController = require('@/controllers/coreControllers/emailController')
 
 const { singleStorageUpload } = require('@/middlewares/uploadMiddleware');
 
+// //_______________________________ TEST API_______________________________
+
+router.route('/test').get(catchErrors(adminController.test));
+
 // //_______________________________ Admin management_______________________________
 
 router.route('/admin/read/:id').get(catchErrors(adminController.read));

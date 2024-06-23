@@ -7,6 +7,8 @@ const isValidAuthToken = async (req, res, next, { userModel, jwtSecret = 'JWT_SE
     const UserPassword = mongoose.model(userModel + 'Password');
     const User = mongoose.model(userModel);
     const token = req.cookies.token;
+
+    // Authorization
     if (!token)
       return res.status(401).json({
         success: false,
@@ -25,8 +27,9 @@ const isValidAuthToken = async (req, res, next, { userModel, jwtSecret = 'JWT_SE
         jwtExpired: true,
       });
 
-    const userPasswordPromise = UserPassword.findOne({ user: verified.id, removed: false });
-    const userPromise = User.findOne({ _id: verified.id, removed: false });
+    const userPasswordPromise = UserPassword.findOne({ user: verified.id });
+    const userPromise = User.findOne({ _id: verified.id });
+
 
     const [user, userPassword] = await Promise.all([userPromise, userPasswordPromise]);
 

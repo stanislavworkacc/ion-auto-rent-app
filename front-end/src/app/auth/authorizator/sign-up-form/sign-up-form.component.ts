@@ -18,6 +18,10 @@ import {PrivacyPolicyComponent} from "../privacy-policy/privacy-policy.component
 import {IonButton, IonIcon, IonInput, IonLabel, IonList, IonSpinner} from "@ionic/angular/standalone";
 import {PhoneNumberFormatterDirective} from "../../../shared/directives/phone-formatter.directive";
 import {animate, state, style, transition, trigger} from "@angular/animations";
+import {AuthService} from "../../../shared/services/auth-service";
+import {CapacitorCookies} from "@capacitor/core";
+import {Http, HttpCookie} from '@capacitor-community/http';
+import {StorageService} from "../../../shared/services/storage.service";
 
 @Component({
   selector: 'sign-up-form',
@@ -41,10 +45,12 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SignUpFormComponent implements OnInit {
+export class SignUpFormComponent  implements OnInit {
 
   private fb: FormBuilder = inject(FormBuilder);
+  private authService: AuthService = inject(AuthService);
   private cdRef: ChangeDetectorRef = inject(ChangeDetectorRef);
+  private storageService: StorageService = inject(StorageService);
 
   @ViewChild('passwordInput', {static: false}) passwordInput!: ElementRef;
 
@@ -74,9 +80,44 @@ export class SignUpFormComponent implements OnInit {
     this.isFocused[field] = false;
   }
 
-  onSubmit(): void {
+  async onSubmit() {
+    // this.authService.test().subscribe((data) => {
+    //   debugger;
+    // })
+
+    const kkkk = await this.getCookies();
+    console.log('docu k', document.cookie)
+    debugger;
+
+    if(false) {
+      this.authService.test().subscribe((data) => {
+        // debugger;
+      })
+    } else {
+      this.authService.login({
+        "email": "test@gmail.com",
+        "password": "testTets"
+      }).subscribe( async (data) => {
+        console.log('data', data);
+        // this.authService.test().subscribe((data) => {
+        //   debugger;
+        // })
+
+        this.authService.test().subscribe((data) => {
+          debugger;
+        })
+      })
+    }
 
   }
+
+  getCookies = async () => {
+    const ret: any = await CapacitorCookies.getCookies(
+      { url: '/'}
+    );
+    console.log('Got cookies', ret);
+    return JSON.stringify(ret.value);
+  };
 
   toggleShowPassword() {
     this.showPassword = !this.showPassword;

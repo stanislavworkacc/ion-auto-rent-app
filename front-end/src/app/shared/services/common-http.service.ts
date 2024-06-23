@@ -4,6 +4,7 @@ import {from, Observable, Subject, tap} from "rxjs";
 import {LoadingService} from "./loading.service";
 import {CapacitorHttp} from "@capacitor/core";
 import {map} from "rxjs/operators";
+import {StorageService} from "./storage.service";
 
 const defaultOptions = {
   responseType: 'json'
@@ -24,6 +25,8 @@ export class CommonHttpService {
   private destroyed$ = new Subject<void>();
   private readonly track: <T>(observable: Observable<T>) => Observable<T>;
 
+  private storageService: StorageService = inject(StorageService);
+
   get<TResponse>({url, params, additionalOptions}: {
     url: string, params?: StrMap<string>,
     additionalOptions?: any
@@ -31,7 +34,10 @@ export class CommonHttpService {
     return this.track(
       from(CapacitorHttp.get({
         url: this.setUrl(url, this.getStringParams(getOptions(params, additionalOptions))),
-        headers: this.addHeader(),
+         headers: this.addHeader(),
+          webFetchExtra: {
+            credentials: "include",
+          },
       })).pipe(
         // map((responseData) => ({
         //   meta: responseData?.data?.meta || [],
@@ -51,6 +57,9 @@ export class CommonHttpService {
           url: this.setUrl(url, this.getStringParams(getOptions(params, additionalOptions))),
           data: data,
           headers: this.addHeader(),
+          webFetchExtra: {
+            credentials: "include",
+          },
         },
       ))
     );
@@ -62,6 +71,9 @@ export class CommonHttpService {
       data?: TData,
       additionalOptions?: any,
       params?: StrMap<string>
+      webFetchExtra: {
+        credentials: "include",
+      },
     }
   ) {
     return this.track(
@@ -83,6 +95,9 @@ export class CommonHttpService {
           url: this.setUrl(url, this.getStringParams(getOptions(params))),
           // params: getOptions(params),
           headers: this.addHeader(),
+          webFetchExtra: {
+            credentials: "include",
+          },
         },
       ))
     );
@@ -100,6 +115,9 @@ export class CommonHttpService {
         url: this.setUrl(url, this.getStringParams(getOptions(params))),
         // params: options,
         headers: this.addHeader(),
+        webFetchExtra: {
+          credentials: "include",
+        },
       }))
     );
   }
@@ -124,18 +142,20 @@ export class CommonHttpService {
   }
 
 
-  addHeader(): any {
-    const token = localStorage.getItem('access_token');
+  addHeader() {
+    // const token = localStorage.getItem('access_token');
+    // const tokenData: any = await this.storageService.getObject('token');
 
-    if (token) {
+    // debugger;
+    if (false) {
 
       return {
-        Authorization: `Bearer ${token}`,
-        'content-type': "application/json"
+        // Authorization: `${tokenData.accessToken}`,
+        'Content-Type': "application/json",
       }
     } else {
       return {
-        'content-type': "application/json"
+        'Content-Type': "application/json",
       }
     }
   }

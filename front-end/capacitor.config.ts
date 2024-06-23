@@ -7,7 +7,13 @@ const config: CapacitorConfig = {
   plugins: {
     CapacitorHttp: {
       enabled: true
-    }
+    },
+    CapacitorCookies: {
+      enabled: true,
+    },
+  },
+  server: {
+    hostname: '143.198.120.163:8000'
   }
 };
 
