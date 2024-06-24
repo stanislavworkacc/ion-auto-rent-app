@@ -1,16 +1,18 @@
 import {of} from "rxjs/internal/observable/of";
+import {Observable} from "rxjs";
 
-//@ts-ignore
-export function handleError(errors, _toastService) {
-  if (errors && errors.data) {
-    const message = errors.data.length ? errors.data.map((err: { message: any; }) => `${err.message}`).join('\n') : errors.data.message;
-    _toastService.show({
-      type: 'error',
-      message
-    });
+export function handleError(errors: any, _toastService: any): Observable<string> {
 
-    return of(message);
+  let message: string = 'Сталася невідома помилка. Будь ласка, спробуйте ще раз пізніше.';
+
+  if (errors.message) {
+    message = errors.message;
   }
 
-  return of(false);
+  _toastService.show({
+    type: 'error',
+    message: message
+  });
+
+  return of(message);
 }
