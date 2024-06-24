@@ -23,6 +23,7 @@ import {ToasterService} from "../../../shared/components/app-toast/toaster.servi
 import {delay, Observable, take, tap} from "rxjs";
 import {catchError} from "rxjs/operators";
 import {of} from "rxjs/internal/observable/of";
+import {handleError} from "../../../shared/utils/errorHandler";
 
 @Component({
   selector: 'sign-up-form',
@@ -115,7 +116,6 @@ export class SignUpFormComponent implements OnInit {
 
 
   initLogin(data): void {
-    debugger
     this.auth.login({
       "email": "test@gmail.com",
       "password": "testTets"
@@ -127,15 +127,8 @@ export class SignUpFormComponent implements OnInit {
           this.showSuccessAuth();
         }
       }),
-      catchError((error) => this.handleAuthErrors(error)),
+      catchError((error): any => handleError(error, this.toaster)),
     ).subscribe();
-  }
-
-  handleAuthErrors(error: any): Observable<any> {
-    const errorMessage = error.data?.message || error.message;
-    this.toaster.show({ type: 'error', message: errorMessage });
-
-    return of(null);
   }
 
   showSuccessAuth(): void {
