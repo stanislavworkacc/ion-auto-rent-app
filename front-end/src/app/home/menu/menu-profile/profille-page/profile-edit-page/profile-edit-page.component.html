@@ -242,8 +242,14 @@
   <ng-template>
     <ion-content>
       <ion-list>
-        <ion-item [button]="true" [detail]="false" (click)="isBlurred.set(false)">Редагувати профіль</ion-item>
-        <ion-item [button]="true" [detail]="false" (click)="deleteAccount()" id="delete-alert">Видалити аккаунт
+        <ion-item [button]="true" [detail]="false" (click)="isBlurred.set(false)">
+          <ion-label>Редагувати профіль</ion-label>
+          <ion-icon slot="end" name="create-outline"></ion-icon>
+        </ion-item>
+        <ion-item [button]="true" [detail]="false" (click)="deleteAccount()" id="delete-alert">
+
+          <ion-label>Видалити аккаунт</ion-label>
+          <ion-icon slot="end" name="person-remove-outline"></ion-icon>
         </ion-item>
       </ion-list>
     </ion-content>
