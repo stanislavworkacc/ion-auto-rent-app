@@ -4,7 +4,6 @@ back-end/node_modules
 /front-end/ios/
 /front-end/android/
 .idea
-
 /front-end/.vscode/
 /front-end/node_modules/
 /front-end/.angular/
