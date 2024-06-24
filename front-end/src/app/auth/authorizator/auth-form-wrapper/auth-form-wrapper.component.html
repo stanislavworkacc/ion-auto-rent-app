@@ -1,9 +1,7 @@
 <ion-header>
   <ion-toolbar>
     @if (!isLogin()) {
-      <ion-buttons slot="start">
-        <app-back-button [navigateBack]="navigateBack.bind(this)"></app-back-button>
-      </ion-buttons>
+      <app-back-button [navigateBack]="navigateBack.bind(this)"></app-back-button>
     }
     <ion-buttons slot="end">
       <app-close-btn (click)="closeModal()"></app-close-btn>

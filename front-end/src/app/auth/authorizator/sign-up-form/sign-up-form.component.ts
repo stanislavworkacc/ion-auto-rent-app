@@ -137,7 +137,23 @@ export class SignUpFormComponent implements OnInit {
   }
 
   initRegister() {
-
+    this.auth.register({
+      "email": "test1222@gmail.com",
+      "password": "testTets12",
+      "userName": 'assasaasas'
+    }).pipe(
+      tap((res) => {
+        debugger
+      }),
+      tap((res): void => {
+        if (res.status === 404 || !res.data.success) {
+          throw new Error(res.data.message);
+        } else {
+          this.showSuccessAuth();
+        }
+      }),
+      catchError((error): any => handleError(error, this.toaster)),
+    ).subscribe();
   }
   toggleShowPassword() {
     this.showPassword = !this.showPassword;

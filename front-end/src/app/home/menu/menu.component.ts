@@ -1,6 +1,6 @@
 import {
   ChangeDetectionStrategy,
-  Component,
+  Component, effect,
   inject,
   OnInit,
   signal,
@@ -27,6 +27,8 @@ import {IonFabComponent} from "../../shared/ui-kit/components/ion-fab/ion-fab.co
 import {SignUpFormComponent} from "../../auth/authorizator/sign-up-form/sign-up-form.component";
 import {MenuPage, MenuSection} from "./menu-enums";
 import {MenuDataService} from "./menu-data.serivce";
+import {FileComponent} from "./file/file.component";
+import {NavController} from "@ionic/angular";
 
 @Component({
   selector: 'app-menu',
@@ -34,7 +36,7 @@ import {MenuDataService} from "./menu-data.serivce";
   styleUrls: ['./menu.component.scss'],
   standalone: true,
   imports: [
-    IonHeader, IonToolbar, IonTitle, IonContent, TranslateModule, IonButtons, IonButton, ProfileGreetingsComponent, SegmentsComponent, IonChip, IonIcon, IonLabel, MenuProfileComponent, RouterOutlet, LogOutComponent, IonSearchbar, NotificationsPreviewComponent, IonFabComponent, SignUpFormComponent
+    IonHeader, IonToolbar, IonTitle, IonContent, TranslateModule, IonButtons, IonButton, ProfileGreetingsComponent, SegmentsComponent, IonChip, IonIcon, IonLabel, MenuProfileComponent, RouterOutlet, LogOutComponent, IonSearchbar, NotificationsPreviewComponent, IonFabComponent, SignUpFormComponent, FileComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -42,6 +44,7 @@ export class MenuComponent implements OnInit {
 
   private translate: TranslateService = inject(TranslateService);
   private menuDataService: MenuDataService = inject(MenuDataService);
+  private navCtrl: NavController = inject(NavController);
 
   public selectedMenuChip: WritableSignal<string> = this.dataService.selectedMenuChip;
 
@@ -102,6 +105,14 @@ export class MenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.setSignals();
+  }
+
+  constructor() {
+    effect(() => {
+      if(this.selectedMenuChip() === MenuSection.FILES) {
+        this.navCtrl.navigateForward(['/home/menu/files'])
+      }
+    });
   }
 }
 
