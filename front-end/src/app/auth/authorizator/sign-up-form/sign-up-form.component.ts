@@ -15,13 +15,14 @@ import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} fr
 import {ValidateInputDirective} from "../../../shared/directives/validate-input.directive";
 import {matchingPasswordsValidator} from "../../../shared/utils/validators/matchingPasswordValidator";
 import {PrivacyPolicyComponent} from "../privacy-policy/privacy-policy.component";
-import {IonButton, IonIcon, IonInput, IonLabel, IonList, IonSpinner} from "@ionic/angular/standalone";
+import {IonButton, IonIcon, IonInput, IonLabel, IonList, IonSpinner, ModalController} from "@ionic/angular/standalone";
 import {PhoneNumberFormatterDirective} from "../../../shared/directives/phone-formatter.directive";
-import {animate, state, style, transition, trigger} from "@angular/animations";
 import {AuthService} from "../../../shared/services/auth-service";
-import {CapacitorCookies} from "@capacitor/core";
-import {Http, HttpCookie} from '@capacitor-community/http';
 import {StorageService} from "../../../shared/services/storage.service";
+import {ToasterService} from "../../../shared/components/app-toast/toaster.service";
+import {delay, take, tap} from "rxjs";
+import {catchError} from "rxjs/operators";
+import {of} from "rxjs/internal/observable/of";
 
 @Component({
   selector: 'sign-up-form',
@@ -45,12 +46,13 @@ import {StorageService} from "../../../shared/services/storage.service";
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SignUpFormComponent  implements OnInit {
+export class SignUpFormComponent implements OnInit {
 
   private fb: FormBuilder = inject(FormBuilder);
   private authService: AuthService = inject(AuthService);
   private cdRef: ChangeDetectorRef = inject(ChangeDetectorRef);
-  private storageService: StorageService = inject(StorageService);
+  private toaster: ToasterService = inject(ToasterService);
+  private modalCtrl: ModalController = inject(ModalController);
 
   @ViewChild('passwordInput', {static: false}) passwordInput!: ElementRef;
 
@@ -80,44 +82,30 @@ export class SignUpFormComponent  implements OnInit {
     this.isFocused[field] = false;
   }
 
-  async onSubmit() {
-    // this.authService.test().subscribe((data) => {
-    //   debugger;
-    // })
+  onSubmit() {
 
-    const kkkk = await this.getCookies();
-    console.log('docu k', document.cookie)
-    debugger;
-
-    if(false) {
-      this.authService.test().subscribe((data) => {
-        // debugger;
-      })
-    } else {
-      this.authService.login({
-        "email": "test@gmail.com",
-        "password": "testTets"
-      }).subscribe( async (data) => {
-        console.log('data', data);
-        // this.authService.test().subscribe((data) => {
-        //   debugger;
-        // })
-
-        this.authService.test().subscribe((data) => {
-          debugger;
-        })
-      })
-    }
-
+    this.initLogin();
   }
 
-  getCookies = async () => {
-    const ret: any = await CapacitorCookies.getCookies(
-      { url: '/'}
-    );
-    console.log('Got cookies', ret);
-    return JSON.stringify(ret.value);
-  };
+  initLogin(): void {
+    this.authService.login({
+      "email": "test@gmail3.com",
+      "password": "testTets"
+    }).pipe(
+      tap((res) => {
+        if (res.status === 404 || !res.data.success) {
+          throw new Error(res.data.message || 'Вхід неуспішний, спробуйте ще раз.');
+        } else {
+          this.toaster.show({type: 'success', message: 'Ви увійшли! Ласкаво просимо до вашого облікового запису.'});
+        }
+      }),
+      catchError((error) => {
+        this.toaster.show({type: 'error', message: error.message});
+        return of(null);
+      }),
+    ).subscribe();
+  }
+
 
   toggleShowPassword() {
     this.showPassword = !this.showPassword;
@@ -151,10 +139,6 @@ export class SignUpFormComponent  implements OnInit {
     this.assignFormControls();
   }
 
-  ngOnInit(): void {
-    this.initForm();
-  }
-
   resetForm() {
     this.form.reset();
     this.form.markAsUntouched()
@@ -166,6 +150,10 @@ export class SignUpFormComponent  implements OnInit {
     });
 
     this.cdRef.markForCheck()
+  }
+
+  ngOnInit(): void {
+    this.initForm();
   }
 
   constructor() {

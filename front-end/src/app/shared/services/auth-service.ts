@@ -2,10 +2,10 @@ import {ChangeDetectorRef, inject, Injectable} from "@angular/core";
 import {PostEntityModel} from "../../../../libs/collection/src/lib/models/post-entity.model";
 import {CrudService} from "../../../../libs/collection/src/lib/crud.service";
 import {environment} from "../../../environments/environment";
-import {Observable, tap} from "rxjs";
+import {Observable, take, tap} from "rxjs";
 import {StorageService} from "./storage.service";
 import {GetEntityModel} from "../../../../libs/collection/src/lib/models/get-entity.model";
-
+import {ToasterService} from "../components/app-toast/toaster.service";
 
 
 @Injectable({
@@ -13,7 +13,6 @@ import {GetEntityModel} from "../../../../libs/collection/src/lib/models/get-ent
 })
 export class AuthService {
   loginEntity!: PostEntityModel;
-  testEntity!: GetEntityModel;
 
   private storageService: StorageService = inject(StorageService);
 
@@ -21,20 +20,19 @@ export class AuthService {
     return this.loginEntity.save({
       data
     }).pipe(
-      tap((responce: any) => {
-        this.storageService.setObject('token', {
-          accessToken: responce?.data?.result?.token,
-        })
-      })
+      take(1),
+      tap((res: any) => this.setStorageData(res)
+      )
     )
   }
 
-  test(): Observable<any> {
-    return this.testEntity.get()
+  setStorageData(res): void {
+    this.storageService.setObject('token', {
+      accessToken: res?.data?.result?.token,
+    })
   }
 
   constructor(private _crud: CrudService) {
-    this.loginEntity = this._crud.createPostEntity({ name: environment.login });
-    this.testEntity = this._crud.createGetEntity({ name: environment.test });
+    this.loginEntity = this._crud.createPostEntity({name: environment.login});
   }
 }

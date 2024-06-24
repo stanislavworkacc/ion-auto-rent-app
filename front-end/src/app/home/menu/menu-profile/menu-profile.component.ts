@@ -16,6 +16,7 @@ import {MenuPage} from "../menu-enums";
 import {NavController, Platform} from "@ionic/angular";
 import {LogOutComponent} from "./log-out/log-out.component";
 import {Router} from "@angular/router";
+import {StorageService} from "../../../shared/services/storage.service";
 
 @Component({
   selector: 'menu-profile',

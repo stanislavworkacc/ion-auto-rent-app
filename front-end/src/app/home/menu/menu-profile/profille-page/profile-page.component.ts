@@ -26,6 +26,7 @@ import {AsyncPipe, JsonPipe, NgForOf} from "@angular/common";
 import {BreadcrumbService} from "../../../../shared/services/breadcrumb.service";
 import {BreadcrumbLabelPipe} from "../../../../shared/breadcrumb-map-name.pipe";
 import {MenuDataService} from "../../menu-data.serivce";
+import {StorageService} from "../../../../shared/services/storage.service";
 
 @Component({
   selector: 'app-profile-page',
@@ -123,7 +124,7 @@ export class ProfilePage implements OnInit {
     this.isBreadCrumbPopoverOpen = true;
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
     this.setMenuItems();
   }
 }
