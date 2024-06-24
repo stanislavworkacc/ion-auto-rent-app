@@ -20,7 +20,7 @@ import {PhoneNumberFormatterDirective} from "../../../shared/directives/phone-fo
 import {AuthService} from "../../../shared/services/auth-service";
 import {StorageService} from "../../../shared/services/storage.service";
 import {ToasterService} from "../../../shared/components/app-toast/toaster.service";
-import {delay, take, tap} from "rxjs";
+import {delay, Observable, take, tap} from "rxjs";
 import {catchError} from "rxjs/operators";
 import {of} from "rxjs/internal/observable/of";
 
@@ -74,6 +74,9 @@ export class SignUpFormComponent implements OnInit {
   showPassword: boolean = false;
   showConfirmPassword: boolean = false;
 
+  get auth() {
+    return this.authService;
+  }
   onFocus(field: string): void {
     this.isFocused[field] = true;
   }
@@ -82,31 +85,67 @@ export class SignUpFormComponent implements OnInit {
     this.isFocused[field] = false;
   }
 
-  onSubmit() {
-
-    this.initLogin();
+  onSubmit(): void {
+    const formValue = this.form.getRawValue();
+    this.handleAuthProcess(formValue);
   }
 
-  initLogin(): void {
-    this.authService.login({
-      "email": "test@gmail3.com",
+  handleAuthProcess(formValue): void {
+    if(this.isLogin()) {
+      if((formValue.email || formValue.phone) && formValue.password) {
+        const loginData = this.prepareLoginData(formValue);
+        this.initLogin(loginData);
+      }
+    } else {
+      this.initRegister();
+    }
+  }
+
+  prepareLoginData(formValue): any {
+    const loginData: any = { password: formValue.password };
+
+    if (formValue.email) {
+      loginData.email = formValue.email;
+    } else if (formValue.phone) {
+      loginData.phone = formValue.phone;
+    }
+
+    return loginData;
+  }
+
+
+  initLogin(data): void {
+    debugger
+    this.auth.login({
+      "email": "test@gmail.com",
       "password": "testTets"
     }).pipe(
-      tap((res) => {
+      tap((res): void => {
         if (res.status === 404 || !res.data.success) {
-          throw new Error(res.data.message || 'Вхід неуспішний, спробуйте ще раз.');
+          throw new Error(res.data.message);
         } else {
-          this.toaster.show({type: 'success', message: 'Ви увійшли! Ласкаво просимо до вашого облікового запису.'});
+          this.showSuccessAuth();
         }
       }),
-      catchError((error) => {
-        this.toaster.show({type: 'error', message: error.message});
-        return of(null);
-      }),
+      catchError((error) => this.handleAuthErrors(error)),
     ).subscribe();
   }
 
+  handleAuthErrors(error: any): Observable<any> {
+    const errorMessage = error.data?.message || error.message;
+    this.toaster.show({ type: 'error', message: errorMessage });
 
+    return of(null);
+  }
+
+  showSuccessAuth(): void {
+    this.modalCtrl.dismiss();
+    this.toaster.show({type: 'success', message: 'Ви увійшли! Ласкаво просимо до вашого облікового запису.'});
+  }
+
+  initRegister() {
+
+  }
   toggleShowPassword() {
     this.showPassword = !this.showPassword;
   }

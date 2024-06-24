@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {
-  IonApp,
+  IonApp, IonTabs,
 } from '@ionic/angular/standalone';
 import {logOutOutline} from 'ionicons/icons';
 import {addIcons} from "ionicons";
@@ -14,7 +14,7 @@ import {
   selector: 'app-root',
   templateUrl: 'app.component.html',
   standalone: true,
-  imports: [IonApp, RouterOutlet, AppToastContainerComponent],
+  imports: [IonApp, RouterOutlet, AppToastContainerComponent, IonTabs],
 })
 export class AppComponent {
 

@@ -4,5 +4,5 @@ export const domainName = 'http://localhost:8000';
 export const environment = {
   production: true,
   login: 'api/login',
-  test: 'api/test'
+  register: 'api/register'
 };
