@@ -28,7 +28,21 @@ export class MenuDataService {
     label: string
   }[]> = signal([]);
 
+  public menuItems: WritableSignal<{
+    value: string,
+    icon: string,
+    label: string
+  }[]> = signal([]);
+
   public selectedMenuChip: WritableSignal<string> = signal('profile');
+
+  setProfilePageItems(options: { value: string, icon: string, label: string }[]): void {
+    this.menuItems.set(options)
+  }
+
+  getProfilePageItems(): { value: string; icon: string; label: string }[] {
+    return this.menuItems();
+  }
 
   setOptions(options: { value: string, icon: string, label: string }[]): void {
     this.options.set(options)

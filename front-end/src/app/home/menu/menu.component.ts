@@ -79,7 +79,7 @@ export class MenuComponent implements OnInit {
 
   setSocialMarks(): void {
     this.dataService.setSocialMarks([
-      {icon: 'notifications-outline', count: 3, description: 'Системні повідомлення', value: 'notifications'},
+      {icon: 'notifications-outline', count: 3, description: 'Системні сповіщення', value: 'notifications'},
       {icon: 'chatbubbles-outline', count: 3, description: 'Вхідні повідомлення', value: 'chat'},
       {icon: 'heart-outline', count: 2, description: 'Вподобайки', value: 'likes'},
       {icon: 'heart-dislike-outline', count: 2, description: 'Дизлайки', value: 'dislikes'}

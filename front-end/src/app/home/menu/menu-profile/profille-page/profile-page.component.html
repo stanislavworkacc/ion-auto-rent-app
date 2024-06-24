@@ -6,12 +6,13 @@
       </ion-buttons>
 
       <ion-breadcrumbs [maxItems]="2" (ionCollapsedClick)="presentPopover($event)" [itemsBeforeCollapse]="0">
-        <ion-breadcrumb
-          *ngFor="let breadcrumb of breadcrumbsService.breadcrumbsRoutes()"
-          [href]="breadcrumb.url"
-        >
-          {{ breadcrumb.label | breadcrumbLabel }}
-        </ion-breadcrumb>
+        @for (breadcrumb of breadcrumbsService.breadcrumbsRoutes(); track breadcrumb.url) {
+          <ion-breadcrumb
+            [href]="breadcrumb.url"
+          >
+            {{ breadcrumb.label | breadcrumbLabel }}
+          </ion-breadcrumb>
+        }
       </ion-breadcrumbs>
     </div>
 
@@ -24,7 +25,7 @@
 
   <ion-grid>
     <ion-row>
-      @for (page of menuItems(); track page.value) {
+      @for (page of menuService.getProfilePageItems(); track page.value) {
         <ion-col size="6">
           <ion-card [class.premium]="page.value === ProfileMenuItem.PREMIUM"
                     (click)="openProfilePage(page)"

@@ -25,6 +25,7 @@ import {ProfileGreetingsComponent} from "../../profile-greetings/profile-greetin
 import {AsyncPipe, JsonPipe, NgForOf} from "@angular/common";
 import {BreadcrumbService} from "../../../../shared/services/breadcrumb.service";
 import {BreadcrumbLabelPipe} from "../../../../shared/breadcrumb-map-name.pipe";
+import {MenuDataService} from "../../menu-data.serivce";
 
 @Component({
   selector: 'app-profile-page',
@@ -74,14 +75,18 @@ export class ProfilePage implements OnInit {
 
   private navCtrl: NavController = inject(NavController);
   private breadcrumbs: BreadcrumbService = inject(BreadcrumbService);
+  private menuDataService: MenuDataService = inject(MenuDataService);
   public platform: Platform = inject(Platform);
 
-  public menuItems: WritableSignal<{ value: string, icon: string, label: string }[]> = signal([]);
   public ProfileMenuItem = ProfileMenuItem;
   public collapsedBreadcrumbs: any[] = [];
   public isBreadCrumbPopoverOpen: boolean = false;
 
   @ViewChild('popover') popover;
+
+  get menuService() {
+    return this.menuDataService;
+  }
 
   goBack(): void {
     this.navCtrl.back()
@@ -92,7 +97,7 @@ export class ProfilePage implements OnInit {
   }
 
   setMenuItems(): void {
-    this.menuItems.set([
+    this.menuService.setProfilePageItems([
       {value: ProfileMenuItem.PROFILE, icon: 'wallet-outline', label: 'Рахунок'},
       {value: ProfileMenuItem.PREMIUM, icon: 'trending-up-outline', label: 'Преміум'},
       {value: ProfileMenuItem.RATING, icon: 'bar-chart-outline', label: 'Рейтинг'},
