@@ -29,7 +29,7 @@ export class AuthService {
   register(data: any): Observable<any> {
     return this.registerEntity.save({
       data
-    }).pipe(1)
+    })
   }
 
   setStorageData(res): void {

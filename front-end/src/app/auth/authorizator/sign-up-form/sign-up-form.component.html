@@ -1,4 +1,4 @@
-<form [formGroup]="form">
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
 
   @if (!isLogin()) {
     <div class="form-input" #nameRef [appValidateInput]="nameRef">
@@ -207,10 +207,10 @@
   }
 
   <ion-button class="mt-[20px]"
-              (click)="onSubmit()"
               expand="block"
               fill="outline"
               shape="round"
+              type="submit"
   >
     <div class="btn-text">
       {{ isLogin() ? 'Увійти' : 'Реєстрація' }}

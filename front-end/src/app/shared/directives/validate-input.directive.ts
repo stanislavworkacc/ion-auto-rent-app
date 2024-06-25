@@ -93,11 +93,6 @@ export class ValidateInputDirective implements OnInit, OnDestroy, AfterViewInit 
     }
   }
 
-  markControlAsTouchedAndValidate() {
-    this.control.markAsTouched();
-    this.setErrorMessages();
-  }
-
   ngAfterViewInit(): void {
     if (this.ref) {
       this.renderer.listen(this.ref, 'ionBlur', () => {

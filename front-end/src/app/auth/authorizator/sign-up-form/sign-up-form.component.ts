@@ -56,6 +56,7 @@ export class SignUpFormComponent implements OnInit {
   private modalCtrl: ModalController = inject(ModalController);
 
   @ViewChild('passwordInput', {static: false}) passwordInput!: ElementRef;
+  @ViewChild(ValidateInputDirective) appValidateInput: ValidateInputDirective;
 
   public isLogin: InputSignal<boolean> = input(false);
   public loginByPhone: WritableSignal<boolean> = signal(false);
@@ -91,37 +92,53 @@ export class SignUpFormComponent implements OnInit {
     this.handleAuthProcess(formValue);
   }
 
+
   handleAuthProcess(formValue): void {
     if(this.isLogin()) {
-      if((formValue.email || formValue.phone) && formValue.password) {
+      if((this.email.valid || this.phone.valid) && formValue.password && this.password.valid) {
         const loginData = this.prepareLoginData(formValue);
         this.initLogin(loginData);
+      } else {
+        this.toaster.show({type: 'warning', message: 'Будь ласка, введіть свої облікові дані, щоб увійти в систему.'})
       }
     } else {
-      this.initRegister();
+
+      if(this.name.valid && this.email.valid && this.password.valid && this.confirmPassword.valid) {
+        const registerData = this.prepareRegistrationData(formValue);
+        this.initRegister(registerData);
+      } else {
+        this.toaster.show({type: 'warning', message: 'Будь ласка, заповінть усі необіхідні поля, щоб зареєструватись в системі.'})
+      }
     }
   }
 
-  prepareLoginData(formValue): any {
+  prepareLoginData(formValue) {
     const loginData: any = { password: formValue.password };
 
     if (formValue.email) {
       loginData.email = formValue.email;
     } else if (formValue.phone) {
-      loginData.phone = formValue.phone;
+      loginData.phone = '+380' + formValue.phone;
     }
 
     return loginData;
   }
 
+  prepareRegistrationData(formValue) {
+    const registrationData: any = {
+      userName: formValue.name,
+      email: formValue.email,
+      password: formValue.password === formValue.confirmPassword ? formValue.password : ''
+    };
+
+    return registrationData;
+  }
+
 
   initLogin(data): void {
-    this.auth.login({
-      "email": "test@gmail.com",
-      "password": "testTets"
-    }).pipe(
+    this.auth.login(data).pipe(
       tap((res): void => {
-        if (res.status === 404 || !res.data.success) {
+        if (!res.data.success) {
           throw new Error(res.data.message);
         } else {
           this.showSuccessAuth();
@@ -136,17 +153,11 @@ export class SignUpFormComponent implements OnInit {
     this.toaster.show({type: 'success', message: 'Ви увійшли! Ласкаво просимо до вашого облікового запису.'});
   }
 
-  initRegister() {
-    this.auth.register({
-      "email": "test1222@gmail.com",
-      "password": "testTets12",
-      "userName": 'assasaasas'
-    }).pipe(
-      tap((res) => {
-        debugger
-      }),
+  initRegister(data): void {
+    this.auth.register(data).pipe(
+      take(1),
       tap((res): void => {
-        if (res.status === 404 || !res.data.success) {
+        if (!res.data.success) {
           throw new Error(res.data.message);
         } else {
           this.showSuccessAuth();
@@ -173,6 +184,7 @@ export class SignUpFormComponent implements OnInit {
 
   onToggleChange(isMobileLogin: boolean): void {
     this.loginByPhone.set(isMobileLogin);
+    this.resetForm();
   }
 
   initForm(): void {

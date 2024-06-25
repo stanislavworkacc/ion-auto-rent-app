@@ -35,7 +35,7 @@
     }
 
     &.warning {
-      background-color: var(--yellow-status);
+      background-color: yellow;
     }
 
     &.info {
@@ -70,7 +70,7 @@
     padding-right: 8px;
 
     & > .toast-title {
-      color: var(--text-range-dark);
+      color: darkgrey;
       font-size: 14px;
       margin-bottom: 2px;
       text-transform: capitalize;
@@ -78,7 +78,7 @@
     }
 
     & > .toast-text {
-      color: var(--text-range-dark);
+      color: white;
       font-size: 16px;
     }
   }
