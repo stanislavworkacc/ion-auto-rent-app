@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, OnInit, signal, WritableSignal} from '@angular/core';
 import {NgForOf} from "@angular/common";
 import {IonicModule} from "@ionic/angular";
-import {IonButton, IonIcon, IonModal} from "@ionic/angular/standalone";
+import {IonButton, IonIcon, IonModal, IonPopover} from "@ionic/angular/standalone";
 
 @Component({
   selector: 'companies-marquee',
@@ -12,7 +12,8 @@ import {IonButton, IonIcon, IonModal} from "@ionic/angular/standalone";
     NgForOf,
     IonIcon,
     IonModal,
-    IonButton
+    IonButton,
+    IonPopover
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -21,20 +22,22 @@ export class CompaniesMarqueeComponent  implements OnInit {
   public isPaused: WritableSignal<boolean> = signal(false);
   public companies: WritableSignal<{ name: string, icon: string, description: string }[]> = signal([]);
   public selectedCompany: WritableSignal<{ name: string, icon: string, description: string } | null> = signal(null);
-  public isModalOpen: WritableSignal<boolean> = signal(false);
+  public isPopoverOpen: WritableSignal<boolean> = signal(false);
+  public popoverEvent: WritableSignal<Event | null> = signal(null)
 
   toggleAnimation(): void {
     this.isPaused.update((isPaused: boolean) => !isPaused);
   }
 
-  showCompanyDetails(company: { name: string, icon: string, description: string }): void {
-    this.toggleAnimation();
+  showCompanyDetails(event: Event, company: { name: string, icon: string, description: string }): void {
+    this.toggleAnimation()
+    this.popoverEvent.set(event);
     this.selectedCompany.set(company);
-    this.isModalOpen.set(true);
+    this.isPopoverOpen.set(true);
   }
 
-  closeModal(): void {
-    this.isModalOpen.set(false);
+  closePopover(): void {
+    this.isPopoverOpen.set(false);
     this.selectedCompany.set(null);
     this.toggleAnimation()
   }

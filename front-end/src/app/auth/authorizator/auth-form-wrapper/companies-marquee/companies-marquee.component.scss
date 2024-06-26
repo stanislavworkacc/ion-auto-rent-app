@@ -34,3 +34,43 @@ ion-icon {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
 }
+.popover-content {
+  padding: 20px;
+  text-align: center;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  margin: auto;
+}
+
+.popover-content h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.popover-content ion-icon {
+  font-size: 40px;
+  margin-bottom: 10px;
+  color: #007bff; /* Primary color for the icon */
+}
+
+.popover-content p {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.popover-content::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid #fff;
+}

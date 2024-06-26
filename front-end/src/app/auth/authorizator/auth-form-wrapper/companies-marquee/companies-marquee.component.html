@@ -1,23 +1,22 @@
 <div class="marquee">
   <div class="marquee-content" [class.paused]="isPaused()">
     <span *ngFor="let company of companies()"
-          (click)="showCompanyDetails(company)">
-      {{ company.name }} <ion-icon [name]="company.icon"></ion-icon> &nbsp;&nbsp;&nbsp;
+          (click)="showCompanyDetails($event, company)">
+      <ion-icon [name]="company.icon"></ion-icon> {{ company.name }} &nbsp;&nbsp;&nbsp;
     </span>
     <span *ngFor="let company of companies()"
-          (click)="showCompanyDetails(company)">
-      {{ company.name }} <ion-icon [name]="company.icon"></ion-icon> &nbsp;&nbsp;&nbsp;
+          (click)="showCompanyDetails($event, company)">
+      <ion-icon [name]="company.icon"></ion-icon> {{ company.name }} &nbsp;&nbsp;&nbsp;
     </span>
   </div>
 </div>
 
-<ion-modal [isOpen]="isModalOpen()">
+<ion-popover [isOpen]="isPopoverOpen()" [event]="popoverEvent()" [showBackdrop]="false" (ionPopoverDidDismiss)="closePopover()">
   <ng-template>
-    <div class="modal-content">
-      <h2>{{ selectedCompany().name }}</h2>
-      <ion-icon [name]="selectedCompany().icon"></ion-icon>
-      <p>{{ selectedCompany().description }}</p>
-      <ion-button (click)="closeModal()">Close</ion-button>
+    <div class="popover-content">
+      <h2>{{ selectedCompany()?.name }}</h2>
+      <ion-icon [name]="selectedCompany()?.icon"></ion-icon>
+      <p>{{ selectedCompany()?.description }}</p>
     </div>
   </ng-template>
-</ion-modal>
+</ion-popover>
