@@ -41,8 +41,7 @@ ion-icon {
   h2 {
     font-size: 20px;
     margin-bottom: 10px;
-    color: #333;
-    background: white;
+    color: #d0cdcd;
   }
 
   ion-icon {
@@ -67,10 +66,11 @@ ion-icon {
 
 }
 
-
-
-
 ion-item {
-  --background: linear-gradient(135deg, #0d1f3b 0%, #8f99aa 100%);
+  --background: #696969 !important;
+}
 
+ion-list {
+  --background: #696969 !important;
+  padding: 0;
 }
