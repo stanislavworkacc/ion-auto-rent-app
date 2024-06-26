@@ -1,11 +1,23 @@
-<div class="marquee" (click)="toggleAnimation()">
+<div class="marquee">
   <div class="marquee-content" [class.paused]="isPaused()">
-      <span *ngFor="let company of companies()">
-        <ion-icon [name]="company.icon"></ion-icon> {{ company.name }} &nbsp;&nbsp;&nbsp;
-      </span>
-      <span *ngFor="let company of companies()">
-        <ion-icon [name]="company.icon"></ion-icon> {{ company.name }} &nbsp;&nbsp;&nbsp;
-      </span>
+    <span *ngFor="let company of companies()"
+          (click)="showCompanyDetails(company)">
+      {{ company.name }} <ion-icon [name]="company.icon"></ion-icon> &nbsp;&nbsp;&nbsp;
+    </span>
+    <span *ngFor="let company of companies()"
+          (click)="showCompanyDetails(company)">
+      {{ company.name }} <ion-icon [name]="company.icon"></ion-icon> &nbsp;&nbsp;&nbsp;
+    </span>
   </div>
 </div>
 
+<ion-modal [isOpen]="isModalOpen()">
+  <ng-template>
+    <div class="modal-content">
+      <h2>{{ selectedCompany().name }}</h2>
+      <ion-icon [name]="selectedCompany().icon"></ion-icon>
+      <p>{{ selectedCompany().description }}</p>
+      <ion-button (click)="closeModal()">Close</ion-button>
+    </div>
+  </ng-template>
+</ion-modal>
