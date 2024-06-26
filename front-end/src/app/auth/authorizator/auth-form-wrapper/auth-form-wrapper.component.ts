@@ -28,6 +28,7 @@ import {
   ModalController
 } from "@ionic/angular/standalone";
 import {LogOutComponent} from "../../../home/menu/menu-profile/log-out/log-out.component";
+import {CompaniesMarqueeComponent} from "./companies-marquee/companies-marquee.component";
 
 @Component({
   selector: 'auth-form-wrapper',
@@ -61,6 +62,7 @@ import {LogOutComponent} from "../../../home/menu/menu-profile/log-out/log-out.c
     IonSegmentButton,
     IonFooter,
     LogOutComponent,
+    CompaniesMarqueeComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None

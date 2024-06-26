@@ -1,0 +1,32 @@
+.marquee {
+  overflow: hidden;
+  white-space: nowrap;
+  box-sizing: border-box;
+  color: white;
+  font-size: 16px;
+  padding: 10px 0;
+}
+
+.marquee-content {
+  display: inline-block;
+  animation: marquee 20s linear infinite;
+}
+
+.marquee span {
+  display: inline-block;
+  padding: 0 15px;
+  color: #f9f9f9;
+  text-shadow: 0 2px 11px rgb(234 67 54);
+}
+
+ion-icon {
+  vertical-align: text-top;
+  margin-left: 5px;
+  color: #f9f9f9;
+  font-size: 18px;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
