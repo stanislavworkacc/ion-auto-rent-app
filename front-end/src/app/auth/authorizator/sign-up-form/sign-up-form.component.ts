@@ -60,6 +60,7 @@ export class SignUpFormComponent implements OnInit {
 
   public isLogin: InputSignal<boolean> = input(false);
   public loginByPhone: WritableSignal<boolean> = signal(false);
+  public privacyPolicyAgreement: WritableSignal<boolean> = signal(false);
   public form!: FormGroup;
   public name!: FormControl;
   public email!: FormControl;
@@ -136,6 +137,7 @@ export class SignUpFormComponent implements OnInit {
 
 
   initLogin(data): void {
+    debugger
     this.auth.login(data).pipe(
       tap((res): void => {
         if (!res.data.success) {
@@ -154,6 +156,7 @@ export class SignUpFormComponent implements OnInit {
   }
 
   initRegister(data): void {
+    debugger
     this.auth.register(data).pipe(
       take(1),
       tap((res): void => {
@@ -216,12 +219,15 @@ export class SignUpFormComponent implements OnInit {
     this.initForm();
   }
 
+  isLoginSubscription(): void {
+    if (this.isLogin() || !this.isLogin()) {
+      this.resetForm();
+      this.onToggleChange(false)
+    }
+  }
   constructor() {
     effect((): void => {
-      if (this.isLogin() || !this.isLogin()) {
-        this.resetForm();
-        this.onToggleChange(false)
-      }
+      this.isLoginSubscription();
     }, {allowSignalWrites: true})
   }
 }

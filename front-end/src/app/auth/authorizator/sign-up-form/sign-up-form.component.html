@@ -38,7 +38,7 @@
   @if (isLogin()) {
     <div class="login-email-container">
       <app-switcher (toggleChange)="onToggleChange($event)"></app-switcher>
-      <ion-icon name="call-outline"></ion-icon>
+      <ion-icon name="call-outline" [class.!text-[#EA4335]]="isLogin() && loginByPhone()"></ion-icon>
     </div>
   }
 
@@ -203,7 +203,7 @@
       </ul>
     </div>
 
-    <app-privacy-policy></app-privacy-policy>
+    <app-privacy-policy [privacyPolicyAgreement]="privacyPolicyAgreement"></app-privacy-policy>
   }
 
   <ion-button class="mt-[20px]"
@@ -211,6 +211,7 @@
               fill="outline"
               shape="round"
               type="submit"
+              [disabled]="!privacyPolicyAgreement() && !isLogin()"
   >
     <div class="btn-text">
       {{ isLogin() ? 'Увійти' : 'Реєстрація' }}

@@ -2,7 +2,10 @@
   <ion-toolbar class="p-2">
     <div class="flex justify-between items-center py-2">
       <ion-buttons slot="start">
-        <app-back-button [navigateBack]="goBack.bind(this)"></app-back-button>
+        <app-back-button
+          [styles]="'!text-[20px]'"
+          [navigateBack]="goBack.bind(this)"
+        ></app-back-button>
       </ion-buttons>
 
       <ion-breadcrumbs [maxItems]="2" (ionCollapsedClick)="presentPopover($event)" [itemsBeforeCollapse]="0">

@@ -5,15 +5,17 @@
       @if(!isLogin()) {
         <p>Зареєструйтесь та увійдіть за допомогою вашого Google акаунту для швидкого та безпечного доступу.</p>
       } @else {
-        <p>Увійдіть за допомогою вашого Google акаунту для швидкого та безпечного доступу.</p>
+        <p>Для швидкого та безпечного доступу увійдіть за допомогою вашого Google акаунту.</p>
       }
-      <ion-button expand="full" color="primary" (click)="signInWithGoogle()">
-        <ion-icon slot="start" name="logo-google"></ion-icon>
-        Sign in with Google
+    </div>
+    <div class="flex justify-center mt-[24px] min-h-[63px] !relative">
+      <ion-button id="google-btn" class="custom-google-button" [disabled]="!privacyPolicyAgreement() && !isLogin()">
+        <ion-icon name="logo-google" class="text-[#EA4335]" slot="start"></ion-icon>
+        Увійти через Google
       </ion-button>
     </div>
     @if(!isLogin()) {
-      <app-privacy-policy></app-privacy-policy>
+      <app-privacy-policy [privacyPolicyAgreement]="privacyPolicyAgreement"></app-privacy-policy>
     }
   </ion-card-content>
 </ion-card>

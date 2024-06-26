@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit, signal, WritableSignal} from '@angular/core';
 import {SwitcherComponent} from "../../../shared/ui-kit/components/switcher/switcher.component";
 
 @Component({
@@ -13,6 +13,11 @@ import {SwitcherComponent} from "../../../shared/ui-kit/components/switcher/swit
 })
 export class PrivacyPolicyComponent  implements OnInit {
 
+  @Input() privacyPolicyAgreement: WritableSignal<boolean> = signal(false);
+
+  onToggleChange(isAgree): void {
+    this.privacyPolicyAgreement.set(isAgree);
+  }
   constructor() { }
 
   ngOnInit() {}

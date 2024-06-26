@@ -1,7 +1,10 @@
 <ion-header>
   <ion-toolbar>
     @if (!isLogin()) {
-      <app-back-button [navigateBack]="navigateBack.bind(this)"></app-back-button>
+      <app-back-button
+        [styles]="'text-[20px]'"
+        [navigateBack]="navigateBack.bind(this)"
+      ></app-back-button>
     }
     <ion-buttons slot="end">
       <app-close-btn (click)="closeModal()"></app-close-btn>
@@ -27,7 +30,7 @@
             </div>
 
 
-            <app-fab [fabItems]="fabItems"
+            <app-fab [fabItems]="fabItems" class="!mr-[60px]"
                      icon="enter-outline"
             ></app-fab>
           </div>
@@ -39,11 +42,11 @@
     @case (SegmentType.GOOGLE) {
       <app-google-sso [isLogin]="isLogin()"></app-google-sso>
     }
-    @case (SegmentType.APPLE) {
-      <app-apple-ios [isLogin]="isLogin()"></app-apple-ios>
-    }
-    @case (SegmentType.ANDROID) {
-      <app-android-form [isLogin]="isLogin()"></app-android-form>
-    }
+<!--    @case (SegmentType.APPLE) {-->
+<!--      <app-apple-ios [isLogin]="isLogin()"></app-apple-ios>-->
+<!--    }-->
+<!--    @case (SegmentType.ANDROID) {-->
+<!--      <app-android-form [isLogin]="isLogin()"></app-android-form>-->
+<!--    }-->
   }
 </ion-content>

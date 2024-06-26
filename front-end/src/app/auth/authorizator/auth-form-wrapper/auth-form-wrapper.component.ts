@@ -1,7 +1,7 @@
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
-  Component, effect,
+  Component,
   inject,
   OnInit, signal,
   ViewEncapsulation, WritableSignal
@@ -66,19 +66,19 @@ import {LogOutComponent} from "../../../home/menu/menu-profile/log-out/log-out.c
   encapsulation: ViewEncapsulation.None
 })
 export class AuthFormWrapperComponent implements OnInit, AfterViewInit {
-  public SegmentType = SegmentType;
-  public signUpForm!: FormGroup;
-  public fabItems!: { icon: string, action: () => void }[];
-  public isLogin: WritableSignal<boolean> = signal(false);
-  public selectedSegment: WritableSignal<string> = signal(SegmentType.STANTDART);
-  public options: WritableSignal<{ value: string, icon: string, label: string }[]> = signal([]);
+
   private navCtrl: NavController = inject(NavController);
   private modalCtrl: ModalController = inject(ModalController);
   private fb: FormBuilder = inject(FormBuilder);
   private platform: Platform = inject(Platform);
 
-  constructor() {
-  }
+  public isLogin: WritableSignal<boolean> = signal(false);
+  public selectedSegment: WritableSignal<string> = signal(SegmentType.STANTDART);
+  public options: WritableSignal<{ value: string, icon: string, label: string }[]> = signal([]);
+
+  public SegmentType = SegmentType;
+  public signUpForm!: FormGroup;
+  public fabItems!: { icon: string, action: () => void }[];
 
   defaultRegister(): void {
     this.selectedSegment.set(SegmentType.STANTDART);
@@ -151,8 +151,8 @@ export class AuthFormWrapperComponent implements OnInit, AfterViewInit {
     this.options.set([
       {value: SegmentType.STANTDART, icon: 'person-outline', label: 'Реєстрація', isVisible: true},
       {value: SegmentType.GOOGLE, icon: 'logo-google', label: 'Увійти з Google', isVisible: true},
-      {value: SegmentType.APPLE, icon: 'logo-apple', label: 'Увійти з Apple', isVisible: isIOSDevice},
-      {value: SegmentType.ANDROID, icon: 'logo-android', label: 'Увійти з Android', isVisible: isAndroidDevice}
+      // {value: SegmentType.APPLE, icon: 'logo-apple', label: 'Увійти з Apple', isVisible: isIOSDevice},
+      // {value: SegmentType.ANDROID, icon: 'logo-android', label: 'Увійти з Android', isVisible: isAndroidDevice}
     ].filter(option => option.isVisible !== false))
   }
 
@@ -163,9 +163,9 @@ export class AuthFormWrapperComponent implements OnInit, AfterViewInit {
     this.fabItems = [
       {icon: 'log-in-outline', action: this.defaultRegister.bind(this)},
       {icon: 'logo-google', action: this.googleSSO.bind(this)},
-      {icon: 'logo-apple', action: this.iosRegister.bind(this), isVisible: isIOSDevice},
-      {icon: 'logo-android', action: this.androidRegister.bind(this), isVisible: isAndroidDevice},
-    ].filter(fab => fab.isVisible !== false)
+      // {icon: 'logo-apple', action: this.iosRegister.bind(this), isVisible: isIOSDevice},
+      // {icon: 'logo-android', action: this.androidRegister.bind(this), isVisible: isAndroidDevice},
+    ]
   }
 
   resetLogin(): void {

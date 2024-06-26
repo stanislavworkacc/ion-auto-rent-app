@@ -1,13 +1,11 @@
-
+ion-tab-bar {
+  background: #1f1f1f;
+}
 ion-tab-button {
   --ripple-color: transparent;
 }
 
 .active-tab {
-  color: #2a82ff;
-  border-radius: 6px;
-  box-shadow: 0 4px 8px rgb(255 255 255 / 51%);
-  transform: scale(1.05);
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  border-top: 2px solid white;
 }
 
