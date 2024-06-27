@@ -42,6 +42,7 @@
 <ion-popover #popover
              [isOpen]="isBreadCrumbPopoverOpen()"
              (didDismiss)="isBreadCrumbPopoverOpen.set(false)"
+             [showBackdrop]="false"
 >
   <ng-template>
     <ion-content>
