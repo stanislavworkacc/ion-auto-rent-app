@@ -18,11 +18,9 @@ import {PrivacyPolicyComponent} from "../privacy-policy/privacy-policy.component
 import {IonButton, IonIcon, IonInput, IonLabel, IonList, IonSpinner, ModalController} from "@ionic/angular/standalone";
 import {PhoneNumberFormatterDirective} from "../../../shared/directives/phone-formatter.directive";
 import {AuthService} from "../../../shared/services/auth-service";
-import {StorageService} from "../../../shared/services/storage.service";
 import {ToasterService} from "../../../shared/components/app-toast/toaster.service";
-import {delay, Observable, take, tap} from "rxjs";
+import {take, tap} from "rxjs";
 import {catchError} from "rxjs/operators";
-import {of} from "rxjs/internal/observable/of";
 import {handleError} from "../../../shared/utils/errorHandler";
 
 @Component({
@@ -137,7 +135,6 @@ export class SignUpFormComponent implements OnInit {
 
 
   initLogin(data): void {
-    debugger
     this.auth.login(data).pipe(
       tap((res): void => {
         if (!res.data.success) {
@@ -150,20 +147,23 @@ export class SignUpFormComponent implements OnInit {
     ).subscribe();
   }
 
-  showSuccessAuth(): void {
+  showSuccessAuth(isRegister: boolean = false): void {
     this.modalCtrl.dismiss();
-    this.toaster.show({type: 'success', message: 'Ви увійшли! Ласкаво просимо до вашого облікового запису.'});
+    if(isRegister) {
+      this.toaster.show({type: 'success', message: 'Реєстрація успішна! Увійдіть до облікового запису.'});
+    } else {
+      this.toaster.show({type: 'success', message: 'Ви увійшли! Ласкаво просимо до вашого облікового запису.'});
+    }
   }
 
   initRegister(data): void {
-    debugger
     this.auth.register(data).pipe(
       take(1),
       tap((res): void => {
         if (!res.data.success) {
           throw new Error(res.data.message);
         } else {
-          this.showSuccessAuth();
+          this.showSuccessAuth(true);
         }
       }),
       catchError((error): any => handleError(error, this.toaster)),

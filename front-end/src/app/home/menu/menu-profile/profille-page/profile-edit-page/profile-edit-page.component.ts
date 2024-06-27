@@ -1,14 +1,14 @@
-import {ChangeDetectionStrategy, Component, inject, OnInit, signal, WritableSignal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, OnInit, signal, ViewChild, WritableSignal} from '@angular/core';
 import {
   AlertController,
   IonAlert,
-  IonAvatar,
+  IonAvatar, IonBreadcrumb, IonBreadcrumbs,
   IonButton, IonButtons, IonChip,
   IonContent,
   IonHeader, IonIcon,
   IonInput,
   IonItem, IonItemDivider,
-  IonLabel, IonList, IonPopover, IonRange, IonSpinner,
+  IonLabel, IonList, IonPopover, IonRange, IonSearchbar, IonSpinner,
   IonTitle,
   IonToolbar
 } from "@ionic/angular/standalone";
@@ -16,10 +16,12 @@ import {BackButtonComponent} from "../../../../../shared/ui-kit/components/back-
 import {NotificationsPreviewComponent} from "../../notifications-preview/notifications-preview.component";
 import {NavController} from "@ionic/angular";
 import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
-import {NgClass, NgStyle} from "@angular/common";
+import {NgClass, NgForOf, NgStyle} from "@angular/common";
 import {ValidateInputDirective} from "../../../../../shared/directives/validate-input.directive";
 import {matchingPasswordsValidator} from "../../../../../shared/utils/validators/matchingPasswordValidator";
 import {PhoneNumberFormatterDirective} from "../../../../../shared/directives/phone-formatter.directive";
+import {BreadcrumbLabelPipe} from "../../../../../shared/breadcrumb-map-name.pipe";
+import {BreadcrumbService} from "../../../../../shared/services/breadcrumb.service";
 
 @Component({
   selector: 'app-profile-edit-page',
@@ -53,6 +55,11 @@ import {PhoneNumberFormatterDirective} from "../../../../../shared/directives/ph
     IonChip,
     IonPopover,
     IonList,
+    BreadcrumbLabelPipe,
+    IonBreadcrumb,
+    IonBreadcrumbs,
+    IonSearchbar,
+    NgForOf,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -61,6 +68,7 @@ export class ProfileEditPage implements OnInit {
   private navCtrl: NavController = inject(NavController);
   private alertCtrl: AlertController = inject(AlertController);
   private fb: FormBuilder = inject(FormBuilder);
+  private breadcrumbs: BreadcrumbService = inject(BreadcrumbService);
 
   public form!: FormGroup;
   public name!: FormControl;
@@ -77,6 +85,11 @@ export class ProfileEditPage implements OnInit {
     lockClosed: false,
     phone: false,
   };
+
+  public collapsedBreadcrumbs: any[] = [];
+  public isBreadCrumbPopoverOpen: boolean = false;
+
+  @ViewChild('popover') popover;
 
   public alertButtons = [
     {
@@ -99,6 +112,10 @@ export class ProfileEditPage implements OnInit {
   showConfirmPassword: boolean = false;
   passwordBlurred: WritableSignal<boolean> = signal(true);
   isBlurred: WritableSignal<boolean> = signal(true);
+
+  get breadcrumbsService() {
+    return this.breadcrumbs;
+  }
 
   goBack(): void {
     this.navCtrl.back()
@@ -206,6 +223,14 @@ export class ProfileEditPage implements OnInit {
     });
 
     await alert.present();
+  }
+
+  async presentPopover(e: Event): Promise<void> {
+    const eventDetail = (e as CustomEvent).detail;
+    this.collapsedBreadcrumbs = this.breadcrumbsService.buildCollapsedBreadcrumbs(eventDetail.collapsedBreadcrumbs, ['/home']);
+
+    this.popover.event = e;
+    this.isBreadCrumbPopoverOpen = true;
   }
 
   assignFormControls(): void {

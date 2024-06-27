@@ -43,9 +43,14 @@ export class AuthService {
   }
 
   setStorageData(res): void {
-    this.storageService.setObject('token', {
-      accessToken: res?.data?.result?.token,
-    })
+    const keys: string[] = ['_id', 'email', 'phone', 'ssoUser', 'userName', 'userLastName'];
+    const userData: {} = {};
+
+    keys.forEach((key: string): void => {
+      userData[key] = res?.data?.result?.[key];
+    });
+
+    this.storageService.setObject('user', userData);
   }
 
   constructor(private _crud: CrudService) {

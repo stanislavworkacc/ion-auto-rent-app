@@ -1,3 +1,28 @@
+<ion-header>
+  <ion-toolbar class="p-2">
+    <div class="flex justify-between items-center py-2">
+      <ion-buttons slot="start">
+        <app-back-button
+          [styles]="'!text-[20px]'"
+          [navigateBack]="goBack.bind(this)"
+        ></app-back-button>
+      </ion-buttons>
+
+      <ion-breadcrumbs [maxItems]="2" (ionCollapsedClick)="presentPopover($event)" [itemsBeforeCollapse]="0">
+        @for (breadcrumb of breadcrumbsService.breadcrumbsRoutes(); track breadcrumb.url) {
+          <ion-breadcrumb
+            [href]="breadcrumb.url"
+          >
+            {{ breadcrumb.label | breadcrumbLabel }}
+          </ion-breadcrumb>
+        }
+      </ion-breadcrumbs>
+    </div>
+
+    <ion-searchbar></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content>
   <div class="wrapper bg-white h-full rounded-tl-[30px] rounded-tr-[30px]">
     <div class="flex justify-between p-3 items-center bg-[#d0d5db] rounded-tl-[30px] rounded-tr-[30px]">
@@ -250,6 +275,26 @@
 
           <ion-label>Видалити аккаунт</ion-label>
           <ion-icon slot="end" name="person-remove-outline"></ion-icon>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ng-template>
+</ion-popover>
+
+<ion-popover #popover
+             [isOpen]="isBreadCrumbPopoverOpen"
+             (didDismiss)="isBreadCrumbPopoverOpen = false"
+             [showBackdrop]="false"
+>
+  <ng-template>
+    <ion-content>
+      <ion-list>
+        <ion-item
+          *ngFor="let breadcrumb of collapsedBreadcrumbs; last as isLast"
+          [href]="breadcrumb?.url"
+          [lines]="isLast ? 'none' : null"
+        >
+          <ion-label>{{ breadcrumb?.label }}</ion-label>
         </ion-item>
       </ion-list>
     </ion-content>
