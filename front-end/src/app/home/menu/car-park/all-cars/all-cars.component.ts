@@ -1,5 +1,6 @@
 import {ChangeDetectionStrategy, Component, inject, OnInit, signal, WritableSignal} from '@angular/core';
 import {
+  IonBadge,
   IonCard,
   IonCardContent,
   IonCardHeader,
@@ -28,7 +29,8 @@ import {AllCarsService} from "./all-cars.service";
     IonCardContent,
     IonChip,
     IonIcon,
-    IonLabel
+    IonLabel,
+    IonBadge
   ]
 })
 export class AllCarsComponent  implements OnInit {
