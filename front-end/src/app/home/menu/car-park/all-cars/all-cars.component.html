@@ -1,14 +1,16 @@
 <ion-list>
-  <ion-item *ngFor="let card of cards">
-    <ion-card>
-      <img [alt]="card.title" [src]="card.img" />
-      <ion-card-header>
-        <ion-card-title>{{ card.title }}</ion-card-title>
-        <ion-card-subtitle>{{ card.subtitle }}</ion-card-subtitle>
-      </ion-card-header>
-      <ion-card-content>
-        {{ card.content }}
-      </ion-card-content>
-    </ion-card>
-  </ion-item>
+  @for(card of allCarsData.getAllCars(); track card.content) {
+    <ion-item>
+      <ion-card>
+        <img [alt]="card.title" [src]="card.img" />
+        <ion-card-header>
+          <ion-card-title>{{ card.title }}</ion-card-title>
+          <ion-card-subtitle>{{ card.subtitle }}</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          {{ card.content }}
+        </ion-card-content>
+      </ion-card>
+    </ion-item>
+  }
 </ion-list>
