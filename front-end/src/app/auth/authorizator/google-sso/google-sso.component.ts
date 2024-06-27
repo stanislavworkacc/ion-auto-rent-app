@@ -65,13 +65,19 @@ export class GoogleSsoComponent  implements OnInit, AfterViewInit {
     });
 
     // Manually bind the click event to the custom button
-    const customButton = document.getElementById('google-btn');
-    if (customButton) {
-      customButton.addEventListener('click', () => {
-        // @ts-ignore
-        google.accounts.id.prompt();
-      });
-    }
+    // const customButton = document.getElementById('google-btn');
+    // if (customButton) {
+    //   customButton.addEventListener('click', () => {
+    //     // @ts-ignore
+    //     google.accounts.id.prompt();
+    //   });
+    // }
+    // @ts-ignore
+    google.accounts.id.renderButton(
+      document.getElementById('google-signin-button'),
+      { theme: 'outline', size: 'large' }
+    );
+
   }
   handleGoogleSignIn(res) {
     const parsed = this.decodeToken(res.credential)
