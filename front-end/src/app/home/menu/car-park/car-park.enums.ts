@@ -1,4 +1,4 @@
 export enum SelectedSegment {
-  ALL = 'all',
+  ALL = 'all-cars',
   IN_RENT = 'in-rent',
 }

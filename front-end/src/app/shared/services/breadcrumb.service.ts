@@ -31,9 +31,19 @@ export class BreadcrumbService {
     return breadcrumbs;
   }
 
-  public buildCollapsedBreadcrumbs(collapsedBreadcrumbs, excludeFirst: boolean = false) {
+  // public buildCollapsedBreadcrumbs(collapsedBreadcrumbs, excludeFirst: boolean = false) {
+  //   return collapsedBreadcrumbs
+  //     .slice(excludeFirst ? 1 : 0)
+  //     .map((breadcrumb: any) => {
+  //       return {
+  //         url: breadcrumb.href,
+  //         label: breadcrumb.innerHTML.trim()
+  //       };
+  //     });
+  // }
+  public buildCollapsedBreadcrumbs(collapsedBreadcrumbs: any[], excludeIndices: number[] = []) {
     return collapsedBreadcrumbs
-      .slice(excludeFirst ? 1 : 0)
+      .filter((breadcrumb, index) => !excludeIndices.includes(index))
       .map((breadcrumb: any) => {
         return {
           url: breadcrumb.href,
@@ -41,4 +51,6 @@ export class BreadcrumbService {
         };
       });
   }
+
+
 }

@@ -87,17 +87,10 @@ export class CarParkComponent  implements OnInit {
   private carParkDataService: CarParkDataService = inject(CarParkDataService);
   private breadcrumbs: BreadcrumbService = inject(BreadcrumbService);
 
-  cards = [
-    { title: 'Card Title 1', subtitle: 'Card Subtitle 1', content: 'Here\'s a small text description for the card content. Nothing more, nothing less.', img: 'https://ionicframework.com/docs/img/demos/card-media.png' },
-    { title: 'Card Title 2', subtitle: 'Card Subtitle 2', content: 'Here\'s a small text description for the card content. Nothing more, nothing less.', img: 'https://ionicframework.com/docs/img/demos/card-media.png' },
-    { title: 'Card Title 3', subtitle: 'Card Subtitle 3', content: 'Here\'s a small text description for the card content. Nothing more, nothing less.', img: 'https://ionicframework.com/docs/img/demos/card-media.png' },
-    { title: 'Card Title 4', subtitle: 'Card Subtitle 4', content: 'Here\'s a small text description for the card content. Nothing more, nothing less.', img: 'https://ionicframework.com/docs/img/demos/card-media.png' }
-  ];
-
   @ViewChild('popover') popover;
 
   public collapsedBreadcrumbs: any[] = [];
-  public isBreadCrumbPopoverOpen: boolean = false;
+  public isBreadCrumbPopoverOpen: WritableSignal<boolean> = signal(false);
 
   get dataService() {
     return this.menuDataService;
@@ -114,12 +107,13 @@ export class CarParkComponent  implements OnInit {
 
   async presentPopover(e: Event): Promise<void> {
     const eventDetail = (e as CustomEvent).detail;
-    this.collapsedBreadcrumbs = this.breadcrumbsService.buildCollapsedBreadcrumbs(eventDetail.collapsedBreadcrumbs, true);
+    this.collapsedBreadcrumbs = this.breadcrumbsService.buildCollapsedBreadcrumbs(eventDetail.collapsedBreadcrumbs, [0, 2]);
+
     this.popover.event = e;
-    this.isBreadCrumbPopoverOpen = true;
+    this.isBreadCrumbPopoverOpen.set(true);
   }
   navigateBack(): void {
-    this.navCtrl.back();
+    this.navCtrl.navigateBack(['home/menu']);
     this.dataService.selectedMenuChip.set(MenuSection.PROFILE);
   }
 
@@ -132,6 +126,7 @@ export class CarParkComponent  implements OnInit {
 
   onSegmentChanged(event: any): void {
     this.carDataService.selectedSegment.update(() => event.detail.value);
+    this.navCtrl.navigateForward([`home/menu/car-park/${this.carDataService.selectedSegment()}`])
   }
   ngOnInit(): void {
     this.setSegmentOptions();

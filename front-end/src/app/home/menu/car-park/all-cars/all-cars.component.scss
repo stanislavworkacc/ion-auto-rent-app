@@ -1,0 +1,44 @@
+
+ion-list {
+  margin: 0;
+  padding: 0;
+}
+
+ion-item {
+  --background: transparent;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+
+  ion-card {
+    margin: 20px 0;
+    img {
+      width: 100%;
+      height: auto;
+    }
+
+    ion-card-header {
+      background-color: #ffffff;
+      padding: 20px 16px;
+
+      ion-card-title {
+        font-size: 18px;
+        font-weight: 500;
+        color: #333;
+      }
+
+      ion-card-subtitle {
+        font-size: 14px;
+        color: #666;
+        margin-top: 4px;
+      }
+    }
+
+    ion-card-content {
+      background-color: #ffffff;
+      padding: 16px;
+      font-size: 14px;
+      color: #333;
+    }
+  }
+}

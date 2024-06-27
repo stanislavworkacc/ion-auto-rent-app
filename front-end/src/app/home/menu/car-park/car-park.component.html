@@ -1,4 +1,4 @@
-<ion-header class="shadow-none">
+<ion-header class="shadow-none" [translucent]="true">
   <ion-toolbar>
     <div class="flex flex-col w-full">
       <div class="flex justify-between items-center py-2">
@@ -31,33 +31,17 @@
           </ion-segment-button>
         }
       </ion-segment>
-
     </div>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-item *ngFor="let card of cards">
-      <ion-card>
-        <img [alt]="card.title" [src]="card.img" />
-        <ion-card-header>
-          <ion-card-title>{{ card.title }}</ion-card-title>
-          <ion-card-subtitle>{{ card.subtitle }}</ion-card-subtitle>
-        </ion-card-header>
-        <ion-card-content>
-          {{ card.content }}
-        </ion-card-content>
-      </ion-card>
-    </ion-item>
-  </ion-list>
+  <router-outlet></router-outlet>
 </ion-content>
 
-
-
 <ion-popover #popover
-             [isOpen]="isBreadCrumbPopoverOpen"
-             (didDismiss)="isBreadCrumbPopoverOpen = false"
+             [isOpen]="isBreadCrumbPopoverOpen()"
+             (didDismiss)="isBreadCrumbPopoverOpen.set(false)"
 >
   <ng-template>
     <ion-content>
