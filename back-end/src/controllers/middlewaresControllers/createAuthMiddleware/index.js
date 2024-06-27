@@ -4,6 +4,7 @@ const logout = require('./logout');
 const forgetPassword = require('./forgetPassword');
 const resetPassword = require('./resetPassword');
 const register = require('./register');
+const googleSsoLogin = require('./googleSsoLogin');
 
 const createAuthMiddleware = (userModel) => {
     let authMethods = {};
@@ -20,6 +21,11 @@ const createAuthMiddleware = (userModel) => {
 
     authMethods.login = (req, res) =>
         login(req, res, {
+            userModel,
+        });
+
+    authMethods.googleSsoLogin = (req, res) =>
+        googleSsoLogin(req, res, {
             userModel,
         });
 

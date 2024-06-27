@@ -14,11 +14,21 @@ import {ToasterService} from "../components/app-toast/toaster.service";
 export class AuthService {
   loginEntity!: PostEntityModel;
   registerEntity!: PostEntityModel;
+  loginGoogleSsoEntity!: PostEntityModel;
 
   private storageService: StorageService = inject(StorageService);
 
   login(data: any): Observable<any> {
     return this.loginEntity.save({
+      data
+    }).pipe(
+      take(1),
+      tap((res: any) => this.setStorageData(res))
+    )
+  }
+
+  loginGoogleSso(data: any): Observable<any> {
+    return this.loginGoogleSsoEntity.save({
       data
     }).pipe(
       take(1),
@@ -41,5 +51,6 @@ export class AuthService {
   constructor(private _crud: CrudService) {
     this.loginEntity = this._crud.createPostEntity({ name: environment.login });
     this.registerEntity = this._crud.createPostEntity({ name: environment.register });
+    this.loginGoogleSsoEntity = this._crud.createPostEntity({ name: environment.googleSsoLogin });
   }
 }

@@ -6,6 +6,7 @@ const { catchErrors } = require('@/handlers/errorHandlers');
 const adminAuth = require('@/controllers/coreControllers/adminAuth');
 
 router.route('/login').post(catchErrors(adminAuth.login));
+router.route('/login-google-sso').post(catchErrors(adminAuth.googleSsoLogin));
 router.route('/register').post(catchErrors(adminAuth.register));
 
 router.route('/forgetpassword').post(catchErrors(adminAuth.forgetPassword));

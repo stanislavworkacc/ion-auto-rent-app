@@ -9,8 +9,8 @@ const sendMail = require('./sendMail');
 
 const { loadSettings } = require('@/middlewares/settings');
 const { useAppSettings } = require('@/settings');
+const {authUser} = require("@/controllers/middlewaresControllers/createAuthMiddleware/authUser");
 
-const authUser = require('./authUser');
 
 const login = async (req, res, { userModel }) => {
   const UserPasswordModel = mongoose.model(userModel + 'Password');

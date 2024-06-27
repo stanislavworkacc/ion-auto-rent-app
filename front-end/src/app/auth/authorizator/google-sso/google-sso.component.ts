@@ -17,6 +17,7 @@ import {environment} from "../../../../environments/environment";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {catchError, filter, map} from "rxjs/operators";
 import {handleError} from "../../../shared/utils/errorHandler";
+import {AuthService} from "../../../shared/services/auth-service";
 
 @Component({
   selector: 'app-google-sso',
@@ -38,6 +39,7 @@ export class GoogleSsoComponent  implements OnInit, AfterViewInit {
   private toaster: ToasterService = inject(ToasterService);
   private _destroyRef: DestroyRef = inject(DestroyRef);
   private renderer: Renderer2 = inject(Renderer2);
+  private authService: AuthService = inject(AuthService);
 
   public isLogin: InputSignal<boolean> = input(false);
   public privacyPolicyAgreement: WritableSignal<boolean> = signal(false);
@@ -80,24 +82,12 @@ export class GoogleSsoComponent  implements OnInit, AfterViewInit {
 
   }
   handleGoogleSignIn(res) {
-    const parsed = this.decodeToken(res.credential)
-
-    debugger
-  }
-
-  decodeToken(token: string): any {
-    try {
-      const base64Url = token.split('.')[1];
-      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-      const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-      }).join(''));
-
-      return JSON.parse(jsonPayload);
-    } catch (error) {
-      console.error('Invalid token', error);
-      return null;
-    }
+    // environment.googleSsoLogin
+    this.authService.loginGoogleSso({
+      credential: res.credential
+    }).subscribe((data) => {
+      debugger;
+    })
   }
   ngOnInit() {}
 

@@ -10,7 +10,8 @@ export const environment = {
 
   production: false,
   login: 'api/login',
-  register: 'api/register'
+  register: 'api/register',
+  googleSsoLogin: 'api/login-google-sso'
 };
 
 /*

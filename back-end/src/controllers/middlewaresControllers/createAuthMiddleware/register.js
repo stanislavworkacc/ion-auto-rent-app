@@ -43,6 +43,8 @@ async function register(req, res, { userModel }) {
             email,
             userName,
             enabled: true,
+            ssoUser: false,
+            phone: '',
         });
         // Save the user to the database
         await user.save();
