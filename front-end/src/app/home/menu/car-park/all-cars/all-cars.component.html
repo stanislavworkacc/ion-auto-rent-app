@@ -1,4 +1,18 @@
+
 <ion-list>
+  <div class="chip-container">
+    @for (chip of allCarsData.chips(); track chip.value) {
+<!--      [class.bg-[#dce1e4]]="chip.value === allCarsData.selectedChip().value"-->
+      <ion-chip
+
+        outline="outline"
+        (click)="chipSelected(chip)"
+      >
+        <ion-icon [name]="chip.icon" color="primary"></ion-icon>
+        <ion-label>{{ chip.label }}</ion-label>
+      </ion-chip>
+    }
+  </div>
   @for(card of allCarsData.getAllCars(); track card.content) {
     <ion-item>
       <ion-card>

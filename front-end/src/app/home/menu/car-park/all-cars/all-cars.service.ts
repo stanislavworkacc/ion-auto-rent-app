@@ -12,6 +12,8 @@ export class AllCarsService {
     img: string }[]>
     = signal([]);
 
+  chips: WritableSignal<{ value: string, label: string, icon: string }[]> = signal([]);
+  selectedChip: WritableSignal<{ value: string, label: string, icon: string }> = signal(null);
   setAllCars(cars: { title: string, subtitle: string, content: string, img: string }[]): void {
     this.allCars.set(cars)
   }

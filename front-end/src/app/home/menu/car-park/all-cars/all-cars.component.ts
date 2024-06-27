@@ -4,8 +4,8 @@ import {
   IonCardContent,
   IonCardHeader,
   IonCardSubtitle,
-  IonCardTitle,
-  IonItem,
+  IonCardTitle, IonChip, IonIcon,
+  IonItem, IonLabel,
   IonList
 } from "@ionic/angular/standalone";
 import {NgForOf} from "@angular/common";
@@ -25,7 +25,10 @@ import {AllCarsService} from "./all-cars.service";
     IonCardHeader,
     IonCardTitle,
     IonCardSubtitle,
-    IonCardContent
+    IonCardContent,
+    IonChip,
+    IonIcon,
+    IonLabel
   ]
 })
 export class AllCarsComponent  implements OnInit {
@@ -43,8 +46,20 @@ export class AllCarsComponent  implements OnInit {
       { title: 'Card Title 4', subtitle: 'Card Subtitle 4', content: 'Here\'s a small text description for the card content. Nothing more, nothing less.', img: 'https://ionicframework.com/docs/img/demos/card-media.png' }
     ])
   }
+
+  chipSelected(chip: { value: string, label: string, icon: string }): void {
+    this.allCarsData.selectedChip.set(chip);
+  }
+
+  setChips(): void {
+    this.allCarsData.chips.set([
+      { value: 'create', label: 'Додати', icon: 'add-circle-outline' },
+      { value: 'history-rent', label: 'Історія оренд', icon: 'receipt-outline' }
+    ])
+  }
   ngOnInit(): void {
     this.setAllCars();
+    this.setChips();
   }
   constructor() { }
 }

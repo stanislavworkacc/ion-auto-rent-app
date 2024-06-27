@@ -2,6 +2,25 @@
 ion-list {
   margin: 0;
   padding: 0;
+
+  .chip-container {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    white-space: nowrap;
+    flex: 1;
+    min-width: 100%;
+    padding: 10px 10px 0 10px;
+  }
+
+  ion-chip {
+    background: #fff;
+    color: #333333;
+    border: 0.1px solid #d1d1d1;
+    min-width: 120px !important;
+    display: flex;
+    justify-content: center;
+  }
 }
 
 ion-item {
