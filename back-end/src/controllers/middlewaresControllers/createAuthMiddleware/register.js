@@ -32,7 +32,10 @@ async function register(req, res, { userModel }) {
         // Check if the user already exists
         let user = await UserModel.findOne({ email });
         if (user) {
-            return res.status(400).json({ message: 'User already exists' });
+            return res.status(400).json({
+                success: false,
+                message: 'User already exists'
+            });
         }
 
         // Create a new user
@@ -58,10 +61,16 @@ async function register(req, res, { userModel }) {
         await new UserPassword(UserPasswordData).save();
 
 
-        res.status(201).json({ message: 'User registered successfully' });
+        res.status(201).json({
+            success: true,
+            message: 'User registered successfully'
+        });
     } catch (error) {
         console.error('Error registering user', error);
-        res.status(500).json({ message: 'Server error' });
+        res.status(500).json({
+            message: 'Server error',
+            success: false,
+        });
     }
 }
 

@@ -29,6 +29,8 @@ const authUser = async (req, res, {user, databasePassword, password, UserPasswor
             }
         ).exec();
 
+
+        console.log('user', user);
         res
             .status(200)
             .cookie('token', token, {
@@ -43,13 +45,11 @@ const authUser = async (req, res, {user, databasePassword, password, UserPasswor
             .json({
                 success: true,
                 result: {
-                    token,
                     _id: user._id,
-                    name: user.name,
-                    surname: user.surname,
-                    role: user.role,
+                    userName: user.userName,
+                    userLastName: user?.lastName,
+                    phone: user?.phone,
                     email: user.email,
-                    photo: user.photo,
                 },
                 message: 'Successfully login user',
             });
