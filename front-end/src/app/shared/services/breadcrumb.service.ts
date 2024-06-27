@@ -41,9 +41,9 @@ export class BreadcrumbService {
   //       };
   //     });
   // }
-  public buildCollapsedBreadcrumbs(collapsedBreadcrumbs: any[], excludeIndices: number[] = []) {
+  public buildCollapsedBreadcrumbs(collapsedBreadcrumbs: any[], excludeRoutes: string[] = []) {
     return collapsedBreadcrumbs
-      .filter((breadcrumb, index) => !excludeIndices.includes(index))
+      .filter((breadcrumb: any) => !excludeRoutes.includes(breadcrumb.href))
       .map((breadcrumb: any) => {
         return {
           url: breadcrumb.href,
