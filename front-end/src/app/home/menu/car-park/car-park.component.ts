@@ -10,13 +10,28 @@ import {
 } from '@angular/core';
 import {NavController, Platform} from "@ionic/angular";
 import {
-  IonBreadcrumb, IonBreadcrumbs, IonButtons,
+  IonBreadcrumb,
+  IonBreadcrumbs,
+  IonButtons,
   IonCard,
   IonCardContent,
   IonCardHeader,
   IonCardSubtitle,
-  IonCol, IonContent,
-  IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonPopover, IonRow, IonSegment, IonSegmentButton, IonToolbar
+  IonCardTitle,
+  IonCol,
+  IonContent,
+  IonGrid,
+  IonHeader,
+  IonIcon,
+  IonItem,
+  IonLabel,
+  IonList,
+  IonPopover,
+  IonRow,
+  IonSegment,
+  IonSegmentButton,
+  IonThumbnail,
+  IonToolbar
 } from "@ionic/angular/standalone";
 import {BackButtonComponent} from "../../../shared/ui-kit/components/back-button/back-button.component";
 import {MenuDataService} from "../menu-data.serivce";
@@ -59,7 +74,9 @@ import {RouterOutlet} from "@angular/router";
     IonSegment,
     IonSegmentButton,
     SegmentsComponent,
-    RouterOutlet
+    RouterOutlet,
+    IonCardTitle,
+    IonThumbnail
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -69,6 +86,13 @@ export class CarParkComponent  implements OnInit {
   private menuDataService: MenuDataService = inject(MenuDataService);
   private carParkDataService: CarParkDataService = inject(CarParkDataService);
   private breadcrumbs: BreadcrumbService = inject(BreadcrumbService);
+
+  cards = [
+    { title: 'Card Title 1', subtitle: 'Card Subtitle 1', content: 'Here\'s a small text description for the card content. Nothing more, nothing less.', img: 'https://ionicframework.com/docs/img/demos/card-media.png' },
+    { title: 'Card Title 2', subtitle: 'Card Subtitle 2', content: 'Here\'s a small text description for the card content. Nothing more, nothing less.', img: 'https://ionicframework.com/docs/img/demos/card-media.png' },
+    { title: 'Card Title 3', subtitle: 'Card Subtitle 3', content: 'Here\'s a small text description for the card content. Nothing more, nothing less.', img: 'https://ionicframework.com/docs/img/demos/card-media.png' },
+    { title: 'Card Title 4', subtitle: 'Card Subtitle 4', content: 'Here\'s a small text description for the card content. Nothing more, nothing less.', img: 'https://ionicframework.com/docs/img/demos/card-media.png' }
+  ];
 
   @ViewChild('popover') popover;
 
