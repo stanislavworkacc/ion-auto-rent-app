@@ -11,6 +11,7 @@ export class BreadcrumbLabelPipe implements PipeTransform {
       menu: 'Меню',
       profile: 'Профіль',
       edit: 'Редагування',
+      "car-park": 'Автопарк',
     };
 
     return labelMappings[value.toLowerCase()] || value;

@@ -8,12 +8,21 @@ export enum MenuPage {
   HELP = 'help',
 }
 
+export enum MenuCarParkPage {
+  PROFILE = 'profile',
+  SEARCH = 'search',
+  SALE = 'sale',
+  CREATE = 'create',
+  NEWS = 'news',
+  SETTINGS = 'settings',
+  HELP = 'help',
+}
+
 export enum MenuSection {
   PROFILE = 'profile',
   CAR_PARK = 'carPark',
   FILES = 'files',
   GEO = 'geo',
-
 }
 
 export enum ProfileMenuItem {

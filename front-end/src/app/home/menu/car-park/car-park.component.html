@@ -1,0 +1,60 @@
+<ion-header class="shadow-none">
+  <ion-toolbar>
+    <div class="flex flex-col w-full">
+      <div class="flex justify-between items-center py-2">
+        <ion-buttons slot="start">
+          <app-back-button
+            [styles]="'!text-[20px] !ml-2'"
+            [navigateBack]="navigateBack.bind(this)"
+          ></app-back-button>
+        </ion-buttons>
+
+        <ion-breadcrumbs [maxItems]="2" (ionCollapsedClick)="presentPopover($event)" [itemsBeforeCollapse]="0">
+          @for (breadcrumb of breadcrumbsService.breadcrumbsRoutes(); track breadcrumb.url) {
+            <ion-breadcrumb
+              [href]="breadcrumb.url"
+            >
+              {{ breadcrumb.label | breadcrumbLabel }}
+            </ion-breadcrumb>
+          }
+        </ion-breadcrumbs>
+      </div>
+
+      <ion-segment (ionChange)="onSegmentChanged($event)" [value]="carDataService.selectedSegment()"
+                   scrollable="false">
+        @for (option of carDataService.options(); track option.value) {
+          <ion-segment-button class="px-2"
+            [value]="option.value"
+            [hidden]="!option.isVisible"
+          >
+            <ion-label>{{ option.label }}</ion-label>
+          </ion-segment-button>
+        }
+      </ion-segment>
+
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <router-outlet></router-outlet>
+</ion-content>
+
+<ion-popover #popover
+             [isOpen]="isBreadCrumbPopoverOpen"
+             (didDismiss)="isBreadCrumbPopoverOpen = false"
+>
+  <ng-template>
+    <ion-content>
+      <ion-list>
+        <ion-item
+          *ngFor="let breadcrumb of collapsedBreadcrumbs; last as isLast"
+          [href]="breadcrumb?.url"
+          [lines]="isLast ? 'none' : null"
+        >
+          <ion-label>{{ breadcrumb?.label }}</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ng-template>
+</ion-popover>

@@ -107,11 +107,17 @@ export class MenuComponent implements OnInit {
     this.setSignals();
   }
 
+  chipChangeSubscription(): void  {
+    if(this.selectedMenuChip() === MenuSection.FILES) {
+      this.navCtrl.navigateForward(['/home/menu/files'])
+    }
+    if(this.selectedMenuChip() === MenuSection.CAR_PARK) {
+      this.navCtrl.navigateForward(['/home/menu/car-park'])
+    }
+  }
   constructor() {
-    effect(() => {
-      if(this.selectedMenuChip() === MenuSection.FILES) {
-        this.navCtrl.navigateForward(['/home/menu/files'])
-      }
+    effect((): void => {
+      this.chipChangeSubscription();
     });
   }
 }

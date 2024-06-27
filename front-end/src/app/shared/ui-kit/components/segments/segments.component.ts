@@ -40,6 +40,7 @@ export class SegmentsComponent implements OnInit {
   }
 
   ngOnInit() {
+
   }
 
 }

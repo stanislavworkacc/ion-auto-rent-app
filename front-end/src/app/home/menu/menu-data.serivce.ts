@@ -1,4 +1,5 @@
 import {Injectable, signal, WritableSignal} from "@angular/core";
+import {MenuSection} from "./menu-enums";
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +35,7 @@ export class MenuDataService {
     label: string
   }[]> = signal([]);
 
-  public selectedMenuChip: WritableSignal<string> = signal('profile');
+  public selectedMenuChip: WritableSignal<string> = signal(MenuSection.PROFILE);
 
   setProfilePageItems(options: { value: string, icon: string, label: string }[]): void {
     this.menuItems.set(options)
