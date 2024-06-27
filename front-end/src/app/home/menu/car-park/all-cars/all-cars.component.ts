@@ -54,7 +54,7 @@ export class AllCarsComponent  implements OnInit {
   setChips(): void {
     this.allCarsData.chips.set([
       { value: 'create', label: 'Додати', icon: 'add-circle-outline' },
-      { value: 'history-rent', label: 'Історія оренд', icon: 'receipt-outline' }
+      { value: 'history-rent', label: 'Історія оренд', icon: 'cloud-done-outline' }
     ])
   }
   ngOnInit(): void {

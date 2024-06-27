@@ -107,7 +107,7 @@ export class CarParkComponent  implements OnInit {
 
   async presentPopover(e: Event): Promise<void> {
     const eventDetail = (e as CustomEvent).detail;
-    this.collapsedBreadcrumbs = this.breadcrumbsService.buildCollapsedBreadcrumbs(eventDetail.collapsedBreadcrumbs, [0, 2]);
+    this.collapsedBreadcrumbs = this.breadcrumbsService.buildCollapsedBreadcrumbs(eventDetail.collapsedBreadcrumbs, ['/home', '/home/menu/car-park']);
 
     this.popover.event = e;
     this.isBreadCrumbPopoverOpen.set(true);

@@ -120,7 +120,8 @@ export class ProfilePage implements OnInit {
 
   async presentPopover(e: Event): Promise<void> {
     const eventDetail = (e as CustomEvent).detail;
-    this.collapsedBreadcrumbs = this.breadcrumbsService.buildCollapsedBreadcrumbs(eventDetail.collapsedBreadcrumbs, [1]);
+    this.collapsedBreadcrumbs = this.breadcrumbsService.buildCollapsedBreadcrumbs(eventDetail.collapsedBreadcrumbs, ['/home']);
+
     this.popover.event = e;
     this.isBreadCrumbPopoverOpen = true;
   }
