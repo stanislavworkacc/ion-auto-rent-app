@@ -6,32 +6,18 @@ const { slugify } = require('transliteration');
 const fileFilterMiddleware = require('./utils/fileFilterMiddleware');
 
 const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3');
-// const secretAccessKey = process.env.DO_SPACES_SECRET;
-// const accessKeyId = process.env.DO_SPACES_KEY;
-// const endpoint = 'https://' + process.env.DO_SPACES_URL;
-// const region = process.env.REGION;
-
-// const clientParams = {
-//   endpoint: endpoint,
-//   region: region,
-//   credentials: {
-//     accessKeyId,
-//     secretAccessKey,
-//   },
-// };
+const secretAccessKey = process.env.DO_SPACES_SECRET;
+const accessKeyId = process.env.DO_SPACES_KEY;
+const endpoint = 'https://' + process.env.DO_SPACES_URL;
+const region = process.env.REGION;
 
 const clientParams = {
-  endpoint: 'https://vsu-backet.s3.amazonaws.com/',
-  region: 'us-east-1',
+  endpoint: endpoint,
+  region: region,
   credentials: {
-    accessKeyId: 'AKIA5FTZCQO7IXZGZXWA',
-    secretAccessKey: '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',
+    accessKeyId,
+    secretAccessKey,
   },
-  requestHandler: new NodeHttpHandler({
-    httpsAgent: new https.Agent({
-      rejectUnauthorized: false,
-    }),
-  }),
 };
 
 
