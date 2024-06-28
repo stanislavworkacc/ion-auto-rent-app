@@ -6,8 +6,6 @@ const { slugify } = require('transliteration');
 const fileFilterMiddleware = require('./utils/fileFilterMiddleware');
 
 const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3');
-const null
-
 // const secretAccessKey = process.env.DO_SPACES_SECRET;
 // const accessKeyId = process.env.DO_SPACES_KEY;
 // const endpoint = 'https://' + process.env.DO_SPACES_URL;
