@@ -13,13 +13,15 @@ import {
   IonCardContent,
   IonCardHeader,
   IonCardSubtitle,
-  IonCardTitle, IonChip, IonIcon,
+  IonCardTitle, IonChip, IonHeader, IonIcon,
   IonItem, IonLabel,
-  IonList, IonTitle
+  IonList, IonSegment, IonSegmentButton, IonTitle, IonToolbar
 } from "@ionic/angular/standalone";
 import {NgClass, NgForOf} from "@angular/common";
 import {AllCarsService} from "./all-cars.service";
 import { register } from 'swiper/element/bundle';
+import {CarParkDataService} from "../car-park-data.service";
+import {NavController} from "@ionic/angular";
 
 register();
 @Component({
@@ -45,15 +47,31 @@ register();
     IonButtons,
     IonButton,
     IonTitle,
-    NgClass
+    NgClass,
+    IonHeader,
+    IonToolbar,
+    IonSegment,
+    IonSegmentButton
   ]
 })
 export class AllCarsComponent  implements OnInit {
 
   private allCarsService: AllCarsService = inject(AllCarsService);
+  private carParkDataService: CarParkDataService = inject(CarParkDataService);
+  private navCtrl: NavController = inject(NavController);
 
   get allCarsData() {
     return this.allCarsService;
+  }
+
+  get carDataService() {
+    return this.carParkDataService;
+  }
+
+
+  onSegmentChanged(event: any): void {
+    this.carDataService.selectedSegment.update(() => event.detail.value);
+    this.navCtrl.navigateForward([`home/menu/car-park/${this.carDataService.selectedSegment()}`])
   }
   setAllCars(): void {
     this.allCarsData.setAllCars([

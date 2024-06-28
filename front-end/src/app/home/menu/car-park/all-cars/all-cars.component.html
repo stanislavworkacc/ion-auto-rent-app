@@ -1,3 +1,18 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-segment (ionChange)="onSegmentChanged($event)" [value]="carDataService.selectedSegment()"
+                 scrollable="false">
+      @for (option of carDataService.options(); track option.value) {
+        <ion-segment-button class="px-2"
+                            [value]="option.value"
+                            [hidden]="!option.isVisible"
+        >
+          <ion-label>{{ option.label }}</ion-label>
+        </ion-segment-button>
+      }
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
 <ion-list>
   <div class="flex items-center w-full justify-between pr-[10px]">
     <div class="chip-container">
