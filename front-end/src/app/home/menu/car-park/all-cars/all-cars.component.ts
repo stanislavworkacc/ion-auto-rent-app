@@ -57,11 +57,52 @@ export class AllCarsComponent  implements OnInit {
   }
   setAllCars(): void {
     this.allCarsData.setAllCars([
-      { title: 'Card Title 1', subtitle: 'Card Subtitle 1', content: 'Here\'s a small text description for the card content. Nothing more, nothing less.', img: 'https://ionicframework.com/docs/img/demos/card-media.png' },
-      { title: 'Card Title 2', subtitle: 'Card Subtitle 2', content: 'Here\'s a small text description for the card content. Nothing more, nothing less.', img: 'https://ionicframework.com/docs/img/demos/card-media.png' },
-      { title: 'Card Title 3', subtitle: 'Card Subtitle 3', content: 'Here\'s a small text description for the card content. Nothing more, nothing less.', img: 'https://ionicframework.com/docs/img/demos/card-media.png' },
-      { title: 'Card Title 4', subtitle: 'Card Subtitle 4', content: 'Here\'s a small text description for the card content. Nothing more, nothing less.', img: 'https://ionicframework.com/docs/img/demos/card-media.png' }
-    ])
+      {
+        title: 'Card Title 1',
+        subtitle: 'Card Subtitle 1',
+        content: 'Here\'s a small text description for the card content. Nothing more, nothing less.',
+        images: [
+          'https://swiperjs.com/demos/images/nature-1.jpg',
+          'https://swiperjs.com/demos/images/nature-2.jpg',
+          'https://swiperjs.com/demos/images/nature-3.jpg',
+          'https://swiperjs.com/demos/images/nature-4.jpg'
+        ]
+      },
+      {
+        title: 'Card Title 2',
+        subtitle: 'Card Subtitle 2',
+        content: 'Here\'s a small text description for the card content. Nothing more, nothing less.',
+        images: [
+          'https://swiperjs.com/demos/images/nature-1.jpg',
+          'https://swiperjs.com/demos/images/nature-2.jpg',
+          'https://swiperjs.com/demos/images/nature-3.jpg',
+          'https://swiperjs.com/demos/images/nature-4.jpg'
+        ]
+      },
+      {
+        title: 'Card Title 3',
+        subtitle: 'Card Subtitle 3',
+        content: 'Here\'s a small text description for the card content. Nothing more, nothing less.',
+        images: [
+          'https://swiperjs.com/demos/images/nature-1.jpg',
+          'https://swiperjs.com/demos/images/nature-2.jpg',
+          'https://swiperjs.com/demos/images/nature-3.jpg',
+          'https://swiperjs.com/demos/images/nature-4.jpg'
+        ]
+      },
+      {
+        title: 'Card Title 4',
+        subtitle: 'Card Subtitle 4',
+        content: 'Here\'s a small text description for the card content. Nothing more, nothing less.',
+        images: [
+          'https://swiperjs.com/demos/images/nature-1.jpg',
+          'https://swiperjs.com/demos/images/nature-2.jpg',
+          'https://swiperjs.com/demos/images/nature-3.jpg',
+          'https://swiperjs.com/demos/images/nature-4.jpg'
+        ]
+      }
+    ]);
+
   }
 
   chipSelected(chip: { value: string, label: string, icon: string }): void {
