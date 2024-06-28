@@ -6,6 +6,7 @@ import {FileComponent} from "./file/file.component";
 import {CarParkComponent} from "./car-park/car-park.component";
 import {AllCarsComponent} from "./car-park/all-cars/all-cars.component";
 import {InRentComponent} from "./car-park/in-rent/in-rent.component";
+import {AllParksComponent} from "./car-park/all-parks/all-parks.component";
 
 export const MENU_ROUTES: Routes = [
   {
@@ -15,12 +16,10 @@ export const MENU_ROUTES: Routes = [
   {
     path: 'profile',
     component: ProfilePage,
-    children: [
-      {
-        path: 'edit',
-        component: ProfileEditPage
-      }
-    ]
+  },
+  {
+    path: 'edit',
+    component: ProfileEditPage
   },
   {
     path: 'files',
@@ -32,8 +31,12 @@ export const MENU_ROUTES: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'all-cars',
+        redirectTo: 'all-parks',
         pathMatch: 'full'
+      },
+      {
+        path: 'all-parks',
+        component: AllParksComponent
       },
       {
         path: 'all-cars',

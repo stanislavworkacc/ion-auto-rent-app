@@ -1,0 +1,35 @@
+<ion-content class="ion-padding">
+  <div class="text-black text-center mb-8">
+    <div class="flex items-center justify-center mb-4">
+      <ion-icon name="car-sport-outline" class="text-4xl text-indigo-600"></ion-icon>
+      <h1 class="text-2xl font-bold ml-2">Колекції автопарків</h1>
+    </div>
+    <p class="text-lg text-gray-500">Керуйте своїми автопарками зручно.</p>
+    <div class="mt-4">
+      <ion-button expand="block" color="primary">Додати новий автопарк</ion-button>
+    </div>
+    <div class="mt-4">
+      <p class="text-gray-500">У вас <span class="text-indigo-600 font-bold">{{ userCarParkings.length }}</span> автопарків</p>
+      <ion-progress-bar value="{{ userCarParkings.length / 10 }}"></ion-progress-bar>
+    </div>
+  </div>
+
+  <ion-list>
+    <ion-item *ngFor="let parking of userCarParkings">
+      <ion-thumbnail slot="start">
+        <img [src]="parking.img" [alt]="parking.label" />
+      </ion-thumbnail>
+      <ion-label>
+        <h2>{{ parking.label }}</h2>
+        <p>{{ parking.location }}</p>
+      </ion-label>
+      <ion-button fill="clear" slot="end" >
+        <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+      </ion-button>
+      <ion-button fill="clear" slot="end" >
+        <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+</ion-content>
+

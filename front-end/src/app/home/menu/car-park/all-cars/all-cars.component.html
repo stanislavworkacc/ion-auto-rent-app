@@ -1,6 +1,20 @@
-
+<ion-header>
+  <ion-toolbar>
+    <ion-segment (ionChange)="onSegmentChanged($event)" [value]="carDataService.selectedSegment()"
+                 scrollable="false">
+      @for (option of carDataService.options(); track option.value) {
+        <ion-segment-button class="px-2"
+                            [value]="option.value"
+                            [hidden]="!option.isVisible"
+        >
+          <ion-label>{{ option.label }}</ion-label>
+        </ion-segment-button>
+      }
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
 <ion-list>
-  <div class="flex items-center">
+  <div class="flex items-center w-full justify-between pr-[10px]">
     <div class="chip-container">
       @for (chip of allCarsData.chips(); track chip.value) {
         <ion-chip
@@ -13,47 +27,43 @@
         </ion-chip>
       }
     </div>
+    <ion-buttons slot="end" class="pt-[10px]">
+      <ion-button class="flex justify-end">
+        <div class="add-btn flex flex-col items-center">
+          <ion-icon name="add-circle-outline"></ion-icon>
+          <ion-label class="text-xs">Додати</ion-label>
+        </div>
+      </ion-button>
+    </ion-buttons>
   </div>
 
-  <div class="w-full flex gap-4 justify-start p-[10px] overflow-x-auto overflow-y-visible px-[15px]">
-    <div class="relative flex items-center justify-center bg-[#7777793b] w-[35px] h-[35px]  rounded-lg shadow-md">
-      <ion-icon name="car-outline" class="text-2xl text-[#89a1c8]"></ion-icon>
-      <ion-badge class="absolute bottom-0 right-0 transform translate-x-2 translate-y-2 bg-[#89a1c8] text-white rounded-full text-xs flex items-center justify-center w-5 h-5">2</ion-badge>
-    </div>
-
-    <div class="relative flex items-center justify-center bg-[#7777793b] w-[35px] h-[35px] rounded-lg shadow-md">
-      <ion-icon name="checkmark-circle-outline" class="text-2xl text-[#49a66b]"></ion-icon>
-      <ion-badge class="absolute bottom-0 right-0 transform translate-x-2 translate-y-2 bg-[#2f9253] text-white rounded-full text-xs flex items-center justify-center w-5 h-5">2</ion-badge>
-    </div>
-
-    <div class="relative flex items-center justify-center bg-[#7777793b] w-[35px] h-[35px] rounded-lg shadow-md">
-      <ion-icon name="heart-outline" class="text-2xl text-[#b5b5b5]"></ion-icon>
-      <ion-badge class="absolute bottom-0 right-0 transform translate-x-2 translate-y-2 bg-[#b5b5b5] text-white rounded-full text-xs flex items-center justify-center w-5 h-5">2</ion-badge>
-    </div>
-
-    <div class="relative flex items-center justify-center bg-[#7777793b] w-[35px] h-[35px] rounded-lg shadow-md">
-      <ion-icon name="heart-dislike-outline" class="text-2xl text-[#b5b5b529]"></ion-icon>
-      <ion-badge class="absolute bottom-0 right-0 transform translate-x-2 translate-y-2 bg-[#b5b5b5] text-white rounded-full text-xs flex items-center justify-center w-5 h-5">2</ion-badge>
-    </div>
-
-    <div class="relative flex items-center justify-center bg-[#7777793b] w-[35px] h-[35px] rounded-lg shadow-md">
-      <ion-icon name="star-half-outline" class="text-2xl text-[#b5b5b529]"></ion-icon>
-      <ion-badge class="absolute bottom-0 right-0 transform translate-x-2 translate-y-2 bg-[#3e4673] text-white rounded-full text-xs flex items-center justify-center w-5 h-5">4.3</ion-badge>
-    </div>
-
+  <div class="w-full max-w-[75%] flex gap-4 justify-start p-[10px] overflow-x-auto overflow-y-visible px-[15px]">
+    @for(rate of allCarsData.getRateIcons(); track rate.name) {
+      <div class="relative flex items-center justify-center bg-[#7777793b] w-[35px] h-[35px] rounded-lg shadow-md">
+        <ion-icon [name]="rate.name" class="text-2xl" [ngClass]="rate.textClass"></ion-icon>
+        <ion-badge class="absolute bottom-0 right-0 transform translate-x-2 translate-y-2 text-white rounded-full text-xs flex items-center justify-center w-5 h-5" [ngClass]="rate.badgeClass">
+          {{ rate.badgeText }}
+        </ion-badge>
+      </div>
+    }
   </div>
 
   @for(card of allCarsData.getAllCars(); track card.content) {
     <ion-item>
       <ion-card>
-        <img [alt]="card.title" [src]="card.img" />
+        <swiper-container class="mySwiper" pagination="true" effect="coverflow" grab-cursor="true" centered-slides="true"
+                          slides-per-view="auto" coverflow-effect-rotate="50" coverflow-effect-stretch="0" coverflow-effect-depth="100"
+                          coverflow-effect-modifier="1" coverflow-effect-slide-shadows="true">
+
+          <swiper-slide *ngFor="let image of card.images">
+            <img [src]="image" />
+          </swiper-slide>
+
+        </swiper-container>
         <ion-card-header>
           <ion-card-title>{{ card.title }}</ion-card-title>
           <ion-card-subtitle>{{ card.subtitle }}</ion-card-subtitle>
         </ion-card-header>
-        <ion-card-content>
-          {{ card.content }}
-        </ion-card-content>
       </ion-card>
     </ion-item>
   }

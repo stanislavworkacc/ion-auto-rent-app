@@ -13,6 +13,7 @@ import {ToasterService} from "../components/app-toast/toaster.service";
 })
 export class AuthService {
   loginEntity!: PostEntityModel;
+  logoutEntity!: PostEntityModel;
   registerEntity!: PostEntityModel;
   loginGoogleSsoEntity!: PostEntityModel;
 
@@ -43,13 +44,27 @@ export class AuthService {
   }
 
   setStorageData(res): void {
-    this.storageService.setObject('token', {
-      accessToken: res?.data?.result?.token,
-    })
+    const keys: string[] = ['_id', 'email', 'phone', 'ssoUser', 'userName', 'userLastName'];
+    const userData: {} = {};
+
+    keys.forEach((key: string): void => {
+      userData[key] = res?.data?.result?.[key];
+    });
+
+    this.storageService.setObject('user', userData);
+  }
+
+  logout(data) {
+    return this.logoutEntity.save(
+      { data }
+    ).pipe(
+      take(1)
+    )
   }
 
   constructor(private _crud: CrudService) {
     this.loginEntity = this._crud.createPostEntity({ name: environment.login });
+    this.logoutEntity = this._crud.createPostEntity({ name: environment.logout });
     this.registerEntity = this._crud.createPostEntity({ name: environment.register });
     this.loginGoogleSsoEntity = this._crud.createPostEntity({ name: environment.googleSsoLogin });
   }

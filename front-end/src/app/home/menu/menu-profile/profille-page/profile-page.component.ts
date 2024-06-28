@@ -113,7 +113,8 @@ export class ProfilePage implements OnInit {
   openProfilePage(page: { value: string, icon: string, label: string }): void {
     switch (page.value) {
       case ProfileMenuItem.EDIT: {
-        this.navCtrl.navigateForward('home/menu/profile/edit')
+        this.navCtrl.navigateForward('home/menu/edit');
+        break;
       }
     }
   }
