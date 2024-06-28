@@ -29,6 +29,7 @@ import {MenuPage, MenuSection} from "./menu-enums";
 import {MenuDataService} from "./menu-data.serivce";
 import {FileComponent} from "./file/file.component";
 import {NavController} from "@ionic/angular";
+import {AuthService} from "../../shared/services/auth-service";
 
 @Component({
   selector: 'app-menu',
@@ -45,6 +46,7 @@ export class MenuComponent implements OnInit {
   private translate: TranslateService = inject(TranslateService);
   private menuDataService: MenuDataService = inject(MenuDataService);
   private navCtrl: NavController = inject(NavController);
+  private authService: AuthService = inject(AuthService);
 
   public selectedMenuChip: WritableSignal<string> = this.dataService.selectedMenuChip;
 
@@ -52,6 +54,10 @@ export class MenuComponent implements OnInit {
 
   get dataService() {
     return this.menuDataService;
+  }
+
+  get auth() {
+    return this.authService;
   }
 
   switchLanguage(language: string): void {
@@ -114,6 +120,11 @@ export class MenuComponent implements OnInit {
     if(this.selectedMenuChip() === MenuSection.CAR_PARK) {
       this.navCtrl.navigateForward(['/home/menu/car-park'])
     }
+  }
+
+  initLogout() {
+    let data;
+    this.auth.logout(data).subscribe()
   }
   constructor() {
     effect((): void => {
