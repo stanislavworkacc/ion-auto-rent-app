@@ -42,6 +42,7 @@ ion-item {
   justify-content: center;
 
   ion-card {
+    --background: black;
     margin: 20px 0;
     img {
       width: 100%;
@@ -49,7 +50,7 @@ ion-item {
     }
 
     ion-card-header {
-      background-color: #ffffff;
+      background: #c6ecf6;
       padding: 20px 16px;
 
       ion-card-title {
@@ -63,13 +64,6 @@ ion-item {
         color: #666;
         margin-top: 4px;
       }
-    }
-
-    ion-card-content {
-      background-color: #ffffff;
-      padding: 16px;
-      font-size: 14px;
-      color: #333;
     }
   }
 }
