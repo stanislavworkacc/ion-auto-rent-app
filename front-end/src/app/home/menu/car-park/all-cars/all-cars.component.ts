@@ -71,7 +71,7 @@ export class AllCarsComponent  implements OnInit {
   setChips(): void {
     this.allCarsData.chips.set([
       { value: 'reviews', label: 'Відгуки', icon: 'heart-circle-outline' },
-      { value: 'history-rent', label: 'Історія оренд', icon: 'cloud-done-outline' },
+      { value: 'history-rent', label: 'Архів оренд', icon: 'cloud-done-outline' },
     ])
   }
 
