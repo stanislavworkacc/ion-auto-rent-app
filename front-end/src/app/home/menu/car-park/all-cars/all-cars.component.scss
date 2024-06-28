@@ -21,6 +21,17 @@ ion-list {
     display: flex;
     justify-content: center;
   }
+
+  ion-buttons {
+    ion-button {
+      .add-btn {
+        ion-icon {
+          font-size: 22px;
+        }
+      }
+    }
+  }
+
 }
 
 ion-item {

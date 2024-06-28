@@ -1,13 +1,13 @@
 import {ChangeDetectionStrategy, Component, inject, OnInit, signal, WritableSignal} from '@angular/core';
 import {
-  IonBadge,
+  IonBadge, IonButton, IonButtons,
   IonCard,
   IonCardContent,
   IonCardHeader,
   IonCardSubtitle,
   IonCardTitle, IonChip, IonIcon,
   IonItem, IonLabel,
-  IonList
+  IonList, IonTitle
 } from "@ionic/angular/standalone";
 import {NgForOf} from "@angular/common";
 import {AllCarsService} from "./all-cars.service";
@@ -30,7 +30,10 @@ import {AllCarsService} from "./all-cars.service";
     IonChip,
     IonIcon,
     IonLabel,
-    IonBadge
+    IonBadge,
+    IonButtons,
+    IonButton,
+    IonTitle
   ]
 })
 export class AllCarsComponent  implements OnInit {
@@ -55,8 +58,8 @@ export class AllCarsComponent  implements OnInit {
 
   setChips(): void {
     this.allCarsData.chips.set([
-      { value: 'create', label: 'Додати', icon: 'add-circle-outline' },
-      { value: 'history-rent', label: 'Історія оренд', icon: 'cloud-done-outline' }
+      { value: 'reviews', label: 'Відгуки', icon: 'heart-circle-outline' },
+      { value: 'history-rent', label: 'Історія оренд', icon: 'cloud-done-outline' },
     ])
   }
   ngOnInit(): void {

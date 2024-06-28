@@ -1,6 +1,6 @@
 
 <ion-list>
-  <div class="flex items-center">
+  <div class="flex items-center pr-[10px]">
     <div class="chip-container">
       @for (chip of allCarsData.chips(); track chip.value) {
         <ion-chip
@@ -13,6 +13,14 @@
         </ion-chip>
       }
     </div>
+    <ion-buttons slot="end" class="pt-[10px] pl-[10px]">
+      <ion-button>
+        <div class="add-btn flex flex-col justify-center items-center">
+          <ion-icon name="add-circle-outline"></ion-icon>
+          <ion-label class="text-xs">Додати</ion-label>
+        </div>
+      </ion-button>
+    </ion-buttons>
   </div>
 
   <div class="w-full flex gap-4 justify-start p-[10px] overflow-x-auto overflow-y-visible px-[15px]">
