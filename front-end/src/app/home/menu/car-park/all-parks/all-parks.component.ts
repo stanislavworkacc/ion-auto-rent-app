@@ -12,6 +12,8 @@ import {
   IonList, IonProgressBar, IonThumbnail
 } from "@ionic/angular/standalone";
 import {NgClass, NgForOf} from "@angular/common";
+import {HeaderParksComponent} from "./header-parks/header-parks.component";
+import {CarParksDescriptionComponent} from "./car-parks-description/car-parks-description.component";
 
 @Component({
   selector: 'app-all-parks',
@@ -38,7 +40,9 @@ import {NgClass, NgForOf} from "@angular/common";
     IonBadge,
     NgClass,
     IonAccordionGroup,
-    IonAccordion
+    IonAccordion,
+    HeaderParksComponent,
+    CarParksDescriptionComponent
   ]
 })
 export class AllParksComponent  implements OnInit {
