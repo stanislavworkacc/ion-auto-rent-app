@@ -1,5 +1,7 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {
+  IonAccordion,
+  IonAccordionGroup,
   IonBadge,
   IonButton,
   IonCard,
@@ -34,7 +36,9 @@ import {NgClass, NgForOf} from "@angular/common";
     IonProgressBar,
     IonChip,
     IonBadge,
-    NgClass
+    NgClass,
+    IonAccordionGroup,
+    IonAccordion
   ]
 })
 export class AllParksComponent  implements OnInit {
