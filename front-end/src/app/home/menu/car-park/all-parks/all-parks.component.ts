@@ -1,14 +1,15 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {
+  IonBadge,
   IonButton,
   IonCard,
   IonCardContent,
   IonCardHeader,
   IonCardSubtitle,
-  IonCardTitle, IonContent, IonIcon, IonItem, IonLabel,
+  IonCardTitle, IonChip, IonContent, IonIcon, IonItem, IonLabel,
   IonList, IonProgressBar, IonThumbnail
 } from "@ionic/angular/standalone";
-import {NgForOf} from "@angular/common";
+import {NgClass, NgForOf} from "@angular/common";
 
 @Component({
   selector: 'app-all-parks',
@@ -30,7 +31,10 @@ import {NgForOf} from "@angular/common";
     NgForOf,
     IonButton,
     IonIcon,
-    IonProgressBar
+    IonProgressBar,
+    IonChip,
+    IonBadge,
+    NgClass
   ]
 })
 export class AllParksComponent  implements OnInit {
@@ -42,6 +46,7 @@ export class AllParksComponent  implements OnInit {
     { img: 'https://ionicframework.com/docs/img/demos/thumbnail.svg', label: 'Car Parking 4', location: 'Location 4' }
     // Add more car parkings as needed
   ];
+
   constructor() { }
 
   ngOnInit() {}
