@@ -22,7 +22,11 @@
 <ion-content class="ion-padding" [scrollEvents]="true">
   @switch (selectedSegment()) {
     @case (SegmentType.STANTDART) {
-      <sign-up-form [isLogin]="isLogin()">
+      <sign-up-form
+        [isLogin]="isLogin"
+        [selectedSegment]="selectedSegment"
+        [options]="options"
+      >
         @if (isLogin()) {
           <div class="register-prompt">
             <div class="register-prompt-desc">

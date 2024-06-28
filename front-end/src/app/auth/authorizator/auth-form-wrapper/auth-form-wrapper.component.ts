@@ -1,7 +1,7 @@
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
-  Component,
+  Component, effect,
   inject,
   OnInit, signal,
   ViewEncapsulation, WritableSignal

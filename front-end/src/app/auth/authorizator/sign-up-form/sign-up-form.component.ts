@@ -1,9 +1,7 @@
 import {
   ChangeDetectionStrategy, ChangeDetectorRef,
   Component, effect, ElementRef,
-  inject,
-  input,
-  InputSignal,
+  inject, Input,
   OnInit,
   signal, ViewChild,
   WritableSignal
@@ -22,6 +20,7 @@ import {ToasterService} from "../../../shared/components/app-toast/toaster.servi
 import {take, tap} from "rxjs";
 import {catchError} from "rxjs/operators";
 import {handleError} from "../../../shared/utils/errorHandler";
+import {SegmentType} from "../auth-form-wrapper/auth-enums";
 
 @Component({
   selector: 'sign-up-form',
@@ -53,10 +52,13 @@ export class SignUpFormComponent implements OnInit {
   private toaster: ToasterService = inject(ToasterService);
   private modalCtrl: ModalController = inject(ModalController);
 
+  @Input() isLogin: WritableSignal<boolean> = signal(false);
+  @Input() selectedSegment: WritableSignal<string> = signal(SegmentType.STANTDART);
+  @Input() options: WritableSignal<{ value: string, icon: string, label: string, isVisible?: boolean } []> = signal([]);
+
   @ViewChild('passwordInput', {static: false}) passwordInput!: ElementRef;
   @ViewChild(ValidateInputDirective) appValidateInput: ValidateInputDirective;
 
-  public isLogin: InputSignal<boolean> = input(false);
   public loginByPhone: WritableSignal<boolean> = signal(false);
   public privacyPolicyAgreement: WritableSignal<boolean> = signal(false);
   public form!: FormGroup;
@@ -148,12 +150,30 @@ export class SignUpFormComponent implements OnInit {
   }
 
   showSuccessAuth(isRegister: boolean = false): void {
-    this.modalCtrl.dismiss();
     if(isRegister) {
       this.toaster.show({type: 'success', message: 'Реєстрація успішна! Увійдіть до облікового запису.'});
+      this.resetLogin();
     } else {
+      this.modalCtrl.dismiss();
       this.toaster.show({type: 'success', message: 'Ви увійшли! Ласкаво просимо до вашого облікового запису.'});
     }
+  }
+
+  resetLogin(): void {
+    this.isLogin.set(true)
+    this.updateOptionLabel('standard', 'Увійти');
+    this.selectedSegment.set(SegmentType.STANTDART);
+  }
+
+  private updateOptionLabel(value: string, newLabel: string): void {
+    this.options.update(options => {
+      return options.map(option => {
+        if (option.value === value) {
+          return {...option, label: newLabel};
+        }
+        return option;
+      });
+    });
   }
 
   initRegister(data): void {
