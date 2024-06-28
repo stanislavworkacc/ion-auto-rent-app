@@ -1,4 +1,12 @@
-import {ChangeDetectionStrategy, Component, inject, OnInit, signal, WritableSignal} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  inject,
+  OnInit,
+  signal,
+  WritableSignal
+} from '@angular/core';
 import {
   IonBadge, IonButton, IonButtons,
   IonCard,
@@ -11,13 +19,16 @@ import {
 } from "@ionic/angular/standalone";
 import {NgForOf} from "@angular/common";
 import {AllCarsService} from "./all-cars.service";
+import { register } from 'swiper/element/bundle';
 
+register();
 @Component({
   selector: 'all-cars',
   templateUrl: './all-cars.component.html',
   styleUrls: ['./all-cars.component.scss'],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
     IonCard,
     IonList,
