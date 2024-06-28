@@ -17,7 +17,7 @@ import {
   IonItem, IonLabel,
   IonList, IonTitle
 } from "@ionic/angular/standalone";
-import {NgForOf} from "@angular/common";
+import {NgClass, NgForOf} from "@angular/common";
 import {AllCarsService} from "./all-cars.service";
 import { register } from 'swiper/element/bundle';
 
@@ -44,7 +44,8 @@ register();
     IonBadge,
     IonButtons,
     IonButton,
-    IonTitle
+    IonTitle,
+    NgClass
   ]
 })
 export class AllCarsComponent  implements OnInit {
@@ -73,9 +74,48 @@ export class AllCarsComponent  implements OnInit {
       { value: 'history-rent', label: 'Історія оренд', icon: 'cloud-done-outline' },
     ])
   }
-  ngOnInit(): void {
+
+  setParkRates(): void {
+    this.allCarsData.setRateIcons([
+      {
+        name: 'car-outline',
+        textClass: 'text-[#89a1c8]',
+        badgeClass: 'bg-[#89a1c8]',
+        badgeText: '2'
+      },
+      {
+        name: 'checkmark-circle-outline',
+        textClass: 'text-[#49a66b]',
+        badgeClass: 'bg-[#2f9253]',
+        badgeText: '2'
+      },
+      {
+        name: 'heart-outline',
+        textClass: 'text-[#b5b5b5]',
+        badgeClass: 'bg-[#b5b5b5]',
+        badgeText: '2'
+      },
+      {
+        name: 'heart-dislike-outline',
+        textClass: 'text-[#b5b5b529]',
+        badgeClass: 'bg-[#b5b5b5]',
+        badgeText: '2'
+      },
+      {
+        name: 'star-half-outline',
+        textClass: 'text-[#b5b5b529]',
+        badgeClass: 'bg-[#3e4673]',
+        badgeText: '4.3'
+      }
+    ])
+  }
+  setParkData(): void {
     this.setAllCars();
     this.setChips();
+    this.setParkRates();
+  }
+  ngOnInit(): void {
+    this.setParkData();
   }
   constructor() { }
 }

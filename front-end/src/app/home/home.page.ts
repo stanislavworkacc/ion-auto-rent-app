@@ -61,9 +61,6 @@ export class HomePage {
     ).subscribe((): void => {
       this.translateLabels();
     });
-
-    this.toaster.show({type: 'success', message: 'ssss'})
-
     // setInterval(() => {
     //   this.toaster.show({type: 'success', message: 'ssss'})
     //

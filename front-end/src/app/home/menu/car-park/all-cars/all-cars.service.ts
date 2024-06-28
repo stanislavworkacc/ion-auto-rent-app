@@ -12,6 +12,13 @@ export class AllCarsService {
     img: string }[]>
     = signal([]);
 
+  parkRatesIcons: WritableSignal<{
+    name: string,
+    textClass: string,
+    badgeClass: string,
+    badgeText: string }[]>
+    = signal([]);
+
   chips: WritableSignal<{ value: string, label: string, icon: string }[]> = signal([]);
   selectedChip: WritableSignal<{ value: string, label: string, icon: string }> = signal(null);
   setAllCars(cars: { title: string, subtitle: string, content: string, img: string }[]): void {
@@ -20,5 +27,13 @@ export class AllCarsService {
 
   getAllCars(): { title: string, subtitle: string, content: string, img: string }[] {
     return this.allCars();
+  }
+
+  setRateIcons(rates: { name: string, textClass: string, badgeClass: string, badgeText: string }[]): void {
+    this.parkRatesIcons.set(rates)
+  }
+
+  getRateIcons(): { name: string, textClass: string, badgeClass: string, badgeText: string }[] {
+    return this.parkRatesIcons();
   }
 }
