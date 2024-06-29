@@ -74,14 +74,16 @@
 
         </ion-label>
 
-        <ion-input
+        <ion-input #addressInput
           type="text"
           class="aligned-input"
-          placeholder="Додайти назву автопарку"
+          placeholder="Адреса автопарку"
           [formControl]="address"
           (ionFocus)="onFocus('address')"
           (ionBlur)="onBlur('address')"
         ></ion-input>
+
+
       </div>
 
       <div [appValidateInput]="addressRef" [control]="address" class="error-container">

@@ -1,4 +1,14 @@
-import {ChangeDetectionStrategy, Component, inject, OnInit, signal, WritableSignal} from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component, DestroyRef,
+  ElementRef,
+  inject,
+  OnInit, Renderer2,
+  signal,
+  ViewChild,
+  WritableSignal
+} from '@angular/core';
 import {BackButtonComponent} from "../../../../../shared/ui-kit/components/back-button/back-button.component";
 import {CloseBtnComponent} from "../../../../../shared/ui-kit/components/close-btn/close-btn.component";
 import {
@@ -21,6 +31,11 @@ import {matchingPasswordsValidator} from "../../../../../shared/utils/validators
 import {of} from "rxjs/internal/observable/of";
 import {delay, tap} from "rxjs";
 import {UploadBtnComponent} from "./upload-btn/upload-btn.component";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {catchError, filter, map} from "rxjs/operators";
+import {handleError} from "../../../../../shared/utils/errorHandler";
+import {GoogleSsoService} from "../../../../../auth/authorizator/google-sso.service";
+import {GooglePlacesSerivce} from "../../../../../shared/services/google-places.serivce";
 
 @Component({
   selector: 'app-create-park-modal',
@@ -51,10 +66,13 @@ import {UploadBtnComponent} from "./upload-btn/upload-btn.component";
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CreateParkModalComponent  implements OnInit {
+export class CreateParkModalComponent  implements OnInit, AfterViewInit {
 
   private modalCtrl: ModalController = inject(ModalController);
   private fb: FormBuilder = inject(FormBuilder);
+  private googlePlacesService: GooglePlacesSerivce = inject(GooglePlacesSerivce);
+  private destroyRef: DestroyRef = inject(DestroyRef);
+  private renderer: Renderer2 = inject(Renderer2);
 
   public form!: FormGroup;
   public name!: FormControl;
@@ -69,6 +87,9 @@ export class CreateParkModalComponent  implements OnInit {
   uploadProgress: WritableSignal<number>  = signal(0);
 
   uploadedLogoUrl: string = '';
+
+  @ViewChild('addressInput', { static: false }) addressInput!: IonInput;
+
 
   onFocus(field: string): void {
     this.isFocused[field] = true;
@@ -131,5 +152,38 @@ export class CreateParkModalComponent  implements OnInit {
   ngOnInit(): void {
     this.initForm();
   }
+
+  initGooglePlaces(): void {
+    this.googlePlacesService.googlePlacesLoaded$
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        filter((loaded: boolean) => loaded),
+        map(() => this.initAutocomplete()),
+      )
+      .subscribe();
+
+    this.googlePlacesService.loadGoogleSSOScript(this.renderer).subscribe();
+  }
+
+  initAutocomplete(): void {
+    const inputElement: Promise<HTMLInputElement> = this.addressInput.getInputElement();
+
+    inputElement.then((input: HTMLInputElement): void => {
+      // @ts-ignore
+      const autocomplete = new google.maps.places.Autocomplete(input as HTMLInputElement, {
+        types: ['geocode']
+      });
+
+      autocomplete.addListener('place_changed', (): void => {
+        const place = autocomplete.getPlace();
+        this.address.setValue(place.formatted_address);
+      });
+    });
+  }
+
+  ngAfterViewInit(): void {
+    this.initGooglePlaces();
+  }
+
 
 }
