@@ -1,0 +1,19 @@
+<ion-buttons>
+  <ion-button
+    class="flex border-[0.1px] border-white rounded-[8px] px-2"
+    (click)="fileInput.click()"
+    [disabled]="logoUploading()"
+  >
+    <ion-label class="mr-2 text-white pr-[10px]">Завантажити</ion-label>
+    @if (logoUploading()) {
+      <span>{{ uploadProgress() }}%</span>
+    }
+
+    @if (!logoUploading()) {
+      <img src="assets/icon/upload.svg" class="h-5 w-5 filter-white">
+    } @else {
+      <ion-icon name="sync-outline" class="animate-spin"></ion-icon>
+    }
+  </ion-button>
+  <input #fileInput type="file" accept="image/*" (change)="handleFileUpload($event)" style="display: none;">
+</ion-buttons>

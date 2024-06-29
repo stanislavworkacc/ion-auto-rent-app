@@ -20,6 +20,7 @@ import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} fr
 import {matchingPasswordsValidator} from "../../../../../shared/utils/validators/matchingPasswordValidator";
 import {of} from "rxjs/internal/observable/of";
 import {delay, tap} from "rxjs";
+import {UploadBtnComponent} from "./upload-btn/upload-btn.component";
 
 @Component({
   selector: 'app-create-park-modal',
@@ -45,7 +46,8 @@ import {delay, tap} from "rxjs";
     IonInput,
     IonSpinner,
     ValidateInputDirective,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    UploadBtnComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -64,6 +66,8 @@ export class CreateParkModalComponent  implements OnInit {
 
   logoUploaded: WritableSignal<boolean> = signal(false);
   logoUploading: WritableSignal<boolean> = signal(false);
+  uploadProgress: WritableSignal<number>  = signal(0);
+
   uploadedLogoUrl: string = '';
 
   onFocus(field: string): void {
@@ -77,8 +81,6 @@ export class CreateParkModalComponent  implements OnInit {
   closeModal(): void {
     this.modalCtrl.dismiss()
   }
-
-
   handleFileUpload(event: any) {
     const file = event.target.files[0];
     if (file) {
@@ -86,18 +88,33 @@ export class CreateParkModalComponent  implements OnInit {
       const reader: FileReader = new FileReader();
 
       reader.onload = (e: any) => {
-        of(e.target.result).pipe(
-          delay(1000),
-          tap((result) => {
-            this.uploadedLogoUrl = result;
-            this.logoUploaded.set(true);
-            this.logoUploading.set(false);
-          })
-        ).subscribe();
+        of(e.target.result)
+          .pipe(
+            delay(1000),
+            tap((result) => {
+              this.uploadedLogoUrl = result;
+              this.logoUploaded.set(true);
+              this.logoUploading.set(false);
+              this.uploadProgress.set(0);
+            })
+          )
+          .subscribe();
       };
+
       reader.readAsDataURL(file);
+
+      let progress: number = 0;
+      const interval = setInterval(() => {
+        if (progress < 100) {
+          progress += 10;
+          this.uploadProgress.set(progress);
+        } else {
+          clearInterval(interval);
+        }
+      }, 100);
     }
   }
+
   assignFormControls(): void {
     this.name = this.form.get('name') as FormControl;
     this.address = this.form.get('address') as FormControl;
