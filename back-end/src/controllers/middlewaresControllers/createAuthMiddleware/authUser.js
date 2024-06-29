@@ -1,6 +1,8 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
+const notRememberMeExpirationTime = 600;
+
 const authUser = async (req, res, {user, databasePassword, password, UserPasswordModel}) => {
     const isMatch = await bcrypt.compare(databasePassword.salt + password, databasePassword.password);
 
@@ -17,7 +19,7 @@ const authUser = async (req, res, {user, databasePassword, password, UserPasswor
                 id: user._id,
             },
             process.env.JWT_SECRET,
-            {expiresIn: req.body.remember ? 365 * 24 + 'h' : 30}
+            {expiresIn: req.body.remember ? 365 * 24 + 'h' : notRememberMeExpirationTime}
         );
 
         await UserPasswordModel.findOneAndUpdate(
@@ -66,7 +68,7 @@ const ssoAuthUser = async (req, res, {user, UserPasswordModel}) => {
             id: user._id,
         },
         process.env.JWT_SECRET,
-        {expiresIn: req.body.remember ? 365 * 24 + 'h' : 30}
+        {expiresIn: req.body.remember ? 365 * 24 + 'h' : notRememberMeExpirationTime}
     );
 
     await UserPasswordModel.findOneAndUpdate(

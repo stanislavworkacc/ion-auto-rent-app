@@ -5,6 +5,10 @@ import {LoadingService} from "./loading.service";
 import {CapacitorHttp} from "@capacitor/core";
 import {map} from "rxjs/operators";
 import {StorageService} from "./storage.service";
+import {of} from "rxjs/internal/observable/of";
+import {ModalController} from "@ionic/angular/standalone";
+import {HttpResponse} from "@angular/common/http";
+import {AuthorizatorComponent} from "../../auth/authorizator/authorizator.component";
 
 const defaultOptions = {
   responseType: 'json'
@@ -26,6 +30,7 @@ export class CommonHttpService {
   private readonly track: <T>(observable: Observable<T>) => Observable<T>;
 
   private storageService: StorageService = inject(StorageService);
+  private modalController: ModalController = inject(ModalController);
 
   get<TResponse>({url, params, additionalOptions}: {
     url: string, params?: StrMap<string>,
@@ -34,11 +39,12 @@ export class CommonHttpService {
     return this.track(
       from(CapacitorHttp.get({
         url: this.setUrl(url, this.getStringParams(getOptions(params, additionalOptions))),
-         headers: this.addHeader(),
-          webFetchExtra: {
-            credentials: "include",
-          },
+        headers: this.addHeader(),
+        webFetchExtra: {
+          credentials: "include",
+        },
       })).pipe(
+        this.intercept()
         // map((responseData) => ({
         //   meta: responseData?.data?.meta || [],
         //   items: responseData?.data?.items || [],
@@ -54,14 +60,17 @@ export class CommonHttpService {
   }) {
     return this.track(
       from(CapacitorHttp.post({
-          url: this.setUrl(url, this.getStringParams(getOptions(params, additionalOptions))),
-          data: data,
-          headers: this.addHeader(),
-          webFetchExtra: {
-            credentials: "include",
+            url: this.setUrl(url, this.getStringParams(getOptions(params, additionalOptions))),
+            data: data,
+            headers: this.addHeader(),
+            webFetchExtra: {
+              credentials: "include",
+            },
           },
-        },
-      ))
+        )
+      ).pipe(
+        this.intercept()
+      )
     );
   }
 
@@ -139,6 +148,24 @@ export class CommonHttpService {
     }
 
     return this.getUrl(url);
+  }
+
+  intercept<T>() {
+    return (source: Observable<T>) => {
+      return source.pipe(
+        tap( async (serverResponse: any) => {
+          switch (serverResponse.status) {
+            case 401:
+              const authModal = await this.modalController.create({
+                component: AuthorizatorComponent,
+              });
+
+              authModal.present();
+              debugger;
+          }
+        })
+      )
+    }
   }
 
 

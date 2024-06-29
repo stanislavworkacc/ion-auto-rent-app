@@ -124,7 +124,7 @@ export class MenuComponent implements OnInit {
 
   initLogout() {
     let data;
-    this.auth.logout(data).subscribe()
+    this.auth.logout({}).subscribe()
   }
   constructor() {
     effect((): void => {

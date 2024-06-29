@@ -19,11 +19,11 @@ import {
 } from "@ionic/angular/standalone";
 import {NgClass, NgForOf} from "@angular/common";
 import {AllCarsService} from "./all-cars.service";
-import { register } from 'swiper/element/bundle';
+// import { register } from 'swiper/element/bundle';
 import {CarParkDataService} from "../car-park-data.service";
 import {NavController} from "@ionic/angular";
 
-register();
+// register();
 @Component({
   selector: 'all-cars',
   templateUrl: './all-cars.component.html',
