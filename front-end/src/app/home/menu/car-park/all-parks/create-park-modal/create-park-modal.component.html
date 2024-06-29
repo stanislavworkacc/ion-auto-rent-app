@@ -8,10 +8,11 @@
 
 <ion-content class="ion-padding">
   <form>
-    <div class="flex flex-col justify-start items-center pb-[10px]">
+    <div class="flex flex-col justify-start items-center mb-[20px]">
       @if (!logoUploaded()) {
-        <ion-icon name="image-outline" class="text-gray-500 text-6xl" [class.animate-pulse]="logoUploading()"></ion-icon>
+        <ion-icon name="image-outline" class="text-gray-500 text-6xl"></ion-icon>
       }
+
       @if (logoUploaded()) {
         <img [src]="uploadedLogoUrl" alt="Logo" class="h-20 w-20 object-cover mb-2 rounded">
       }
@@ -19,8 +20,8 @@
       <ion-buttons>
         <ion-button
           class="flex border-[0.1px] border-white rounded-[8px] px-2"
-          [class.animate-pulse]="logoUploading()"
           (click)="fileInput.click()"
+          [disabled]="logoUploading()"
         >
           <ion-label class="mr-2 text-white pr-[10px]">Завантажити</ion-label>
           @if (!logoUploading()) {
@@ -28,7 +29,7 @@
           }
 
           @if (logoUploading()) {
-            <ion-spinner name="dots" color="primary"></ion-spinner>
+            <ion-icon name="sync-outline" class="animate-spin"></ion-icon>
           }
         </ion-button>
         <input #fileInput type="file" accept="image/*" (change)="handleFileUpload($event)" style="display: none;">
