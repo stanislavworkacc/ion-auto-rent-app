@@ -31,11 +31,11 @@ export const MENU_ROUTES: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'all-parks',
+        redirectTo: 'parks',
         pathMatch: 'full'
       },
       {
-        path: 'all-parks',
+        path: 'parks',
         component: AllParksComponent
       },
       {
