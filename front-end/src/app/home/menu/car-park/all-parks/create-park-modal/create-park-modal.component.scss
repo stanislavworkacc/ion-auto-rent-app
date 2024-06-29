@@ -1,0 +1,21 @@
+ion-header {
+  box-shadow: none;
+
+  ion-toolbar {
+    --background: #2a3c4e;
+    --border-width: 0;
+    padding: 0 10px;
+  }
+}
+
+ion-content {
+  --background: #2a3c4e;
+
+  ion-list {
+    background: #2a3c4e;
+  }
+}
+
+.filter-white {
+  filter: invert(5);
+}

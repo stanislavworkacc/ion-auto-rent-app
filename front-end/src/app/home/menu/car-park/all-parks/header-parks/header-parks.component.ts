@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {IonBadge, IonButton, IonButtons, IonIcon, IonLabel} from "@ionic/angular/standalone";
 
 @Component({
@@ -17,6 +17,7 @@ import {IonBadge, IonButton, IonButtons, IonIcon, IonLabel} from "@ionic/angular
 })
 export class HeaderParksComponent  implements OnInit {
 
+  @Input() create: () => void
   constructor() { }
 
   ngOnInit() {}

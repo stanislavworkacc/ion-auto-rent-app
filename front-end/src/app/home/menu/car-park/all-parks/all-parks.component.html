@@ -1,11 +1,11 @@
 <ion-content class="ion-padding">
   <ion-list>
-    <app-header-parks></app-header-parks>
+    <app-header-parks [create]="openModal.bind(this)"></app-header-parks>
 
     @for(parking of userCarParkings; track parking.label) {
       <ion-item>
         <ion-thumbnail slot="start">
-          <img [src]="parking.img" [alt]="parking.label" />
+<!--          <img src="assets/icon/parking-repo.svg" />-->
         </ion-thumbnail>
 
         <ion-label>
@@ -25,4 +25,3 @@
 
   <car-parks-description></car-parks-description>
 </ion-content>
-

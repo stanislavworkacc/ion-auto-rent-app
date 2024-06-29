@@ -53,3 +53,55 @@
   }
 }
 
+// forms
+
+form {
+  ion-label {
+    min-width: 90px;
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    border-right: 0.1px solid black;
+    justify-content: center;
+    position: relative;
+  }
+
+  ion-input {
+    margin-left: 10px;
+  }
+
+  .form-input {
+    display: flex;
+    flex-direction: column;
+    background: #f8f8f8;
+    color: black;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    padding: 5px 2px;
+  }
+
+  .input-row {
+    display: flex;
+    align-items: center;
+  }
+
+  .form-input ion-label {
+    flex: 1;
+  }
+
+  .aligned-input {
+    width: 100%;
+  }
+
+  .error-container {
+    margin: 0 auto;
+  }
+
+  .checkmark-icon {
+    position: absolute;
+    top: -7px;
+    right: 5px;
+    color: green;
+    font-size: 20px;
+  }
+}

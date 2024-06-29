@@ -1,0 +1,95 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <app-close-btn (click)="closeModal()"></app-close-btn>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form>
+    <div class="flex flex-col justify-start items-center pb-[10px]">
+      <ion-icon name="image-outline" class="text-gray-500 text-6xl mb-[10px]"></ion-icon>
+
+      <ion-buttons>
+        <ion-button class="flex border-[0.1px] border-white rounded-[8px] px-2">
+          <ion-label class="mr-2 text-white pr-[10px]">Завантажити</ion-label>
+          <img src="assets/icon/upload.svg" class="h-5 w-5 filter-white">
+        </ion-button>
+      </ion-buttons>
+    </div>
+
+    <div class="form-input" #nameRef [appValidateInput]="nameRef">
+      <div class="input-row">
+        <ion-label position="static" [class.focused]="isFocused['name']">
+
+          @if (!isFocused['name'] || name.valid) {
+            <span>Назва</span>
+          }
+
+          @if (name.valid) {
+            <ion-icon name="checkmark-circle-outline" class="checkmark-icon"></ion-icon>
+          }
+
+          @if (isFocused['name'] && !name.valid) {
+            <ion-spinner name="dots" color="primary"></ion-spinner>
+          }
+
+        </ion-label>
+
+        <ion-input
+          type="text"
+          class="aligned-input"
+          placeholder="Додайти назву автопарку"
+          [formControl]="name"
+          (ionFocus)="onFocus('name')"
+          (ionBlur)="onBlur('name')"
+        ></ion-input>
+      </div>
+
+      <div [appValidateInput]="nameRef" [control]="name" class="error-container">
+        <!-- Контейнер для помилки -->
+      </div>
+    </div>
+
+    <div class="form-input" #addressRef [appValidateInput]="addressRef">
+      <div class="input-row">
+        <ion-label position="static" [class.focused]="isFocused['address']">
+
+          @if (!isFocused['address'] || address.valid) {
+            <span>Адреса</span>
+          }
+
+          @if (address.value) {
+            <ion-icon name="checkmark-circle-outline" class="checkmark-icon"></ion-icon>
+          }
+
+          @if (isFocused['address'] && !address.valid) {
+            <ion-spinner name="dots" color="primary"></ion-spinner>
+          }
+
+        </ion-label>
+
+        <ion-input
+          type="text"
+          class="aligned-input"
+          placeholder="Додайти назву автопарку"
+          [formControl]="address"
+          (ionFocus)="onFocus('address')"
+          (ionBlur)="onBlur('address')"
+        ></ion-input>
+      </div>
+
+      <div [appValidateInput]="addressRef" [control]="address" class="error-container">
+        <!-- Контейнер для помилки -->
+      </div>
+    </div>
+
+    <ion-buttons class="flex justify-end mt-[20px]" slot="end">
+      <ion-button class="flex border-[0.1px] border-white rounded-[8px] px-2">
+        <ion-label class="mr-2 text-white pr-[10px]">Зберегти</ion-label>
+        <ion-icon name="checkmark-outline" class="text-white"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </form>
+</ion-content>
