@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, OnInit, signal, WritableSignal} from '@angular/core';
 import {BackButtonComponent} from "../../../../../shared/ui-kit/components/back-button/back-button.component";
 import {CloseBtnComponent} from "../../../../../shared/ui-kit/components/close-btn/close-btn.component";
 import {
@@ -18,6 +18,8 @@ import {NgIf, NgOptimizedImage} from "@angular/common";
 import {ValidateInputDirective} from "../../../../../shared/directives/validate-input.directive";
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {matchingPasswordsValidator} from "../../../../../shared/utils/validators/matchingPasswordValidator";
+import {of} from "rxjs/internal/observable/of";
+import {delay, tap} from "rxjs";
 
 @Component({
   selector: 'app-create-park-modal',
@@ -60,6 +62,10 @@ export class CreateParkModalComponent  implements OnInit {
     address: false,
   };
 
+  logoUploaded: WritableSignal<boolean> = signal(false);
+  logoUploading: WritableSignal<boolean> = signal(false);
+  uploadedLogoUrl: string = '';
+
   onFocus(field: string): void {
     this.isFocused[field] = true;
   }
@@ -72,6 +78,26 @@ export class CreateParkModalComponent  implements OnInit {
     this.modalCtrl.dismiss()
   }
 
+
+  handleFileUpload(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      this.logoUploading.set(true);
+      const reader: FileReader = new FileReader();
+
+      reader.onload = (e: any) => {
+        of(e.target.result).pipe(
+          delay(1000),
+          tap((result) => {
+            this.uploadedLogoUrl = result;
+            this.logoUploaded.set(true);
+            this.logoUploading.set(false);
+          })
+        ).subscribe();
+      };
+      reader.readAsDataURL(file);
+    }
+  }
   assignFormControls(): void {
     this.name = this.form.get('name') as FormControl;
     this.address = this.form.get('address') as FormControl;
