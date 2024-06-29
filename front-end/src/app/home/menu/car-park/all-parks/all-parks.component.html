@@ -3,9 +3,9 @@
     <app-header-parks [create]="openModal.bind(this)"></app-header-parks>
 
     @for(parking of userCarParkings; track parking.label) {
-      <ion-item>
-        <ion-thumbnail slot="start">
-<!--          <img src="assets/icon/parking-repo.svg" />-->
+      <ion-item (click)="selectParking()">
+        <ion-thumbnail slot="start" class="mt-2">
+          <ion-icon name="image-outline" class="text-gray-500 text-5xl"></ion-icon>
         </ion-thumbnail>
 
         <ion-label>
@@ -13,15 +13,13 @@
           <p>{{ parking.location }}</p>
         </ion-label>
         <ion-button fill="clear" slot="end" >
-          <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+          <ion-icon slot="icon-only" name="create-outline" class="!text-[20px]"></ion-icon>
         </ion-button>
         <ion-button fill="clear" slot="end" >
           <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
         </ion-button>
       </ion-item>
     }
-
   </ion-list>
-
   <car-parks-description></car-parks-description>
 </ion-content>

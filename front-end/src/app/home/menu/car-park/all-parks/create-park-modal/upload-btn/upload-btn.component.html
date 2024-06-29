@@ -6,13 +6,13 @@
   >
     <ion-label class="mr-2 text-white pr-[10px]">Завантажити</ion-label>
     @if (logoUploading()) {
-      <span>{{ uploadProgress() }}%</span>
+      <span class="text-blue-200">{{ uploadProgress() }}%</span>
     }
 
     @if (!logoUploading()) {
       <img src="assets/icon/upload.svg" class="h-5 w-5 filter-white">
     } @else {
-      <ion-icon name="sync-outline" class="animate-spin"></ion-icon>
+      <ion-icon name="sync-outline" class="animate-spin text-blue-200"></ion-icon>
     }
   </ion-button>
   <input #fileInput type="file" accept="image/*" (change)="handleFileUpload($event)" style="display: none;">

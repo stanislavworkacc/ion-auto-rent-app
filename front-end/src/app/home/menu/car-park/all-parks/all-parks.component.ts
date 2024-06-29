@@ -59,6 +59,9 @@ export class AllParksComponent  implements OnInit {
     { img: 'https://ionicframework.com/docs/img/demos/thumbnail.svg', label: 'Car Parking 4', location: 'Location 4' }
   ];
 
+  selectParking() {
+
+  }
   async openModal(): Promise<void> {
     const modal: HTMLIonModalElement = await this.modalCtrl.create({
       component: CreateParkModalComponent,
