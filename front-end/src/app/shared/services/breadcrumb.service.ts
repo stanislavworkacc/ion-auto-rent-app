@@ -31,16 +31,14 @@ export class BreadcrumbService {
     return breadcrumbs;
   }
 
-  public buildCollapsedBreadcrumbs(collapsedBreadcrumbs: any[], excludeRoutes: string[] = []) {
-    return collapsedBreadcrumbs
+  public buildCollapsedBreadcrumbs(collapsedBreadcrumbs: any[], excludeRoutes: string[] = [], additionalRoutes: { url: string, label: string }[] = []) {
+    const filteredBreadcrumbs = collapsedBreadcrumbs
       .filter((breadcrumb: any) => !excludeRoutes.includes(breadcrumb.href))
-      .map((breadcrumb: any) => {
-        return {
-          url: breadcrumb.href,
-          label: breadcrumb.innerHTML.trim()
-        };
-      });
+      .map((breadcrumb: any) => ({
+        url: breadcrumb.href,
+        label: breadcrumb.innerHTML.trim()
+      }));
+
+    return [...additionalRoutes, ...filteredBreadcrumbs];
   }
-
-
 }

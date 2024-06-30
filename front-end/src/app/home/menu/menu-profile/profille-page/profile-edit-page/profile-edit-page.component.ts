@@ -227,7 +227,13 @@ export class ProfileEditPage implements OnInit {
 
   async presentPopover(e: Event): Promise<void> {
     const eventDetail = (e as CustomEvent).detail;
-    this.collapsedBreadcrumbs = this.breadcrumbsService.buildCollapsedBreadcrumbs(eventDetail.collapsedBreadcrumbs);
+    this.collapsedBreadcrumbs = this.breadcrumbsService.buildCollapsedBreadcrumbs(
+      eventDetail.collapsedBreadcrumbs,
+      ['/home'],
+      [
+        { url: '/home/menu/profile', label: 'Профіль' },
+      ]
+    );
     this.popover.event = e;
     this.isBreadCrumbPopoverOpen = true;
   }
