@@ -20,6 +20,16 @@
         </ion-button>
       </ion-item>
     }
+
+    <div class="flex items-center bg-[#cfcfcf] justify-end gap-2 py-2 pr-2">
+      @for (carMark of dataService.getCarsMarks(); track carMark.value) {
+       <div class="flex items-center">
+         <ion-icon slot="icon-only" [name]="carMark.icon" class="text-[#818181] text-[20px]"></ion-icon>
+         <span class="ml-1 text-gray-400 font-bold">{{ carMark.count }}</span>
+       </div>
+
+      }
+    </div>
   </ion-list>
   <car-parks-description></car-parks-description>
 </ion-content>

@@ -1,9 +1,9 @@
-import {ChangeDetectionStrategy, Component, inject, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, input, InputSignal, OnInit} from '@angular/core';
 import {
   IonAccordion,
   IonAccordionGroup, IonAlert,
   IonBadge,
-  IonButton,
+  IonButton, IonButtons,
   IonCard,
   IonCardContent,
   IonCardHeader,
@@ -16,6 +16,8 @@ import {HeaderParksComponent} from "./header-parks/header-parks.component";
 import {CarParksDescriptionComponent} from "./car-parks-description/car-parks-description.component";
 import {AuthorizatorComponent} from "../../../../auth/authorizator/authorizator.component";
 import {CreateParkModalComponent} from "./create-park-modal/create-park-modal.component";
+import {MenuDataService} from "../../menu-data.serivce";
+import {Platform} from "@ionic/angular";
 
 @Component({
   selector: 'app-all-parks',
@@ -45,12 +47,19 @@ import {CreateParkModalComponent} from "./create-park-modal/create-park-modal.co
     IonAccordion,
     HeaderParksComponent,
     CarParksDescriptionComponent,
-    IonAlert
+    IonAlert,
+    IonButtons
   ]
 })
 export class AllParksComponent  implements OnInit {
 
   private modalCtrl: ModalController = inject(ModalController);
+  private menuDataService: MenuDataService = inject(MenuDataService);
+  public platform: Platform = inject(Platform);
+
+  get dataService() {
+    return this.menuDataService;
+  }
 
   userCarParkings = [
     { img: 'https://ionicframework.com/docs/img/demos/thumbnail.svg', label: 'Car Parking 1', location: 'Location 1' },
