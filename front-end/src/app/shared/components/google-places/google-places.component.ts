@@ -21,6 +21,7 @@ export class GooglePlacesComponent  implements OnInit {
   suggestions: InputSignal<any[]> = input([]);
 
   @Input() selectSuggestion: (suggestion) => void;
+  @Input() control: any
 
   ngOnInit(): void {}
 }
