@@ -67,7 +67,8 @@
       </div>
     </div>
 
-    <div class="form-input" #addressRef [appValidateInput]="addressRef">
+
+    <div class="form-input relative" #addressRef [appValidateInput]="addressRef">
       <div class="input-row">
         <ion-label position="static" [class.focused]="isFocused['address']">
 
@@ -79,10 +80,6 @@
             <ion-icon name="checkmark-circle-outline" class="checkmark-icon"></ion-icon>
           }
 
-          @if (isFocused['address'] && !address.valid) {
-            <ion-spinner name="dots" color="primary"></ion-spinner>
-          }
-
         </ion-label>
 
         <ion-input #addressInput
@@ -90,16 +87,29 @@
           class="aligned-input"
           placeholder="Адреса автопарку"
           [formControl]="address"
-          (ionFocus)="onFocus('address')"
+          (ionInput)="fetchSuggestions($event.target.value)"
+          (ionFocus)="fetchSuggestions(address.value)"
           (ionBlur)="onBlur('address')"
         ></ion-input>
-
-
       </div>
 
       <div [appValidateInput]="addressRef" [control]="address" class="error-container">
         <!-- Контейнер для помилки -->
       </div>
+
+      @if (address.value) {
+        <div class="suggestion-list absolute z-50 top-[55px] w-[99.5%]">
+          <ion-list>
+            <ion-item lines="none"
+              *ngFor="let suggestion of suggestions()" (click)="selectSuggestion(suggestion)">
+              <ion-icon slot="start" name="location-outline" class="text-[#ff4400] text-[20px]"></ion-icon>
+              <ion-text class="ellipsis-text text-gray-600">
+                {{ suggestion }}
+              </ion-text>
+            </ion-item>
+          </ion-list>
+        </div>
+      }
     </div>
 
     <ion-buttons class="flex justify-end mt-[20px]" slot="end">

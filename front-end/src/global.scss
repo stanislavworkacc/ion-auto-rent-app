@@ -53,6 +53,12 @@
   }
 }
 
+.ellipsis-text {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 // forms
 
 form {
