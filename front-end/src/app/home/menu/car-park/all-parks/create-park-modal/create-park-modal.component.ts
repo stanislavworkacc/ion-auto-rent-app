@@ -19,14 +19,14 @@ import {
   IonButtons,
   IonContent,
   IonHeader, IonIcon, IonInput,
-  IonItem, IonLabel, IonSpinner,
+  IonItem, IonLabel, IonPopover, IonProgressBar, IonRange, IonSpinner,
   IonToolbar,
   ModalController
 } from "@ionic/angular/standalone";
 import {SegmentsComponent} from "../../../../../shared/ui-kit/components/segments/segments.component";
 import {NgIf, NgOptimizedImage} from "@angular/common";
 import {ValidateInputDirective} from "../../../../../shared/directives/validate-input.directive";
-import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {matchingPasswordsValidator} from "../../../../../shared/utils/validators/matchingPasswordValidator";
 import {of} from "rxjs/internal/observable/of";
 import {delay, tap} from "rxjs";
@@ -62,7 +62,11 @@ import {GooglePlacesSerivce} from "../../../../../shared/services/google-places.
     IonSpinner,
     ValidateInputDirective,
     ReactiveFormsModule,
-    UploadBtnComponent
+    UploadBtnComponent,
+    IonProgressBar,
+    IonPopover,
+    IonRange,
+    FormsModule
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -87,7 +91,6 @@ export class CreateParkModalComponent  implements OnInit, AfterViewInit {
   uploadProgress: WritableSignal<number>  = signal(0);
 
   uploadedLogoUrl: string = '';
-
   @ViewChild('addressInput', { static: false }) addressInput!: IonInput;
 
 
@@ -102,7 +105,7 @@ export class CreateParkModalComponent  implements OnInit, AfterViewInit {
   closeModal(): void {
     this.modalCtrl.dismiss()
   }
-  handleFileUpload(event: any) {
+  handleFileUpload(event: any): void {
     const file = event.target.files[0];
     if (file) {
       this.logoUploading.set(true);
@@ -134,6 +137,13 @@ export class CreateParkModalComponent  implements OnInit, AfterViewInit {
         }
       }, 100);
     }
+  }
+
+  clearSelectedLogo(): void {
+    this.uploadedLogoUrl = '';
+    this.logoUploaded.set(false);
+    this.logoUploading.set(false);
+    this.uploadProgress.set(0);
   }
 
   assignFormControls(): void {

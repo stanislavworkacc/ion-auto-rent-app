@@ -12,7 +12,12 @@
       @if (!logoUploaded()) {
         <ion-icon name="image-outline" class="text-gray-500 text-6xl"></ion-icon>
       } @else {
-        <img [src]="uploadedLogoUrl" alt="Logo" class="h-20 w-20 object-cover mb-2 rounded">
+        <div class="relative">
+          <img [src]="uploadedLogoUrl" alt="Logo" class="h-20 w-20 object-cover mb-2 rounded">
+          <ion-buttons class="absolute top-0 right-0">
+             <app-close-btn (click)="clearSelectedLogo()"></app-close-btn>
+          </ion-buttons>
+        </div>
       }
 
       <app-upload-btn
@@ -21,6 +26,12 @@
         [uploadProgress]="uploadProgress()"
       >
       </app-upload-btn>
+      <ion-buttons class="absolute left-[15px] top-[15px]">
+        <ion-button id="popover-trigger">
+          <ion-icon name="images-outline" class="text-blue-100"></ion-icon>
+          <ion-icon name="help-circle-outline" class="text-[16px] pb-[25px] text-[#eab308]"></ion-icon>
+        </ion-button>
+      </ion-buttons>
     </div>
 
     <div class="form-input" #nameRef [appValidateInput]="nameRef">
@@ -99,3 +110,31 @@
     </ion-buttons>
   </form>
 </ion-content>
+
+<ion-popover trigger="popover-trigger">
+  <ng-template>
+    <div class="flex flex-col text-xs p-4 bg-black rounded-md text-white">
+      <h3 class=" font-semibold mb-2">Підтримуючі формати:</h3>
+      <div class="flex flex-col space-y-1">
+        <span class="flex items-center text-shadow">
+          <ion-icon name="checkmark-outline" class="mr-1 text-green-400"></ion-icon>JPEG
+        </span>
+        <span class="flex items-center text-shadow">
+          <ion-icon name="checkmark-outline" class="mr-1 text-green-400"></ion-icon>TIFF
+        </span>
+        <span class="flex items-center text-shadow">
+          <ion-icon name="checkmark-outline" class="mr-1 text-green-400"></ion-icon>WEBP
+        </span>
+        <span class="flex items-center text-shadow">
+          <ion-icon name="checkmark-outline" class="mr-1 text-green-400"></ion-icon>PNG
+        </span>
+        <span class="flex items-center text-shadow">
+          <ion-icon name="checkmark-outline" class="mr-1 text-green-400"></ion-icon>SVG
+        </span>
+        <span class="flex items-center text-shadow">
+          <ion-icon name="checkmark-outline" class="mr-1 text-green-400"></ion-icon>JPG
+        </span>
+      </div>
+    </div>
+  </ng-template>
+</ion-popover>
