@@ -48,6 +48,7 @@ import {catchError, filter, map} from "rxjs/operators";
 import {handleError} from "../../../../../shared/utils/errorHandler";
 import {GoogleSsoService} from "../../../../../auth/authorizator/google-sso.service";
 import {GooglePlacesSerivce} from "../../../../../shared/services/google-places.serivce";
+import {GooglePlacesComponent} from "../../../../../shared/components/google-places/google-places.component";
 
 @Component({
   selector: 'app-create-park-modal',
@@ -84,7 +85,8 @@ import {GooglePlacesSerivce} from "../../../../../shared/services/google-places.
     NgForOf,
     IonSearchbar,
     IonList,
-    IonText
+    IonText,
+    GooglePlacesComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
