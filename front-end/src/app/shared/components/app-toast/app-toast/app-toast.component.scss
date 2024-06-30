@@ -4,11 +4,12 @@
   width: 98vw;
   min-height: 60px;
   color: white;
-  backdrop-filter: blur(5px);
+  background: #ffffff;
   animation: show-next 0.3s both;
-  border-radius: 12px;
+  border-radius: 2px;
   overflow: hidden;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
 
   &-status {
     height: 4px; /* Reduced height for a more compact slider */
@@ -54,7 +55,8 @@
   &__icon {
     flex: 0;
     padding-right: 8px;
-    font-size: 25px;
+    font-size: 20px;
+    color: black;
 
     .icon-placeholder {
       display: block;
@@ -71,15 +73,15 @@
 
     & > .toast-title {
       color: darkgrey;
-      font-size: 14px;
+      font-size: 12px;
       margin-bottom: 2px;
       text-transform: capitalize;
       font-weight: 500;
     }
 
     & > .toast-text {
-      color: white;
-      font-size: 14px;
+      color: #3a3a3a;
+      font-size: 12px;
     }
   }
 
@@ -103,7 +105,7 @@
 
     .toast-close-icon {
       color: #757575;
-      font-size: 18px;
+      font-size: 14px;
       transition: color 0.3s;
 
       &:hover {
