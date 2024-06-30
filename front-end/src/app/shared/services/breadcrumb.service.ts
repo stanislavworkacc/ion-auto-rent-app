@@ -31,16 +31,6 @@ export class BreadcrumbService {
     return breadcrumbs;
   }
 
-  // public buildCollapsedBreadcrumbs(collapsedBreadcrumbs, excludeFirst: boolean = false) {
-  //   return collapsedBreadcrumbs
-  //     .slice(excludeFirst ? 1 : 0)
-  //     .map((breadcrumb: any) => {
-  //       return {
-  //         url: breadcrumb.href,
-  //         label: breadcrumb.innerHTML.trim()
-  //       };
-  //     });
-  // }
   public buildCollapsedBreadcrumbs(collapsedBreadcrumbs: any[], excludeRoutes: string[] = []) {
     return collapsedBreadcrumbs
       .filter((breadcrumb: any) => !excludeRoutes.includes(breadcrumb.href))

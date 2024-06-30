@@ -58,6 +58,10 @@
 >
   <ng-template>
     <ion-content>
+      <div class="bg-[#778899] p-2 flex justify-between items-center">
+        <ion-label class="text-xs uppercase">Попередні сторінки</ion-label>
+        <ion-icon name="return-down-back-outline"></ion-icon>
+      </div>
       <ion-list>
         <ion-item
           *ngFor="let breadcrumb of collapsedBreadcrumbs; last as isLast"

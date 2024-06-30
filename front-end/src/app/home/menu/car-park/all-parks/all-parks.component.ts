@@ -67,7 +67,7 @@ export class AllParksComponent  implements OnInit {
       component: CreateParkModalComponent,
       cssClass: 'auth-modal',
       initialBreakpoint: 0.6,
-      breakpoints: [0, 0.6]
+      breakpoints: [0, 0.6, 0.9]
     });
 
     await modal.present();
