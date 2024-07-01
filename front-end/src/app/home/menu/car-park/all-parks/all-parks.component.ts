@@ -63,9 +63,9 @@ export class AllParksComponent  implements OnInit {
 
   userCarParkings = [
     { img: 'https://ionicframework.com/docs/img/demos/thumbnail.svg', label: 'Car Parking 1', location: 'Location 1' },
-    { img: 'https://ionicframework.com/docs/img/demos/thumbnail.svg', label: 'Car Parking 2', location: 'Location 2' },
-    { img: 'https://ionicframework.com/docs/img/demos/thumbnail.svg', label: 'Car Parking 3', location: 'Location 3' },
-    { img: 'https://ionicframework.com/docs/img/demos/thumbnail.svg', label: 'Car Parking 4', location: 'Location 4' }
+    // { img: 'https://ionicframework.com/docs/img/demos/thumbnail.svg', label: 'Car Parking 2', location: 'Location 2' },
+    // { img: 'https://ionicframework.com/docs/img/demos/thumbnail.svg', label: 'Car Parking 3', location: 'Location 3' },
+    // { img: 'https://ionicframework.com/docs/img/demos/thumbnail.svg', label: 'Car Parking 4', location: 'Location 4' }
   ];
 
   selectParking() {
@@ -75,8 +75,8 @@ export class AllParksComponent  implements OnInit {
     const modal: HTMLIonModalElement = await this.modalCtrl.create({
       component: CreateParkModalComponent,
       cssClass: 'auth-modal',
-      initialBreakpoint: 0.6,
-      breakpoints: [0, 0.6, 0.9]
+      initialBreakpoint: 0.9,
+      breakpoints: [0, 0.9]
     });
 
     await modal.present();

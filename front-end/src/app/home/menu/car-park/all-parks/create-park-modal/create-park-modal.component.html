@@ -121,24 +121,12 @@
     <div class="flex flex-col text-xs p-4 bg-black rounded-md text-white">
       <h3 class=" font-semibold mb-2">Підтримуючі формати:</h3>
       <div class="flex flex-col space-y-1">
-        <span class="flex items-center text-shadow">
-          <ion-icon name="checkmark-outline" class="mr-1 text-green-400"></ion-icon>JPEG
-        </span>
-        <span class="flex items-center text-shadow">
-          <ion-icon name="checkmark-outline" class="mr-1 text-green-400"></ion-icon>TIFF
-        </span>
-        <span class="flex items-center text-shadow">
-          <ion-icon name="checkmark-outline" class="mr-1 text-green-400"></ion-icon>WEBP
-        </span>
-        <span class="flex items-center text-shadow">
-          <ion-icon name="checkmark-outline" class="mr-1 text-green-400"></ion-icon>PNG
-        </span>
-        <span class="flex items-center text-shadow">
-          <ion-icon name="checkmark-outline" class="mr-1 text-green-400"></ion-icon>SVG
-        </span>
-        <span class="flex items-center text-shadow">
-          <ion-icon name="checkmark-outline" class="mr-1 text-green-400"></ion-icon>JPG
-        </span>
+        <ng-container *ngFor="let format of formats">
+          <span class="flex items-center text-shadow">
+            <ion-icon name="checkmark-outline" class="mr-1 text-green-400"></ion-icon>
+            {{ format }}
+          </span>
+        </ng-container>
       </div>
     </div>
   </ng-template>

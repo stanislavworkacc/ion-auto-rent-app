@@ -106,6 +106,7 @@ export class CreateParkModalComponent  implements OnInit, AfterViewInit {
     address: false,
   };
   uploadedLogoUrl: string = '';
+  formats: string[] = ['JPEG', 'WEBP', 'PNG', 'SVG', 'JPG'];
 
   logoUploaded: WritableSignal<boolean> = signal(false);
   logoUploading: WritableSignal<boolean> = signal(false);
