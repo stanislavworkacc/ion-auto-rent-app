@@ -99,13 +99,12 @@ export class ProfilePage implements OnInit {
 
   setMenuItems(): void {
     this.menuService.setProfilePageItems([
-      {value: ProfileMenuItem.PROFILE, icon: 'wallet-outline', label: 'Рахунок'},
-      {value: ProfileMenuItem.PREMIUM, icon: 'trending-up-outline', label: 'Преміум'},
-      {value: ProfileMenuItem.RATING, icon: 'bar-chart-outline', label: 'Рейтинг'},
-      {value: ProfileMenuItem.RATING, icon: 'car-outline', label: 'Оренди'},
-      {value: ProfileMenuItem.PROMO_CODE, icon: 'qr-code-outline', label: 'Промо-код'},
-      {value: ProfileMenuItem.PRIVACY_POLICY, icon: 'document-lock-outline', label: 'Захист даних'},
-      {value: ProfileMenuItem.EDIT, icon: 'person-circle-outline', label: 'Редагувати'},
+      {value: ProfileMenuItem.PROFILE, icon: '/assets/icon/card-profile-ico.png', label: 'Рахунок'},
+      {value: ProfileMenuItem.PREMIUM, icon: '/assets/icon/premium-profile-ico.png', label: 'Преміум'},
+      {value: ProfileMenuItem.RATING, icon: '/assets/icon/rating-profile-ico.png', label: 'Рейтинг'},
+      {value: ProfileMenuItem.RATING, icon: '/assets/icon/car-rent-profile-ico.png', label: 'Оренди'},
+      {value: ProfileMenuItem.PRIVACY_POLICY, icon: '/assets/icon/privacy-profile-ico2.png', label: 'Захист даних'},
+      {value: ProfileMenuItem.EDIT, icon: '/assets/icon/profile-edit-ico.png', label: 'Редагувати'},
     ]);
   }
 
