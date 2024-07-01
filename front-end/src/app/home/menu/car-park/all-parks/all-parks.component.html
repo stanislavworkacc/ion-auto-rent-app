@@ -5,7 +5,7 @@
     @for(parking of userCarParkings; track parking.label) {
       <ion-item (click)="selectParking()">
         <ion-thumbnail slot="start" class="mt-2">
-          <ion-icon name="image-outline" class="text-gray-500 text-5xl"></ion-icon>
+          <img src="/assets/icon/parkings-list.png" class="h-full w-full">
         </ion-thumbnail>
 
         <ion-label>
@@ -16,7 +16,7 @@
           <ion-icon slot="icon-only" name="create-outline" class="!text-[20px]"></ion-icon>
         </ion-button>
         <ion-button fill="clear" slot="end" >
-          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+          <ion-icon slot="icon-only" name="trash-outline" class="!text-[20px]"></ion-icon>
         </ion-button>
       </ion-item>
     }
