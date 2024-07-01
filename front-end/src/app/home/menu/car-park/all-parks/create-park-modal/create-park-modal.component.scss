@@ -11,6 +11,10 @@ ion-header {
 ion-content {
   --background: #2a3c4e;
 
+  .card-desc {
+    background: linear-gradient(135deg, #526f9d 0%, #161f2d 100%);
+  }
+
   ion-list {
     background: #2a3c4e;
   }
