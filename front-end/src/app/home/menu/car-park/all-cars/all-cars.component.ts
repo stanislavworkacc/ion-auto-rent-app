@@ -13,7 +13,7 @@ import {
   IonCardContent,
   IonCardHeader,
   IonCardSubtitle,
-  IonCardTitle, IonChip, IonHeader, IonIcon,
+  IonCardTitle, IonChip, IonContent, IonHeader, IonIcon,
   IonItem, IonLabel,
   IonList, IonSegment, IonSegmentButton, IonTitle, IonToolbar
 } from "@ionic/angular/standalone";
@@ -51,7 +51,8 @@ register();
     IonHeader,
     IonToolbar,
     IonSegment,
-    IonSegmentButton
+    IonSegmentButton,
+    IonContent
   ]
 })
 export class AllCarsComponent  implements OnInit {

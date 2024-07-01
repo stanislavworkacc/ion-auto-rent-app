@@ -17,7 +17,7 @@ import {CarParksDescriptionComponent} from "./car-parks-description/car-parks-de
 import {AuthorizatorComponent} from "../../../../auth/authorizator/authorizator.component";
 import {CreateParkModalComponent} from "./create-park-modal/create-park-modal.component";
 import {MenuDataService} from "../../menu-data.serivce";
-import {Platform} from "@ionic/angular";
+import {NavController, Platform} from "@ionic/angular";
 
 @Component({
   selector: 'app-all-parks',
@@ -54,6 +54,7 @@ import {Platform} from "@ionic/angular";
 export class AllParksComponent  implements OnInit {
 
   private modalCtrl: ModalController = inject(ModalController);
+  private navCtrl: NavController = inject(NavController);
   private menuDataService: MenuDataService = inject(MenuDataService);
   public platform: Platform = inject(Platform);
 
@@ -68,8 +69,8 @@ export class AllParksComponent  implements OnInit {
     // { img: 'https://ionicframework.com/docs/img/demos/thumbnail.svg', label: 'Car Parking 4', location: 'Location 4' }
   ];
 
-  selectParking() {
-
+  selectParking(): void {
+    this.navCtrl.navigateForward(['home/menu/car-park/all-cars'])
   }
   async openModal(): Promise<void> {
     const modal: HTMLIonModalElement = await this.modalCtrl.create({
