@@ -6,7 +6,6 @@
       <div class="chip-container">
         @for (chip of allCarsData.chips(); track chip.value) {
           <ion-chip
-
             outline="outline"
             (click)="chipSelected(chip)"
           >
@@ -18,8 +17,9 @@
       <ion-buttons slot="end" class="pt-[10px]">
         <ion-button class="flex justify-end">
           <div class="add-btn flex flex-col items-center">
-            <ion-icon name="add-circle-outline"></ion-icon>
-            <ion-label class="text-xs">Додати</ion-label>
+<!--            <ion-icon name="add-circle-outline"></ion-icon>-->
+            <img src="/assets/icon/add-avto-ico.png" class="h-[20px]">
+            <ion-label class="text-xs text-black">Додати</ion-label>
           </div>
         </ion-button>
       </ion-buttons>

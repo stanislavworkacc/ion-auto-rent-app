@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, inject, OnInit} from '@angular/core';
 import {CarParkDataService} from "../car-park-data.service";
-import {NavController} from "@ionic/angular";
+import {NavController, Platform} from "@ionic/angular";
 import {IonLabel, IonSegment, IonSegmentButton} from "@ionic/angular/standalone";
 
 @Component({
@@ -15,7 +15,7 @@ export class InRentAllSegmentComponent  implements OnInit {
 
   private carParkDataService: CarParkDataService = inject(CarParkDataService);
   private navCtrl: NavController = inject(NavController);
-
+  public platform: Platform = inject(Platform);
   get carDataService() {
     return this.carParkDataService;
   }

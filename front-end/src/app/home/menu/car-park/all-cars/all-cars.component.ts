@@ -19,7 +19,7 @@ import {NgClass, NgForOf} from "@angular/common";
 import {AllCarsService} from "./all-cars.service";
 import { register } from 'swiper/element/bundle';
 import {CarParkDataService} from "../car-park-data.service";
-import {NavController} from "@ionic/angular";
+import {NavController, Platform} from "@ionic/angular";
 import {InRentAllSegmentComponent} from "../in-rent-all-segment/in-rent-all-segment.component";
 
 register();
