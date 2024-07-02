@@ -3,7 +3,7 @@
 
   <ion-list lines="none">
     <div class="flex items-center w-full justify-between pr-[10px]">
-      <div class="chip-container">
+      <div class="chip-container flex-wrap">
         @for (chip of allCarsData.chips(); track chip.value) {
           <ion-chip outline="outline"
             [class.selected-chip]="chip?.value === allCarsData.selectedChip()?.value"
@@ -20,11 +20,17 @@
           </ion-chip>
         }
       </div>
-      <ion-buttons slot="end" class="pt-[10px]">
+      <ion-buttons slot="end" class="flex flex-col gap-1 w-[15%] pt-[15px]">
         <ion-button class="flex justify-end">
           <div class="add-btn flex flex-col items-center">
             <img src="/assets/icon/add-avto-ico.png" class="h-[20px]">
             <ion-label class="text-xs text-black">Додати</ion-label>
+          </div>
+        </ion-button>
+        <ion-button class="flex justify-end">
+          <div class="flex flex-col items-center">
+            <ion-icon name="funnel-outline" class="text-black"></ion-icon>
+            <ion-label class="text-xs text-black">Фільтр</ion-label>
           </div>
         </ion-button>
       </ion-buttons>
