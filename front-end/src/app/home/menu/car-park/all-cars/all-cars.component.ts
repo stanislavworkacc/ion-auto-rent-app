@@ -4,8 +4,6 @@ import {
   CUSTOM_ELEMENTS_SCHEMA,
   inject,
   OnInit,
-  signal,
-  WritableSignal
 } from '@angular/core';
 import {
   IonBadge, IonButton, IonButtons,
@@ -22,6 +20,7 @@ import {AllCarsService} from "./all-cars.service";
 import { register } from 'swiper/element/bundle';
 import {CarParkDataService} from "../car-park-data.service";
 import {NavController} from "@ionic/angular";
+import {InRentAllSegmentComponent} from "../in-rent-all-segment/in-rent-all-segment.component";
 
 register();
 @Component({
@@ -52,7 +51,8 @@ register();
     IonToolbar,
     IonSegment,
     IonSegmentButton,
-    IonContent
+    IonContent,
+    InRentAllSegmentComponent
   ]
 })
 export class AllCarsComponent  implements OnInit {
@@ -69,11 +69,6 @@ export class AllCarsComponent  implements OnInit {
     return this.carParkDataService;
   }
 
-
-  onSegmentChanged(event: any): void {
-    this.carDataService.selectedSegment.update(() => event.detail.value);
-    this.navCtrl.navigateForward([`home/menu/car-park/${this.carDataService.selectedSegment()}`])
-  }
   setAllCars(): void {
     this.allCarsData.setAllCars([
       {

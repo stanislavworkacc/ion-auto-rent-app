@@ -119,8 +119,8 @@ export class CarParkComponent  implements OnInit {
 
   setSegmentOptions(): void {
     this.carDataService.options.set([
-      {value: SelectedSegment.ALL, icon: 'person-outline', label: 'Всі', isVisible: true},
-      {value: SelectedSegment.IN_RENT, icon: 'logo-google', label: 'В оренді', isVisible: true},
+      {value: SelectedSegment.ALL, icon: '/assets/icon/all-cars-ico.png', label: 'Всі', isVisible: true},
+      {value: SelectedSegment.IN_RENT, icon: '/assets/icon/car-in-rent-ico.png', label: 'В оренді', isVisible: true},
     ])
   }
 
