@@ -13,6 +13,7 @@ export class BreadcrumbLabelPipe implements PipeTransform {
       edit: 'Редагування',
       parks: 'Автопарки',
       "all-cars": 'Автопарк',
+      "cars": 'Автопарк',
       "in-rent": 'В оренді',
     };
 

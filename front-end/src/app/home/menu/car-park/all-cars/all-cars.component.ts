@@ -178,10 +178,17 @@ export class AllCarsComponent  implements OnInit {
     this.setChips();
     this.setParkRates();
   }
+
+  handleBreadCrubms(): void {
+    this.carDataService.routes.set(['/home', '/home/menu/car-park', '/home/menu/car-park/all-cars']);
+    this.carDataService.newRoutes.set([ { url: '/home/menu/car-park', label: 'Автопарки' } ])
+  }
   ngOnInit(): void {
     this.setParkData();
+    this.handleBreadCrubms();
   }
   constructor() {
+
     effect((): void => {
       if (this.carDataService.selectedSegment() === AllCarsSegment.ALL_CARS) {
         this.navCtrl.navigateForward(['/home/menu/car-park/all-cars/cars'])

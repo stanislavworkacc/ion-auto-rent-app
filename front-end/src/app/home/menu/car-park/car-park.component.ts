@@ -107,7 +107,12 @@ export class CarParkComponent  implements OnInit {
 
   async presentPopover(e: Event): Promise<void> {
     const eventDetail = (e as CustomEvent).detail;
-    this.collapsedBreadcrumbs = this.breadcrumbsService.buildCollapsedBreadcrumbs(eventDetail.collapsedBreadcrumbs, ['/home', '/home/menu/car-park']);
+
+    this.collapsedBreadcrumbs = this.breadcrumbsService.buildCollapsedBreadcrumbs(
+      eventDetail.collapsedBreadcrumbs,
+      this.carDataService.excludedRoutes(),
+      this.carDataService.additionalRoutes()
+      );
 
     this.popover.event = e;
     this.isBreadCrumbPopoverOpen.set(true);
@@ -130,6 +135,7 @@ export class CarParkComponent  implements OnInit {
   }
   ngOnInit(): void {
     this.setSegmentOptions();
+    this.carDataService.routes.set(['/home', '/home/menu/car-park']);
   }
 
 }
