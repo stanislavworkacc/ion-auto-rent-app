@@ -1,7 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  CUSTOM_ELEMENTS_SCHEMA,
+  CUSTOM_ELEMENTS_SCHEMA, effect,
   inject,
   OnInit,
 } from '@angular/core';
@@ -21,6 +21,8 @@ import { register } from 'swiper/element/bundle';
 import {CarParkDataService} from "../car-park-data.service";
 import {NavController, Platform} from "@ionic/angular";
 import {InRentAllSegmentComponent} from "../in-rent-all-segment/in-rent-all-segment.component";
+import {RouterOutlet} from "@angular/router";
+import {AllCarsSegment} from "./all-cars.enums";
 
 register();
 @Component({
@@ -29,7 +31,6 @@ register();
   styleUrls: ['./all-cars.component.scss'],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
     IonCard,
     IonList,
@@ -52,7 +53,8 @@ register();
     IonSegment,
     IonSegmentButton,
     IonContent,
-    InRentAllSegmentComponent
+    InRentAllSegmentComponent,
+    RouterOutlet
   ]
 })
 export class AllCarsComponent  implements OnInit {
@@ -118,7 +120,6 @@ export class AllCarsComponent  implements OnInit {
     ]);
 
   }
-
   chipSelected(chip: { value: string, label: string, icon: string }): void {
     this.allCarsData.selectedChip.set(chip);
   }
@@ -172,5 +173,12 @@ export class AllCarsComponent  implements OnInit {
   ngOnInit(): void {
     this.setParkData();
   }
-  constructor() { }
+  constructor() {
+    effect((): void => {
+      if (this.carDataService.selectedSegment() === AllCarsSegment.ALL_CARS) {
+        this.navCtrl.navigateForward(['/home/menu/car-park/all-cars/cars'])
+      }
+
+    });
+  }
 }

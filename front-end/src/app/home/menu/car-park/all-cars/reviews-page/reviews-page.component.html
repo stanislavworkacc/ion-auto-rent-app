@@ -1,0 +1,10 @@
+<div class="w-full max-w-[75%] flex gap-4 justify-start p-[10px] overflow-x-auto overflow-y-visible px-[15px]">
+  @for(rate of allCarsData.getRateIcons(); track rate.name) {
+    <div class="relative flex items-center justify-center bg-[#7777793b] w-[35px] h-[35px] rounded-lg shadow-md">
+      <ion-icon [name]="rate.name" class="text-2xl" [ngClass]="rate.textClass"></ion-icon>
+      <ion-badge class="absolute bottom-0 right-0 transform translate-x-2 translate-y-2 text-white rounded-full text-xs flex items-center justify-center w-5 h-5" [ngClass]="rate.badgeClass">
+        {{ rate.badgeText }}
+      </ion-badge>
+    </div>
+  }
+</div>
