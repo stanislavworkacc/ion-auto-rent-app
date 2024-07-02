@@ -22,7 +22,7 @@ import {CarParkDataService} from "../car-park-data.service";
 import {NavController, Platform} from "@ionic/angular";
 import {InRentAllSegmentComponent} from "../in-rent-all-segment/in-rent-all-segment.component";
 import {RouterOutlet} from "@angular/router";
-import {AllCarsSegment} from "./all-cars.enums";
+import {AllCarsChip, AllCarsSegment} from "./all-cars.enums";
 
 register();
 @Component({
@@ -122,12 +122,20 @@ export class AllCarsComponent  implements OnInit {
   }
   chipSelected(chip: { value: string, label: string, icon: string }): void {
     this.allCarsData.selectedChip.set(chip);
+    this.navCtrl.navigateForward([`/home/menu/car-park/all-cars/${ chip.value }`])
+  }
+
+  closeSelectedChip(ev): void {
+    ev.preventDefault();
+    ev.stopPropagation();
+    this.navCtrl.navigateForward(['/home/menu/car-park/all-cars/cars']);
+    this.allCarsData.selectedChip.set(null)
   }
 
   setChips(): void {
     this.allCarsData.chips.set([
-      { value: 'reviews', label: 'Відгуки', icon: '/assets/icon/reviews-ico.png' },
-      { value: 'history-rent', label: 'Архів оренд', icon: '/assets/icon/archive-ico.png' },
+      { value: AllCarsChip.REVIEWS, label: 'Відгуки', icon: '/assets/icon/reviews-ico.png' },
+      { value: AllCarsChip.RENT_ARCHIVE, label: 'Архів оренд', icon: '/assets/icon/archive-ico.png' },
     ])
   }
 
@@ -178,7 +186,6 @@ export class AllCarsComponent  implements OnInit {
       if (this.carDataService.selectedSegment() === AllCarsSegment.ALL_CARS) {
         this.navCtrl.navigateForward(['/home/menu/car-park/all-cars/cars'])
       }
-
     });
   }
 }

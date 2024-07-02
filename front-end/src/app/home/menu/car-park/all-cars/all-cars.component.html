@@ -5,12 +5,16 @@
     <div class="flex items-center w-full justify-between pr-[10px]">
       <div class="chip-container">
         @for (chip of allCarsData.chips(); track chip.value) {
-          <ion-chip
+          <ion-chip [class.selected-chip]="chip?.value === allCarsData.selectedChip()?.value"
             outline="outline"
             (click)="chipSelected(chip)"
           >
             <ion-label>{{ chip.label }}</ion-label>
             <img [src]="chip.icon" class="h-[20px] ml-1">
+
+            @if (chip?.value === allCarsData.selectedChip()?.value) {
+              <ion-icon name="close-circle-outline" (click)="closeSelectedChip($event)"></ion-icon>
+            }
           </ion-chip>
         }
       </div>
