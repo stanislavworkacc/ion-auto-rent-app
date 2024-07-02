@@ -5,5 +5,6 @@ export enum AllCarsSegment {
 
 export enum AllCarsChip {
   REVIEWS = 'reviews',
+  INFO = 'info',
   RENT_ARCHIVE = 'rent-archive',
 }
