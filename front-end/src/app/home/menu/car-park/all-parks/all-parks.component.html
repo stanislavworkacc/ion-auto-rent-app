@@ -3,7 +3,7 @@
     <app-header-parks [create]="openModal.bind(this)"></app-header-parks>
 
     @for(parking of userCarParkings; track parking.label) {
-      <ion-item (click)="selectParking()">
+      <ion-item (click)="selectParking()" lines="none">
         <ion-thumbnail slot="start" class="mt-2">
           <img src="/assets/icon/parkings-list.png" class="h-full w-full">
         </ion-thumbnail>
