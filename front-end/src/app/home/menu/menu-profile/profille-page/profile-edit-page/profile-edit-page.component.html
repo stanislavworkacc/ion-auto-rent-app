@@ -266,13 +266,16 @@
     <ion-content>
       <ion-list>
         <ion-item [button]="true" [detail]="false" (click)="isBlurred.set(false)">
-          <ion-label>Редагувати профіль</ion-label>
-          <ion-icon slot="end" name="create-outline"></ion-icon>
+          <ion-label>Редагувати</ion-label>
+          <img src="/assets/icon/edit-ico2.png" class="h-[22px]">
         </ion-item>
-        <ion-item [button]="true" [detail]="false" (click)="deleteAccount()" id="delete-alert">
-
-          <ion-label>Видалити аккаунт</ion-label>
-          <ion-icon slot="end" name="person-remove-outline"></ion-icon>
+        <ion-item id="delete-alert"
+                  [button]="true"
+                  [detail]="false"
+                  (click)="deleteAccount()"
+        >
+          <ion-label>Видалити</ion-label>
+          <img src="/assets/icon/delete-user-ico.png" class="h-[23px]">
         </ion-item>
       </ion-list>
     </ion-content>

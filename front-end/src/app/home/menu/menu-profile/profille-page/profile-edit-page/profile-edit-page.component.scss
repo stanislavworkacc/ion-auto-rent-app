@@ -108,3 +108,16 @@ ion-button {
     margin-left: 5px;
   }
 }
+
+ion-popover {
+  ion-content {
+    ion-list {
+      ion-item {
+        --background: #000000;
+      }
+    }
+    .list-md {
+      background: #000000;
+    }
+  }
+}
