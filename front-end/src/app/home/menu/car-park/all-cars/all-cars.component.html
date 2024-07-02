@@ -5,8 +5,10 @@
     <div class="flex items-center w-full justify-between pr-[10px]">
       <div class="chip-container">
         @for (chip of allCarsData.chips(); track chip.value) {
-          <ion-chip [class.selected-chip]="chip?.value === allCarsData.selectedChip()?.value"
-            outline="outline"
+          <ion-chip outline="outline"
+            [class.selected-chip]="chip?.value === allCarsData.selectedChip()?.value"
+            [class.archive-chip]="chip?.value === AllCarsChip.RENT_ARCHIVE"
+            [class.review-chip]="chip?.value === AllCarsChip.REVIEWS"
             (click)="chipSelected(chip)"
           >
             <ion-label>{{ chip.label }}</ion-label>

@@ -33,5 +33,13 @@ ion-content {
       border: 1px solid #c9c8c8;
       background: #dfe6ec;
     }
+
+    .archive-chip {
+      min-width: 160px !important;
+    }
+
+    .review-chip {
+      min-width: 140px !important;
+    }
   }
 }

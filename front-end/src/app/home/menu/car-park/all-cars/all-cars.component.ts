@@ -63,6 +63,8 @@ export class AllCarsComponent  implements OnInit {
   private carParkDataService: CarParkDataService = inject(CarParkDataService);
   private navCtrl: NavController = inject(NavController);
 
+  public AllCarsChip = AllCarsChip;
+
   get allCarsData() {
     return this.allCarsService;
   }
