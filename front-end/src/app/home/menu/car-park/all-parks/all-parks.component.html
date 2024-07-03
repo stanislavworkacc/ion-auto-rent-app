@@ -4,8 +4,8 @@
 
     @for(parking of userCarParkings; track parking.label) {
       <ion-item (click)="selectParking()" lines="none" class="!shadow-none">
-        <ion-thumbnail slot="start" class="mt-2">
-          <img src="/assets/icon/parkings-list.png" class="h-full w-full">
+        <ion-thumbnail slot="start" class="flex justify-center items-center">
+          <img src="/assets/icon/parkings-logo-ico.png" class="h-[40px] w-[40px]">
         </ion-thumbnail>
 
         <ion-label>
@@ -17,14 +17,5 @@
         </ion-button>
       </ion-item>
     }
-
-    <div class="flex items-center justify-end bg-white gap-2 py-2 pr-2">
-      @for (carMark of dataService.getCarsMarks(); track carMark.value) {
-       <div class="flex items-center">
-         <img [src]="carMark.icon" class="h-[20px]">
-         <span class="ml-1 text-gray-400 font-bold">{{ carMark.count }}</span>
-       </div>
-      }
-    </div>
   </ion-list>
 </ion-content>
