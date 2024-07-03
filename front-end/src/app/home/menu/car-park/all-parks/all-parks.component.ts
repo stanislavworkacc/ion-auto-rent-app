@@ -13,8 +13,6 @@ import {
 } from "@ionic/angular/standalone";
 import {NgClass, NgForOf} from "@angular/common";
 import {HeaderParksComponent} from "./header-parks/header-parks.component";
-import {CarParksDescriptionComponent} from "./car-parks-description/car-parks-description.component";
-import {AuthorizatorComponent} from "../../../../auth/authorizator/authorizator.component";
 import {CreateParkModalComponent} from "./create-park-modal/create-park-modal.component";
 import {MenuDataService} from "../../menu-data.serivce";
 import {NavController, Platform} from "@ionic/angular";
@@ -46,7 +44,6 @@ import {NavController, Platform} from "@ionic/angular";
     IonAccordionGroup,
     IonAccordion,
     HeaderParksComponent,
-    CarParksDescriptionComponent,
     IonAlert,
     IonButtons
   ]

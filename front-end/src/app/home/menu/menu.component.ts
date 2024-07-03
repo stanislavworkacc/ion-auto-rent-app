@@ -97,9 +97,8 @@ export class MenuComponent implements OnInit {
 
   setCarsMarks(): void {
     this.dataService.setCarsMarks([
-      {icon: 'car-outline', count: 4, description: 'Транспортні засоби', value: 'car'},
-      {icon: 'key-outline', count: 1, description: 'Здано в оренду', value: 'in-rent'},
-      {icon: 'checkmark-circle-outline', count: 4, description: 'Здано в оренду', value: 'checkmark'},
+      {icon: '/assets/icon/all-cars-ico.png', count: 4, description: '', value: 'car'},
+      {icon: '/assets/icon/car-in-rent-ico.png', count: 1, description: '', value: 'in-rent'},
     ])
   }
 

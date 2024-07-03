@@ -3,7 +3,7 @@
     <app-header-parks [create]="openModal.bind(this)"></app-header-parks>
 
     @for(parking of userCarParkings; track parking.label) {
-      <ion-item (click)="selectParking()" lines="none">
+      <ion-item (click)="selectParking()" lines="none" class="!shadow-none">
         <ion-thumbnail slot="start" class="mt-2">
           <img src="/assets/icon/parkings-list.png" class="h-full w-full">
         </ion-thumbnail>
@@ -13,23 +13,18 @@
           <p>{{ parking.location }}</p>
         </ion-label>
         <ion-button fill="clear" slot="end" >
-          <ion-icon slot="icon-only" name="create-outline" class="!text-[20px]"></ion-icon>
-        </ion-button>
-        <ion-button fill="clear" slot="end" >
-          <ion-icon slot="icon-only" name="trash-outline" class="!text-[20px]"></ion-icon>
+          <img src="/assets/icon/edit-orange.png" class="h-[20px]">
         </ion-button>
       </ion-item>
     }
 
-    <div class="flex items-center bg-[#cfcfcf] justify-end gap-2 py-2 pr-2">
+    <div class="flex items-center justify-end bg-white gap-2 py-2 pr-2">
       @for (carMark of dataService.getCarsMarks(); track carMark.value) {
        <div class="flex items-center">
-         <ion-icon slot="icon-only" [name]="carMark.icon" class="text-[#818181] text-[20px]"></ion-icon>
+         <img [src]="carMark.icon" class="h-[20px]">
          <span class="ml-1 text-gray-400 font-bold">{{ carMark.count }}</span>
        </div>
-
       }
     </div>
   </ion-list>
-  <car-parks-description></car-parks-description>
 </ion-content>
