@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { CreatePostModalComponent } from './create-post-modal.component';
+import { MainInfoComponent } from './main-info.component';
 
-describe('CreatePostModalComponent', () => {
-  let component: CreatePostModalComponent;
-  let fixture: ComponentFixture<CreatePostModalComponent>;
+describe('MainInfoComponent', () => {
+  let component: MainInfoComponent;
+  let fixture: ComponentFixture<MainInfoComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ CreatePostModalComponent ],
+      declarations: [ MainInfoComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(CreatePostModalComponent);
+    fixture = TestBed.createComponent(MainInfoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

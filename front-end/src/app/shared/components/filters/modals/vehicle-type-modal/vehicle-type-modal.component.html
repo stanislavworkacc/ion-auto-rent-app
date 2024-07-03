@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-label class="text-black flex justify-center pl-[25px] font-[300]">Тип транспорту</ion-label>
+
+    <ion-buttons slot="end">
+      <app-close-btn [btnStyles]="'!w-[20px]'" [color]="'black'" (click)="closeModal()"></app-close-btn>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-radio-group
+      [value]="selectedValue().value"
+    >
+      @for(type of transportTypes(); track type.value) {
+        <ion-item class="text-gray-400" lines="none">
+          <ion-radio [value]="type.value" justify="space-between">{{ type.label }}</ion-radio>
+        </ion-item>
+      }
+    </ion-radio-group>
+  </ion-list>
+</ion-content>
