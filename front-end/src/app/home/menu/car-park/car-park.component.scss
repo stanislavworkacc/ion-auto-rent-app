@@ -1,6 +1,11 @@
 :host {
   height: 100%;
 }
+ion-header {
+  ion-toolbar {
+    --background: #182130;
+  }
+}
 ion-content {
   --background: linear-gradient(to bottom, #fafafa, #f0f0f0) !important;
   padding: 16px;

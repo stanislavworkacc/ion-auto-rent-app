@@ -66,10 +66,10 @@ export class MenuComponent implements OnInit {
 
   setOptions(): void {
     this.dataService.setOptions([
-      {value: MenuSection.PROFILE, icon: '/assets/icon/user-chip-ico.png', label: 'Профіль'},
-      {value: MenuSection.CAR_PARK, icon: '/assets/icon/parking-lots-chip-ico.png', label: 'Автопарк'},
-      {value: MenuSection.FILES, icon: '/assets/icon/files-chip-ico.png', label: 'Файли'},
-      {value: MenuSection.GEO, icon: '/assets/icon/map-locator-chip-ico.png', label: 'Локатор'},
+      {value: MenuSection.PROFILE, icon: '/assets/icon/profile-gray.png', label: 'Профіль'},
+      {value: MenuSection.CAR_PARK, icon: '/assets/icon/cars-park-gray.png', label: 'Автопарк'},
+      {value: MenuSection.FILES, icon: '/assets/icon/files-gray.png', label: 'Файли'},
+      {value: MenuSection.GEO, icon: '/assets/icon/geo-gray.png', label: 'Локатор'},
     ]);
   }
 
