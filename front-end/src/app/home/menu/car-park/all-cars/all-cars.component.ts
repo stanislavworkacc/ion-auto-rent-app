@@ -13,7 +13,7 @@ import {
   IonCardSubtitle,
   IonCardTitle, IonChip, IonContent, IonHeader, IonIcon,
   IonItem, IonLabel,
-  IonList, IonSegment, IonSegmentButton, IonTitle, IonToolbar
+  IonList, IonSegment, IonSegmentButton, IonTitle, IonToolbar, ModalController
 } from "@ionic/angular/standalone";
 import {NgClass, NgForOf} from "@angular/common";
 import {AllCarsService} from "./all-cars.service";
@@ -23,6 +23,8 @@ import {NavController, Platform} from "@ionic/angular";
 import {InRentAllSegmentComponent} from "../in-rent-all-segment/in-rent-all-segment.component";
 import {RouterOutlet} from "@angular/router";
 import {AllCarsChip, AllCarsSegment} from "./all-cars.enums";
+import {AuthorizatorComponent} from "../../../../auth/authorizator/authorizator.component";
+import {CreatePostModalComponent} from "../../../../shared/components/create-post-modal/create-post-modal.component";
 
 register();
 @Component({
@@ -62,6 +64,7 @@ export class AllCarsComponent  implements OnInit {
   private allCarsService: AllCarsService = inject(AllCarsService);
   private carParkDataService: CarParkDataService = inject(CarParkDataService);
   private navCtrl: NavController = inject(NavController);
+  private modalCtrl: ModalController = inject(ModalController);
 
   public AllCarsChip = AllCarsChip;
 
@@ -80,7 +83,6 @@ export class AllCarsComponent  implements OnInit {
       { value: AllCarsChip.RENT_ARCHIVE, label: 'Архів оренд', icon: '/assets/icon/archive-ico.png' },
     ])
   }
-
 
   chipSelected(chip: { value: string, label: string, icon: string }): void {
     this.allCarsData.selectedChip.set(chip);
@@ -101,6 +103,17 @@ export class AllCarsComponent  implements OnInit {
 
   setParkData(): void {
     this.setChips();
+  }
+
+  async vehicleCreation(): Promise<void> {
+    const modal: HTMLIonModalElement = await this.modalCtrl.create({
+      component: CreatePostModalComponent,
+      cssClass: 'auth-modal',
+      initialBreakpoint: 0.9,
+      breakpoints: [0, 0.9]
+    });
+
+    await modal.present();
   }
 
   ngOnInit(): void {
