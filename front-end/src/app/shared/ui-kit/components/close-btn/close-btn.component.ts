@@ -9,6 +9,7 @@ import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 })
 export class CloseBtnComponent  implements OnInit {
   @Input() btnStyles?: string
+  @Input() color?: string = '#ffffff'
   constructor() { }
 
   ngOnInit() {}

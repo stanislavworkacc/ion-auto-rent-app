@@ -1,23 +1,23 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="end">
-      <app-close-btn (click)="closeModal()"></app-close-btn>
+      <app-close-btn (click)="closeModal()" [color]="'black'"></app-close-btn>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <div class=" p-6 mb-6 text-center relative">
-    <h2 class="text-xs font-semibold text-white absolute top-0 left-0 p-[7px]">Реєстрація автопарку</h2>
-    <div class="flex flex-col justify-start items-center">
+  <div class="p-6 text-center relative">
+    <h2 class="text-xs font-semibold text-[#0f1b44] absolute top-0 left-0 p-[7px]">Реєстрація автопарку</h2>
+    <div class="flex flex-col justify-start items-center h-[140px]">
       <div class="relative flex flex-col items-center my-2">
         @if (!logoUploaded()) {
-          Логотип
+          <img src="/assets/icon/cars-park-gray.png" class="h-[80px]">
         } @else {
           <div class="relative">
             <img [src]="uploadedLogoUrl" alt="Logo" class="h-20 w-20 object-cover mb-2 rounded">
-            <ion-buttons class="absolute top-[-10px] right-[-10px]">
-              <app-close-btn [btnStyles]="'!w-[20px]'" (click)="clearSelectedLogo()"></app-close-btn>
+            <ion-buttons class="absolute top-[-10px] right-[-20px]">
+              <app-close-btn [btnStyles]="'!w-[20px]'" [color]="'black'" (click)="clearSelectedLogo()"></app-close-btn>
             </ion-buttons>
           </div>
         }
@@ -26,7 +26,7 @@
       <div class="relative">
         <ion-buttons class="absolute left-[-50px] top-[-7px]">
           <ion-button id="popover-trigger">
-            <ion-icon name="images-outline" class="text-blue-100"></ion-icon>
+            <ion-icon name="images-outline" class="text-[#0f1b44]"></ion-icon>
             <ion-icon name="help-circle-outline" class="text-[16px] pb-[25px] text-[#eab308]"></ion-icon>
           </ion-button>
         </ion-buttons>
@@ -114,8 +114,8 @@
     </div>
 
     <ion-buttons class="flex justify-end mt-[20px]" slot="end">
-      <ion-button class="flex border-[0.1px] border-white rounded-[8px] px-2">
-        <ion-label class="mr-2 text-white pr-[10px]">Зберегти</ion-label>
+      <ion-button class="flex border-[0.1px] border-white rounded-[8px] px-2 bg-[#0f1b44]">
+        <ion-label class="mr-2 text-white pr-[10px] text-xs uppercase">Зберегти</ion-label>
         <ion-icon name="checkmark-outline" class="text-white"></ion-icon>
       </ion-button>
     </ion-buttons>
