@@ -48,7 +48,7 @@ export class MainInfoComponent  implements OnInit {
     },
     {
       label: 'Марка авто',
-      value: '',
+      value: this.vehicleService.vehicleMark().name,
       callback: () => this.getVehicleMark()
     },
     {
@@ -80,7 +80,7 @@ export class MainInfoComponent  implements OnInit {
         withSearch: false,
         title: 'Тип транспорту',
         items: this.vehicleService.transportTypes,
-        selectedValue: this.vehicleService.selectedValue,
+        selectedValue: this.vehicleService.selectedType,
       }
     });
 
@@ -104,9 +104,27 @@ export class MainInfoComponent  implements OnInit {
     await modal.present();
   }
 
-  async getVehicleMark() {
-    await this.autoRIA.getAuto('marks', {category_id : '1'}).then((res) => {
-      debugger
+  async getVehicleMark(): Promise<void> {
+    await this.autoRIA.getAuto(
+      'marks',
+      { category_id : this.vehicleService.vehicleType().category_id }
+    ).then((res): void => {
+      this.vehicleService.vehicleMarks.set(res);
+    }).then(async (): Promise<void> => {
+      const modal: HTMLIonModalElement = await this.modalCtrl.create({
+        component: SelectModalComponent,
+        cssClass: 'auth-modal',
+        initialBreakpoint: 1,
+        breakpoints: [0, 1],
+        componentProps: {
+          withSearch: true,
+          title: 'Оберіть марку',
+          items: this.vehicleService.vehicleMarks,
+          selectedValue: this.vehicleService.selectedVehicleMark,
+        }
+      });
+
+      await modal.present();
     })
   }
   constructor() { }

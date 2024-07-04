@@ -18,6 +18,7 @@ import {
 import {CloseBtnComponent} from "../../../../ui-kit/components/close-btn/close-btn.component";
 import {Platform} from "@ionic/angular";
 import {FormsModule} from "@angular/forms";
+import {JsonPipe} from "@angular/common";
 
 @Component({
   selector: 'app-select-modal',
@@ -36,7 +37,8 @@ import {FormsModule} from "@angular/forms";
     IonItem,
     IonRadio,
     IonSearchbar,
-    FormsModule
+    FormsModule,
+    JsonPipe
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
