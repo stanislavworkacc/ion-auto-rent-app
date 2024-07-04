@@ -52,13 +52,21 @@ export class SelectModalComponent  implements OnInit {
   @Input({ required: true }) items: WritableSignal<any>;
   @Input({ required: true }) selectedValue: WritableSignal<any>;
 
+  tempSelection: WritableSignal<any> = signal({});
 
   closeModal(): void {
     this.modalCtrl.dismiss();
   }
 
   onSelectChange(value): void {
-    this.selectedValue.update(() => value);
+    this.tempSelection.set(value);
   }
-  ngOnInit() {}
+
+  submitSelection(): void {
+    this.selectedValue.set(this.tempSelection());
+    this.closeModal();
+  }
+  ngOnInit() {
+
+  }
 }

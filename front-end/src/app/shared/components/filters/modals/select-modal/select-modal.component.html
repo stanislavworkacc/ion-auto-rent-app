@@ -7,7 +7,7 @@
     <ion-label class="text-gray-400 flex justify-center pl-[25px] font-[300]">{{ title }}</ion-label>
 
     <ion-buttons slot="end">
-      <ion-label class="text-gray-400">Обрати</ion-label>
+      <ion-label (click)="submitSelection()" class="text-gray-400">Обрати</ion-label>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
