@@ -1,9 +1,13 @@
 <ion-header>
   <ion-toolbar>
-    <ion-label class="text-black flex justify-center pl-[25px] font-[300]">Тип транспорту</ion-label>
+    <ion-buttons slot="start">
+      <app-close-btn [btnStyles]="'!w-[20px]'" [color]="'gray'" (click)="closeModal()"></app-close-btn>
+    </ion-buttons>
+
+    <ion-label class="text-gray-400 flex justify-center pl-[25px] font-[300]">Тип транспорту</ion-label>
 
     <ion-buttons slot="end">
-      <app-close-btn [btnStyles]="'!w-[20px]'" [color]="'black'" (click)="closeModal()"></app-close-btn>
+      <ion-label class="text-gray-400">Обрати</ion-label>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
