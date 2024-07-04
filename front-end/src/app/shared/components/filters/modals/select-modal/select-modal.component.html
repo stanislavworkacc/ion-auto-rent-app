@@ -29,6 +29,9 @@
     >
       @for(item of items(); track item.value) {
         <ion-item class="text-gray-400" lines="none">
+          @if (item.icon) {
+            <img [src]="item.icon" class="w-[40px] mr-2">
+          }
           <ion-radio [value]="item" justify="space-between">{{ item.label }}</ion-radio>
         </ion-item>
       }

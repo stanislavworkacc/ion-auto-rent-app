@@ -13,6 +13,7 @@
       <div class="relative flex flex-col items-center my-2">
         @if (!logoUploaded()) {
           <img src="/assets/icon/cars-park-gray.png" class="h-[80px]">
+          <ion-label class="text-xs text-gray-400 font-[400]">Додати логотип</ion-label>
         } @else {
           <div class="relative">
             <img [src]="uploadedLogoUrl" alt="Logo" class="h-20 w-20 object-cover mb-2 rounded">
