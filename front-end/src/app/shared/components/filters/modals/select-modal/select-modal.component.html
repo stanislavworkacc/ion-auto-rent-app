@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <app-close-btn [btnStyles]="'!w-[20px]'" [color]="'gray'" (click)="closeModal()"></app-close-btn>
+    </ion-buttons>
+
+    <ion-label class="text-gray-400 flex justify-center pl-[25px] font-[300]">{{ title }}</ion-label>
+
+    <ion-buttons slot="end">
+      <ion-label class="text-gray-400">Обрати</ion-label>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  @if (withSearch) {
+    <ion-searchbar
+      placeholder="Пошук"
+      show-cancel-button="focus"
+      show-clear-button="never"
+      cancel-button-text="Скасувати"
+    >
+    </ion-searchbar>
+  }
+  <ion-list>
+    <ion-radio-group
+      [value]="selectedValue().value"
+    >
+      @for(type of items(); track type.value) {
+        <ion-item class="text-gray-400" lines="none">
+          <ion-radio [value]="type.value" justify="space-between">{{ type.label }}</ion-radio>
+        </ion-item>
+      }
+    </ion-radio-group>
+  </ion-list>
+</ion-content>

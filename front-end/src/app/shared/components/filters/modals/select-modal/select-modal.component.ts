@@ -1,0 +1,58 @@
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed, CUSTOM_ELEMENTS_SCHEMA,
+  inject, Input,
+  OnInit,
+  Signal,
+  signal,
+  WritableSignal
+} from '@angular/core';
+import {
+  IonButtons,
+  IonContent,
+  IonHeader, IonItem,
+  IonLabel,
+  IonList, IonRadio, IonRadioGroup, IonSearchbar,
+  IonToolbar,
+  ModalController
+} from "@ionic/angular/standalone";
+import {CloseBtnComponent} from "../../../../ui-kit/components/close-btn/close-btn.component";
+import {Platform} from "@ionic/angular";
+
+@Component({
+  selector: 'app-select-modal',
+  templateUrl: './select-modal.component.html',
+  styleUrls: ['./select-modal.component.scss'],
+  standalone: true,
+  imports: [
+    IonHeader,
+    IonToolbar,
+    IonButtons,
+    CloseBtnComponent,
+    IonLabel,
+    IonContent,
+    IonList,
+    IonRadioGroup,
+    IonItem,
+    IonRadio,
+    IonSearchbar
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class SelectModalComponent  implements OnInit {
+
+  private modalCtrl: ModalController = inject(ModalController);
+  public platform: Platform = inject(Platform);
+
+  @Input({ required: true }) withSearch: boolean = false;
+  @Input({ required: true }) title: string = '';
+  @Input({ required: true }) items: WritableSignal<any>;
+  @Input({ required: true }) selectedValue: WritableSignal<any>;
+
+
+  closeModal(): void {
+    this.modalCtrl.dismiss();
+  }
+  ngOnInit() {}
+}

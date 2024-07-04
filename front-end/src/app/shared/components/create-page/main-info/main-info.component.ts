@@ -5,6 +5,8 @@ import {AutoRIAService} from "../../../services/autoRIA.service";
 import {AuthorizatorComponent} from "../../../../auth/authorizator/authorizator.component";
 import {VehicleTypeModalComponent} from "../../filters/modals/vehicle-type-modal/vehicle-type-modal.component";
 import {Platform} from "@ionic/angular";
+import {SelectModalComponent} from "../../filters/modals/select-modal/select-modal.component";
+import {VehicleTypeService} from "./vehicle-type.service";
 
 @Component({
   selector: 'main-info',
@@ -24,13 +26,14 @@ import {Platform} from "@ionic/angular";
 export class MainInfoComponent  implements OnInit {
 
   private autoRIAService: AutoRIAService = inject(AutoRIAService);
+  private vehicleTypeService: VehicleTypeService = inject(VehicleTypeService);
   private modalCtrl: ModalController = inject(ModalController);
   public platform: Platform = inject(Platform);
 
   public listItems = [
     {
       label: 'Тип транспорту',
-      value: 'Автомобіль',
+      value: 'Легкові',
       callback: () => this.onVehicleType()
     },
     {
@@ -54,16 +57,26 @@ export class MainInfoComponent  implements OnInit {
     return this.autoRIAService;
   }
 
+  get vehicleService() {
+    return this.vehicleTypeService;
+  }
+
   onItemClicked(callback: Function): void {
     callback();
   }
 
    async onVehicleType(): Promise<void> {
     const modal: HTMLIonModalElement = await this.modalCtrl.create({
-      component: VehicleTypeModalComponent,
+      component: SelectModalComponent,
       cssClass: 'auth-modal',
       initialBreakpoint: 0.6,
-      breakpoints: [0, 0.6, 0.7, 0.8, 0.9]
+      breakpoints: [0, 0.6],
+      componentProps: {
+        withSearch: false,
+        title: 'Тип транспорту',
+        items: this.vehicleService.transportTypes,
+        selectedValue: this.vehicleService.selectedValue
+      }
     });
 
     await modal.present();

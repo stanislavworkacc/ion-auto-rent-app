@@ -1,0 +1,43 @@
+ion-header {
+  box-shadow: none;
+
+  ion-toolbar {
+    --background: #fff !important;
+    --border-width: 0;
+    padding: 0 10px;
+  }
+}
+
+ion-content {
+  --background: #fff !important;
+
+  ion-searchbar {
+    --background: #e8edfc;
+    --color: gray;
+  }
+  ion-list {
+    background: transparent;
+    ion-item {
+      --background: transparent !important;
+    }
+    ion-radio {
+      --border-radius: 4px;
+      --inner-border-radius: 4px;
+
+      --color: #ddd;
+      --color-checked: #ee7100;
+    }
+
+    ion-radio.ios::part(container) {
+      width: 20px;
+      height: 20px;
+
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+
+    .radio-checked.ios::part(container) {
+      border-color: #ee7100;
+    }
+  }
+}
