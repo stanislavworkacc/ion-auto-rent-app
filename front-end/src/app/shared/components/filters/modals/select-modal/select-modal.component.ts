@@ -1,10 +1,8 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  computed, CUSTOM_ELEMENTS_SCHEMA,
   inject, Input,
   OnInit,
-  Signal,
   signal,
   WritableSignal
 } from '@angular/core';

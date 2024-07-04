@@ -36,12 +36,26 @@ export class VehicleTypeService {
       icon: '/assets/icon/trailer-type-ico.png'
     },
   ]);
+  selectedValue: WritableSignal<{ label: string, value: string, icon: string }> = signal({ label: '', value: '', icon: '' });
+  vehicleType: Signal<{ label: string, value: string, icon: string }> = computed(() => this.selectedValue());
 
-  selectedValue: WritableSignal<{ label: string, value: string, icon: string }> = signal({ label: '', value: '', icon: '' })
+  vehicleYears: WritableSignal<{ label: string, value: string }[]> = signal([]);
+  selectedYear: WritableSignal<{ label: string, value: string }> = signal({  label: '', value: '' });
+  vehicleYear: Signal<{ label: string, value: string }> = computed(() => this.selectedYear());
 
-  vehicleType: Signal<{ label: string, value: string, icon: string }> = computed(() => this.selectedValue())
+  generateYears(): void {
+    const currentYear = new Date().getFullYear();
+    const years = [];
 
+    for (let year = currentYear; year >= 1900; year--) {
+      years.push({ label: year.toString(), value: year.toString() });
+    }
+
+    this.vehicleYears.set(years);
+  }
   constructor() {
+    this.generateYears();
+
     effect((): void => {
       this.selectedValue.set(this.transportTypes()[0]);
     }, { allowSignalWrites: true });

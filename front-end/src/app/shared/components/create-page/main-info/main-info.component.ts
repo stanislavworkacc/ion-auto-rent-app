@@ -1,9 +1,14 @@
 import {ChangeDetectionStrategy, Component, computed, inject, OnInit} from '@angular/core';
-import {IonIcon, IonItem, IonLabel, IonList, IonText, ModalController} from "@ionic/angular/standalone";
+import {
+  IonIcon,
+  IonItem,
+  IonLabel,
+  IonList,
+  IonText,
+  ModalController
+} from "@ionic/angular/standalone";
 import {NgForOf} from "@angular/common";
 import {AutoRIAService} from "../../../services/autoRIA.service";
-import {AuthorizatorComponent} from "../../../../auth/authorizator/authorizator.component";
-import {VehicleTypeModalComponent} from "../../filters/modals/vehicle-type-modal/vehicle-type-modal.component";
 import {Platform} from "@ionic/angular";
 import {SelectModalComponent} from "../../filters/modals/select-modal/select-modal.component";
 import {VehicleTypeService} from "./vehicle-type.service";
@@ -38,8 +43,8 @@ export class MainInfoComponent  implements OnInit {
     },
     {
       label: 'Рік випуску',
-      value: '',
-      callback: () => {}
+      value:  this.vehicleService.vehicleYear().label,
+      callback: () => this.getVehicleYear()
     },
     {
       label: 'Марка авто',
@@ -82,6 +87,22 @@ export class MainInfoComponent  implements OnInit {
     await modal.present();
   }
 
+  async getVehicleYear(): Promise<void> {
+    const modal: HTMLIonModalElement = await this.modalCtrl.create({
+      component: SelectModalComponent,
+      cssClass: 'auth-modal',
+      initialBreakpoint: 1,
+      breakpoints: [0, 1],
+      componentProps: {
+        withSearch: false,
+        title: 'Оберіть рік',
+        items: this.vehicleService.vehicleYears,
+        selectedValue: this.vehicleService.selectedYear,
+      }
+    });
+
+    await modal.present();
+  }
   constructor() { }
 
   ngOnInit() {}
