@@ -24,11 +24,12 @@
   }
   <ion-list>
     <ion-radio-group
-      [value]="selectedValue().value"
+      [value]="selectedValue()"
+      (ionChange)="onSelectChange($event.target.value)"
     >
-      @for(type of items(); track type.value) {
+      @for(item of items(); track item.value) {
         <ion-item class="text-gray-400" lines="none">
-          <ion-radio [value]="type.value" justify="space-between">{{ type.label }}</ion-radio>
+          <ion-radio [value]="item" justify="space-between">{{ item.label }}</ion-radio>
         </ion-item>
       }
     </ion-radio-group>

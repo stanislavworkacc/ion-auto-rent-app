@@ -1,5 +1,5 @@
 <ion-list lines="none">
-  @for(item of listItems; track item.value) {
+  @for(item of listItems(); track item.value) {
     <ion-item
       (click)="onItemClicked(item.callback)"
     >

@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, computed, inject, OnInit} from '@angular/core';
 import {IonIcon, IonItem, IonLabel, IonList, IonText, ModalController} from "@ionic/angular/standalone";
 import {NgForOf} from "@angular/common";
 import {AutoRIAService} from "../../../services/autoRIA.service";
@@ -30,10 +30,10 @@ export class MainInfoComponent  implements OnInit {
   private modalCtrl: ModalController = inject(ModalController);
   public platform: Platform = inject(Platform);
 
-  public listItems = [
+  public listItems = computed( () => [
     {
       label: 'Тип транспорту',
-      value: 'Легкові',
+      value: this.vehicleService.vehicleType().label,
       callback: () => this.onVehicleType()
     },
     {
@@ -51,7 +51,7 @@ export class MainInfoComponent  implements OnInit {
       value: '',
       callback: () => {}
     }
-  ];
+  ]);
 
   get autoRIA() {
     return this.autoRIAService;
@@ -75,7 +75,8 @@ export class MainInfoComponent  implements OnInit {
         withSearch: false,
         title: 'Тип транспорту',
         items: this.vehicleService.transportTypes,
-        selectedValue: this.vehicleService.selectedValue
+        selectedValue: this.vehicleService.selectedValue,
+        item: this.vehicleService.vehicleType
       }
     });
 

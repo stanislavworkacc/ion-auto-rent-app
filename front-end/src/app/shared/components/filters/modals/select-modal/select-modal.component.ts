@@ -19,6 +19,7 @@ import {
 } from "@ionic/angular/standalone";
 import {CloseBtnComponent} from "../../../../ui-kit/components/close-btn/close-btn.component";
 import {Platform} from "@ionic/angular";
+import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-select-modal',
@@ -36,7 +37,8 @@ import {Platform} from "@ionic/angular";
     IonRadioGroup,
     IonItem,
     IonRadio,
-    IonSearchbar
+    IonSearchbar,
+    FormsModule
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -47,12 +49,17 @@ export class SelectModalComponent  implements OnInit {
 
   @Input({ required: true }) withSearch: boolean = false;
   @Input({ required: true }) title: string = '';
+  @Input({ required: true }) item: Signal<any>;
   @Input({ required: true }) items: WritableSignal<any>;
   @Input({ required: true }) selectedValue: WritableSignal<any>;
 
 
   closeModal(): void {
     this.modalCtrl.dismiss();
+  }
+
+  onSelectChange(value): void {
+    this.selectedValue.update(() => value);
   }
   ngOnInit() {}
 }
