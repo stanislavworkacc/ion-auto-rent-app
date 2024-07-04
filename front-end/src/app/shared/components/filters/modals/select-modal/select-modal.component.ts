@@ -49,7 +49,6 @@ export class SelectModalComponent  implements OnInit {
 
   @Input({ required: true }) withSearch: boolean = false;
   @Input({ required: true }) title: string = '';
-  @Input({ required: true }) item: Signal<any>;
   @Input({ required: true }) items: WritableSignal<any>;
   @Input({ required: true }) selectedValue: WritableSignal<any>;
 

@@ -76,7 +76,6 @@ export class MainInfoComponent  implements OnInit {
         title: 'Тип транспорту',
         items: this.vehicleService.transportTypes,
         selectedValue: this.vehicleService.selectedValue,
-        item: this.vehicleService.vehicleType
       }
     });
 
