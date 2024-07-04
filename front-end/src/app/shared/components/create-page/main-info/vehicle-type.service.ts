@@ -4,40 +4,46 @@ import {computed, effect, Injectable, Signal, signal, WritableSignal} from "@ang
   providedIn: 'root'
 })
 export class VehicleTypeService {
-  transportTypes: WritableSignal<{ label: string, value: string, icon: string }[]> = signal([
+  transportTypes: WritableSignal<{ label: string, value: string, icon: string, category_id: number }[]> = signal([
     {
       label: 'Легкові',
       value: 'cars',
-      icon: '/assets/icon/car-type-ico.png'
+      icon: '/assets/icon/car-type-ico.png',
+      category_id: 1,
     },
     {
       label: 'Вантажівки',
       value: 'trucks',
-      icon: '/assets/icon/truck-type-ico.png'
+      icon: '/assets/icon/truck-type-ico.png',
+      category_id: 1,
     },
     {
       label: 'Мотоцикли',
       value: 'motorcycles',
-      icon: '/assets/icon/moto-type-ico.png'
+      icon: '/assets/icon/moto-type-ico.png',
+      category_id: 1,
     },
     {
       label: 'Автобуси',
       value: 'buses',
-      icon: '/assets/icon/bus-type-ico.png'
+      icon: '/assets/icon/bus-type-ico.png',
+      category_id: 1,
     },
     {
       label: 'Спецтехніка',
       value: 'special',
-      icon: '/assets/icon/tractor-type-ico.png'
+      icon: '/assets/icon/tractor-type-ico.png',
+      category_id: 1,
     },
     {
       label: 'Причепи',
       value: 'trailers',
-      icon: '/assets/icon/trailer-type-ico.png'
+      icon: '/assets/icon/trailer-type-ico.png',
+      category_id: 1
     },
   ]);
-  selectedValue: WritableSignal<{ label: string, value: string, icon: string }> = signal({ label: '', value: '', icon: '' });
-  vehicleType: Signal<{ label: string, value: string, icon: string }> = computed(() => this.selectedValue());
+  selectedValue: WritableSignal<{ label: string, value: string, icon: string, category_id: number }> = signal({ label: '', value: '', icon: '', category_id: null });
+  vehicleType: Signal<{ label: string, value: string, icon: string, category_id: number }> = computed(() => this.selectedValue());
 
   vehicleYears: WritableSignal<{ label: string, value: string }[]> = signal([]);
   selectedYear: WritableSignal<{ label: string, value: string }> = signal({  label: '', value: '' });

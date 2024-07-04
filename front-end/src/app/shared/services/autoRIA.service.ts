@@ -19,7 +19,7 @@ export class AutoRIAService {
     return `${this.baseUrl()}/${this.routeParams()}?${ query }`;
   });
 
-  async getAutoModels(routeParams?: string, queryParams?: { [key: string]: string }): Promise<any> {
+  async getAuto(routeParams?: string, queryParams?: { [key: string]: string }): Promise<any> {
     try {
       this.routeParams.set(routeParams);
       this.queryParams.set({ ...this.queryParams(), ...queryParams });

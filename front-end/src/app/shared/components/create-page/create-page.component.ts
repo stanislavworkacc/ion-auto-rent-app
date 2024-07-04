@@ -57,10 +57,6 @@ export class CreatePageComponent  implements OnInit {
   private renderer: Renderer2 = inject(Renderer2);
 
   isFormReset: WritableSignal<boolean> = signal(false);
-  async loadAutoModels(): Promise<void> {
-    const categories = await this.autoRIAService.getAutoModels('categories');
-  }
-
   goBack() {
     this.navCtrl.back()
   }

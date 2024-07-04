@@ -49,7 +49,7 @@ export class MainInfoComponent  implements OnInit {
     {
       label: 'Марка авто',
       value: '',
-      callback: () => {}
+      callback: () => this.getVehicleMark()
     },
     {
       label: 'Модель авто',
@@ -102,6 +102,12 @@ export class MainInfoComponent  implements OnInit {
     });
 
     await modal.present();
+  }
+
+  async getVehicleMark() {
+    await this.autoRIA.getAuto('marks', {category_id : '1'}).then((res) => {
+      debugger
+    })
   }
   constructor() { }
 
