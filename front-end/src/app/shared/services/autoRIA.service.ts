@@ -11,15 +11,16 @@ export class AutoRIAService {
   private toaster: ToasterService = inject(ToasterService);
 
   public baseUrl: WritableSignal<string> = signal(environment.autoRIAEntity);
-  public routeParams: WritableSignal<string> = signal('');
+  public routeParams: WritableSignal<any[]> = signal([]);
   public queryParams: WritableSignal<{ [key: string]: string }> = signal({ api_key: environment.AUTO_RIA_CLIENT_ID });
 
   private apiUrl: Signal<string> = computed((): string => {
     const query: string = Object.entries(this.queryParams()).map(([key, value]): string => `${key}=${value}`).join('&');
-    return `${this.baseUrl()}/${this.routeParams()}?${ query }`;
+    const routePath: string = this.routeParams().join('/');
+    return `${this.baseUrl()}/${routePath}?${query}`;
   });
 
-  async getAuto(routeParams?: string, queryParams?: { [key: string]: any }): Promise<any> {
+  async getAuto(routeParams: any[], queryParams?: { [key: string]: any }): Promise<any> {
     try {
       this.routeParams.set(routeParams);
       this.queryParams.set({ ...this.queryParams(), ...queryParams });
@@ -40,7 +41,7 @@ export class AutoRIAService {
     }
   }
 
-  setRouteParams(params: string): void {
+  setRouteParams(params: string[]): void {
     this.routeParams.set(params);
   }
 

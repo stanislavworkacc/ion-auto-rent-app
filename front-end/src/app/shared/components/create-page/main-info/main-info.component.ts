@@ -105,12 +105,12 @@ export class MainInfoComponent  implements OnInit {
   }
 
   async getVehicleMark(): Promise<void> {
-    await this.autoRIA.getAuto(
-      'marks',
-      { category_id : this.vehicleService.vehicleType().category_id }
-    ).then((res): void => {
-      this.vehicleService.vehicleMarks.set(res);
-    }).then(async (): Promise<void> => {
+    const routeParams = ['categories', this.vehicleService.vehicleType().category_id, 'marks'];
+    await this.autoRIA.getAuto(routeParams)
+      .then((res): void => {
+        this.vehicleService.vehicleMarks.set(res);
+      })
+      .then(async (): Promise<void> => {
       const modal: HTMLIonModalElement = await this.modalCtrl.create({
         component: SelectModalComponent,
         cssClass: 'auth-modal',

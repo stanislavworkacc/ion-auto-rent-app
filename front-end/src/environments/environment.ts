@@ -18,7 +18,7 @@ export const environment = {
   googleSsoLogin: 'api/login-google-sso',
 
   // RIA
-  autoRIAEntity: 'https://developers.ria.com/auto/new'
+  autoRIAEntity: 'https://developers.ria.com/auto'
 };
 
 /*
