@@ -27,7 +27,7 @@
       [value]="selectedValue()"
       (ionChange)="onSelectChange($event.target.value)"
     >
-      @for(item of items(); track item.value) {
+      @for(item of visibleItems(); track item.value) {
         <ion-item class="text-gray-400" lines="none">
           @if (item.icon) {
             <img [src]="item.icon" class="w-[40px] mr-2">
@@ -36,5 +36,11 @@
         </ion-item>
       }
     </ion-radio-group>
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadMoreData($event)">
+      <ion-infinite-scroll-content
+        loadingSpinner="bubbles"
+        loadingText="Завантаження ще...">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
   </ion-list>
 </ion-content>

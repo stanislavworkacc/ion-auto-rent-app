@@ -2,14 +2,14 @@ import {
   ChangeDetectionStrategy,
   Component,
   inject, Input,
-  OnInit,
+  OnInit, Signal,
   signal,
   WritableSignal
 } from '@angular/core';
 import {
   IonButtons,
   IonContent,
-  IonHeader, IonItem,
+  IonHeader, IonInfiniteScroll, IonInfiniteScrollContent, IonItem,
   IonLabel,
   IonList, IonRadio, IonRadioGroup, IonSearchbar,
   IonToolbar,
@@ -38,7 +38,9 @@ import {JsonPipe} from "@angular/common";
     IonRadio,
     IonSearchbar,
     FormsModule,
-    JsonPipe
+    JsonPipe,
+    IonInfiniteScroll,
+    IonInfiniteScrollContent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -54,6 +56,10 @@ export class SelectModalComponent  implements OnInit {
 
   tempSelection: WritableSignal<any> = signal({});
 
+  visibleItems: WritableSignal<any[]> = signal([]);
+  pageSize = 30;
+  currentPage = 0;
+
   closeModal(): void {
     this.modalCtrl.dismiss();
   }
@@ -66,7 +72,30 @@ export class SelectModalComponent  implements OnInit {
     this.selectedValue.set(this.tempSelection());
     this.closeModal();
   }
-  ngOnInit() {
 
+  loadInitialData() {
+    const initialItems = this.items().slice(0, this.pageSize);
+    this.visibleItems.set(initialItems);
+  }
+
+  loadMoreData(event: any) {
+      const nextPage = this.currentPage + 1;
+      const startIndex = this.currentPage * this.pageSize;
+      const endIndex = startIndex + this.pageSize;
+
+      const newItems = this.items().slice(startIndex, endIndex);
+      const updatedVisibleItems = [...this.visibleItems(), ...newItems];
+      this.visibleItems.set(updatedVisibleItems);
+      this.currentPage = nextPage;
+
+      if (this.visibleItems().length >= this.items().length) {
+        event.target.disabled = true;
+      }
+
+      event.target.complete();
+  }
+
+  ngOnInit() {
+    this.loadInitialData();
   }
 }

@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, computed, inject, OnInit} from '@angular/core';
+import {AfterViewInit, ChangeDetectionStrategy, Component, computed, inject, OnInit} from '@angular/core';
 import {
   IonIcon,
   IonItem,
@@ -28,7 +28,7 @@ import {VehicleTypeService} from "./vehicle-type.service";
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MainInfoComponent  implements OnInit {
+export class MainInfoComponent  implements OnInit, AfterViewInit {
 
   private autoRIAService: AutoRIAService = inject(AutoRIAService);
   private vehicleTypeService: VehicleTypeService = inject(VehicleTypeService);
@@ -105,30 +105,36 @@ export class MainInfoComponent  implements OnInit {
   }
 
   async getVehicleMark(): Promise<void> {
+    const modal: HTMLIonModalElement = await this.modalCtrl.create({
+      component: SelectModalComponent,
+      cssClass: 'auth-modal',
+      initialBreakpoint: 1,
+      breakpoints: [0, 1],
+      componentProps: {
+        withSearch: true,
+        title: 'Оберіть марку',
+        items: this.vehicleService.vehicleMarks,
+        selectedValue: this.vehicleService.selectedVehicleMark,
+      }
+    });
+
+    await modal.present();
+  }
+  constructor() { }
+
+  ngOnInit() {
+
+  }
+
+  async initVehicleMarks(): Promise<void> {
     const routeParams = ['categories', this.vehicleService.vehicleType().category_id, 'marks'];
     await this.autoRIA.getAuto(routeParams)
       .then((res): void => {
         this.vehicleService.vehicleMarks.set(res);
       })
-      .then(async (): Promise<void> => {
-      const modal: HTMLIonModalElement = await this.modalCtrl.create({
-        component: SelectModalComponent,
-        cssClass: 'auth-modal',
-        initialBreakpoint: 1,
-        breakpoints: [0, 1],
-        componentProps: {
-          withSearch: true,
-          title: 'Оберіть марку',
-          items: this.vehicleService.vehicleMarks,
-          selectedValue: this.vehicleService.selectedVehicleMark,
-        }
-      });
-
-      await modal.present();
-    })
   }
-  constructor() { }
-
-  ngOnInit() {}
+  async ngAfterViewInit(): Promise<void> {
+    await this.initVehicleMarks();
+  }
 
 }
