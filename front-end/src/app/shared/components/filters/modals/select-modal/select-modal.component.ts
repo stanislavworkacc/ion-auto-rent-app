@@ -57,8 +57,8 @@ export class SelectModalComponent  implements OnInit {
   tempSelection: WritableSignal<any> = signal({});
 
   visibleItems: WritableSignal<any[]> = signal([]);
-  pageSize = 30;
-  currentPage = 0;
+  pageSize: number = 5;
+  currentPage: number = 1;
 
   closeModal(): void {
     this.modalCtrl.dismiss();
@@ -73,26 +73,43 @@ export class SelectModalComponent  implements OnInit {
     this.closeModal();
   }
 
-  loadInitialData() {
+  loadInitialData(): void {
     const initialItems = this.items().slice(0, this.pageSize);
     this.visibleItems.set(initialItems);
   }
 
-  loadMoreData(event: any) {
-      const nextPage = this.currentPage + 1;
-      const startIndex = this.currentPage * this.pageSize;
-      const endIndex = startIndex + this.pageSize;
+  loadMoreData(event: any): void {
+    const nextPage: number = this.currentPage + 1;
+    const startIndex: number = this.currentPage * this.pageSize;
+    const endIndex: number = startIndex + this.pageSize;
 
-      const newItems = this.items().slice(startIndex, endIndex);
-      const updatedVisibleItems = [...this.visibleItems(), ...newItems];
-      this.visibleItems.set(updatedVisibleItems);
-      this.currentPage = nextPage;
+    const newItems = this.items().slice(startIndex, endIndex);
+    const updatedVisibleItems = [...this.visibleItems(), ...newItems];
+    this.visibleItems.set(updatedVisibleItems);
+    this.currentPage = nextPage;
 
-      if (this.visibleItems().length >= this.items().length) {
-        event.target.disabled = true;
-      }
+    if (this.visibleItems().length >= this.items().length) {
+      event.target.disabled = true;
+    }
 
-      event.target.complete();
+    event.target.complete();
+  }
+
+  filterItems(event: any): void {
+    const searchTerm: string = event.target.value.toLowerCase();
+
+    if (searchTerm.trim() === '') {
+      this.loadInitialData();
+      return;
+    }
+
+    const filteredItems = this.items().filter((item: any) =>
+      (item.name && item.name.toLowerCase().includes(searchTerm)) ||
+      (item.label && item.label.toLowerCase().includes(searchTerm))
+    );
+
+    this.visibleItems.set(filteredItems.slice(0, this.pageSize));
+    this.currentPage = 1;
   }
 
   ngOnInit() {

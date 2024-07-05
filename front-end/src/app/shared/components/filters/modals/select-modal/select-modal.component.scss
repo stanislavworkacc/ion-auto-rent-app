@@ -6,15 +6,15 @@ ion-header {
     --border-width: 0;
     padding: 0 10px;
   }
+  ion-searchbar {
+    --background: #e8edfc;
+    --color: gray;
+  }
 }
 
 ion-content {
   --background: #fff !important;
 
-  ion-searchbar {
-    --background: #e8edfc;
-    --color: gray;
-  }
   ion-list {
     background: transparent;
     ion-item {

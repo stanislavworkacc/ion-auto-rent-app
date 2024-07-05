@@ -10,18 +10,19 @@
       <ion-label (click)="submitSelection()" class="text-gray-400">Обрати</ion-label>
     </ion-buttons>
   </ion-toolbar>
-</ion-header>
-
-<ion-content>
   @if (withSearch) {
-    <ion-searchbar
+    <ion-searchbar class="bg-white"
       placeholder="Пошук"
       show-cancel-button="focus"
       show-clear-button="never"
       cancel-button-text="Скасувати"
+      (ionInput)="filterItems($event)"
     >
     </ion-searchbar>
   }
+</ion-header>
+
+<ion-content>
   <ion-list>
     <ion-radio-group
       [value]="selectedValue()"
