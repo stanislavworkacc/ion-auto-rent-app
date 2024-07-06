@@ -25,6 +25,7 @@ import {BackButtonComponent} from "../../ui-kit/components/back-button/back-butt
 import {NavController} from "@ionic/angular";
 import {MainInfoComponent} from "./main-info/main-info.component";
 import {ImagesInfoComponent} from "./images-info/images-info.component";
+import {AddressInfoComponent} from "./address-info/address-info.component";
 
 @Component({
   selector: 'app-create-page',
@@ -42,7 +43,8 @@ import {ImagesInfoComponent} from "./images-info/images-info.component";
     IonButton,
     IonLabel,
     MainInfoComponent,
-    ImagesInfoComponent
+    ImagesInfoComponent,
+    AddressInfoComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
