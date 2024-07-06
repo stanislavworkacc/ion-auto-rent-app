@@ -10,7 +10,7 @@
     <ion-label class="text-[#0f1b44] flex justify-center pl-[25px] font-[300]">Додати авто</ion-label>
 
     <ion-buttons slot="end">
-      <ion-button class="rounded flex items-center bg-[#d4d8ec]"
+      <ion-button class="rounded flex items-center bg-[#e8edfc]"
                   (click)="resetForm()"
       >
         <ion-label class="text-xs uppercase text-black mr-1">Оновити</ion-label>
@@ -36,8 +36,13 @@
     <ion-label class="text-[#333333] text-sm font-[300] absolute -top-[9px] left-[12px] bg-[#ffffff] rounded-[12px] px-2">Головна інформація</ion-label>
   </div>
 
-  <div class="mb-1 relative">
+  <div class="mb-5 relative">
     <app-address-info></app-address-info>
     <ion-label class="text-[#333333] text-sm font-[300] absolute -top-[9px] left-[12px] bg-[#ffffff] rounded-[12px] px-2">Місцезнаходження</ion-label>
+  </div>
+
+  <div class="mb-5 relative">
+    <technical-characteristics></technical-characteristics>
+    <ion-label class="text-[#333333] text-sm font-[300] absolute -top-[9px] left-[12px] bg-[#ffffff] rounded-[12px] px-2">Технічні характеристики</ion-label>
   </div>
 </ion-content>

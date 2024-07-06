@@ -19,7 +19,7 @@
       @if (item.label === ListLabel.BODY_TYPE) {
         <div class="overflow-x-auto flex items-center flex-nowrap w-full">
           <ng-container *ngFor="let type of item.value">
-            <ion-chip class="text-black min-w-fit p-0 px-4 bg-[#d4d8ec]"
+            <ion-chip class="text-black min-w-fit p-0 px-4 bg-[#e8edfc] "
                       [class.selectedChip]="type === vehicleService.bodyType()"
                       (click)="selectBodyType(type)"
             >

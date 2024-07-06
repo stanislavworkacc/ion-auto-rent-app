@@ -26,6 +26,7 @@ import {NavController} from "@ionic/angular";
 import {MainInfoComponent} from "./main-info/main-info.component";
 import {ImagesInfoComponent} from "./images-info/images-info.component";
 import {AddressInfoComponent} from "./address-info/address-info.component";
+import {TechnicalCharacteristicsComponent} from "./technical-characteristics/technical-characteristics.component";
 
 @Component({
   selector: 'app-create-page',
@@ -44,7 +45,8 @@ import {AddressInfoComponent} from "./address-info/address-info.component";
     IonLabel,
     MainInfoComponent,
     ImagesInfoComponent,
-    AddressInfoComponent
+    AddressInfoComponent,
+    TechnicalCharacteristicsComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
