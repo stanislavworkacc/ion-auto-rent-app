@@ -11,7 +11,6 @@ import {
 import {JsonPipe, NgForOf, NgIf} from "@angular/common";
 import {AutoRIAService} from "../../../services/autoRIA.service";
 import {Platform} from "@ionic/angular";
-import {SelectModalComponent} from "../../filters/modals/select-modal/select-modal.component";
 import {VehicleTypeService} from "./vehicle-type.service";
 import {ListLabel} from "./main-info.enums";
 
@@ -64,21 +63,7 @@ export class MainInfoComponent  implements OnInit, AfterViewInit {
     },
     {
       label: ListLabel.BODY_TYPE,
-      value: [
-        { value: 3, name: 'Седан' },
-        { value: 2, name: 'Універсал' },
-        { value: 5, name: 'Кроссовер' },
-        { value: 4, name: 'Хетчбек' },
-        { value: 8, name: 'Мінівен' },
-        { value: 9, name: 'Пікап' },
-        { value: 7, name: 'Кабріолет' },
-        { value: 6, name: 'Купе' },
-        { value: 252, name: 'Лімузин' },
-        { value: 307, name: 'Ліфтбек' },
-        { value: 315, name: 'Родстер' },
-        { value: 449, name: 'Мікровен' },
-        { value: 448, name: 'Фастбек' },
-      ],
+      value: this.vehicleService.bodyTypes(),
       callback: () => {}
     }
   ]);
@@ -91,8 +76,18 @@ export class MainInfoComponent  implements OnInit, AfterViewInit {
     return this.vehicleTypeService;
   }
 
+  checkmarkHandle(item: any): any {
+    return (item.value && item.label !== ListLabel.BODY_TYPE) ||
+      (item.label === ListLabel.BODY_TYPE && this.vehicleService.bodyType().value);
+  }
+
+
   onItemClicked(callback: Function): void {
     callback();
+  }
+
+  selectBodyType(type: { name: string, value: number }): void {
+    this.vehicleService.selectedBodyType.set(type);
   }
 
    async onVehicleType(): Promise<void> {

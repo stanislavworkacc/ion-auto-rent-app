@@ -2,7 +2,7 @@
   @for(item of listItems(); track item.value) {
     <ion-item (click)="onItemClicked(item.callback)">
       <div class="min-w-[10%]">
-        @if (item.value) {
+        @if (checkmarkHandle(item)) {
           <ion-icon name="checkmark" slot="start" class="text-xs text-green-400"></ion-icon>
         }
       </div>
@@ -19,7 +19,12 @@
       @if (item.label === ListLabel.BODY_TYPE) {
         <div class="overflow-x-auto flex items-center flex-nowrap w-full">
           <ng-container *ngFor="let type of item.value">
-            <ion-chip class="text-black min-w-fit border p-0 px-2 bg-[#e8edfc]">{{ type.name }}</ion-chip>
+            <ion-chip class="text-black min-w-fit border p-0 px-2 bg-[#e8edfc]"
+                      [class.selectedChip]="type === vehicleService.bodyType()"
+                      (click)="selectBodyType(type)"
+            >
+              {{ type.name }}
+            </ion-chip>
           </ng-container>
         </div>
       }

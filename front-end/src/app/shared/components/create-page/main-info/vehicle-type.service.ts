@@ -61,6 +61,23 @@ export class VehicleTypeService {
   selectedVehicleModel: WritableSignal<{ name: string, value: number }> = signal({ name: '', value: null });
   vehicleModel: Signal<{ name: string, value: number }> = computed(() => this.selectedVehicleModel());
 
+  bodyTypes: WritableSignal<{ name: string, value: number }[]> = signal([
+    { value: 3, name: 'Седан' },
+    { value: 2, name: 'Універсал' },
+    { value: 5, name: 'Кроссовер' },
+    { value: 4, name: 'Хетчбек' },
+    { value: 8, name: 'Мінівен' },
+    { value: 9, name: 'Пікап' },
+    { value: 7, name: 'Кабріолет' },
+    { value: 6, name: 'Купе' },
+    { value: 252, name: 'Лімузин' },
+    { value: 307, name: 'Ліфтбек' },
+    { value: 315, name: 'Родстер' },
+    { value: 449, name: 'Мікровен' },
+    { value: 448, name: 'Фастбек' }
+  ]);
+  selectedBodyType: WritableSignal<{ name: string, value: number }> = signal({ name: '', value: null });
+  bodyType: Signal<{ name: string, value: number }> = computed(() => this.selectedBodyType());
   generateYears(): void {
     const currentYear = new Date().getFullYear();
     const years = [];
