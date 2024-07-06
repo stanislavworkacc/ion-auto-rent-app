@@ -9,11 +9,12 @@ import {
   IonList, IonPopover,
   IonText
 } from "@ionic/angular/standalone";
-import {NgForOf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 import {AutoRIAService} from "../../../services/autoRIA.service";
 import {TechnicalCharacteristicsService} from "./technical-characteristics.service";
 import {technicalListLabel} from "./technicalCharacteristics.enums";
 import {VehicleTypeService} from "../main-info/vehicle-type.service";
+import {SwitcherComponent} from "../../../ui-kit/components/switcher/switcher.component";
 
 @Component({
   selector: 'technical-characteristics',
@@ -31,7 +32,9 @@ import {VehicleTypeService} from "../main-info/vehicle-type.service";
     IonContent,
     IonPopover,
     IonButton,
-    IonButtons
+    IonButtons,
+    SwitcherComponent,
+    NgIf
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -57,6 +60,11 @@ export class TechnicalCharacteristicsComponent  implements OnInit {
       callback: () => {}
     },
     {
+      label: technicalListLabel.FUEL_CONSUMPTION,
+      value: '',
+      callback: () => {}
+    },
+    {
       label: technicalListLabel.TRANSMISSION,
       value: this.technicalCharacteristics.selectedTransMission().name,
       callback: () => this.getTransmissions()
@@ -66,6 +74,13 @@ export class TechnicalCharacteristicsComponent  implements OnInit {
   checkmarkHandle(item: any): any {
     return (item.value && item.label !== technicalListLabel.FUEL) ||
       (item.label === technicalListLabel.FUEL && this.technicalCharacteristics.fuelType().value)
+  }
+
+  async fuelConsumptionToggle(isToggle) {
+    if(isToggle) {
+      this.technicalCharacteristics.isFuelConsumption.set(true)
+      await this.technicalCharacteristics.presentFuelConsumptionAlert()
+    }
   }
 
   onItemClicked(callback: Function): void {
@@ -118,12 +133,5 @@ export class TechnicalCharacteristicsComponent  implements OnInit {
     await this.getFuelType()
   }
 
-  constructor() {
-    effect(async(): Promise<void> => {
-      if(this.technicalCharacteristics.fuelType().value) {
-        await this.technicalCharacteristics.presentInitialAlert()
-      }
-    });
-  }
-
+  constructor() {}
 }

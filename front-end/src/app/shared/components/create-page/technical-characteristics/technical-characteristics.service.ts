@@ -17,6 +17,8 @@ export class TechnicalCharacteristicsService {
   selectedTransMission: WritableSignal<{ name: string, value: number }> = signal({ name: '', value: null });
   transMission: Signal<any> = computed(() => this.selectedFuelType());
 
+  isFuelConsumption: WritableSignal<boolean> = signal(false);
+
   async initIonModal(data, initialBreakpoint?: number): Promise<any> {
     const modal: HTMLIonModalElement = await this.modalCtrl.create({
       component: SelectModalComponent,
@@ -35,28 +37,8 @@ export class TechnicalCharacteristicsService {
     return modal;
   }
 
-  async presentInitialAlert() {
-    const alert = await this.alertCtrl.create({
-      header: 'Бажаєте вказати дані про середній розхід палива?',
-      buttons: [
-        {
-          text: 'Ні',
-          role: 'cancel'
-        },
-        {
-          text: 'Так',
-          handler: () => {
-            this.presentFuelConsumptionAlert();
-          }
-        }
-      ]
-    });
-
-    await alert.present();
-  }
-
-  async presentFuelConsumptionAlert() {
-    const alert = await this.alertCtrl.create({
+  async presentFuelConsumptionAlert(): Promise<void> {
+    const alert: HTMLIonAlertElement = await this.alertCtrl.create({
       header: 'Введіть дані',
       inputs: [
         {
@@ -78,12 +60,18 @@ export class TechnicalCharacteristicsService {
       buttons: [
         {
           text: 'Скасувати',
-          role: 'cancel'
+          handler: (): void => {
+            this.isFuelConsumption.set(false)
+          }
         },
         {
           text: 'Зберегти',
-          handler: (data) => {
-
+          handler: (data): void => {
+            if(data && (data.city || data.highway || data.combined)) {
+              this.isFuelConsumption.set(true)
+            } else {
+              this.isFuelConsumption.set(false)
+            }
           }
         }
       ]
