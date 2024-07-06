@@ -18,7 +18,7 @@ import {
 import {CloseBtnComponent} from "../../../../ui-kit/components/close-btn/close-btn.component";
 import {Platform} from "@ionic/angular";
 import {FormsModule} from "@angular/forms";
-import {JsonPipe} from "@angular/common";
+import {JsonPipe, NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-select-modal',
@@ -40,7 +40,8 @@ import {JsonPipe} from "@angular/common";
     FormsModule,
     JsonPipe,
     IonInfiniteScroll,
-    IonInfiniteScrollContent
+    IonInfiniteScrollContent,
+    NgIf
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -115,4 +116,6 @@ export class SelectModalComponent  implements OnInit {
   ngOnInit() {
     this.loadInitialData();
   }
+
+  protected readonly Array = Array;
 }

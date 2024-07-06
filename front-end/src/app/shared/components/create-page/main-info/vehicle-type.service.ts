@@ -72,7 +72,7 @@ export class VehicleTypeService {
     this.vehicleYears.set(years);
   }
 
-  async initIonModal(data): Promise<void> {
+  async initIonModal(data): Promise<any> {
     const modal: HTMLIonModalElement = await this.modalCtrl.create({
       component: SelectModalComponent,
       cssClass: 'auth-modal',
@@ -87,6 +87,7 @@ export class VehicleTypeService {
     });
 
     await modal.present();
+    return modal;
   }
   constructor() {
     this.generateYears();

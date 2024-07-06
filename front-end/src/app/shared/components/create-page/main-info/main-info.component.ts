@@ -39,6 +39,7 @@ export class MainInfoComponent  implements OnInit, AfterViewInit {
   private vehicleTypeService: VehicleTypeService = inject(VehicleTypeService);
   private modalCtrl: ModalController = inject(ModalController);
   public platform: Platform = inject(Platform);
+  ListLabel = ListLabel;
 
   public listItems: any = computed( () => [
     {
@@ -95,20 +96,12 @@ export class MainInfoComponent  implements OnInit, AfterViewInit {
   }
 
    async onVehicleType(): Promise<void> {
-    const modal: HTMLIonModalElement = await this.modalCtrl.create({
-      component: SelectModalComponent,
-      cssClass: 'auth-modal',
-      initialBreakpoint: 0.6,
-      breakpoints: [0, 0.6],
-      componentProps: {
-        withSearch: false,
-        title: 'Тип транспорту',
-        items: this.vehicleService.transportTypes,
-        selectedValue: this.vehicleService.selectedType,
-      }
-    });
-
-    await modal.present();
+     await this.vehicleService.initIonModal({
+       withSearch: false,
+       title: 'Тип транспорту',
+       items: this.vehicleService.transportTypes,
+       selectedValue: this.vehicleService.selectedType,
+     })
   }
 
   async getVehicleYear(): Promise<void> {
@@ -121,20 +114,12 @@ export class MainInfoComponent  implements OnInit, AfterViewInit {
   }
 
   async getVehicleMark(): Promise<void> {
-    const modal: HTMLIonModalElement = await this.modalCtrl.create({
-      component: SelectModalComponent,
-      cssClass: 'auth-modal',
-      initialBreakpoint: 1,
-      breakpoints: [0, 1],
-      componentProps: {
-        withSearch: true,
-        title: 'Оберіть марку',
-        items: this.vehicleService.vehicleMarks,
-        selectedValue: this.vehicleService.selectedVehicleMark,
-      }
-    });
-
-    await modal.present();
+    const modal = await this.vehicleService.initIonModal({
+      withSearch: true,
+      title: 'Оберіть марку',
+      items: this.vehicleService.vehicleMarks,
+      selectedValue: this.vehicleService.selectedVehicleMark,
+    })
 
     await modal.onWillDismiss().then(async (res): Promise<void> => {
       if(res.data.isSubmit) {
@@ -158,20 +143,12 @@ export class MainInfoComponent  implements OnInit, AfterViewInit {
   }
 
   async showVehicleModels(): Promise<void> {
-    const modal: HTMLIonModalElement = await this.modalCtrl.create({
-      component: SelectModalComponent,
-      cssClass: 'auth-modal',
-      initialBreakpoint: 1,
-      breakpoints: [0, 1],
-      componentProps: {
-        withSearch: true,
-        title: 'Оберіть модель',
-        items: this.vehicleService.vehicleModels,
-        selectedValue: this.vehicleService.selectedVehicleModel,
-      }
-    });
-
-    await modal.present();
+    await this.vehicleService.initIonModal({
+      withSearch: true,
+      title: 'Оберіть модель',
+      items: this.vehicleService.vehicleModels,
+      selectedValue: this.vehicleService.selectedVehicleModel,
+    })
   }
 
   async initVehicleMarks(): Promise<void> {
@@ -182,7 +159,6 @@ export class MainInfoComponent  implements OnInit, AfterViewInit {
       })
   }
 
-
   ngOnInit(): void {};
 
   async ngAfterViewInit(): Promise<void> {
@@ -190,6 +166,4 @@ export class MainInfoComponent  implements OnInit, AfterViewInit {
   }
 
   constructor() {}
-
-  protected readonly ListLabel = ListLabel;
 }

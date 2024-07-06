@@ -29,12 +29,24 @@
       (ionChange)="onSelectChange($event.target.value)"
     >
       @for(item of visibleItems(); track item.value) {
-        <ion-item class="text-gray-400" lines="none">
-          @if (item.icon) {
-            <img [src]="item.icon" class="w-[40px] mr-2">
+        <ng-container *ngIf="!Array.isArray(item)">
+          <ion-item class="text-gray-400" lines="none">
+            @if (item.icon) {
+              <img [src]="item.icon" class="w-[40px] mr-2">
+            }
+            <ion-radio [value]="item" justify="space-between">{{ item.name ?? item.label }}</ion-radio>
+          </ion-item>
+        </ng-container>
+        <ng-container *ngIf="Array.isArray(item)">
+          @for(subItem of item; track subItem.value) {
+            <ion-item class="text-gray-400" lines="none">
+              @if (subItem.icon) {
+                <img [src]="subItem.icon" class="w-[40px] mr-2">
+              }
+              <ion-radio [value]="subItem" justify="space-between">{{ subItem.name ?? subItem.label }}</ion-radio>
+            </ion-item>
           }
-          <ion-radio [value]="item" justify="space-between">{{ item.name ?? item.label }}</ion-radio>
-        </ion-item>
+        </ng-container>
       }
     </ion-radio-group>
     <ion-infinite-scroll threshold="100px" (ionInfinite)="loadMoreData($event)">
