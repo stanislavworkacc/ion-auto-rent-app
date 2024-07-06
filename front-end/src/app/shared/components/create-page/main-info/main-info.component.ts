@@ -1,5 +1,6 @@
 import {AfterViewInit, ChangeDetectionStrategy, Component, computed, effect, inject, OnInit} from '@angular/core';
 import {
+  IonChip,
   IonIcon,
   IonItem,
   IonLabel,
@@ -7,11 +8,12 @@ import {
   IonText,
   ModalController
 } from "@ionic/angular/standalone";
-import {NgForOf} from "@angular/common";
+import {JsonPipe, NgForOf, NgIf} from "@angular/common";
 import {AutoRIAService} from "../../../services/autoRIA.service";
 import {Platform} from "@ionic/angular";
 import {SelectModalComponent} from "../../filters/modals/select-modal/select-modal.component";
 import {VehicleTypeService} from "./vehicle-type.service";
+import {ListLabel} from "./main-info.enums";
 
 @Component({
   selector: 'main-info',
@@ -24,7 +26,10 @@ import {VehicleTypeService} from "./vehicle-type.service";
     IonIcon,
     IonLabel,
     NgForOf,
-    IonText
+    IonText,
+    NgIf,
+    IonChip,
+    JsonPipe
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -35,26 +40,45 @@ export class MainInfoComponent  implements OnInit, AfterViewInit {
   private modalCtrl: ModalController = inject(ModalController);
   public platform: Platform = inject(Platform);
 
-  public listItems = computed( () => [
+  public listItems: any = computed( () => [
     {
-      label: 'Тип транспорту',
+      label: ListLabel.CAR_TYPE,
       value: this.vehicleService.vehicleType().label,
       callback: () => this.onVehicleType()
     },
     {
-      label: 'Рік випуску',
+      label: ListLabel.CAR_YEAR,
       value:  this.vehicleService.vehicleYear().label,
       callback: () => this.getVehicleYear()
     },
     {
-      label: 'Марка авто',
+      label: ListLabel.CAR_MARK,
       value: this.vehicleService.vehicleMark().name,
       callback: () => this.getVehicleMark()
     },
     {
-      label: 'Модель авто',
+      label: ListLabel.CAR_MODEL,
       value: this.vehicleService.vehicleModel().name,
       callback: () => this.showVehicleModels()
+    },
+    {
+      label: ListLabel.BODY_TYPE,
+      value: [
+        { id: 2, name: 'Седан' },
+        { id: 3, name: 'Універсал' },
+        { id: 1, name: 'Кроссовер' },
+        { id: 4, name: 'Хетчбек' },
+        { id: 5, name: 'Мінівен' },
+        { id: 7, name: 'Пікап' },
+        { id: 8, name: 'Кабріолет' },
+        { id: 6, name: 'Купе' },
+        { id: 9, name: 'Лімузин' },
+        { id: 10, name: 'Ліфтбек' },
+        { id: 11, name: 'Родстер' },
+        { id: 12, name: 'Мікровен' },
+        { id: 13, name: 'Фастбек' },
+      ],
+      callback: () => {}
     }
   ]);
 
@@ -166,4 +190,6 @@ export class MainInfoComponent  implements OnInit, AfterViewInit {
   }
 
   constructor() {}
+
+  protected readonly ListLabel = ListLabel;
 }

@@ -1,21 +1,27 @@
 <ion-list lines="none">
   @for(item of listItems(); track item.value) {
-    <ion-item
-      (click)="onItemClicked(item.callback)"
-    >
-      <div class="w-[10%]">
+    <ion-item (click)="onItemClicked(item.callback)">
+      <div class="min-w-[10%]">
         @if (item.value) {
           <ion-icon name="checkmark" slot="start" class="text-xs text-green-400"></ion-icon>
         }
       </div>
 
-      <ion-label class="!text-gray-400">{{ item.label }}:</ion-label>
+      <ion-label class="!text-gray-400 text-nowrap">{{ item.label }}:</ion-label>
 
-      @if (item.value) {
+      @if (item.value && item.label !== ListLabel.BODY_TYPE) {
         <ion-text class="flex items-center gap-1 text-gray-400">
           {{ item.value }}
           <ion-icon name="chevron-down-outline" class="text-xs"></ion-icon>
         </ion-text>
+      }
+
+      @if (item.label === ListLabel.BODY_TYPE) {
+        <div class="overflow-x-auto flex items-center flex-nowrap w-full">
+          <ng-container *ngFor="let type of item.value">
+            <ion-chip class="text-black min-w-fit border p-0 px-2 bg-[#e8edfc]">{{ type.name }}</ion-chip>
+          </ng-container>
+        </div>
       }
     </ion-item>
   }
