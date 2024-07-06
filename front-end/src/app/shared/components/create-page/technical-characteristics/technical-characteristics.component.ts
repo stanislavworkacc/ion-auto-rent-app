@@ -4,6 +4,7 @@ import {NgForOf} from "@angular/common";
 import {AutoRIAService} from "../../../services/autoRIA.service";
 import {TechnicalCharacteristicsService} from "./technical-characteristics.service";
 import {technicalListLabel} from "./technicalCharacteristics.enums";
+import {VehicleTypeService} from "../main-info/vehicle-type.service";
 
 @Component({
   selector: 'technical-characteristics',
@@ -25,10 +26,15 @@ export class TechnicalCharacteristicsComponent  implements OnInit {
 
   private autoRIAService: AutoRIAService = inject(AutoRIAService);
   private technicalCharacteristicsService: TechnicalCharacteristicsService = inject(TechnicalCharacteristicsService);
+  private vehicleTypeService: VehicleTypeService = inject(VehicleTypeService);
 
   technicalListLabel = technicalListLabel;
   get technicalCharacteristics() {
     return this.technicalCharacteristicsService;
+  }
+
+  get vehicleService() {
+    return this.vehicleTypeService;
   }
 
   public listItems: any = computed( () => [
@@ -36,6 +42,11 @@ export class TechnicalCharacteristicsComponent  implements OnInit {
       label: technicalListLabel.FUEL,
       value: this.technicalCharacteristics.fuelTypes(),
       callback: () => {}
+    },
+    {
+      label: technicalListLabel.TRANSMISSION,
+      value: this.technicalCharacteristics.selectedTransMission().name,
+      callback: () => this.getTransmissions()
     },
   ]);
 
@@ -69,6 +80,25 @@ export class TechnicalCharacteristicsComponent  implements OnInit {
       .then((res): void => {
         this.technicalCharacteristics.fuelTypes.set(res);
       })
+  }
+
+  async getTransmissions(): Promise<void> {
+    const routeParams: any[] = [
+      'categories',
+      this.vehicleService.vehicleType().category_id,
+      'gearboxes'
+    ];
+
+    await this.autoRIA.getAuto(routeParams)
+      .then((res): void => {
+        this.technicalCharacteristics.transMissions.set(res);
+      })
+      .then(() =>  this.technicalCharacteristics.initIonModal({
+        withSearch: false,
+        title: 'Коробка передач',
+        items: this.technicalCharacteristics.transMissions,
+        selectedValue: this.technicalCharacteristics.selectedTransMission,
+      }, 0.5))
   }
   constructor() { }
 

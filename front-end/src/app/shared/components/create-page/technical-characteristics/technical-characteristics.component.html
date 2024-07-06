@@ -9,11 +9,10 @@
 
       <ion-label class="!text-gray-400 text-nowrap">{{ item.label }}:</ion-label>
 
-
       @if (item.label === technicalListLabel.FUEL) {
         <div class="w-full overflow-x-auto flex flex-nowrap">
           @for(fuel of item.value; track fuel.value) {
-            <ion-chip class="text-black min-w-fit bg-[#e8edfc]"
+            <ion-chip class="text-black min-w-fit bg-[#e8edfc] text-nowrap"
                       [class.selectedChip]="fuel === technicalCharacteristics.fuelType()"
                       (click)="fuelTypeSelected(fuel)"
             >{{ fuel.name }}
@@ -27,7 +26,13 @@
             </ion-chip>
           }
         </div>
+      }
 
+      @if (item.value && item.label !== technicalListLabel.FUEL) {
+        <ion-text class="flex items-center gap-1 text-gray-400">
+          {{ item.value }}
+          <ion-icon name="chevron-down-outline" class="text-xs"></ion-icon>
+        </ion-text>
       }
 
 
