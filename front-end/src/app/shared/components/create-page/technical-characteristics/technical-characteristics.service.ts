@@ -1,5 +1,5 @@
 import {computed, inject, Injectable, Signal, signal, WritableSignal} from "@angular/core";
-import {ModalController} from "@ionic/angular/standalone";
+import {AlertController, ModalController} from "@ionic/angular/standalone";
 import {SelectModalComponent} from "../../filters/modals/select-modal/select-modal.component";
 
 @Injectable({
@@ -7,6 +7,7 @@ import {SelectModalComponent} from "../../filters/modals/select-modal/select-mod
 })
 export class TechnicalCharacteristicsService {
   private modalCtrl: ModalController = inject(ModalController);
+  private alertCtrl: AlertController = inject(AlertController);
 
   fuelTypes: WritableSignal<{ name: string, value: number }[]> = signal([]);
   selectedFuelType: WritableSignal<{ name: string, value: number }> = signal({ name: '', value: null });
@@ -32,5 +33,62 @@ export class TechnicalCharacteristicsService {
 
     await modal.present();
     return modal;
+  }
+
+  async presentInitialAlert() {
+    const alert = await this.alertCtrl.create({
+      header: 'Бажаєте вказати дані про середній розхід палива?',
+      buttons: [
+        {
+          text: 'Ні',
+          role: 'cancel'
+        },
+        {
+          text: 'Так',
+          handler: () => {
+            this.presentFuelConsumptionAlert();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async presentFuelConsumptionAlert() {
+    const alert = await this.alertCtrl.create({
+      header: 'Введіть дані',
+      inputs: [
+        {
+          name: 'city',
+          type: 'number',
+          placeholder: 'Місто (л/100 км)'
+        },
+        {
+          name: 'highway',
+          type: 'number',
+          placeholder: 'Шосе (л/100 км)'
+        },
+        {
+          name: 'combined',
+          type: 'number',
+          placeholder: 'Змішаний (л/100 км)'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Скасувати',
+          role: 'cancel'
+        },
+        {
+          text: 'Зберегти',
+          handler: (data) => {
+
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 }

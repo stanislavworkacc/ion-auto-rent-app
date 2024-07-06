@@ -1,5 +1,14 @@
-import {ChangeDetectionStrategy, Component, computed, inject, OnInit} from '@angular/core';
-import {IonChip, IonIcon, IonItem, IonLabel, IonList, IonText} from "@ionic/angular/standalone";
+import {ChangeDetectionStrategy, Component, computed, effect, inject, OnInit} from '@angular/core';
+import {
+  IonButton, IonButtons,
+  IonChip,
+  IonContent,
+  IonIcon,
+  IonItem,
+  IonLabel,
+  IonList, IonPopover,
+  IonText
+} from "@ionic/angular/standalone";
 import {NgForOf} from "@angular/common";
 import {AutoRIAService} from "../../../services/autoRIA.service";
 import {TechnicalCharacteristicsService} from "./technical-characteristics.service";
@@ -18,7 +27,11 @@ import {VehicleTypeService} from "../main-info/vehicle-type.service";
     IonLabel,
     IonList,
     IonText,
-    NgForOf
+    NgForOf,
+    IonContent,
+    IonPopover,
+    IonButton,
+    IonButtons
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -100,9 +113,17 @@ export class TechnicalCharacteristicsComponent  implements OnInit {
         selectedValue: this.technicalCharacteristics.selectedTransMission,
       }, 0.5))
   }
-  constructor() { }
 
   async ngOnInit(): Promise<void> {
     await this.getFuelType()
   }
+
+  constructor() {
+    effect(async(): Promise<void> => {
+      if(this.technicalCharacteristics.fuelType().value) {
+        await this.technicalCharacteristics.presentInitialAlert()
+      }
+    });
+  }
+
 }
