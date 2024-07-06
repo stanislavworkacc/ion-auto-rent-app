@@ -88,20 +88,12 @@ export class MainInfoComponent  implements OnInit, AfterViewInit {
   }
 
   async getVehicleYear(): Promise<void> {
-    const modal: HTMLIonModalElement = await this.modalCtrl.create({
-      component: SelectModalComponent,
-      cssClass: 'auth-modal',
-      initialBreakpoint: 1,
-      breakpoints: [0, 1],
-      componentProps: {
-        withSearch: false,
-        title: 'Оберіть рік',
-        items: this.vehicleService.vehicleYears,
-        selectedValue: this.vehicleService.selectedYear,
-      }
-    });
-
-    await modal.present();
+    await this.vehicleService.initIonModal({
+      withSearch: false,
+      title: 'Оберіть рік',
+      items: this.vehicleService.vehicleYears,
+      selectedValue: this.vehicleService.selectedYear,
+    })
   }
 
   async getVehicleMark(): Promise<void> {
@@ -165,6 +157,8 @@ export class MainInfoComponent  implements OnInit, AfterViewInit {
         this.vehicleService.vehicleMarks.set(res);
       })
   }
+
+
   ngOnInit(): void {};
 
   async ngAfterViewInit(): Promise<void> {

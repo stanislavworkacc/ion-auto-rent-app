@@ -1,9 +1,13 @@
-import {computed, effect, Injectable, Signal, signal, WritableSignal} from "@angular/core";
+import {computed, effect, inject, Injectable, Signal, signal, WritableSignal} from "@angular/core";
+import {SelectModalComponent} from "../../filters/modals/select-modal/select-modal.component";
+import {ModalController} from "@ionic/angular/standalone";
 
 @Injectable({
   providedIn: 'root'
 })
 export class VehicleTypeService {
+  private modalCtrl: ModalController = inject(ModalController);
+
   transportTypes: WritableSignal<{ label: string, value: string, icon: string, category_id: number }[]> = signal([
     {
       label: 'Легкові',
@@ -66,6 +70,23 @@ export class VehicleTypeService {
     }
 
     this.vehicleYears.set(years);
+  }
+
+  async initIonModal(data): Promise<void> {
+    const modal: HTMLIonModalElement = await this.modalCtrl.create({
+      component: SelectModalComponent,
+      cssClass: 'auth-modal',
+      initialBreakpoint: 1,
+      breakpoints: [0, 1],
+      componentProps: {
+        withSearch: data.withSearch,
+        title: data.title,
+        items: data.items,
+        selectedValue: data.selectedValue,
+      }
+    });
+
+    await modal.present();
   }
   constructor() {
     this.generateYears();
