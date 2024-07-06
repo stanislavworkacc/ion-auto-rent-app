@@ -9,10 +9,14 @@
 
       <ion-label class="!text-gray-400 text-nowrap">{{ item.label }}:</ion-label>
 
-      @if (item.value && item.label !== ListLabel.BODY_TYPE) {
-        <ion-text class="flex items-center gap-1 text-gray-400">
-          {{ item.value }}
-          <ion-icon name="chevron-down-outline" class="text-xs"></ion-icon>
+      @if (item.label !== ListLabel.BODY_TYPE) {
+        <ion-text class="flex items-center gap-1 text-black">
+          @if (item.value) {
+            {{ item.value }}
+          } @else {
+            <span class="text-gray-400">Обрати</span>
+          }
+          <ion-icon name="chevron-down-outline" class="text-xs text-gray-400"></ion-icon>
         </ion-text>
       }
 

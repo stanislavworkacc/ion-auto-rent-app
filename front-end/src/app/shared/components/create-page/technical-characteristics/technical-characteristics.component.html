@@ -28,10 +28,14 @@
         </div>
       }
 
-      @if (item.value && item.label !== technicalListLabel.FUEL) {
-        <ion-text class="flex items-center gap-1 text-gray-400">
-          {{ item.value }}
-          <ion-icon name="chevron-down-outline" class="text-xs"></ion-icon>
+      @if (item.label !== technicalListLabel.FUEL) {
+        <ion-text class="flex items-center gap-1 text-black">
+          @if (item.value) {
+            <span>{{ item.value }}</span>
+          } @else {
+            <span class="text-gray-400">Обрати</span>
+          }
+          <ion-icon name="chevron-down-outline" class="text-xs text-gray-400"></ion-icon>
         </ion-text>
       }
 
