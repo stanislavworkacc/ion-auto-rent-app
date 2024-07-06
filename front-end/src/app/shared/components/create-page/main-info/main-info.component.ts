@@ -90,6 +90,12 @@ export class MainInfoComponent  implements OnInit, AfterViewInit {
     this.vehicleService.selectedBodyType.set(type);
   }
 
+  clearBodyType(ev): void {
+    ev.preventDefault();
+    ev.stopPropagation();
+    this.vehicleService.selectedBodyType.set({ name: '', value: null });
+  }
+
    async onVehicleType(): Promise<void> {
      await this.vehicleService.initIonModal({
        withSearch: false,
