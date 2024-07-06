@@ -1,4 +1,4 @@
-import {AfterViewInit, ChangeDetectionStrategy, Component, computed, inject, OnInit} from '@angular/core';
+import {AfterViewInit, ChangeDetectionStrategy, Component, computed, effect, inject, OnInit} from '@angular/core';
 import {
   IonIcon,
   IonItem,
@@ -53,8 +53,8 @@ export class MainInfoComponent  implements OnInit, AfterViewInit {
     },
     {
       label: 'Модель авто',
-      value: '',
-      callback: () => {}
+      value: this.vehicleService.vehicleModel().name,
+      callback: () => this.showVehicleModels()
     }
   ]);
 
@@ -119,11 +119,43 @@ export class MainInfoComponent  implements OnInit, AfterViewInit {
     });
 
     await modal.present();
+
+    await modal.onWillDismiss().then(async (res): Promise<void> => {
+      if(res.data.isSubmit) {
+        await this.getVehicleModel()
+      }
+    })
   }
-  constructor() { }
 
-  ngOnInit() {
+  async getVehicleModel(): Promise<void> {
+    const routeParams = [
+      'categories', this.vehicleService.vehicleType().category_id,
+      'marks', this.vehicleService.vehicleMark().value,
+      'models',
+      '_group'
+    ];
 
+    await this.autoRIA.getAuto(routeParams)
+      .then((res): void => {
+        this.vehicleService.vehicleModels.set(res);
+      })
+  }
+
+  async showVehicleModels(): Promise<void> {
+    const modal: HTMLIonModalElement = await this.modalCtrl.create({
+      component: SelectModalComponent,
+      cssClass: 'auth-modal',
+      initialBreakpoint: 1,
+      breakpoints: [0, 1],
+      componentProps: {
+        withSearch: true,
+        title: 'Оберіть модель',
+        items: this.vehicleService.vehicleModels,
+        selectedValue: this.vehicleService.selectedVehicleModel,
+      }
+    });
+
+    await modal.present();
   }
 
   async initVehicleMarks(): Promise<void> {
@@ -133,8 +165,11 @@ export class MainInfoComponent  implements OnInit, AfterViewInit {
         this.vehicleService.vehicleMarks.set(res);
       })
   }
+  ngOnInit(): void {};
+
   async ngAfterViewInit(): Promise<void> {
     await this.initVehicleMarks();
   }
 
+  constructor() {}
 }

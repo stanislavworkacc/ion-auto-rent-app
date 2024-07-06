@@ -57,11 +57,11 @@ export class SelectModalComponent  implements OnInit {
   tempSelection: WritableSignal<any> = signal({});
 
   visibleItems: WritableSignal<any[]> = signal([]);
-  pageSize: number = 5;
+  pageSize: number = 25;
   currentPage: number = 1;
 
-  closeModal(): void {
-    this.modalCtrl.dismiss();
+  closeModal(isSubmit: boolean = false): void {
+    this.modalCtrl.dismiss({ isSubmit });
   }
 
   onSelectChange(value): void {
@@ -70,7 +70,7 @@ export class SelectModalComponent  implements OnInit {
 
   submitSelection(): void {
     this.selectedValue.set(this.tempSelection());
-    this.closeModal();
+    this.closeModal(true);
   }
 
   loadInitialData(): void {

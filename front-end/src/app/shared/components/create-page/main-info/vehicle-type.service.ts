@@ -49,27 +49,13 @@ export class VehicleTypeService {
   selectedYear: WritableSignal<{ label: string, value: string }> = signal({  label: '', value: '' });
   vehicleYear: Signal<{ label: string, value: string }> = computed(() => this.selectedYear());
 
-  vehicleMarks: WritableSignal<{
-    category_id: number
-    cnt: number,
-    country_id: number,
-    eng: string,
-    marka_id: number,
-    name: string,
-    slang: string,
-    value: number
-  }[]> = signal([]);
-  selectedVehicleMark: WritableSignal<{
-    category_id: number
-    cnt: number,
-    country_id: number,
-    eng: string,
-    marka_id: number,
-    name: string,
-    slang: string,
-    value: number
-  }> = signal({ category_id: null, cnt: null, country_id: null, eng: '', marka_id: null, name: '', slang: '', value: null });
-  vehicleMark: Signal<{ category_id: number, cnt: number, country_id: number, eng: string, marka_id: number, name: string, slang: string, value: number }> = computed(() => this.selectedVehicleMark());
+  vehicleMarks: WritableSignal<{ name: string, value: number }[]> = signal([]);
+  selectedVehicleMark: WritableSignal<{ name: string, value: number }> = signal({ name: '', value: null });
+  vehicleMark: Signal<{ name: string, value: number }> = computed(() => this.selectedVehicleMark());
+
+  vehicleModels: WritableSignal<{ name: string, value: number }[]> = signal([]);
+  selectedVehicleModel: WritableSignal<{ name: string, value: number }> = signal({ name: '', value: null });
+  vehicleModel: Signal<{ name: string, value: number }> = computed(() => this.selectedVehicleModel());
 
   generateYears(): void {
     const currentYear = new Date().getFullYear();
