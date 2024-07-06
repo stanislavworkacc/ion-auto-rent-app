@@ -40,7 +40,8 @@ export class TechnicalCharacteristicsComponent  implements OnInit {
   ]);
 
   checkmarkHandle(item: any): any {
-    // return (item.value && item.label !== technicalListLabel.FUEL)
+    return (item.value && item.label !== technicalListLabel.FUEL) ||
+      (item.label === technicalListLabel.FUEL && this.technicalCharacteristics.fuelType().value)
   }
 
   onItemClicked(callback: Function): void {
