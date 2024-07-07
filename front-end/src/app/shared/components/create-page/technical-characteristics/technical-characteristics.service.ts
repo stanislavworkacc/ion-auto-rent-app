@@ -32,9 +32,13 @@ export class TechnicalCharacteristicsService {
     return this.autoRIAService;
   }
 
-  cityConsumption: WritableSignal<any> = signal(0);
-  highwayConsumption: WritableSignal<any> = signal(0);
-  combinedConsumption: WritableSignal<any> = signal(0);
+  cityConsumption: WritableSignal<{ label: string, value: number, isVisible: boolean, callback: Function }>
+    = signal({ label: technicalListLabel.CITY_CONSUMPTION, value: 0, isVisible: true, callback: () => {} });
+  highwayConsumption: WritableSignal<{ label: string, value: number, isVisible: boolean, callback: Function }>
+    = signal({ label: technicalListLabel.HIGHWAY_CONSUMPTION, value: 0, isVisible: true, callback: () => {} });
+  combinedConsumption: WritableSignal<{ label: string, value: number, isVisible: boolean, callback: Function }>
+    = signal({ label: technicalListLabel.COMBINED_CONSUMPTION, value: 0, isVisible: true, callback: () => {} });
+
   public listItems: Signal<any> = computed( () => [
     {
       label: technicalListLabel.FUEL,
@@ -48,24 +52,9 @@ export class TechnicalCharacteristicsService {
       isVisible: true,
       callback: () => {}
     },
-    {
-      label: technicalListLabel.CITY_CONSUMPTION,
-      value: this.cityConsumption(),
-      isVisible: true,
-      callback: () => {}
-    },
-    {
-      label: technicalListLabel.HIGHWAY_CONSUMPTION,
-      value: this.highwayConsumption(),
-      isVisible: true,
-      callback: () => {}
-    },
-    {
-      label: technicalListLabel.COMBINED_CONSUMPTION,
-      value: this.combinedConsumption(),
-      isVisible: true,
-      callback: () => {}
-    },
+    this.cityConsumption(),
+    this.highwayConsumption(),
+    this.combinedConsumption(),
     {
       label: technicalListLabel.TRANSMISSION,
       value: this.selectedTransMission().name,
@@ -139,30 +128,35 @@ export class TechnicalCharacteristicsService {
         },
         {
           text: 'Зберегти',
-          handler: (data): void => {
+          handler: (data: { city: string, highway: string, combined: string }): void => {
             if (data && (data.city || data.highway || data.combined)) {
               this.isFuelConsumption.set(true);
 
               for (const key of Object.keys(data)) {
                 switch (key) {
                   case 'city':
-                    const cityItem = this.listItems().find(item => item.label === technicalListLabel.CITY_CONSUMPTION);
-                    if (cityItem) {
-                      this.cityConsumption.set(data.city);
-                    }
+                      this.cityConsumption.update((prev) =>{
+                        return {
+                          ...prev,
+                          value: Number(data.city)
+                        };
+                      })
                     break;
                   case 'highway':
-                    const highwayItem = this.listItems().find(item => item.label === technicalListLabel.HIGHWAY_CONSUMPTION);
-                    if (highwayItem) {
-                      this.highwayConsumption.set(data.highway);
-                    }
+                    this.highwayConsumption.update((prev) =>{
+                      return {
+                        ...prev,
+                        value: Number(data.highway)
+                      };
+                    })
                     break;
                   case 'combined':
-                    const combinedItem = this.listItems().find(item => item.label === technicalListLabel.COMBINED_CONSUMPTION);
-                    if (combinedItem) {
-                      this.combinedConsumption.set(data.combined);
-
-                    }
+                    this.combinedConsumption.update((prev) =>{
+                      return {
+                        ...prev,
+                        value: Number(data.combined)
+                      };
+                    })
                     break;
                 }
               }
