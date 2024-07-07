@@ -49,34 +49,16 @@ export class TechnicalCharacteristicsComponent  implements OnInit {
     return this.technicalCharacteristicsService;
   }
 
-  get vehicleService() {
-    return this.vehicleTypeService;
+  get autoRIA() {
+    return this.autoRIAService;
   }
-
-  public listItems: any = computed( () => [
-    {
-      label: technicalListLabel.FUEL,
-      value: this.technicalCharacteristics.fuelTypes(),
-      callback: () => {}
-    },
-    {
-      label: technicalListLabel.FUEL_CONSUMPTION,
-      value: '',
-      callback: () => {}
-    },
-    {
-      label: technicalListLabel.TRANSMISSION,
-      value: this.technicalCharacteristics.selectedTransMission().name,
-      callback: () => this.getTransmissions()
-    },
-  ]);
 
   checkmarkHandle(item: any): any {
     return (item.value && item.label !== technicalListLabel.FUEL) ||
       (item.label === technicalListLabel.FUEL && this.technicalCharacteristics.fuelType().value)
   }
 
-  async fuelConsumptionToggle(isToggle) {
+  async fuelConsumptionToggle(isToggle): Promise<void> {
     if(isToggle) {
       this.technicalCharacteristics.isFuelConsumption.set(true)
       await this.technicalCharacteristics.presentFuelConsumptionAlert()
@@ -86,11 +68,6 @@ export class TechnicalCharacteristicsComponent  implements OnInit {
   onItemClicked(callback: Function): void {
     callback();
   }
-
-  get autoRIA() {
-    return this.autoRIAService;
-  }
-
   fuelTypeSelected(fuel: { name: string, value: number }): void {
     this.technicalCharacteristics.selectedFuelType.set(fuel);
   }
@@ -108,25 +85,6 @@ export class TechnicalCharacteristicsComponent  implements OnInit {
       .then((res): void => {
         this.technicalCharacteristics.fuelTypes.set(res);
       })
-  }
-
-  async getTransmissions(): Promise<void> {
-    const routeParams: any[] = [
-      'categories',
-      this.vehicleService.vehicleType().category_id,
-      'gearboxes'
-    ];
-
-    await this.autoRIA.getAuto(routeParams)
-      .then((res): void => {
-        this.technicalCharacteristics.transMissions.set(res);
-      })
-      .then(() =>  this.technicalCharacteristics.initIonModal({
-        withSearch: false,
-        title: 'Коробка передач',
-        items: this.technicalCharacteristics.transMissions,
-        selectedValue: this.technicalCharacteristics.selectedTransMission,
-      }, 0.5))
   }
 
   async ngOnInit(): Promise<void> {
