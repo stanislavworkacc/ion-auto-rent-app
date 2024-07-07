@@ -32,12 +32,40 @@ export class TechnicalCharacteristicsService {
     return this.autoRIAService;
   }
 
-  cityConsumption: WritableSignal<{ label: string, value: number, isVisible: boolean, callback: Function }>
-    = signal({ label: technicalListLabel.CITY_CONSUMPTION, value: 0, isVisible: false, callback: () => {} });
-  highwayConsumption: WritableSignal<{ label: string, value: number, isVisible: boolean, callback: Function }>
-    = signal({ label: technicalListLabel.HIGHWAY_CONSUMPTION, value: 0, isVisible: false, callback: () => {} });
-  combinedConsumption: WritableSignal<{ label: string, value: number, isVisible: boolean, callback: Function }>
-    = signal({ label: technicalListLabel.COMBINED_CONSUMPTION, value: 0, isVisible: false, callback: () => {} });
+  cityConsumption: WritableSignal<{
+    label: string,
+    value: number,
+    isVisible: boolean,
+    callback: Function
+  }>
+    = signal({
+    label: technicalListLabel.CITY_CONSUMPTION,
+    value: 0, isVisible: false,
+    callback: async (): Promise<void> => await this.presentFuelConsumptionAlert()
+    });
+  highwayConsumption: WritableSignal<{
+    label: string,
+    value: number,
+    isVisible: boolean,
+    callback: Function
+  }>
+    = signal({
+    label: technicalListLabel.HIGHWAY_CONSUMPTION,
+    value: 0, isVisible: false,
+    callback: async (): Promise<void> => await this.presentFuelConsumptionAlert()
+    });
+  combinedConsumption: WritableSignal<{
+    label: string,
+    value: number,
+    isVisible: boolean,
+    callback: Function
+  }>
+    = signal({
+    label: technicalListLabel.COMBINED_CONSUMPTION,
+    value: 0,
+    isVisible: false,
+    callback:  async () => await this.presentFuelConsumptionAlert()
+    });
 
   public listItems: Signal<any> = computed( () => [
     {
@@ -106,16 +134,19 @@ export class TechnicalCharacteristicsService {
         {
           name: 'city',
           type: 'number',
+          value: this.cityConsumption().value ? this.cityConsumption().value : '',
           placeholder: technicalListLabel.CITY_CONSUMPTION
         },
         {
           name: 'highway',
           type: 'number',
+          value: this.highwayConsumption().value ? this.highwayConsumption().value : '',
           placeholder: technicalListLabel.HIGHWAY_CONSUMPTION
         },
         {
           name: 'combined',
           type: 'number',
+          value: this.combinedConsumption().value ? this.combinedConsumption().value : '',
           placeholder: technicalListLabel.COMBINED_CONSUMPTION
         }
       ],
@@ -123,7 +154,10 @@ export class TechnicalCharacteristicsService {
         {
           text: 'Скасувати',
           handler: (): void => {
-            this.isFuelConsumption.set(false)
+            this.isFuelConsumption.set(false);
+            this.cityConsumption.set({ label: technicalListLabel.CITY_CONSUMPTION, value: 0, isVisible: false, callback: () => {} })
+            this.highwayConsumption.set({ label: technicalListLabel.HIGHWAY_CONSUMPTION, value: 0, isVisible: false, callback: () => {} })
+            this.combinedConsumption.set({ label: technicalListLabel.COMBINED_CONSUMPTION, value: 0, isVisible: false, callback: () => {} })
           }
         },
         {
