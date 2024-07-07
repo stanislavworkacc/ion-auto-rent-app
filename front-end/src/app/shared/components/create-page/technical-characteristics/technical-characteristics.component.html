@@ -1,6 +1,9 @@
 <ion-list lines="none">
   @for(item of technicalCharacteristics.listItems(); track item.value) {
-    <ion-item (click)="onItemClicked(item.callback)" *ngIf="item.isVisible">
+    <ion-item
+      *ngIf="item.isVisible"
+      (click)="onItemClicked(item.callback)"
+    >
       <div class="min-w-[10%]">
         @if (checkmarkHandle(item)) {
           <ion-icon name="checkmark" slot="start" class="text-xs text-green-400"></ion-icon>

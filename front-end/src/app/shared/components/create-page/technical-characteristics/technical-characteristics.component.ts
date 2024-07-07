@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, computed, effect, inject, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, OnInit} from '@angular/core';
 import {
   IonButton, IonButtons,
   IonChip,
@@ -46,6 +46,7 @@ export class TechnicalCharacteristicsComponent  implements OnInit {
 
   technicalListLabel = technicalListLabel;
   excludedLabels: technicalListLabel[] = [technicalListLabel.FUEL_CONSUMPTION, technicalListLabel.CITY_CONSUMPTION, technicalListLabel.COMBINED_CONSUMPTION, technicalListLabel.HIGHWAY_CONSUMPTION];
+  fuelConsumptionBlock: technicalListLabel[] = [technicalListLabel.CITY_CONSUMPTION, technicalListLabel.COMBINED_CONSUMPTION, technicalListLabel.HIGHWAY_CONSUMPTION];
   get technicalCharacteristics() {
     return this.technicalCharacteristicsService;
   }
