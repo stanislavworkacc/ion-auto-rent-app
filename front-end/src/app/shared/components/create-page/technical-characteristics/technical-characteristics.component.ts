@@ -67,6 +67,11 @@ export class TechnicalCharacteristicsComponent  implements OnInit {
     if(isToggle) {
       this.technicalCharacteristics.isFuelConsumption.set(true)
       await this.technicalCharacteristics.presentFuelConsumptionAlert()
+    } else {
+      this.technicalCharacteristics.isFuelConsumption.set(false);
+      this.technicalCharacteristics.cityConsumption.set({ label: technicalListLabel.CITY_CONSUMPTION, value: 0, isVisible: false, callback: () => {} })
+      this.technicalCharacteristics.highwayConsumption.set({ label: technicalListLabel.HIGHWAY_CONSUMPTION, value: 0, isVisible: false, callback: () => {} })
+      this.technicalCharacteristics.combinedConsumption.set({ label: technicalListLabel.COMBINED_CONSUMPTION, value: 0, isVisible: false, callback: () => {} })
     }
   }
 
