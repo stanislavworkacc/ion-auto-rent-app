@@ -5,4 +5,7 @@ export enum technicalListLabel {
   CITY_CONSUMPTION = 'Місто (л/100 км)',
   HIGHWAY_CONSUMPTION = 'Шосе (л/100 км)',
   COMBINED_CONSUMPTION = 'Змішаний (л/100 км)',
+  ENGINE_VALUE = 'Об\'єм двигуна',
+  ENGINE_POWER = 'Потужність двигуна',
+  CAR_COLOR = 'Колір',
 }

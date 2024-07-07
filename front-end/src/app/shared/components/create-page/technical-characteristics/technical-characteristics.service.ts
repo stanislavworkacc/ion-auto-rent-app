@@ -89,6 +89,24 @@ export class TechnicalCharacteristicsService {
       isVisible: true,
       callback: () => this.getTransmissions()
     },
+    {
+      label: technicalListLabel.ENGINE_VALUE,
+      value: '',
+      isVisible: true,
+      callback: () => {}
+    },
+    {
+      label: technicalListLabel.ENGINE_POWER,
+      value: '',
+      isVisible: true,
+      callback: () => {}
+    },
+    {
+      label: technicalListLabel.CAR_COLOR,
+      value: '',
+      isVisible: true,
+      callback: () => {}
+    },
   ]);
 
   async getTransmissions(): Promise<void> {
