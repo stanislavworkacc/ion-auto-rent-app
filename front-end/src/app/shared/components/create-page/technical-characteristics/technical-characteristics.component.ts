@@ -45,12 +45,17 @@ export class TechnicalCharacteristicsComponent  implements OnInit {
   private vehicleTypeService: VehicleTypeService = inject(VehicleTypeService);
 
   technicalListLabel = technicalListLabel;
+  excludedLabels: technicalListLabel[] = [technicalListLabel.FUEL_CONSUMPTION, technicalListLabel.CITY_CONSUMPTION, technicalListLabel.COMBINED_CONSUMPTION, technicalListLabel.HIGHWAY_CONSUMPTION];
   get technicalCharacteristics() {
     return this.technicalCharacteristicsService;
   }
 
   get autoRIA() {
     return this.autoRIAService;
+  }
+
+  shouldDisplaySelect(item: any): boolean {
+    return !this.excludedLabels.includes(item.label);
   }
 
   checkmarkHandle(item: any): any {

@@ -33,11 +33,11 @@ export class TechnicalCharacteristicsService {
   }
 
   cityConsumption: WritableSignal<{ label: string, value: number, isVisible: boolean, callback: Function }>
-    = signal({ label: technicalListLabel.CITY_CONSUMPTION, value: 0, isVisible: true, callback: () => {} });
+    = signal({ label: technicalListLabel.CITY_CONSUMPTION, value: 0, isVisible: false, callback: () => {} });
   highwayConsumption: WritableSignal<{ label: string, value: number, isVisible: boolean, callback: Function }>
-    = signal({ label: technicalListLabel.HIGHWAY_CONSUMPTION, value: 0, isVisible: true, callback: () => {} });
+    = signal({ label: technicalListLabel.HIGHWAY_CONSUMPTION, value: 0, isVisible: false, callback: () => {} });
   combinedConsumption: WritableSignal<{ label: string, value: number, isVisible: boolean, callback: Function }>
-    = signal({ label: technicalListLabel.COMBINED_CONSUMPTION, value: 0, isVisible: true, callback: () => {} });
+    = signal({ label: technicalListLabel.COMBINED_CONSUMPTION, value: 0, isVisible: false, callback: () => {} });
 
   public listItems: Signal<any> = computed( () => [
     {
@@ -138,7 +138,8 @@ export class TechnicalCharacteristicsService {
                       this.cityConsumption.update((prev) =>{
                         return {
                           ...prev,
-                          value: Number(data.city)
+                          value: Number(data.city),
+                          isVisible: true
                         };
                       })
                     break;
@@ -146,7 +147,8 @@ export class TechnicalCharacteristicsService {
                     this.highwayConsumption.update((prev) =>{
                       return {
                         ...prev,
-                        value: Number(data.highway)
+                        value: Number(data.highway),
+                        isVisible: true
                       };
                     })
                     break;
@@ -154,7 +156,8 @@ export class TechnicalCharacteristicsService {
                     this.combinedConsumption.update((prev) =>{
                       return {
                         ...prev,
-                        value: Number(data.combined)
+                        value: Number(data.combined),
+                        isVisible: true
                       };
                     })
                     break;

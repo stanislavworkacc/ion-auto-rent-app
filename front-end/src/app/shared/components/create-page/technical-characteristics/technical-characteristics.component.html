@@ -29,18 +29,22 @@
       }
 
       @if (item.label !== technicalListLabel.FUEL) {
-        <ion-text class="flex items-center gap-1 text-black">
+
+        <ion-text class="flex items-center gap-1 text-black"
+                  [class.slide-down-animation]="item.value"
+        >
           @if (item.value) {
+
             <span>{{ item.value }}</span>
           } @else {
-            <app-switcher
-              *ngIf="item.label === technicalListLabel.FUEL_CONSUMPTION"
+
+            <app-switcher *ngIf="item.label === technicalListLabel.FUEL_CONSUMPTION"
               [isOn]="technicalCharacteristics.isFuelConsumption()"
               (toggleChange)="fuelConsumptionToggle($event)"
             >
             </app-switcher>
 
-            <span *ngIf="item.label !== technicalListLabel.FUEL_CONSUMPTION" class="text-gray-400">
+            <span *ngIf="shouldDisplaySelect(item)" class="text-gray-400">
               Обрати
               <ion-icon name="chevron-down-outline" class="text-xs text-gray-400"></ion-icon>
             </span>

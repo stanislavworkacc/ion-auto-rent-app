@@ -11,7 +11,20 @@ ion-list {
     background: #19273c;
     color: white;
   }
-
-
 }
+.slide-down-animation {
+  animation: slide-down 0.8s ease-out forwards;
+}
+
+@keyframes slide-down {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
 
