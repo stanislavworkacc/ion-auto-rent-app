@@ -25,14 +25,6 @@ export class TechnicalCharacteristicsService {
 
   isFuelConsumption: WritableSignal<boolean> = signal(false);
 
-  get vehicleService() {
-    return this.vehicleTypeService;
-  }
-
-  get autoRIA() {
-    return this.autoRIAService;
-  }
-
   cityConsumption: WritableSignal<{
     label: string,
     value: number,
@@ -43,7 +35,7 @@ export class TechnicalCharacteristicsService {
     label: technicalListLabel.CITY_CONSUMPTION,
     value: 0, isVisible: false,
     callback: async (): Promise<void> => await this.presentFuelConsumptionAlert()
-    });
+  });
   highwayConsumption: WritableSignal<{
     label: string,
     value: number,
@@ -54,7 +46,7 @@ export class TechnicalCharacteristicsService {
     label: technicalListLabel.HIGHWAY_CONSUMPTION,
     value: 0, isVisible: false,
     callback: async (): Promise<void> => await this.presentFuelConsumptionAlert()
-    });
+  });
   combinedConsumption: WritableSignal<{
     label: string,
     value: number,
@@ -66,13 +58,25 @@ export class TechnicalCharacteristicsService {
     value: 0,
     isVisible: false,
     callback:  async () => await this.presentFuelConsumptionAlert()
-    });
+  });
 
   engineValue: WritableSignal<string> = signal('')
   hpPower: WritableSignal<boolean> = signal(false);
   kWPower: WritableSignal<boolean> = signal(false);
   powerValue: WritableSignal<string> = signal('');
-  enginePower: Signal<any> = computed(() => this.powerValue() + (this.hpPower() ? ' к.с' : (this.kWPower() ? ' кВт' : '')))
+  enginePower: Signal<any> = computed(() => this.powerValue() + (this.hpPower() ? ' к.с' : (this.kWPower() ? ' кВт' : '')));
+
+  colorsTypes: WritableSignal<{ name: string, value: number }[]> = signal([]);
+  selectedColorType: WritableSignal<{ name: string, value: number }> = signal({ name: '', value: null });
+  colorType: Signal<any> = computed(() => this.selectedColorType());
+
+  get vehicleService() {
+    return this.vehicleTypeService;
+  }
+
+  get autoRIA() {
+    return this.autoRIAService;
+  }
 
   public listItems: Signal<any> = computed( () => [
     {
@@ -112,7 +116,7 @@ export class TechnicalCharacteristicsService {
       label: technicalListLabel.CAR_COLOR,
       value: '',
       isVisible: true,
-      callback: () => {}
+      callback: () => this.getVehicleColor()
     },
   ]);
 
@@ -132,6 +136,21 @@ export class TechnicalCharacteristicsService {
         title: 'Коробка передач',
         items: this.transMissions,
         selectedValue: this.selectedTransMission,
+      }, 0.5))
+  }
+
+  async getVehicleColor(): Promise<void> {
+    const routeParams: string[] = ['colors'];
+
+    await this.autoRIA.getAuto(routeParams)
+      .then((res): void => {
+        this.colorsTypes.set(res);
+      })
+      .then(() =>  this.initIonModal({
+        withSearch: false,
+        title: 'Оберіть колір',
+        items: this.colorsTypes,
+        selectedValue: this.selectedColorType,
       }, 0.5))
   }
   async initIonModal(data, initialBreakpoint?: number): Promise<any> {
