@@ -83,6 +83,7 @@
                  type="text"
                  label-placement="floating"
                  placeholder="Введіть дані"
+                 [value]="technicalCharacteristics.engineValue()"
                  (valueChange)="onModalInput($event)"
       >
       </ion-input>
