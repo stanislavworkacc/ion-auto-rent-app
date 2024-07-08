@@ -114,7 +114,7 @@ export class TechnicalCharacteristicsService {
     },
     {
       label: technicalListLabel.CAR_COLOR,
-      value: '',
+      value: this.colorType().name,
       isVisible: true,
       callback: () => this.getVehicleColor()
     },
@@ -151,7 +151,7 @@ export class TechnicalCharacteristicsService {
         title: 'Оберіть колір',
         items: this.colorsTypes,
         selectedValue: this.selectedColorType,
-      }, 0.5))
+      }, 1))
   }
   async initIonModal(data, initialBreakpoint?: number): Promise<any> {
     const modal: HTMLIonModalElement = await this.modalCtrl.create({
