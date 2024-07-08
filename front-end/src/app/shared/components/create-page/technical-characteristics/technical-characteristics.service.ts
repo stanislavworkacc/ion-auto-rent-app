@@ -69,6 +69,9 @@ export class TechnicalCharacteristicsService {
     });
 
   engineValue: WritableSignal<string> = signal('')
+  hpPower: WritableSignal<boolean> = signal(true);
+  powerValue: WritableSignal<string> = signal('');
+  enginePower: Signal<any> = computed(() => this.powerValue() + (this.hpPower() ? 'к.с' : 'кВт'))
 
   public listItems: Signal<any> = computed( () => [
     {
@@ -100,7 +103,7 @@ export class TechnicalCharacteristicsService {
     },
     {
       label: technicalListLabel.ENGINE_POWER,
-      value: '',
+      value: this.enginePower(),
       isVisible: true,
       callback: () => {}
     },

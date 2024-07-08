@@ -3,10 +3,10 @@ import {
   IonButton, IonButtons,
   IonChip,
   IonContent, IonHeader,
-  IonIcon, IonInput,
+  IonIcon, IonInfiniteScroll, IonInfiniteScrollContent, IonInput,
   IonItem,
   IonLabel,
-  IonList, IonModal, IonPopover,
+  IonList, IonModal, IonPopover, IonRadio, IonRadioGroup,
   IonText, ModalController
 } from "@ionic/angular/standalone";
 import {NgForOf, NgIf} from "@angular/common";
@@ -39,7 +39,11 @@ import {LimitEngineVolumeDirective} from "../../../directives/engine-volume.dire
     IonModal,
     IonHeader,
     IonInput,
-    LimitEngineVolumeDirective
+    LimitEngineVolumeDirective,
+    IonInfiniteScroll,
+    IonInfiniteScrollContent,
+    IonRadio,
+    IonRadioGroup
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -87,9 +91,23 @@ export class TechnicalCharacteristicsComponent  implements OnInit {
     }
   }
 
-  submitInputModal(): void {
-    this.technicalCharacteristics.engineValue.set(this.tempEngineValue());
-    this.modalCtrl.dismiss();
+  submitInputModal(type): void {
+    if(type === 'engineValue') {
+      this.technicalCharacteristics.engineValue.set(this.tempEngineValue());
+      this.modalCtrl.dismiss();
+    }
+
+    if(type === 'enginePower') {
+      this.modalCtrl.dismiss();
+    }
+  }
+
+  onPowerChange(powerType) {
+    if(powerType === 'hp') {
+      this.technicalCharacteristics.hpPower.set(true);
+    } else {
+      this.technicalCharacteristics.hpPower.set(false);
+    }
   }
 
   onItemClicked(callback: Function): void {
@@ -119,4 +137,6 @@ export class TechnicalCharacteristicsComponent  implements OnInit {
   }
 
   constructor() {}
+
+  protected readonly Array = Array;
 }

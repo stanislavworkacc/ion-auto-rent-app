@@ -70,7 +70,7 @@
         <ion-label class="text-gray-400 font-[300] pl-[60px]">Об'єм двигуна</ion-label>
       </div>
       <ion-buttons class="flex justify-end">
-        <ion-button (click)="submitInputModal()">
+        <ion-button (click)="submitInputModal('engineValue')">
           <span class="text-[#0f1b44] font-[300]">Додати</span>
         </ion-button>
       </ion-buttons>
@@ -85,6 +85,48 @@
                  placeholder="Введіть дані"
                  [value]="technicalCharacteristics.engineValue()"
                  (valueChange)="onModalInput($event)"
+      >
+      </ion-input>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+<ion-modal class="auth-modal"
+           [trigger]="technicalListLabel.ENGINE_POWER"
+           [initialBreakpoint]="0.3"
+           [breakpoints]="[0, 0.5, 0.9]"
+           [backdropDismiss]="false"
+>
+  <ng-template>
+    <ion-header class="flex items-center justify-between py-2 shadow-none">
+      <div class="flex-grow text-center">
+        <ion-label class="text-gray-400 font-[300] pl-[60px]">Потужність двигуна</ion-label>
+      </div>
+      <ion-buttons class="flex justify-end">
+        <ion-button (click)="submitInputModal('enginePower')">
+          <span class="text-[#0f1b44] font-[300]">Додати</span>
+        </ion-button>
+      </ion-buttons>
+    </ion-header>
+
+    <ion-content class="ion-padding">
+      <ion-list>
+        <ion-radio-group [value]="'hp'"
+                         (ionChange)="onPowerChange($event.target.value)"
+        >
+          <ion-item class="text-gray-400" lines="none">
+            <ion-radio [value]="'hp'" justify="space-between">к/с</ion-radio>
+          </ion-item>
+          <ion-item class="text-gray-400" lines="none">
+            <ion-radio [value]="'кВт'" justify="space-between">кВт</ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </ion-list>
+      <ion-input class="text-gray-400 border rounded border-[#ffa649] !px-2"
+                 label="Потужність"
+                 type="text"
+                 label-placement="floating"
+                 placeholder="Введіть дані"
       >
       </ion-input>
     </ion-content>
