@@ -111,8 +111,10 @@ export class TechnicalCharacteristicsComponent  implements OnInit {
   onPowerChange(powerType) {
     if(powerType === 'hp') {
       this.technicalCharacteristics.hpPower.set(true);
+      this.technicalCharacteristics.kWPower.set(false);
     } else {
       this.technicalCharacteristics.hpPower.set(false);
+      this.technicalCharacteristics.kWPower.set(true);
     }
   }
 
