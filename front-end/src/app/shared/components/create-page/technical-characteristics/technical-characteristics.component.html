@@ -123,11 +123,11 @@
         </ion-radio-group>
       </ion-list>
       <ion-input class="text-gray-400 border rounded border-[#ffa649] !px-2"
-                 label="Потужність"
+                 label="{{ 'Потужність'}} {{ tempHpPower() ? 'к.с' : (tempKWTPower() ? 'кВт' : '') }}"
                  type="number"
                  label-placement="floating"
                  placeholder="Введіть дані"
-                 [value]="technicalCharacteristics.engineValue()"
+                 [value]="technicalCharacteristics.powerValue()"
                  (ionInput)="onModalInput($event.target.value, 'enginePower')"
       >
       </ion-input>

@@ -59,6 +59,9 @@ export class TechnicalCharacteristicsComponent  implements OnInit {
 
   tempEngineValue: WritableSignal<string> = signal('');
   tempEnginePower: WritableSignal<string> = signal('');
+  tempHpPower: WritableSignal<boolean> = signal(false);
+  tempKWTPower: WritableSignal<boolean> = signal(false);
+
   get technicalCharacteristics() {
     return this.technicalCharacteristicsService;
   }
@@ -104,17 +107,21 @@ export class TechnicalCharacteristicsComponent  implements OnInit {
 
     if(type === 'enginePower') {
       this.technicalCharacteristics.powerValue.set(this.tempEnginePower());
+      this.technicalCharacteristics.hpPower.set(this.tempHpPower());
+      this.technicalCharacteristics.kWPower.set(this.tempKWTPower());
+
       this.modalCtrl.dismiss();
     }
   }
 
   onPowerChange(powerType) {
     if(powerType === 'hp') {
-      this.technicalCharacteristics.hpPower.set(true);
-      this.technicalCharacteristics.kWPower.set(false);
+
+      this.tempHpPower.set(true);
+      this.tempKWTPower.set(false);
     } else {
-      this.technicalCharacteristics.hpPower.set(false);
-      this.technicalCharacteristics.kWPower.set(true);
+      this.tempHpPower.set(false);
+      this.tempKWTPower.set(true);
     }
   }
 
