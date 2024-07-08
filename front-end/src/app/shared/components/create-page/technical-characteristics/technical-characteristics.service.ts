@@ -4,6 +4,7 @@ import {SelectModalComponent} from "../../filters/modals/select-modal/select-mod
 import {technicalListLabel} from "./technicalCharacteristics.enums";
 import {VehicleTypeService} from "../main-info/vehicle-type.service";
 import {AutoRIAService} from "../../../services/autoRIA.service";
+import {AlertInput} from "@ionic/angular";
 
 @Injectable({
   providedIn: 'root'

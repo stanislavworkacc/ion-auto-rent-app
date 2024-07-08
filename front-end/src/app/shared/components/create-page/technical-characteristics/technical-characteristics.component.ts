@@ -2,11 +2,11 @@ import {ChangeDetectionStrategy, Component, inject, OnInit} from '@angular/core'
 import {
   IonButton, IonButtons,
   IonChip,
-  IonContent,
-  IonIcon,
+  IonContent, IonHeader,
+  IonIcon, IonInput,
   IonItem,
   IonLabel,
-  IonList, IonPopover,
+  IonList, IonModal, IonPopover,
   IonText
 } from "@ionic/angular/standalone";
 import {NgForOf, NgIf} from "@angular/common";
@@ -15,6 +15,7 @@ import {TechnicalCharacteristicsService} from "./technical-characteristics.servi
 import {technicalListLabel} from "./technicalCharacteristics.enums";
 import {VehicleTypeService} from "../main-info/vehicle-type.service";
 import {SwitcherComponent} from "../../../ui-kit/components/switcher/switcher.component";
+import {LimitEngineVolumeDirective} from "../../../directives/engine-volume.directive";
 
 @Component({
   selector: 'technical-characteristics',
@@ -34,7 +35,11 @@ import {SwitcherComponent} from "../../../ui-kit/components/switcher/switcher.co
     IonButton,
     IonButtons,
     SwitcherComponent,
-    NgIf
+    NgIf,
+    IonModal,
+    IonHeader,
+    IonInput,
+    LimitEngineVolumeDirective
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -46,7 +51,6 @@ export class TechnicalCharacteristicsComponent  implements OnInit {
 
   technicalListLabel = technicalListLabel;
   excludedLabels: technicalListLabel[] = [technicalListLabel.FUEL_CONSUMPTION, technicalListLabel.CITY_CONSUMPTION, technicalListLabel.COMBINED_CONSUMPTION, technicalListLabel.HIGHWAY_CONSUMPTION];
-  fuelConsumptionBlock: technicalListLabel[] = [technicalListLabel.CITY_CONSUMPTION, technicalListLabel.COMBINED_CONSUMPTION, technicalListLabel.HIGHWAY_CONSUMPTION];
   get technicalCharacteristics() {
     return this.technicalCharacteristicsService;
   }

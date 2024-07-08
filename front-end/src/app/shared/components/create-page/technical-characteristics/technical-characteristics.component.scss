@@ -11,10 +11,17 @@ ion-list {
     background: #19273c;
     color: white;
   }
-  
+
 }
 .slide-down-animation {
   animation: slide-down 0.8s ease-out forwards;
+}
+
+.auth-modal {
+  --background: white !important;
+  ion-content {
+    --background: white !important;
+  }
 }
 
 @keyframes slide-down {
