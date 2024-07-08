@@ -71,7 +71,7 @@ export class TechnicalCharacteristicsService {
   engineValue: WritableSignal<string> = signal('')
   hpPower: WritableSignal<boolean> = signal(true);
   powerValue: WritableSignal<string> = signal('');
-  enginePower: Signal<any> = computed(() => this.powerValue() + (this.hpPower() ? 'к.с' : 'кВт'))
+  enginePower: Signal<any> = computed(() => this.powerValue() + (this.hpPower() ? ' к.с' : ' кВт'))
 
   public listItems: Signal<any> = computed( () => [
     {

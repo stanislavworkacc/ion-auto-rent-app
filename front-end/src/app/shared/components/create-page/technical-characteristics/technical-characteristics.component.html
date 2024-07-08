@@ -84,7 +84,7 @@
                  label-placement="floating"
                  placeholder="Введіть дані"
                  [value]="technicalCharacteristics.engineValue()"
-                 (valueChange)="onModalInput($event)"
+                 (valueChange)="onModalInput($event, 'engineValue')"
       >
       </ion-input>
     </ion-content>
@@ -124,9 +124,11 @@
       </ion-list>
       <ion-input class="text-gray-400 border rounded border-[#ffa649] !px-2"
                  label="Потужність"
-                 type="text"
+                 type="number"
                  label-placement="floating"
                  placeholder="Введіть дані"
+                 [value]="technicalCharacteristics.engineValue()"
+                 (ionInput)="onModalInput($event.target.value, 'enginePower')"
       >
       </ion-input>
     </ion-content>

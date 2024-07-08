@@ -58,6 +58,7 @@ export class TechnicalCharacteristicsComponent  implements OnInit {
   excludedLabels: technicalListLabel[] = [technicalListLabel.FUEL_CONSUMPTION, technicalListLabel.CITY_CONSUMPTION, technicalListLabel.COMBINED_CONSUMPTION, technicalListLabel.HIGHWAY_CONSUMPTION];
 
   tempEngineValue: WritableSignal<string> = signal('');
+  tempEnginePower: WritableSignal<string> = signal('');
   get technicalCharacteristics() {
     return this.technicalCharacteristicsService;
   }
@@ -75,8 +76,12 @@ export class TechnicalCharacteristicsComponent  implements OnInit {
       (item.label === technicalListLabel.FUEL && this.technicalCharacteristics.fuelType().value)
   }
 
-  onModalInput(value): void  {
-    this.tempEngineValue.set(value);
+  onModalInput(value, type): void  {
+    if(type === 'engineValue') {
+      this.tempEngineValue.set(value);
+    } else {
+      this.tempEnginePower.set(value);
+    }
   }
 
   async fuelConsumptionToggle(isToggle): Promise<void> {
@@ -98,6 +103,7 @@ export class TechnicalCharacteristicsComponent  implements OnInit {
     }
 
     if(type === 'enginePower') {
+      this.technicalCharacteristics.powerValue.set(this.tempEnginePower());
       this.modalCtrl.dismiss();
     }
   }
