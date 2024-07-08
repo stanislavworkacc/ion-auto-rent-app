@@ -174,6 +174,7 @@ export class TechnicalCharacteristicsService {
   async presentFuelConsumptionAlert(): Promise<void> {
     const alert: HTMLIonAlertElement = await this.alertCtrl.create({
       header: 'Введіть дані',
+      backdropDismiss: false,
       inputs: [
         {
           name: 'city',
@@ -199,9 +200,9 @@ export class TechnicalCharacteristicsService {
           text: 'Скасувати',
           handler: (): void => {
             this.isFuelConsumption.set(false);
-            this.cityConsumption.set({ label: technicalListLabel.CITY_CONSUMPTION, value: 0, isVisible: false, callback: () => {} })
-            this.highwayConsumption.set({ label: technicalListLabel.HIGHWAY_CONSUMPTION, value: 0, isVisible: false, callback: () => {} })
-            this.combinedConsumption.set({ label: technicalListLabel.COMBINED_CONSUMPTION, value: 0, isVisible: false, callback: () => {} })
+            this.cityConsumption.set({ label: technicalListLabel.CITY_CONSUMPTION, value: 0, isVisible: false, callback: async() => await this.presentFuelConsumptionAlert()})
+            this.highwayConsumption.set({ label: technicalListLabel.HIGHWAY_CONSUMPTION, value: 0, isVisible: false, callback: async() => await this.presentFuelConsumptionAlert()})
+            this.combinedConsumption.set({ label: technicalListLabel.COMBINED_CONSUMPTION, value: 0, isVisible: false, callback: async() => await this.presentFuelConsumptionAlert()})
           }
         },
         {

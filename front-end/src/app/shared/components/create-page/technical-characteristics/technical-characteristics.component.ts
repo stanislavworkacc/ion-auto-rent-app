@@ -93,9 +93,9 @@ export class TechnicalCharacteristicsComponent  implements OnInit {
       await this.technicalCharacteristics.presentFuelConsumptionAlert()
     } else {
       this.technicalCharacteristics.isFuelConsumption.set(false);
-      this.technicalCharacteristics.cityConsumption.set({ label: technicalListLabel.CITY_CONSUMPTION, value: 0, isVisible: false, callback: () => {} })
-      this.technicalCharacteristics.highwayConsumption.set({ label: technicalListLabel.HIGHWAY_CONSUMPTION, value: 0, isVisible: false, callback: () => {} })
-      this.technicalCharacteristics.combinedConsumption.set({ label: technicalListLabel.COMBINED_CONSUMPTION, value: 0, isVisible: false, callback: () => {} })
+      this.technicalCharacteristics.cityConsumption.set({ label: technicalListLabel.CITY_CONSUMPTION, value: 0, isVisible: false, callback: async() => await this.technicalCharacteristics.presentFuelConsumptionAlert()})
+      this.technicalCharacteristics.highwayConsumption.set({ label: technicalListLabel.HIGHWAY_CONSUMPTION, value: 0, isVisible: false, callback: async() => await this.technicalCharacteristics.presentFuelConsumptionAlert()})
+      this.technicalCharacteristics.combinedConsumption.set({ label: technicalListLabel.COMBINED_CONSUMPTION, value: 0, isVisible: false, callback: async() => await this.technicalCharacteristics.presentFuelConsumptionAlert()})
     }
   }
 
