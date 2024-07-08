@@ -24,6 +24,11 @@ ion-list {
   }
 }
 
+.sc-ion-input-md-h {
+  --highlight-color-focused: #9ca3af !important;
+  --highlight-color-valid: transparent !important;
+  --highlight-color-invalid: transparent !important;
+}
 @keyframes slide-down {
   from {
     transform: translateY(-100%);

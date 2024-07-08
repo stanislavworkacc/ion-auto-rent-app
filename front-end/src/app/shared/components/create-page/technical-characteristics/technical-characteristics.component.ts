@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, OnInit, signal, WritableSignal} from '@angular/core';
 import {
   IonButton, IonButtons,
   IonChip,
@@ -7,7 +7,7 @@ import {
   IonItem,
   IonLabel,
   IonList, IonModal, IonPopover,
-  IonText
+  IonText, ModalController
 } from "@ionic/angular/standalone";
 import {NgForOf, NgIf} from "@angular/common";
 import {AutoRIAService} from "../../../services/autoRIA.service";
@@ -48,9 +48,12 @@ export class TechnicalCharacteristicsComponent  implements OnInit {
   private autoRIAService: AutoRIAService = inject(AutoRIAService);
   private technicalCharacteristicsService: TechnicalCharacteristicsService = inject(TechnicalCharacteristicsService);
   private vehicleTypeService: VehicleTypeService = inject(VehicleTypeService);
+  private modalCtrl: ModalController = inject(ModalController);
 
   technicalListLabel = technicalListLabel;
   excludedLabels: technicalListLabel[] = [technicalListLabel.FUEL_CONSUMPTION, technicalListLabel.CITY_CONSUMPTION, technicalListLabel.COMBINED_CONSUMPTION, technicalListLabel.HIGHWAY_CONSUMPTION];
+
+  tempEngineValue: WritableSignal<string> = signal('');
   get technicalCharacteristics() {
     return this.technicalCharacteristicsService;
   }
@@ -68,6 +71,10 @@ export class TechnicalCharacteristicsComponent  implements OnInit {
       (item.label === technicalListLabel.FUEL && this.technicalCharacteristics.fuelType().value)
   }
 
+  onModalInput(value): void  {
+    this.tempEngineValue.set(value);
+  }
+
   async fuelConsumptionToggle(isToggle): Promise<void> {
     if(isToggle) {
       this.technicalCharacteristics.isFuelConsumption.set(true)
@@ -78,6 +85,11 @@ export class TechnicalCharacteristicsComponent  implements OnInit {
       this.technicalCharacteristics.highwayConsumption.set({ label: technicalListLabel.HIGHWAY_CONSUMPTION, value: 0, isVisible: false, callback: () => {} })
       this.technicalCharacteristics.combinedConsumption.set({ label: technicalListLabel.COMBINED_CONSUMPTION, value: 0, isVisible: false, callback: () => {} })
     }
+  }
+
+  submitInputModal(): void {
+    this.technicalCharacteristics.engineValue.set(this.tempEngineValue());
+    this.modalCtrl.dismiss();
   }
 
   onItemClicked(callback: Function): void {

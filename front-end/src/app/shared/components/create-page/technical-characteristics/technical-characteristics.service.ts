@@ -68,6 +68,8 @@ export class TechnicalCharacteristicsService {
     callback:  async () => await this.presentFuelConsumptionAlert()
     });
 
+  engineValue: WritableSignal<string> = signal('')
+
   public listItems: Signal<any> = computed( () => [
     {
       label: technicalListLabel.FUEL,
@@ -92,7 +94,7 @@ export class TechnicalCharacteristicsService {
     },
     {
       label: technicalListLabel.ENGINE_VALUE,
-      value: '',
+      value: this.engineValue(),
       isVisible: true,
       callback: () => {}
     },

@@ -60,29 +60,30 @@
 
 <ion-modal class="auth-modal"
            [trigger]="technicalListLabel.ENGINE_VALUE"
-           [initialBreakpoint]="0.2"
+           [initialBreakpoint]="0.3"
            [breakpoints]="[0, 0.5, 0.9]"
            [backdropDismiss]="false"
 >
   <ng-template>
     <ion-header class="flex items-center justify-between py-2 shadow-none">
       <div class="flex-grow text-center">
-        <ion-label class="text-[#0f1b44] font-[300] pl-[60px]">Об'єм двигуна</ion-label>
+        <ion-label class="text-gray-400 font-[300] pl-[60px]">Об'єм двигуна</ion-label>
       </div>
       <ion-buttons class="flex justify-end">
-        <ion-button>
-          <span class="text-gray-400 font-[300]">Додати</span>
+        <ion-button (click)="submitInputModal()">
+          <span class="text-[#0f1b44] font-[300]">Додати</span>
         </ion-button>
       </ion-buttons>
     </ion-header>
 
     <ion-content class="ion-padding">
-      <ion-input class="text-gray-400"
+      <ion-input class="text-gray-400 border rounded border-[#ffa649] !px-2"
                  limitEngine
                  label="Об'єм двигуна (л)"
                  type="text"
                  label-placement="floating"
                  placeholder="Введіть дані"
+                 (valueChange)="onModalInput($event)"
       >
       </ion-input>
     </ion-content>
