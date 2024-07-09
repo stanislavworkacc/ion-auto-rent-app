@@ -32,11 +32,11 @@ export const HOME_ROUTES: Routes = [
           import('./menu/menu-routes')
             .then(m => m.MENU_ROUTES),
       },
+      {
+        path: 'create',
+        component: CreatePageComponent
+      },
     ]
-  },
-  {
-    path: 'create',
-    component: CreatePageComponent
   },
   //home page redirect
   {

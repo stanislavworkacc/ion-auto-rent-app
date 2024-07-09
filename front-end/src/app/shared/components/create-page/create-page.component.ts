@@ -12,9 +12,9 @@ import {AutoRIAService} from "../../services/autoRIA.service";
 import {
   IonButton,
   IonButtons,
-  IonContent,
+  IonContent, IonFooter,
   IonHeader,
-  IonIcon, IonLabel,
+  IonIcon, IonLabel, IonTitle,
   IonToolbar,
   ModalController
 } from "@ionic/angular/standalone";
@@ -51,9 +51,11 @@ import {AdditionalOptionsComponent} from "./additional-options/additional-option
     ImagesInfoComponent,
     AddressInfoComponent,
     TechnicalCharacteristicsComponent,
-    AdditionalOptionsComponent
+    AdditionalOptionsComponent,
+    IonFooter,
+    IonTitle
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreatePageComponent  implements OnInit {
 
