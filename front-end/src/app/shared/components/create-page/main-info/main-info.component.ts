@@ -97,11 +97,18 @@ export class MainInfoComponent  implements OnInit, AfterViewInit {
   }
 
    async onVehicleType(): Promise<void> {
-     await this.vehicleService.initIonModal({
+     const modal = await this.vehicleService.initIonModal({
        withSearch: false,
        title: 'Тип транспорту',
        items: this.vehicleService.transportTypes,
        selectedValue: this.vehicleService.selectedType,
+     })
+
+     modal.onWillDismiss()
+       .then(async(res): Promise<void> =>  {
+       if(res.data.isSubmit) {
+         await this.initVehicleMarks()
+       }
      })
   }
 
