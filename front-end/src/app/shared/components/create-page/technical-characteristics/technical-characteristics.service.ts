@@ -69,6 +69,8 @@ export class TechnicalCharacteristicsService {
   selectedColorType: WritableSignal<{ name: string, value: number }> = signal({ name: '', value: null });
   colorType: Signal<any> = computed(() => this.selectedColorType());
 
+  isMetallic: WritableSignal<boolean> = signal(false);
+
   get vehicleService() {
     return this.vehicleTypeService;
   }

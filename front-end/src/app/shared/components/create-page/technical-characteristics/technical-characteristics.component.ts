@@ -109,6 +109,14 @@ export class TechnicalCharacteristicsComponent  implements OnInit {
     }
   }
 
+  toggleMetallic(isToggle): void {
+    if(isToggle) {
+      this.technicalCharacteristics.isMetallic.set(true);
+    } else {
+      this.technicalCharacteristics.isMetallic.set(false);
+    }
+  }
+
   submitInputModal(type): void {
     if(type === 'engineValue') {
       this.technicalCharacteristics.engineValue.set(this.tempEngineValue());

@@ -63,7 +63,7 @@
       </div>
 
       <ion-label class="!text-gray-400 text-nowrap">Металік:</ion-label>
-      <app-switcher></app-switcher>
+      <app-switcher [isOn]="technicalCharacteristics.isMetallic()"  (toggleChange)="toggleMetallic($event)"></app-switcher>
     </ion-item>
   }
 
