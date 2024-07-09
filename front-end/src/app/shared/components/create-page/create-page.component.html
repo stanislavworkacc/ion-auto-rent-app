@@ -38,11 +38,21 @@
 
   <div class="mb-5 relative">
     <app-address-info [isFormReset]="isFormReset()"></app-address-info>
-    <ion-label class="text-[#333333] text-sm font-[300] absolute -top-[9px] left-[12px] bg-[#fff7f7] rounded-[12px] px-2">Місцезнаходження</ion-label>
+    <ion-label class="text-[#333333] text-sm font-[300] absolute -top-[9px] left-[12px] bg-white rounded-[12px] px-2 border-t-[1px] border-[#929292]">Місцезнаходження</ion-label>
   </div>
 
   <div class="mb-5 relative">
     <technical-characteristics></technical-characteristics>
     <ion-label class="text-[#333333] text-sm font-[300] absolute -top-[9px] left-[12px] bg-[#ffffff] rounded-[12px] px-2">Технічні характеристики</ion-label>
   </div>
+
+  <div class="mb-2 relative flex items-center">
+    <div class="flex-grow border-t-2  border-dashed border-[#0f1b44]"></div>
+    <ion-label class="text-[#333333] text-sm font-[300] px-2">Додаткові опції</ion-label>
+    <div class="flex-grow border-t-2  border-dashed border-[#0f1b44]"></div>
+  </div>
+
+  <additional-options></additional-options>
+
+
 </ion-content>

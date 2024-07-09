@@ -30,6 +30,7 @@ import {TechnicalCharacteristicsComponent} from "./technical-characteristics/tec
 import {VehicleTypeService} from "./main-info/vehicle-type.service";
 import {TechnicalCharacteristicsService} from "./technical-characteristics/technical-characteristics.service";
 import {technicalListLabel} from "./technical-characteristics/technicalCharacteristics.enums";
+import {AdditionalOptionsComponent} from "./additional-options/additional-options.component";
 
 @Component({
   selector: 'app-create-page',
@@ -49,7 +50,8 @@ import {technicalListLabel} from "./technical-characteristics/technicalCharacter
     MainInfoComponent,
     ImagesInfoComponent,
     AddressInfoComponent,
-    TechnicalCharacteristicsComponent
+    TechnicalCharacteristicsComponent,
+    AdditionalOptionsComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })

@@ -1,0 +1,27 @@
+.chip-container {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  white-space: nowrap;
+  min-width: 100%;
+  flex: 1;
+  max-width: 100%;
+}
+
+ion-chip {
+  background: #e8edfc;
+  color: #333333;
+  min-width: min-content !important;
+  display: flex;
+  justify-content: center;
+  border: 0.1px solid #333333;
+
+  ion-icon {
+    color: #ff4500;
+  }
+}
+
+.selected-chip {
+  border: 1px solid #c9c8c8;
+  background: #dfe6ec;
+}
