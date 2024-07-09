@@ -46,7 +46,10 @@
     <ion-label class="text-[#333333] text-sm font-[300] absolute -top-[9px] left-[12px] bg-[#ffffff] rounded-[12px] px-2">Технічні характеристики</ion-label>
   </div>
 
-  <div class="flex flex-col" (click)="showAdditionalOptions.set(!showAdditionalOptions())">
+  <div class="flex flex-col"
+       [class.mb-[100px]]="!showAdditionalOptions()"
+       (click)="showAdditionalOptions.set(!showAdditionalOptions())"
+  >
     <div class="relative flex items-center">
       <div class="flex-grow border-t-2 border-dotted border-[#0f1b44]"></div>
       <ion-label class="text-[#333333] text-[16px] font-[300] px-2">Додаткові опції</ion-label>
@@ -64,7 +67,10 @@
       }
     </div>
   </div>
+
   @if (showAdditionalOptions()) {
     <additional-options></additional-options>
   }
+
+  <ripple-btn [title]="'Зберегти'"></ripple-btn>
 </ion-content>

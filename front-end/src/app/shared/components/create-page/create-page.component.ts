@@ -14,7 +14,7 @@ import {
   IonButtons,
   IonContent, IonFooter,
   IonHeader,
-  IonIcon, IonLabel, IonTitle,
+  IonIcon, IonLabel, IonRippleEffect, IonTitle,
   IonToolbar,
   ModalController
 } from "@ionic/angular/standalone";
@@ -33,6 +33,7 @@ import {technicalListLabel} from "./technical-characteristics/technicalCharacter
 import {AdditionalOptionsComponent} from "./additional-options/additional-options.component";
 import {NgIf} from "@angular/common";
 import {AdditionalOptionsService} from "./additional-options/additional-options.service";
+import {RippleBtnComponent} from "../buttons/ripple-btn/ripple-btn.component";
 
 @Component({
   selector: 'app-create-page',
@@ -56,7 +57,9 @@ import {AdditionalOptionsService} from "./additional-options/additional-options.
     AdditionalOptionsComponent,
     IonFooter,
     IonTitle,
-    NgIf
+    NgIf,
+    IonRippleEffect,
+    RippleBtnComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
