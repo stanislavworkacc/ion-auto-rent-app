@@ -31,6 +31,8 @@ import {VehicleTypeService} from "./main-info/vehicle-type.service";
 import {TechnicalCharacteristicsService} from "./technical-characteristics/technical-characteristics.service";
 import {technicalListLabel} from "./technical-characteristics/technicalCharacteristics.enums";
 import {AdditionalOptionsComponent} from "./additional-options/additional-options.component";
+import {NgIf} from "@angular/common";
+import {AdditionalOptionsService} from "./additional-options/additional-options.service";
 
 @Component({
   selector: 'app-create-page',
@@ -53,7 +55,8 @@ import {AdditionalOptionsComponent} from "./additional-options/additional-option
     TechnicalCharacteristicsComponent,
     AdditionalOptionsComponent,
     IonFooter,
-    IonTitle
+    IonTitle,
+    NgIf
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -69,15 +72,20 @@ export class CreatePageComponent  implements OnInit {
   private actionSheetCtrl: ActionSheetController = inject(ActionSheetController);
   private vehicleTypeService: VehicleTypeService = inject(VehicleTypeService);
   private technicalCharacteristicsService: TechnicalCharacteristicsService = inject(TechnicalCharacteristicsService);
+  private additionalOptionsService: AdditionalOptionsService = inject(AdditionalOptionsService);
 
   isFormReset: WritableSignal<boolean> = signal(false);
-
+  showAdditionalOptions: WritableSignal<boolean> =  signal(false);
   get vehicleService() {
     return this.vehicleTypeService;
   }
 
   get technicalCharacteristics() {
     return this.technicalCharacteristicsService;
+  }
+
+  get additionalOptions() {
+    return this.additionalOptionsService;
   }
 
   goBack() {

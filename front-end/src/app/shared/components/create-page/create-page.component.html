@@ -46,11 +46,25 @@
     <ion-label class="text-[#333333] text-sm font-[300] absolute -top-[9px] left-[12px] bg-[#ffffff] rounded-[12px] px-2">Технічні характеристики</ion-label>
   </div>
 
-  <div class="relative flex items-center">
-    <div class="flex-grow border-t-2  border-dashed border-[#0f1b44]"></div>
-    <ion-label class="text-[#333333] text-[16px] font-[300] px-2">Додаткові опції</ion-label>
-    <div class="flex-grow border-t-2  border-dashed border-[#0f1b44]"></div>
-  </div>
+  <div class="flex flex-col" (click)="showAdditionalOptions.set(!showAdditionalOptions())">
+    <div class="relative flex items-center">
+      <div class="flex-grow border-t-2 border-dotted border-[#0f1b44]"></div>
+      <ion-label class="text-[#333333] text-[16px] font-[300] px-2">Додаткові опції</ion-label>
+      <div class="flex-grow border-t-2 border-dotted border-[#0f1b44]"></div>
+    </div>
 
-  <additional-options></additional-options>
+    <div class="ellipsis-text text-[#494949]">
+      @for (option of additionalOptions.additionalChips(); track option.value) {
+        <span class="text-xs pr-[2px] text-justify ellipsis-text">{{ option.label }},</span>
+      }
+      @if (showAdditionalOptions()) {
+        <ion-icon name="chevron-up-outline" class="flex justify-center w-full text-[#494949]"></ion-icon>
+      } @else {
+        <ion-icon name="chevron-down-outline" class="flex justify-center w-full text-[#494949]"></ion-icon>
+      }
+    </div>
+  </div>
+  @if (showAdditionalOptions()) {
+    <additional-options></additional-options>
+  }
 </ion-content>

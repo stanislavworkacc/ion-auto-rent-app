@@ -8,67 +8,67 @@ export class AdditionalOptionsService {
   public additionalChips: Signal<any> = computed( () => [
     {
       label: AdditionalChips.AIR_CONDITIONER,
-      value: 'Кондиціонер',
+      value: '',
       isVisible: true,
       callback: () => {}
     },
     {
-      label: AdditionalChips.AIR_CONDITIONER,
-      value: 'Салон',
+      label: AdditionalChips.SALON,
+      value: '',
       isVisible: true,
       callback: () => {}
     },
     {
-      label: AdditionalChips.AIR_CONDITIONER,
-      value: 'Палітра салону',
+      label: AdditionalChips.SALON_COLOR,
+      value: '',
       isVisible: true,
       callback: () => {}
     },
     {
-      label: AdditionalChips.AIR_CONDITIONER,
-      value: 'Дитяче крісло',
+      label: AdditionalChips.BABY_SEAT,
+      value: '',
       isVisible: true,
       callback: () => {}
     },
     {
-      label: AdditionalChips.AIR_CONDITIONER,
-      value: 'Підсилювач керма',
+      label: AdditionalChips.STEER_HYDRO,
+      value: '',
       isVisible: true,
       callback: () => {}
     },
     {
-      label: AdditionalChips.AIR_CONDITIONER,
-      value: 'Фари',
+      label: AdditionalChips.LIGHTS,
+      value: '',
       isVisible: true,
       callback: () => {}
     },
     {
-      label: AdditionalChips.AIR_CONDITIONER,
-      value: 'Запасне колесо',
+      label: AdditionalChips.WHEEL,
+      value: '',
       isVisible: true,
       callback: () => {}
     },
     {
-      label: AdditionalChips.AIR_CONDITIONER,
-      value: 'Підігрів сидінь',
+      label: AdditionalChips.HEATED_SEATS,
+      value: '',
       isVisible: true,
       callback: () => {}
     },
     {
-      label: AdditionalChips.AIR_CONDITIONER,
-      value: 'Вентиляція сидінь',
+      label: AdditionalChips.SEAT_VENTILATION,
+      value: '',
       isVisible: true,
       callback: () => {}
     },
     {
-      label: AdditionalChips.AIR_CONDITIONER,
-      value: 'Пам\'ять сидінь',
+      label: AdditionalChips.SEAT_MEMORY,
+      value: '',
       isVisible: true,
       callback: () => {}
     },
     {
-      label: AdditionalChips.AIR_CONDITIONER,
-      value: 'Електросклопідйомники',
+      label: AdditionalChips.WINDOW_LIFTS,
+      value: '',
       isVisible: true,
       callback: () => {}
     },
