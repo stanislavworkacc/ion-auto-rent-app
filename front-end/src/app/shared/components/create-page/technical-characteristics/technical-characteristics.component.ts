@@ -18,7 +18,7 @@ import {
   IonList, IonModal, IonPopover, IonRadio, IonRadioGroup,
   IonText, ModalController
 } from "@ionic/angular/standalone";
-import {NgForOf, NgIf} from "@angular/common";
+import {NgClass, NgForOf, NgIf} from "@angular/common";
 import {AutoRIAService} from "../../../services/autoRIA.service";
 import {TechnicalCharacteristicsService} from "./technical-characteristics.service";
 import {technicalListLabel} from "./technicalCharacteristics.enums";
@@ -52,7 +52,8 @@ import {LimitEngineVolumeDirective} from "../../../directives/engine-volume.dire
     IonInfiniteScroll,
     IonInfiniteScrollContent,
     IonRadio,
-    IonRadioGroup
+    IonRadioGroup,
+    NgClass
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })

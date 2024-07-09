@@ -56,6 +56,17 @@
       }
     </ion-item>
   }
+  @if (technicalCharacteristics.colorType().value) {
+    <ion-item class="slide-down-animation">
+      <div class="min-w-[10%]">
+        <ion-icon name="checkmark" slot="start" class="text-xs text-green-400"></ion-icon>
+      </div>
+
+      <ion-label class="!text-gray-400 text-nowrap">Металік:</ion-label>
+      <app-switcher></app-switcher>
+    </ion-item>
+  }
+
 </ion-list>
 
 <ion-modal class="auth-modal"
