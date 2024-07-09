@@ -117,6 +117,11 @@ export class CreatePageComponent  implements OnInit {
     this.technicalCharacteristics.highwayConsumption.set({ label: technicalListLabel.HIGHWAY_CONSUMPTION, value: 0, isVisible: false, callback: async (): Promise<void> => await this.technicalCharacteristics.presentFuelConsumptionAlert() });
     this.technicalCharacteristics.combinedConsumption.set({ label: technicalListLabel.COMBINED_CONSUMPTION, value: 0, isVisible: false, callback: async (): Promise<void> => await this.technicalCharacteristics.presentFuelConsumptionAlert() });
     this.technicalCharacteristics.selectedTransMission.set({ name: '', value: null });
+    this.technicalCharacteristics.engineValue.set('');
+    this.technicalCharacteristics.powerValue.set('');
+    this.technicalCharacteristics.hpPower.set(false);
+    this.technicalCharacteristics.kWPower.set(false);
+    this.technicalCharacteristics.selectedColorType.set({ name: '', value: null });
   }
   ngOnInit() {}
 }
