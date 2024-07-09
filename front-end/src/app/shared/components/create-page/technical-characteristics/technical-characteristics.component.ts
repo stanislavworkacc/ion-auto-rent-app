@@ -1,4 +1,13 @@
-import {ChangeDetectionStrategy, Component, inject, OnInit, signal, WritableSignal} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  input,
+  InputSignal,
+  OnInit,
+  signal,
+  WritableSignal
+} from '@angular/core';
 import {
   IonButton, IonButtons,
   IonChip,

@@ -22,11 +22,14 @@ import {FormBuilder} from "@angular/forms";
 import {GooglePlacesSerivce} from "../../services/google-places.serivce";
 import {CloseBtnComponent} from "../../ui-kit/components/close-btn/close-btn.component";
 import {BackButtonComponent} from "../../ui-kit/components/back-button/back-button.component";
-import {NavController} from "@ionic/angular";
+import {ActionSheetController, NavController} from "@ionic/angular";
 import {MainInfoComponent} from "./main-info/main-info.component";
 import {ImagesInfoComponent} from "./images-info/images-info.component";
 import {AddressInfoComponent} from "./address-info/address-info.component";
 import {TechnicalCharacteristicsComponent} from "./technical-characteristics/technical-characteristics.component";
+import {VehicleTypeService} from "./main-info/vehicle-type.service";
+import {TechnicalCharacteristicsService} from "./technical-characteristics/technical-characteristics.service";
+import {technicalListLabel} from "./technical-characteristics/technicalCharacteristics.enums";
 
 @Component({
   selector: 'app-create-page',
@@ -59,8 +62,20 @@ export class CreatePageComponent  implements OnInit {
   private googlePlacesService: GooglePlacesSerivce = inject(GooglePlacesSerivce);
   private destroyRef: DestroyRef = inject(DestroyRef);
   private renderer: Renderer2 = inject(Renderer2);
+  private actionSheetCtrl: ActionSheetController = inject(ActionSheetController);
+  private vehicleTypeService: VehicleTypeService = inject(VehicleTypeService);
+  private technicalCharacteristicsService: TechnicalCharacteristicsService = inject(TechnicalCharacteristicsService);
 
   isFormReset: WritableSignal<boolean> = signal(false);
+
+  get vehicleService() {
+    return this.vehicleTypeService;
+  }
+
+  get technicalCharacteristics() {
+    return this.technicalCharacteristicsService;
+  }
+
   goBack() {
     this.navCtrl.back()
   }
@@ -68,8 +83,40 @@ export class CreatePageComponent  implements OnInit {
     this.modalCtrl.dismiss()
   }
 
-  resetForm(): void {
-    this.isFormReset.set(!this.isFormReset())
+  async hardReset(): Promise<void> {
+    const actionSheet: HTMLIonActionSheetElement = await this.actionSheetCtrl.create({
+      header: 'Скидання даних',
+      subHeader: 'Всі введені дані будуть скасовані. Ви впевнені, що хочете оновити?',
+      buttons: [{
+        text: 'Оновити',
+        role: 'destructive',
+        handler: (): void => {
+          this.isFormReset.set(!this.isFormReset());
+          this.allDataReset();
+        }
+      }, {
+        text: 'Відмінити',
+        role: 'cancel',
+        handler: () => {
+
+        }
+      }]
+    });
+
+    await actionSheet.present();
+  }
+
+  allDataReset() {
+    this.vehicleService.selectedYear.set({ label: '', value: '' });
+    this.vehicleService.selectedVehicleMark.set({ name: '', value: null });
+    this.vehicleService.selectedVehicleModel.set({ name: '', value: null });
+    this.vehicleService.selectedBodyType.set({ name: '', value: null });
+    this.technicalCharacteristics.selectedFuelType.set({ name: '', value: null });
+    this.technicalCharacteristics.isFuelConsumption.set(false);
+    this.technicalCharacteristics.cityConsumption.set({ label: technicalListLabel.CITY_CONSUMPTION, value: 0, isVisible: false, callback: async (): Promise<void> => await this.technicalCharacteristics.presentFuelConsumptionAlert() });
+    this.technicalCharacteristics.highwayConsumption.set({ label: technicalListLabel.HIGHWAY_CONSUMPTION, value: 0, isVisible: false, callback: async (): Promise<void> => await this.technicalCharacteristics.presentFuelConsumptionAlert() });
+    this.technicalCharacteristics.combinedConsumption.set({ label: technicalListLabel.COMBINED_CONSUMPTION, value: 0, isVisible: false, callback: async (): Promise<void> => await this.technicalCharacteristics.presentFuelConsumptionAlert() });
+    this.technicalCharacteristics.selectedTransMission.set({ name: '', value: null });
   }
   ngOnInit() {}
 }

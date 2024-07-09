@@ -2,8 +2,8 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
-  DestroyRef,
-  inject,
+  DestroyRef, effect,
+  inject, input, InputSignal,
   OnInit,
   Renderer2,
   signal, ViewChild,
@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import {IonIcon, IonInput, IonLabel} from "@ionic/angular/standalone";
 import {ValidateInputDirective} from "../../../directives/validate-input.directive";
-import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {GooglePlacesSerivce} from "../../../services/google-places.serivce";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {filter} from "rxjs/operators";
@@ -39,6 +39,7 @@ export class AddressInfoComponent  implements OnInit, AfterViewInit {
   private destroyRef: DestroyRef = inject(DestroyRef);
   private renderer: Renderer2 = inject(Renderer2);
 
+  isFormReset: InputSignal<boolean> = input(false);
   public form!: FormGroup;
   public address!: FormControl;
   public isFocused: { [key: string]: boolean } = { address: false };
@@ -102,4 +103,11 @@ export class AddressInfoComponent  implements OnInit, AfterViewInit {
     this.initGooglePlaces();
   }
 
+  constructor() {
+    effect((): void => {
+      if(this.isFormReset()){
+        this.address.reset();
+      }
+    });
+  }
 }

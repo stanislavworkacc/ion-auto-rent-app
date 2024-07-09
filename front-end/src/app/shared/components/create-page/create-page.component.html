@@ -11,7 +11,7 @@
 
     <ion-buttons slot="end">
       <ion-button class="rounded flex items-center bg-[#e8edfc]"
-                  (click)="resetForm()"
+                  (click)="hardReset()"
       >
         <ion-label class="text-xs uppercase text-black mr-1">Оновити</ion-label>
         <ion-icon
@@ -37,7 +37,7 @@
   </div>
 
   <div class="mb-5 relative">
-    <app-address-info></app-address-info>
+    <app-address-info [isFormReset]="isFormReset()"></app-address-info>
     <ion-label class="text-[#333333] text-sm font-[300] absolute -top-[9px] left-[12px] bg-[#ffffff] rounded-[12px] px-2">Місцезнаходження</ion-label>
   </div>
 
