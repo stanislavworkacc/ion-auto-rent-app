@@ -1,76 +1,93 @@
-import {computed, Injectable, Signal} from "@angular/core";
+import {computed, Injectable, signal, Signal, WritableSignal} from "@angular/core";
 import {AdditionalChips} from "./additional-options.enums";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdditionalOptionsService {
-  public additionalChips: Signal<any> = computed( () => [
+  chipsArray: WritableSignal<{ label: string, value: string, selected: boolean, callback: () => void }[]> = signal([
     {
       label: AdditionalChips.AIR_CONDITIONER,
       value: '',
-      isVisible: true,
+      selected: false,
       callback: () => {}
     },
     {
       label: AdditionalChips.SALON,
       value: '',
-      isVisible: true,
+      selected: false,
       callback: () => {}
     },
     {
       label: AdditionalChips.SALON_COLOR,
       value: '',
-      isVisible: true,
+      selected: false,
       callback: () => {}
     },
     {
       label: AdditionalChips.BABY_SEAT,
       value: '',
-      isVisible: true,
+      selected: false,
       callback: () => {}
     },
     {
       label: AdditionalChips.STEER_HYDRO,
       value: '',
-      isVisible: true,
+      selected: false,
       callback: () => {}
     },
     {
       label: AdditionalChips.LIGHTS,
       value: '',
-      isVisible: true,
+      selected: false,
       callback: () => {}
     },
     {
       label: AdditionalChips.WHEEL,
       value: '',
-      isVisible: true,
+      selected: false,
       callback: () => {}
     },
     {
       label: AdditionalChips.HEATED_SEATS,
       value: '',
-      isVisible: true,
+      selected: false,
       callback: () => {}
     },
     {
       label: AdditionalChips.SEAT_VENTILATION,
       value: '',
-      isVisible: true,
+      selected: false,
       callback: () => {}
     },
     {
       label: AdditionalChips.SEAT_MEMORY,
       value: '',
-      isVisible: true,
+      selected: false,
       callback: () => {}
     },
     {
       label: AdditionalChips.WINDOW_LIFTS,
       value: '',
-      isVisible: true,
+      selected: false,
       callback: () => {}
     },
-  ]);
+  ])
+  public additionalChips: Signal<{ label: string, value: string, selected: boolean, callback: () => void }[]>
+    = computed(() => this.chipsArray());
+
+  selectOption(selectedChip: { label: string, value: string, selected: boolean, callback: () => void }): void {
+    const updatedChipsArray = this.chipsArray().map(chip => {
+      if (chip.label === selectedChip.label) {
+        return { ...chip, selected: !chip.selected };
+      }
+      return chip;
+    });
+
+    if (selectedChip.selected) {
+      selectedChip.callback();
+    }
+
+    this.chipsArray.set(updatedChipsArray);
+  }
 }

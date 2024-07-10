@@ -1,9 +1,10 @@
-
 <div class="chip-container flex-wrap py-2">
   @for (chip of additionalOptions.additionalChips(); track chip.value) {
-    <ion-chip outline="outline">
+    <ion-chip outline="outline"
+              (click)="selectOption(chip)"
+              [class.selected-chip]="chip.selected"
+    >
       <ion-label>{{ chip.label }}</ion-label>
-      <img [src]="chip.icon" class="h-[20px] ml-1">
     </ion-chip>
   }
 </div>

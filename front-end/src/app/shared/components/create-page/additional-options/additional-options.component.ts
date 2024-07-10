@@ -1,6 +1,5 @@
 import {ChangeDetectionStrategy, Component, inject, OnInit} from '@angular/core';
 import {AdditionalOptionsService} from "./additional-options.service";
-import {AllCarsChip} from "../../../../home/menu/car-park/all-cars/all-cars.enums";
 import {IonChip, IonIcon, IonLabel} from "@ionic/angular/standalone";
 
 @Component({
@@ -22,7 +21,10 @@ export class AdditionalOptionsComponent  implements OnInit {
   get additionalOptions() {
     return this.additionalOptionsService;
   }
+
+  selectOption(option): void {
+    this.additionalOptionsService.selectOption(option);
+  }
   ngOnInit() {}
 
-  protected readonly AllCarsChip = AllCarsChip;
 }
