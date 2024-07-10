@@ -30,7 +30,8 @@ export class AdditionalOptionsComponent  implements OnInit {
   }
 
   selectOption(option): void {
-    this.additionalOptionsService.selectOption(option);
+    this.additionalOptions.selectOption(option);
   }
+
   ngOnInit() {}
 }

@@ -67,25 +67,25 @@ export class AdditionalOptionsService {
       label: AdditionalChips.HEATED_SEATS,
       value: '',
       selected: false,
-      callback: () => {}
+      callback: async () => await this.initHeatedSeatsSelection()
     },
     {
       label: AdditionalChips.SEAT_VENTILATION,
       value: '',
       selected: false,
-      callback: () => {}
+      callback: async () => await this.initSeatsVentilation()
     },
     {
       label: AdditionalChips.SEAT_MEMORY,
       value: '',
       selected: false,
-      callback: () => {}
+      callback: async () => await this.initSeatsMemory()
     },
     {
       label: AdditionalChips.WINDOW_LIFTS,
       value: '',
       selected: false,
-      callback: () => {}
+      callback: async () => await this.initWindowLifts()
     },
   ])
   public additionalChips: Signal<{ label: string, value: string, selected: boolean, callback: () => void }[]>
@@ -251,6 +251,111 @@ export class AdditionalOptionsService {
           handler: (data): void => {
             const selectedOptions = data.map(option => JSON.parse(option));
             this.setChipValue(null, AdditionalChips.OPTICS, selectedOptions);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async initHeatedSeatsSelection(): Promise<void> {
+    const alert: HTMLIonAlertElement = await this.alertCtrl.create({
+      header: 'Підігрів сидінь',
+      cssClass: 'wide-alert',
+      inputs: [
+        { type: 'checkbox', label: 'Передні', value: JSON.stringify({ value: 'forwardHeatedSeats', label: 'Передні' }), checked: true },
+        { type: 'checkbox', label: 'Задні', value: JSON.stringify({ value: 'backHeatedSeats', label: 'Задні' }) },
+      ],
+      buttons: [
+        { text: 'Скасувати',
+          role: 'cancel',
+          handler: () => this.resetInitialChip(AdditionalChips.HEATED_SEATS)
+        },
+        {
+          text: 'Ок',
+          handler: (data): void => {
+            const selectedOptions = data.map(option => JSON.parse(option));
+            this.setChipValue(null, AdditionalChips.HEATED_SEATS, selectedOptions);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async initSeatsVentilation(): Promise<void> {
+    const alert: HTMLIonAlertElement = await this.alertCtrl.create({
+      header: 'Вентиляція сидінь',
+      cssClass: 'wide-alert',
+      inputs: [
+        { type: 'checkbox', label: 'Передні', value: JSON.stringify({ value: 'forwardVentilationSeats', label: 'Передні' }), checked: true },
+        { type: 'checkbox', label: 'Задні', value: JSON.stringify({ value: 'backVentilationSeats', label: 'Задні' }) },
+      ],
+      buttons: [
+        { text: 'Скасувати',
+          role: 'cancel',
+          handler: () => this.resetInitialChip(AdditionalChips.SEAT_VENTILATION)
+        },
+        {
+          text: 'Ок',
+          handler: (data): void => {
+            const selectedOptions = data.map(option => JSON.parse(option));
+            this.setChipValue(null, AdditionalChips.SEAT_VENTILATION, selectedOptions);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async initSeatsMemory(): Promise<void> {
+    const alert: HTMLIonAlertElement = await this.alertCtrl.create({
+      header: 'Пам\'ять сидінь',
+      cssClass: 'wide-alert',
+      inputs: [
+        { type: 'checkbox', label: 'Водійське сидіння', value: JSON.stringify({ value: 'driverMemorySeat', label: 'Водійське сидіння' }), checked: true },
+        { type: 'checkbox', label: 'Передні', value: JSON.stringify({ value: 'forwardMemorySeat', label: 'Передні' }) },
+        { type: 'checkbox', label: 'Задні', value: JSON.stringify({ value: 'backMemorySeat', label: 'Задні' }) },
+      ],
+      buttons: [
+        { text: 'Скасувати',
+          role: 'cancel',
+          handler: () => this.resetInitialChip(AdditionalChips.SEAT_MEMORY)
+        },
+        {
+          text: 'Ок',
+          handler: (data): void => {
+            const selectedOptions = data.map(option => JSON.parse(option));
+            this.setChipValue(null, AdditionalChips.SEAT_MEMORY, selectedOptions);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async initWindowLifts(): Promise<void> {
+    const alert: HTMLIonAlertElement = await this.alertCtrl.create({
+      header: 'Склопідйомники',
+      cssClass: 'wide-alert',
+      inputs: [
+        { type: 'checkbox', label: 'Передні', value: JSON.stringify({ value: 'forwardWindowLifts', label: 'Передні' }) },
+        { type: 'checkbox', label: 'Задні', value: JSON.stringify({ value: 'backWindowLifts', label: 'Задні' }) },
+      ],
+      buttons: [
+        { text: 'Скасувати',
+          role: 'cancel',
+          handler: () => this.resetInitialChip(AdditionalChips.WINDOW_LIFTS)
+        },
+        {
+          text: 'Ок',
+          handler: (data): void => {
+            const selectedOptions = data.map(option => JSON.parse(option));
+            this.setChipValue(null, AdditionalChips.WINDOW_LIFTS, selectedOptions);
           }
         }
       ]
