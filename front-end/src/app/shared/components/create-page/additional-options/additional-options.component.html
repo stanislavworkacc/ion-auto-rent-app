@@ -5,7 +5,12 @@
               [class.selected-chip]="chip.selected"
     >
       <ion-label>{{ !chip.value ? chip.label : (isItemArray(chip.value) ? chip.label : chip.value ) }}</ion-label>
-      @if (chip.selected) {
+
+      @if (isItemArray(chip.value)) {
+        <ion-badge class="ml-1 bg-green-400">{{chip.value.length}}</ion-badge>
+      }
+
+      @if (chip.selected && !isItemArray(chip.value)) {
         <ion-icon name="checkmark-circle-outline" class="!text-green-400"></ion-icon>
       }
     </ion-chip>
