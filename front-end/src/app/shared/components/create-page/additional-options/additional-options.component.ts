@@ -1,6 +1,7 @@
 import {ChangeDetectionStrategy, Component, inject, OnInit} from '@angular/core';
 import {AdditionalOptionsService} from "./additional-options.service";
 import {IonChip, IonIcon, IonLabel} from "@ionic/angular/standalone";
+import {JsonPipe} from "@angular/common";
 
 @Component({
   selector: 'additional-options',
@@ -10,7 +11,8 @@ import {IonChip, IonIcon, IonLabel} from "@ionic/angular/standalone";
   imports: [
     IonChip,
     IonIcon,
-    IonLabel
+    IonLabel,
+    JsonPipe
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })

@@ -53,6 +53,12 @@
   }
 }
 
+.wide-alert {
+  --min-width: 330px !important;
+
+}
+
+
 .ellipsis-text {
   overflow: hidden;
   white-space: nowrap;

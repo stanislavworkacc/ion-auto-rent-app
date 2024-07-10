@@ -14,7 +14,7 @@ ion-chip {
   min-width: min-content !important;
   display: flex;
   justify-content: center;
-  border: 0.1px solid #333333;
+  //border: 1px solid #333333;
 
   ion-icon {
     color: #ff4500;
@@ -22,8 +22,9 @@ ion-chip {
 }
 
 .selected-chip {
-  border: 1px solid #c9c8c8;
+  //border: 1px solid #c9c8c8;
   background: #19273c;
   color: white;
 }
+
 
