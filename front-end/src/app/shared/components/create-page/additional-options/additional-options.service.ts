@@ -107,6 +107,7 @@ export class AdditionalOptionsService {
   async initSalonSelection(): Promise<void> {
     const alert: HTMLIonAlertElement = await this.alertCtrl.create({
       header: 'Метеріали салону',
+      cssClass: 'wide-alert',
       inputs: [
         { type: 'radio', label: 'Шкіра', value: JSON.stringify({ value: 'Leather', label: 'Шкіра' }), checked: true },
         { type: 'radio', label: 'Тканина', value: JSON.stringify({ value: 'Fabric', label: 'Тканина' }) },
@@ -116,7 +117,19 @@ export class AdditionalOptionsService {
         { type: 'radio', label: 'Комбінований', value: JSON.stringify({ value: 'Combined', label: 'Комбінований' }) }
       ],
       buttons: [
-        { text: 'Скасувати', role: 'cancel' },
+        { text: 'Скасувати',
+          role: 'cancel',
+          handler: () => {
+            const updatedChipsArray = this.chipsArray().map(chip => {
+              if (chip.label === AdditionalChips.SALON) {
+                return { ...chip, selected: false };
+              }
+              return chip;
+            });
+
+            this.chipsArray.set(updatedChipsArray);
+          }
+        },
         {
           text: 'Ок',
           handler: (data): void => {
