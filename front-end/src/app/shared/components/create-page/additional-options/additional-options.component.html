@@ -4,7 +4,7 @@
               (click)="selectOption(chip)"
               [class.selected-chip]="chip.selected"
     >
-      <ion-label>{{ !chip.value ? chip.label : chip.value }}</ion-label>
+      <ion-label>{{ !chip.value ? chip.label : (isItemArray(chip.value) ? chip.label : chip.value ) }}</ion-label>
       @if (chip.selected) {
         <ion-icon name="checkmark-circle-outline" class="!text-green-400"></ion-icon>
       }

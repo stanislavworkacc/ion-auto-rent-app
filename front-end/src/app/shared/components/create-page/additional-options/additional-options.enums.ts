@@ -1,10 +1,12 @@
 export enum AdditionalChips {
   AIR_CONDITIONER = 'Кондиціонер',
+  CONTROL_CLIMATE = 'Клімат-контроль',
   SALON = 'Салон',
   SALON_COLOR = 'Палітра салону',
   BABY_SEAT = 'Дитяче крісло',
   STEER_HYDRO = 'Підсилювач керма',
   LIGHTS = 'Фари',
+  OPTICS = 'Оптика',
   WHEEL = 'Запасне колесо',
   HEATED_SEATS = 'Підігрів сидінь',
   SEAT_VENTILATION = 'Вентиляція сидінь',

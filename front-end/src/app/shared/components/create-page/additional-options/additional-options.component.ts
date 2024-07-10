@@ -24,9 +24,12 @@ export class AdditionalOptionsComponent  implements OnInit {
     return this.additionalOptionsService;
   }
 
+   isItemArray(item): boolean {
+     return Array.isArray(item);
+  }
+
   selectOption(option): void {
     this.additionalOptionsService.selectOption(option);
   }
   ngOnInit() {}
-
 }
