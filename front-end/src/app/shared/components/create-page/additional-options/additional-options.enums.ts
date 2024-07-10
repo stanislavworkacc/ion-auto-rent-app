@@ -15,4 +15,5 @@ export enum AdditionalChips {
   PARKING_ASSIST = 'Система паркування',
   AIRBAGS = 'Подушки безпеки',
   MULTIMEDIA = 'Мультимедія',
+  NAVIGATION = 'Навігація',
 }

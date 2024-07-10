@@ -24,6 +24,13 @@ export class AdditionalOptionsService {
       callback: async () => await this.initControlClimate()
     },
     {
+      label: AdditionalChips.NAVIGATION,
+      value: '',
+      selected: false,
+      group: { value: 'comfort', label: 'Комфорт' },
+      callback: () => {}
+    },
+    {
       label: AdditionalChips.SALON,
       value: '',
       selected: false,
