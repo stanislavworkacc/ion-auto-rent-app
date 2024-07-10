@@ -285,7 +285,22 @@ export class AdditionalOptionsService {
   }
 
   async initMultimediaSelection(): Promise<void> {
-
+    await this.initMultiSelection('Мультимедія',
+      [
+        { label: 'Bluetooth', value: 'bluetooth' },
+        { label: 'AUX', value: 'aux' },
+        { label: 'USB', value: 'usb' },
+        { label: 'Акустика', value: 'acoustics' },
+        { label: 'Голосове керування', value: 'voiceManage' },
+        { label: 'Керування жестами', value: 'gesturesManage' },
+        { label: 'Android auto', value: 'androidAuto' },
+        { label: 'Car play', value: 'carPlay' },
+        { label: 'MirrorLink', value: 'mirrorLink' },
+        { label: 'LCD мультимедія', value: 'lcdMultimedia' },
+        { label: 'Мультимедія задніх пасажирів', value: 'backPassengersMultimedia' },
+      ],
+      AdditionalChips.MULTIMEDIA
+    );
   }
 
   async initMultiSelection(header: string, options, chipType: string): Promise<void> {
