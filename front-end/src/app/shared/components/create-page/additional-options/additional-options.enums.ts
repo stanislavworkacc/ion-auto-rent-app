@@ -12,4 +12,7 @@ export enum AdditionalChips {
   SEAT_VENTILATION = 'Вентиляція сидінь',
   SEAT_MEMORY = 'Пам\'ять сидінь',
   WINDOW_LIFTS = 'Електросклопідйомники',
+  PARKING_ASSIST = 'Система паркування',
+  AIRBAGS = 'Подушки безпеки',
+  MULTIMEDIA = 'Мультимедія',
 }

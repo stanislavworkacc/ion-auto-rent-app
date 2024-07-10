@@ -40,6 +40,12 @@ export class AdditionalOptionsService {
       callback: () => {}
     },
     {
+      label: AdditionalChips.MULTIMEDIA,
+      value: '',
+      selected: false,
+      callback: async () => await this.initMultimediaSelection()
+    },
+    {
       label: AdditionalChips.STEER_HYDRO,
       value: '',
       selected: false,
@@ -86,6 +92,18 @@ export class AdditionalOptionsService {
       value: '',
       selected: false,
       callback: async () => await this.initWindowLifts()
+    },
+    {
+      label: AdditionalChips.PARKING_ASSIST,
+      value: '',
+      selected: false,
+      callback: async () => await this.initParkingAssists()
+    },
+    {
+      label: AdditionalChips.AIRBAGS,
+      value: '',
+      selected: false,
+      callback: async () => await this.initAirbagsSelection()
     },
   ])
   public additionalChips: Signal<{ label: string, value: string, selected: boolean, callback: () => void }[]>
@@ -363,6 +381,72 @@ export class AdditionalOptionsService {
 
     await alert.present();
   }
+
+  async initParkingAssists(): Promise<void> {
+    const alert: HTMLIonAlertElement = await this.alertCtrl.create({
+      header: 'Система паркування',
+      cssClass: 'wide-alert',
+      inputs: [
+        { type: 'checkbox', label: 'Парктронік передній', value: JSON.stringify({ value: 'forwardParktronick', label: 'Парктронік передній' }) },
+        { type: 'checkbox', label: 'Парктронік задній', value: JSON.stringify({ value: 'backParktronick', label: 'Парктронік задній' }) },
+        { type: 'checkbox', label: 'Камера переднього виду', value: JSON.stringify({ value: 'forwardCamera', label: 'Камера переднього виду' }) },
+        { type: 'checkbox', label: 'Камера заднього виду', value: JSON.stringify({ value: 'backCamera', label: 'Камера заднього виду' }) },
+        { type: 'checkbox', label: 'Камера 360', value: JSON.stringify({ value: 'camera360', label: 'Камера 360' }) },
+        { type: 'checkbox', label: 'Система автоматичного паркування', value: JSON.stringify({ value: 'autoSystemParking', label: 'Система автоматичного паркування' }) },
+      ],
+      buttons: [
+        { text: 'Скасувати',
+          role: 'cancel',
+          handler: () => this.resetInitialChip(AdditionalChips.PARKING_ASSIST)
+        },
+        {
+          text: 'Ок',
+          handler: (data): void => {
+            const selectedOptions = data.map(option => JSON.parse(option));
+            this.setChipValue(null, AdditionalChips.PARKING_ASSIST, selectedOptions);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async initAirbagsSelection(): Promise<void> {
+    const alert: HTMLIonAlertElement = await this.alertCtrl.create({
+      header: 'Подушки безпеки',
+      cssClass: 'wide-alert',
+      inputs: [
+        { type: 'checkbox', label: 'Водія', value: JSON.stringify({ value: 'driverAirbag', label: 'Водія' }) },
+        { type: 'checkbox', label: 'Колін водія', value: JSON.stringify({ value: 'driverKneesAirbag', label: 'Колін водія' }) },
+        { type: 'checkbox', label: 'Пасажира', value: JSON.stringify({ value: 'passengerAirbag', label: 'Пасажира' }) },
+        { type: 'checkbox', label: 'Між водієм та пасажиром', value: JSON.stringify({ value: 'beetwenAirbag', label: 'Між водієм та пасажиром' }) },
+        { type: 'checkbox', label: 'Бічні задні', value: JSON.stringify({ value: 'backSideAirbag', label: 'Бічні задні' }) },
+        { type: 'checkbox', label: 'Бічні передні', value: JSON.stringify({ value: 'forwardSideAirbag', label: 'Бічні передні' }) },
+        { type: 'checkbox', label: 'Віконні', value: JSON.stringify({ value: 'windowAirbag', label: 'Віконні' }) },
+      ],
+      buttons: [
+        { text: 'Скасувати',
+          role: 'cancel',
+          handler: () => this.resetInitialChip(AdditionalChips.AIRBAGS)
+        },
+        {
+          text: 'Ок',
+          handler: (data): void => {
+            const selectedOptions = data.map(option => JSON.parse(option));
+            this.setChipValue(null, AdditionalChips.AIRBAGS, selectedOptions);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async initMultimediaSelection() {
+
+  }
+
 
   setChipValue(selectedOption, label: string, optionsArray?): void {
     const chips = this.chipsArray().map((chip) => {
