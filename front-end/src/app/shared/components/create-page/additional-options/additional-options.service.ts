@@ -8,108 +8,124 @@ import {AlertController} from "@ionic/angular/standalone";
 export class AdditionalOptionsService {
   private alertCtrl: AlertController = inject(AlertController)
 
-  chipsArray: WritableSignal<{ label: string, value: string, selected: boolean, callback: () => void }[]> = signal([
+  chipsArray: WritableSignal<{ label: string, value: string, selected: boolean, group: { value: string, label: string }, callback: () => void }[]> = signal([
     {
       label: AdditionalChips.AIR_CONDITIONER,
       value: '',
       selected: false,
+      group: { value: 'comfort', label: 'Комфорт' },
       callback: () => {}
     },
     {
       label: AdditionalChips.CONTROL_CLIMATE,
       value: '',
       selected: false,
+      group: { value: 'comfort', label: 'Комфорт' },
       callback: async () => await this.initControlClimate()
     },
     {
       label: AdditionalChips.SALON,
       value: '',
       selected: false,
+      group: { value: 'comfort', label: 'Комфорт' },
       callback: async () => await this.initSalonSelection()
     },
     {
       label: AdditionalChips.SALON_COLOR,
       value: '',
       selected: false,
+      group: { value: 'comfort', label: 'Комфорт' },
       callback: async () => await this.initSalonColors()
     },
     {
       label: AdditionalChips.BABY_SEAT,
       value: '',
       selected: false,
+      group: { value: 'safety', label: 'Безпека' },
       callback: () => {}
     },
     {
       label: AdditionalChips.MULTIMEDIA,
       value: '',
       selected: false,
+      group: { value: 'comfort', label: 'Комфорт' },
       callback: async () => await this.initMultimediaSelection()
     },
     {
       label: AdditionalChips.STEER_HYDRO,
       value: '',
       selected: false,
+      group: { value: 'comfort', label: 'Комфорт' },
       callback: () => {}
     },
     {
       label: AdditionalChips.LIGHTS,
       value: '',
       selected: false,
+      group: { value: 'comfort', label: 'Комфорт' },
       callback: async () => await this.initLightsSelection()
     },
     {
       label: AdditionalChips.OPTICS,
       value: '',
       selected: false,
+      group: { value: 'comfort', label: 'Комфорт' },
       callback: async () => await this.initOpticsSelection()
     },
     {
       label: AdditionalChips.WHEEL,
       value: '',
       selected: false,
+      group: { value: 'comfort', label: 'Комфорт' },
       callback: () => {}
     },
     {
       label: AdditionalChips.HEATED_SEATS,
       value: '',
       selected: false,
+      group: { value: 'comfort', label: 'Комфорт' },
       callback: async () => await this.initHeatedSeatsSelection()
     },
     {
       label: AdditionalChips.SEAT_VENTILATION,
       value: '',
       selected: false,
+      group: { value: 'comfort', label: 'Комфорт' },
       callback: async () => await this.initSeatsVentilation()
     },
     {
       label: AdditionalChips.SEAT_MEMORY,
       value: '',
       selected: false,
+      group: { value: 'comfort', label: 'Комфорт' },
       callback: async () => await this.initSeatsMemory()
     },
     {
       label: AdditionalChips.WINDOW_LIFTS,
       value: '',
       selected: false,
+      group: { value: 'comfort', label: 'Комфорт' },
       callback: async () => await this.initWindowLifts()
     },
     {
       label: AdditionalChips.PARKING_ASSIST,
       value: '',
       selected: false,
+      group: { value: 'comfort', label: 'Комфорт' },
       callback: async () => await this.initParkingAssists()
     },
     {
       label: AdditionalChips.AIRBAGS,
       value: '',
       selected: false,
+      group: { value: 'safety', label: 'Безпека' },
       callback: async () => await this.initAirbagsSelection()
     },
   ])
-  public additionalChips: Signal<{ label: string, value: string, selected: boolean, callback: () => void }[]>
+  public additionalChips: Signal<{ label: string, value: string, selected: boolean, group: { value: string, label: string }, callback: () => void }[]>
     = computed(() => this.chipsArray());
 
-  selectOption(selectedChip: { label: string, value: string, selected: boolean, callback: () => void }): void {
+  selectOption(selectedChip: { label: string, value: string, selected: boolean, group: { value: string, label: string }, callback: () => void }): void {
     const updatedChipsArray = this.chipsArray().map(chip => {
       if (chip.label === selectedChip.label) {
         return { ...chip, selected: !chip.selected };
@@ -296,7 +312,7 @@ export class AdditionalOptionsService {
     await alert.present();
   }
 
-  async initSingleSelection(header: string, options: { label: string; value: string; checked?: boolean }[], chipType: string): Promise<void> {
+  async initSingleSelection(header: string, options, chipType: string): Promise<void> {
     const alert: HTMLIonAlertElement = await this.alertCtrl.create({
       header: header,
       cssClass: 'wide-alert',
