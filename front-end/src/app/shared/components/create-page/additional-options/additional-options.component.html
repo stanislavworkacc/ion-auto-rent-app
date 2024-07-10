@@ -1,7 +1,10 @@
 <div class="chip-container flex-wrap py-2">
   <div class="flex w-full items-center">
-    <ion-label class="text-[#494949] font-[600] pr-2">Комфорт</ion-label>
+    <ion-label class="text-[#494949] font-[600] pr-2 flex items-center">
+      Комфорт
+    </ion-label>
     <div class="w-full border-t-[2px] border-dotted border-[#818181db]"></div>
+
   </div>
 
   @for (chip of additionalOptions.chipsArray(); track chip.label) {
@@ -25,6 +28,7 @@
   <div class="flex w-full items-center">
     <ion-label class="text-[#494949] font-[600] pr-2">Безпека</ion-label>
     <div class="w-full border-t-[2px] border-dotted border-[#818181db]"></div>
+
   </div>
   @for (chip of additionalOptions.chipsArray(); track chip.label) {
     @if (chip.group.value === 'safety') {
