@@ -46,7 +46,7 @@ export class VehicleTypeService {
       category_id: 5
     },
   ]);
-  selectedType: WritableSignal<{ label: string, value: string, icon: string, category_id: number }> = signal({ label: '', value: '', icon: '', category_id: null });
+  selectedType: WritableSignal<{ label: string, value: string, icon: string, category_id: number }> = signal(this.transportTypes()[0]);
   vehicleType: Signal<{ label: string, value: string, icon: string, category_id: number }> = computed(() => this.selectedType());
 
   vehicleYears: WritableSignal<{ label: string, value: string }[]> = signal([]);
@@ -108,9 +108,5 @@ export class VehicleTypeService {
   }
   constructor() {
     this.generateYears();
-
-    effect((): void => {
-      this.selectedType.set(this.transportTypes()[0]);
-    }, { allowSignalWrites: true });
   }
 }

@@ -88,7 +88,7 @@
     </ion-header>
 
     <ion-content class="ion-padding">
-      <ion-input class="text-gray-400 border rounded border-[#ffa649] !px-2"
+      <ion-input class="text-gray-400 border rounded  !px-2"
                  limitEngine
                  label="Об'єм двигуна (л)"
                  type="text"
@@ -125,15 +125,15 @@
         <ion-radio-group [value]="technicalCharacteristics.hpPower() ? 'hp' : (technicalCharacteristics.kWPower() ? 'кВт' : '')"
                          (ionChange)="onPowerChange($event.target.value)"
         >
-          <ion-item class="text-gray-400" lines="none">
+          <ion-item class="text-[#0f1b44]" lines="none">
             <ion-radio [value]="'hp'" justify="space-between">к.с</ion-radio>
           </ion-item>
-          <ion-item class="text-gray-400" lines="none">
+          <ion-item class="text-[#0f1b44]" lines="none">
             <ion-radio [value]="'кВт'" justify="space-between">кВт</ion-radio>
           </ion-item>
         </ion-radio-group>
       </ion-list>
-      <ion-input class="text-gray-400 border rounded border-[#ffa649] !px-2"
+      <ion-input class="text-gray-400 border rounded !px-2"
                  label="{{ 'Потужність'}} {{ tempHpPower() ? 'к.с' : (tempKWTPower() ? 'кВт' : '') }}"
                  type="number"
                  label-placement="floating"
