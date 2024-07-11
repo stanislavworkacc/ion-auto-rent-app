@@ -137,6 +137,14 @@ export class CreatePageComponent  implements OnInit {
     this.technicalCharacteristics.hpPower.set(false);
     this.technicalCharacteristics.kWPower.set(false);
     this.technicalCharacteristics.selectedColorType.set({ name: '', value: null });
+    const clearOptionsArray = this.additionalOptions.chipsArray().map((additionalOption) => {
+      if(additionalOption.selected) {
+        return {...additionalOption, selected: false, value: '' }
+      }
+
+      return additionalOption;
+    })
+    this.additionalOptions.chipsArray.set(clearOptionsArray);
   }
   ngOnInit() {}
 }
