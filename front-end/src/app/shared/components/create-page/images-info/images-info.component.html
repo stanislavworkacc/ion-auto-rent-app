@@ -1,26 +1,22 @@
 <div class="bg-white rounded-[12px] min-h-[30dvh] max-h-[30dvh] overflow-y-auto">
   <div class="p-2 !pb-[40px]">
-    @if (logoUploaded()) {
+    @if (true) {
       <div class="grid grid-cols-3 gap-2">
-        @for (url of uploadedLogoUrls; track url.valueOf()) {
-          @if (url.loading) {
+        @for (img of uploadedLogoUrls; track img.valueOf()) {
+          @if (img.loading) {
             <div class="flex justify-center items-center !h-[6rem] !w-[6rem]">
               <ion-spinner class="text-[#008080]" name="circles"></ion-spinner>
             </div>
-          }
-          @else {
-            <img [src]="url.url" alt="Logo" class="!h-[6rem] !w-[6rem] object-cover mb-2 rounded border-dotted border-[2px]">
+          } @else {
+            <img [src]="img.url" alt="Logo" class="!h-[6rem] !w-[6rem] object-cover mb-2 rounded border-dotted border-[2px]">
           }
         }
       </div>
     }
   </div>
 
-
-
   <upload-gallery-btn
     [handleFileUpload]="handleFileUpload.bind(this)"
-    [logoUploading]="logoUploading()"
   >
   </upload-gallery-btn>
 </div>

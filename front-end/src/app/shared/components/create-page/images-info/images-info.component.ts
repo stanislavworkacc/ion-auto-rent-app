@@ -1,10 +1,19 @@
-import {ChangeDetectionStrategy, Component, OnInit, signal, WritableSignal} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  inject,
+  OnInit,
+  signal,
+  WritableSignal
+} from '@angular/core';
 import {
   UploadBtnComponent
 } from "../../../../home/menu/car-park/all-parks/create-park-modal/upload-btn/upload-btn.component";
 import {UploadGalleryPreviewComponent} from "./upload-gallery-btn/upload-gallery-btn.component";
 import {CloseBtnComponent} from "../../../ui-kit/components/close-btn/close-btn.component";
 import {IonButtons, IonIcon, IonItem, IonLabel, IonSkeletonText, IonSpinner} from "@ionic/angular/standalone";
+import {ToasterService} from "../../app-toast/toaster.service";
 
 @Component({
   selector: 'images-info',
@@ -25,41 +34,35 @@ import {IonButtons, IonIcon, IonItem, IonLabel, IonSkeletonText, IonSpinner} fro
 })
 export class ImagesInfoComponent  implements OnInit {
 
+  private cdRef : ChangeDetectorRef = inject(ChangeDetectorRef);
+  private toaster : ToasterService = inject(ToasterService);
 
-  uploadedLogoUrl: string = '';
   formats: string[] = ['JPEG', 'WEBP', 'PNG', 'SVG', 'JPG'];
-
-  logoUploaded: WritableSignal<boolean> = signal(false);
-  logoUploading: WritableSignal<boolean> = signal(false);
   uploadedLogoUrls: { url: string, loading: boolean }[] = [];
 
   handleFileUpload(event: any) {
     const files = event.target.files;
-    if (files && files.length > 0) {
-      this.logoUploading.set(true);
-      const readers: FileReader[] = [];
-
+    if (files.length) {
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
-        const reader: FileReader = new FileReader();
+        const fileExtension = file.name.split('.').pop().toUpperCase();
 
-        // Додаємо об'єкт для кожного файлу з початковим станом завантаження
-        this.uploadedLogoUrls.push({ url: '', loading: true });
+        if (this.formats.includes(fileExtension)) {
+          const reader = new FileReader();
+          const index = this.uploadedLogoUrls.length;
+          this.uploadedLogoUrls.push({ url: '', loading: true });
+          this.cdRef.detectChanges();
 
-        reader.onload = (e: any) => {
-          const result = e.target.result;
-
-          // Оновлюємо відповідний об'єкт після завантаження
-          this.uploadedLogoUrls[i] = { url: result, loading: false };
-
-          if (i === files.length - 1) {
-            this.logoUploaded.set(true);
-            this.logoUploading.set(false);
-          }
-        };
-
-        readers.push(reader);
-        reader.readAsDataURL(file);
+          reader.onload = (e: any) => {
+            this.uploadedLogoUrls[index] = { url: e.target.result, loading: false };
+            this.cdRef.detectChanges();
+          };
+          reader.readAsDataURL(file);
+        } else {
+          this.toaster.show({
+            type: 'warning',
+            message: `Формат файлу "${file.name}" не підтримується. Дозволені формати: ${this.formats.join(', ')}` })
+        }
       }
     }
   }
