@@ -12,7 +12,15 @@ import {
 } from "../../../../home/menu/car-park/all-parks/create-park-modal/upload-btn/upload-btn.component";
 import {UploadGalleryPreviewComponent} from "./upload-gallery-btn/upload-gallery-btn.component";
 import {CloseBtnComponent} from "../../../ui-kit/components/close-btn/close-btn.component";
-import {IonButtons, IonIcon, IonItem, IonLabel, IonSkeletonText, IonSpinner} from "@ionic/angular/standalone";
+import {
+  IonButton,
+  IonButtons,
+  IonIcon,
+  IonItem,
+  IonLabel,
+  IonSkeletonText,
+  IonSpinner
+} from "@ionic/angular/standalone";
 import {ToasterService} from "../../app-toast/toaster.service";
 import {ActionSheetController} from "@ionic/angular";
 
@@ -30,6 +38,7 @@ import {ActionSheetController} from "@ionic/angular";
     IonIcon,
     IonItem,
     IonSpinner,
+    IonButton,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })

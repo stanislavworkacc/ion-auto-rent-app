@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import {AutoRIAService} from "../../services/autoRIA.service";
 import {
+  IonActionSheet,
   IonButton,
   IonButtons,
   IonContent, IonFooter,
@@ -59,11 +60,29 @@ import {RippleBtnComponent} from "../buttons/ripple-btn/ripple-btn.component";
     IonTitle,
     NgIf,
     IonRippleEffect,
-    RippleBtnComponent
+    RippleBtnComponent,
+    IonActionSheet
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreatePageComponent  implements OnInit {
+  public actionSheetButtons = [
+    {
+      text: 'Оновити',
+      role: 'destructive',
+      handler: () => {
+        this.allDataReset()
+      }
+    },
+    {
+      text: 'Відмінити',
+      role: 'cancel',
+      data: {
+        action: 'cancel',
+      },
+    },
+  ];
+
 
   private autoRIAService: AutoRIAService = inject(AutoRIAService);
   private modalCtrl: ModalController = inject(ModalController);

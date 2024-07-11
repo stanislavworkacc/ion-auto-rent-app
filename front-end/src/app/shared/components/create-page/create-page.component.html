@@ -1,3 +1,4 @@
+<ion-content class="ion-padding">
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
@@ -10,8 +11,7 @@
     <ion-label class="text-[#0f1b44] flex justify-center pl-[25px] font-[300]">Додати авто</ion-label>
 
     <ion-buttons slot="end">
-      <ion-button class="rounded flex items-center bg-[#e8edfc]"
-                  (click)="hardReset()"
+      <ion-button id="1" class="rounded flex items-center bg-[#e8edfc]"
       >
         <ion-label class="text-xs uppercase text-black mr-1">Оновити</ion-label>
         <ion-icon
@@ -24,8 +24,6 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-
-<ion-content class="ion-padding">
 
   <div class="mb-5 relative">
     <images-info></images-info>
@@ -75,3 +73,10 @@
 
   <ripple-btn [title]="'Зберегти'" [styles]="'text-[#696969]'"></ripple-btn>
 </ion-content>
+
+<ion-action-sheet
+  trigger="1"
+  header="Оновити дані"
+  subHeader="Всі введені дані будуть скасовані. Ви впевнені, що хочете оновити?"
+  [buttons]="actionSheetButtons">
+</ion-action-sheet>

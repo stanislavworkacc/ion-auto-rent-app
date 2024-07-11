@@ -8,12 +8,16 @@
               <ion-spinner class="text-[#008080]" name="circles"></ion-spinner>
             </div>
           } @else {
-            <img
-              class="!h-[6rem] !w-[6rem] object-cover mb-2 rounded border-dotted border-[2px]"
-              [src]="img.url"
+            <ion-button
               (click)="editImage(img)"
             >
+              <img
+                class="!h-[6rem] !w-[6rem] object-cover mb-2 rounded border-dotted border-[2px]"
+                [src]="img.url"
+              >
+            </ion-button>
           }
+
         }
       </div>
     }
