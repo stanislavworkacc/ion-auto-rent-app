@@ -1,12 +1,24 @@
-import {computed, inject, Injectable, signal, Signal, WritableSignal} from "@angular/core";
+import {
+  ChangeDetectionStrategy, ChangeDetectorRef,
+  computed,
+  effect,
+  inject,
+  Injectable,
+  signal,
+  Signal,
+  WritableSignal
+} from "@angular/core";
 import {AdditionalChips} from "./additional-options.enums";
 import {AlertController} from "@ionic/angular/standalone";
+import {single} from "rxjs";
+import {VehicleTypeService} from "../main-info/vehicle-type.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdditionalOptionsService {
   private alertCtrl: AlertController = inject(AlertController)
+  private vehicleTypeService: VehicleTypeService = inject(VehicleTypeService)
 
   chipsArray: WritableSignal<{ label: string, value: string, selected: boolean, group: { value: string, label: string }, callback: () => void }[]> = signal([
     {
@@ -128,9 +140,20 @@ export class AdditionalOptionsService {
       group: { value: 'safety', label: 'Безпека' },
       callback: async () => await this.initAirbagsSelection()
     },
+    {
+      label: AdditionalChips.SAFETY_SYSTEMS,
+      value: '',
+      selected: false,
+      group: { value: 'safety', label: 'Безпека' },
+      callback: async () => await this.initSafetySystems()
+    },
   ])
   public additionalChips: Signal<{ label: string, value: string, selected: boolean, group: { value: string, label: string }, callback: () => void }[]>
     = computed(() => this.chipsArray());
+
+  get vehicleTypes() {
+    return this.vehicleTypeService;
+  }
 
   selectOption(selectedChip: { label: string, value: string, selected: boolean, group: { value: string, label: string }, callback: () => void }): void {
     const updatedChipsArray = this.chipsArray().map(chip => {
@@ -171,16 +194,14 @@ export class AdditionalOptionsService {
     );
   }
 
+  salonColors: WritableSignal<any> = signal([
+    { label: 'Темний', value: 'dark', checked: true },
+    { label: 'Світлий', value: 'light', checked: false },
+    { label: 'Коричневий', value: 'brown', checked: false },
+    { label: 'Червоний', value: 'red', checked: false }
+  ])
   async initSalonColors(): Promise<void> {
-    await this.initSingleSelection('Колір салону',
-      [
-        { label: 'Темний', value: 'dark', checked: true },
-        { label: 'Світлий', value: 'light' },
-        { label: 'Коричневий', value: 'brown' },
-        { label: 'Червоний', value: 'red' }
-      ],
-      AdditionalChips.SALON_COLOR
-    );
+    await this.initSingleSelection('Колір салону', this.salonColors(), AdditionalChips.SALON_COLOR );
   }
 
   async initControlClimate(): Promise<void> {
@@ -291,6 +312,33 @@ export class AdditionalOptionsService {
     );
   }
 
+  async initSafetySystems(): Promise<void> {
+    await this.initMultiSelection('Подушки безпеки',
+      [
+        { label: 'Антиблокувальна система (ABS)', value: 'abs' },
+        { label: 'Антипробуксовочна система (ASS)', value: 'asr' },
+        { label: 'Система стабілізації (ESP)', value: 'esp' },
+        { label: 'Стабілізація рульового керування (VSM)', value: 'vsm' },
+        { label: 'Система розподілу гальмування (EBD, BAS)', value: 'bas-ebd' },
+        { label: 'Система кріплення IsoFix', value: 'iso-fix' },
+        { label: 'Розпізнавання дорожних знаків', value: 'recognition-system' },
+        { label: 'Система контролю за смугою', value: 'control-line-system' },
+        { label: 'Контроль сліпих зон', value: 'blind-system' },
+        { label: 'Нічне бачення', value: 'night-vision' },
+        { label: 'Датчик тиску в шинах', value: 'pressure-system' },
+        { label: 'Система запобігання зіткнення', value: 'anti-crash' },
+        { label: 'Датчик втоми водія', value: 'driver-fatigue' },
+        { label: 'Допомога при спуску', value: 'descent-assist' },
+        { label: 'Допомога при старті вгору', value: 'ascent-assist' },
+        { label: 'Датчик проникнення в салон', value: 'penetration-system' },
+        { label: 'Сигналізація', value: 'signalization' },
+        { label: 'Імобілайзер', value: 'immobiliser' },
+        { label: 'Центральний замок', value: 'central-lock' },
+      ],
+      AdditionalChips.SAFETY_SYSTEMS
+    );
+  }
+
   async initMultimediaSelection(): Promise<void> {
     await this.initMultiSelection('Мультимедія',
       [
@@ -383,5 +431,8 @@ export class AdditionalOptionsService {
     });
 
     this.chipsArray.set(updatedChipsArray);
+  }
+
+  constructor() {
   }
 }
