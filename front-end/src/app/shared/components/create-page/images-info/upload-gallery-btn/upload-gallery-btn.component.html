@@ -1,5 +1,17 @@
-<ion-card class="h-[80px] w-[90px] bg-[#f4f5f8] shadow-none rounded-none animate-pulse">
-  <ion-card-content class="p-0 flex justify-center items-center h-full">
-    <ion-icon name="add-outline" class="text-[50px]"></ion-icon>
-  </ion-card-content>
-</ion-card>
+<div class="h-[20px] bg-[#efefef] flex justify-center items-center"
+     (click)="fileInput.click()"
+>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  Додати
+  <input #fileInput
+         multiple
+         accept="image/*"
+         type="file"
+         (change)="handleFileUpload($event)"
+         style="display: none;"
+  >
+</div>
+

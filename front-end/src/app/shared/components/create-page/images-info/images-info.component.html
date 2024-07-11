@@ -1,3 +1,18 @@
-<div class="bg-[#b4b8c2] rounded-[12px] min-h-[30dvh] max-h-[30dvh] overflow-y-auto !p-2">
-  <upload-gallery-btn></upload-gallery-btn>
+<div class="bg-white rounded-[12px] min-h-[30dvh] max-h-[30dvh] overflow-y-auto">
+  <div class="p-2 !pb-[40px]">
+    @if (logoUploaded()) {
+      <div class="grid grid-cols-3 gap-2">
+        @for (url of uploadedLogoUrls; track url.valueOf()) {
+          <img [src]="url" alt="Logo" class="!h-[6rem] !w-[6rem] object-cover mb-2 rounded border-dotted border-[2px]">
+        }
+      </div>
+    }
+  </div>
+
+  <upload-gallery-btn
+    [handleFileUpload]="handleFileUpload.bind(this)"
+    [logoUploading]="logoUploading()"
+    [uploadProgress]="uploadProgress()"
+  >
+  </upload-gallery-btn>
 </div>
