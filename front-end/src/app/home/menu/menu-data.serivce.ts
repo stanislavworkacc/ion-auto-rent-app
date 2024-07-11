@@ -26,7 +26,8 @@ export class MenuDataService {
   public profilePages: WritableSignal<{
     value: string,
     icon: string,
-    label: string
+    label: string,
+    iconClass: string
   }[]> = signal([]);
 
   public menuItems: WritableSignal<{
@@ -53,11 +54,11 @@ export class MenuDataService {
     return this.options();
   }
 
-  setProfilePages(options: { value: string, icon: string, label: string }[]): void {
+  setProfilePages(options: { value: string, icon: string, label: string, iconClass: string }[]): void {
     this.profilePages.set(options)
   }
 
-  getProfilePages(): { value: string; icon: string; label: string }[] {
+  getProfilePages(): { value: string; icon: string; label: string, iconClass: string }[] {
     return this.profilePages();
   }
 

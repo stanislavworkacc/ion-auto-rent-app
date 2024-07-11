@@ -21,27 +21,29 @@ import {take, tap} from "rxjs";
 import {catchError} from "rxjs/operators";
 import {handleError} from "../../../shared/utils/errorHandler";
 import {SegmentType} from "../auth-form-wrapper/auth-enums";
+import {RippleBtnComponent} from "../../../shared/components/buttons/ripple-btn/ripple-btn.component";
 
 @Component({
   selector: 'sign-up-form',
   templateUrl: './sign-up-form.component.html',
   styleUrls: ['./sign-up-form.component.scss'],
   standalone: true,
-  imports: [
-    SwitcherComponent,
-    LocalLoaderComponent,
-    NgIf,
-    ReactiveFormsModule,
-    ValidateInputDirective,
-    PrivacyPolicyComponent,
-    IonList,
-    IonLabel,
-    IonIcon,
-    IonSpinner,
-    IonInput,
-    IonButton,
-    PhoneNumberFormatterDirective
-  ],
+    imports: [
+        SwitcherComponent,
+        LocalLoaderComponent,
+        NgIf,
+        ReactiveFormsModule,
+        ValidateInputDirective,
+        PrivacyPolicyComponent,
+        IonList,
+        IonLabel,
+        IonIcon,
+        IonSpinner,
+        IonInput,
+        IonButton,
+        PhoneNumberFormatterDirective,
+        RippleBtnComponent
+    ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SignUpFormComponent implements OnInit {

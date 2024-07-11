@@ -1,0 +1,147 @@
+<ion-list lines="none">
+  @for(item of technicalCharacteristics.listItems(); track item.value) {
+    <ion-item [id]="item.label"
+      *ngIf="item.isVisible"
+      (click)="onItemClicked(item.callback)"
+    >
+      <div class="min-w-[10%]">
+        @if (checkmarkHandle(item)) {
+          <ion-icon name="checkmark" slot="start" class="text-xs text-green-400"></ion-icon>
+        }
+      </div>
+
+      <ion-label class="!text-gray-400 text-nowrap">{{ item.label }}:</ion-label>
+
+      @if (item.label === technicalListLabel.FUEL) {
+        <div class="w-full overflow-x-auto flex flex-nowrap">
+          @for(fuel of item.value; track fuel.value) {
+            <ion-chip class="text-black min-w-fit bg-[#e8edfc] text-nowrap"
+                      [class.selectedChip]="fuel === technicalCharacteristics.fuelType()"
+                      (click)="fuelTypeSelected(fuel)"
+            >{{ fuel.name }}
+              @if (fuel === technicalCharacteristics.fuelType()) {
+                <ion-icon name="close-circle-outline"
+                          class="text-[#ff4500]"
+                          (click)="clearFuelType($event)"
+                >
+                </ion-icon>
+              }
+            </ion-chip>
+          }
+        </div>
+      }
+
+      @if (item.label !== technicalListLabel.FUEL) {
+
+        <ion-text class="flex items-center gap-1 text-black"
+                  [class.slide-down-animation]="item.value"
+        >
+          @if (item.value) {
+
+            <span>{{ item.value }}</span>
+          } @else {
+
+            <app-switcher *ngIf="item.label === technicalListLabel.FUEL_CONSUMPTION"
+              [isOn]="technicalCharacteristics.isFuelConsumption()"
+              (toggleChange)="fuelConsumptionToggle($event)"
+            >
+            </app-switcher>
+
+            <span *ngIf="shouldDisplaySelect(item)" class="text-gray-400">
+              Обрати
+              <ion-icon name="chevron-down-outline" class="text-xs text-gray-400"></ion-icon>
+            </span>
+          }
+        </ion-text>
+      }
+    </ion-item>
+  }
+  @if (technicalCharacteristics.colorType().value) {
+    <ion-item class="slide-down-animation">
+      <div class="min-w-[10%]">
+        <ion-icon name="checkmark" slot="start" class="text-xs text-green-400"></ion-icon>
+      </div>
+
+      <ion-label class="!text-gray-400 text-nowrap">Металік:</ion-label>
+      <app-switcher [isOn]="technicalCharacteristics.isMetallic()"  (toggleChange)="toggleMetallic($event)"></app-switcher>
+    </ion-item>
+  }
+
+</ion-list>
+
+<ion-modal class="auth-modal"
+           [trigger]="technicalListLabel.ENGINE_VALUE"
+           [initialBreakpoint]="0.3"
+           [breakpoints]="[0, 0.5, 0.9]"
+           [backdropDismiss]="false"
+>
+  <ng-template>
+    <ion-header class="flex items-center justify-between py-2 shadow-none">
+      <div class="flex-grow text-center">
+        <ion-label class="text-gray-400 font-[300] pl-[60px]">Об'єм двигуна</ion-label>
+      </div>
+      <ion-buttons class="flex justify-end">
+        <ion-button (click)="submitInputModal('engineValue')">
+          <span class="text-[#0f1b44] font-[300]">Додати</span>
+        </ion-button>
+      </ion-buttons>
+    </ion-header>
+
+    <ion-content class="ion-padding">
+      <ion-input class="text-gray-400 border rounded  !px-2"
+                 limitEngine
+                 label="Об'єм двигуна (л)"
+                 type="text"
+                 label-placement="floating"
+                 placeholder="Введіть дані"
+                 [value]="technicalCharacteristics.engineValue()"
+                 (valueChange)="onModalInput($event, 'engineValue')"
+      >
+      </ion-input>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+<ion-modal class="auth-modal"
+           [trigger]="technicalListLabel.ENGINE_POWER"
+           [initialBreakpoint]="0.3"
+           [breakpoints]="[0, 0.5, 0.9]"
+           [backdropDismiss]="false"
+>
+  <ng-template>
+    <ion-header class="flex items-center justify-between py-2 shadow-none">
+      <div class="flex-grow text-center">
+        <ion-label class="text-gray-400 font-[300] pl-[60px]">Потужність двигуна</ion-label>
+      </div>
+      <ion-buttons class="flex justify-end">
+        <ion-button (click)="submitInputModal('enginePower')">
+          <span class="text-[#0f1b44] font-[300]">Додати</span>
+        </ion-button>
+      </ion-buttons>
+    </ion-header>
+
+    <ion-content class="ion-padding">
+      <ion-list>
+        <ion-radio-group [value]="technicalCharacteristics.hpPower() ? 'hp' : (technicalCharacteristics.kWPower() ? 'кВт' : '')"
+                         (ionChange)="onPowerChange($event.target.value)"
+        >
+          <ion-item class="text-[#0f1b44]" lines="none">
+            <ion-radio [value]="'hp'" justify="space-between">к.с</ion-radio>
+          </ion-item>
+          <ion-item class="text-[#0f1b44]" lines="none">
+            <ion-radio [value]="'кВт'" justify="space-between">кВт</ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </ion-list>
+      <ion-input class="text-gray-400 border rounded !px-2"
+                 label="{{ 'Потужність'}} {{ tempHpPower() ? 'к.с' : (tempKWTPower() ? 'кВт' : '') }}"
+                 type="number"
+                 label-placement="floating"
+                 placeholder="Введіть дані"
+                 [value]="technicalCharacteristics.powerValue()"
+                 (ionInput)="onModalInput($event.target.value, 'enginePower')"
+      >
+      </ion-input>
+    </ion-content>
+  </ng-template>
+</ion-modal>

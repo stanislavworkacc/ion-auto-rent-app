@@ -1,0 +1,44 @@
+<ion-list lines="none">
+  @for(item of listItems(); track item.value) {
+    <ion-item (click)="onItemClicked(item.callback)">
+      <div class="min-w-[10%]">
+        @if (checkmarkHandle(item)) {
+          <ion-icon name="checkmark" slot="start" class="text-xs text-green-400"></ion-icon>
+        }
+      </div>
+
+      <ion-label class="!text-gray-400 text-nowrap">{{ item.label }}:</ion-label>
+
+      @if (item.label !== ListLabel.BODY_TYPE) {
+        <ion-text class="flex items-center gap-1 text-black">
+          @if (item.value) {
+            {{ item.value }}
+          } @else {
+            <span class="text-gray-400">Обрати</span>
+          }
+          <ion-icon name="chevron-down-outline" class="text-xs text-gray-400"></ion-icon>
+        </ion-text>
+      }
+
+      @if (item.label === ListLabel.BODY_TYPE) {
+        <div class="overflow-x-auto flex items-center flex-nowrap w-full">
+          <ng-container *ngFor="let type of item.value">
+            <ion-chip class="text-black min-w-fit p-0 px-4 bg-[#e8edfc] "
+                      [class.selectedChip]="type === vehicleService.bodyType()"
+                      (click)="selectBodyType(type)"
+            >
+              {{ type.name }}
+              @if (type === vehicleService.bodyType()) {
+                <ion-icon name="close-circle-outline"
+                          class="text-[#ff4500]"
+                          (click)="clearBodyType($event)"
+                >
+                </ion-icon>
+              }
+            </ion-chip>
+          </ng-container>
+        </div>
+      }
+    </ion-item>
+  }
+</ion-list>

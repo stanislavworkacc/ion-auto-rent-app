@@ -33,7 +33,7 @@
           >
             <ion-card-header>
               <ion-card-subtitle>
-                <ion-icon [name]="page.icon"></ion-icon>
+                <img [src]="page.icon" class="w-[20px] h-[20px]">
               </ion-card-subtitle>
             </ion-card-header>
 
@@ -58,6 +58,10 @@
 >
   <ng-template>
     <ion-content>
+      <div class="bg-[#212c40] p-2 flex justify-between items-center">
+        <ion-label class="text-xs uppercase">Попередні сторінки</ion-label>
+        <ion-icon name="return-down-back-outline"></ion-icon>
+      </div>
       <ion-list>
         <ion-item
           *ngFor="let breadcrumb of collapsedBreadcrumbs; last as isLast"

@@ -1,0 +1,29 @@
+<form>
+  <div class="form-input relative !bg-white !rounded-[4px] border-[1px] border-[#929292]" #addressRef [appValidateInput]="addressRef">
+    <div class="input-row">
+      <ion-input #addressInput
+                 type="text"
+                 class="aligned-input"
+                 placeholder="Адреса транспортного засобу"
+                 [formControl]="address"
+                 (ionInput)="fetchSuggestions($event.target.value)"
+                 (ionFocus)="fetchSuggestions(address.value)"
+                 (ionBlur)="onBlur('address')"
+      ></ion-input>
+    </div>
+
+    <div [appValidateInput]="addressRef" [control]="address" class="error-container">
+      <!-- Контейнер для помилки -->
+    </div>
+
+    @if (address.value) {
+      <google-places
+        [suggestions]="suggestions()"
+        [selectSuggestion]="selectSuggestion.bind(this)"
+        [control]="address"
+      >
+      </google-places>
+    }
+  </div>
+</form>
+

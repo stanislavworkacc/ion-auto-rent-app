@@ -2,16 +2,21 @@ ion-header {
   box-shadow: none;
 
   ion-toolbar {
-    --background: #2a3c4e;
+    --background: #f0f4f7 !important;
     --border-width: 0;
     padding: 0 10px;
   }
 }
 
 ion-content {
-  --background: #2a3c4e;
+  --background: linear-gradient(to bottom, #f0f4f7, #b3bac0) !important;
 
   ion-list {
-    background: #2a3c4e;
+    background: linear-gradient(to bottom, #f0f4f7, #b3bac0) !important;
   }
 }
+.text-shadow {
+  text-shadow: 1px 1px 2px rgb(255, 255, 255);
+}
+
+

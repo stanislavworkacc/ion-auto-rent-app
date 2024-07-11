@@ -1,5 +1,6 @@
 import {ChangeDetectionStrategy, Component, input, Input, InputSignal, OnInit} from '@angular/core';
-import {IonButton, IonButtons, IonIcon, IonLabel} from "@ionic/angular/standalone";
+import {IonButton, IonButtons, IonIcon, IonLabel, IonProgressBar} from "@ionic/angular/standalone";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-upload-btn',
@@ -10,7 +11,9 @@ import {IonButton, IonButtons, IonIcon, IonLabel} from "@ionic/angular/standalon
     IonButtons,
     IonButton,
     IonLabel,
-    IonIcon
+    IonIcon,
+    IonProgressBar,
+    NgIf
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })

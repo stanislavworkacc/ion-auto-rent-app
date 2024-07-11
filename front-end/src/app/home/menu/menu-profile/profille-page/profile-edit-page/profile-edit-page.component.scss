@@ -1,5 +1,10 @@
+ion-header {
+  ion-toolbar {
+    --background: #182130;
+  }
+}
 ion-content {
-  //--background: #b3bac0;
+  --background: #b3bac0;
 
   .wrapper {
     background: linear-gradient(to bottom, #f0f4f7, #b3bac0);
@@ -29,7 +34,7 @@ ion-content {
         align-items: center;
         padding: 5px;
         border-right: 0.1px solid black;
-        justify-content: left;
+        justify-content: center;
         position: relative;
       }
 
@@ -106,5 +111,18 @@ ion-button {
 
   ion-icon {
     margin-left: 5px;
+  }
+}
+
+ion-popover {
+  ion-content {
+    ion-list {
+      ion-item {
+        --background: #000000;
+      }
+    }
+    .list-md {
+      background: #000000;
+    }
   }
 }

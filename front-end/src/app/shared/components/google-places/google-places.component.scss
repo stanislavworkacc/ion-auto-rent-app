@@ -1,0 +1,24 @@
+.suggestion-list {
+  opacity: 0;
+  transform: translateY(-30px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  ion-item {
+    --background: #f8f8f8;
+  }
+}
+
+
+@keyframes slideDown {
+  0% {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.suggestion-list.show {
+  animation: slideDown 0.3s ease forwards;
+}

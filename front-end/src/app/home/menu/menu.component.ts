@@ -66,23 +66,23 @@ export class MenuComponent implements OnInit {
 
   setOptions(): void {
     this.dataService.setOptions([
-      {value: MenuSection.PROFILE, icon: 'person-circle-outline', label: 'Профіль'},
-      {value: MenuSection.CAR_PARK, icon: 'car-sport-outline', label: 'Автопарк'},
-      {value: MenuSection.FILES, icon: 'folder-open-outline', label: 'Файли'},
-      {value: MenuSection.GEO, icon: 'location-outline', label: 'Гео'},
+      {value: MenuSection.PROFILE, icon: '/assets/icon/profile-gray.png', label: 'Профіль'},
+      {value: MenuSection.CAR_PARK, icon: '/assets/icon/cars-park-gray.png', label: 'Автопарк'},
+      {value: MenuSection.FILES, icon: '/assets/icon/files-gray.png', label: 'Файли'},
+      {value: MenuSection.GEO, icon: '/assets/icon/geo-gray.png', label: 'Локатор'},
     ]);
   }
 
   setProfilePages(): void {
     this.dataService.setProfilePages([
-      {value: MenuPage.PROFILE, icon: 'person-circle-outline', label: 'Мій профіль'},
-      {value: MenuPage.SEARCH, icon: 'search-outline', label: 'Пошук'},
-      {value: MenuPage.SALE, icon: 'gift-outline', label: 'Акції'},
-      {value: MenuPage.CREATE, icon: 'add-circle-outline', label: 'Оголошення'},
-      {value: MenuPage.NEWS, icon: 'book-outline', label: 'Новини'},
-      {value: MenuPage.NEWS, icon: 'notifications-circle-outline', label: 'Сповіщення'},
-      {value: MenuPage.SETTINGS, icon: 'settings-outline', label: 'Налаштування'},
-      {value: MenuPage.HELP, icon: 'information-circle-outline', label: 'Допомога'},
+      {value: MenuPage.PROFILE, icon: '/assets/icon/user-menu-icon.png', label: 'Мій профіль', iconClass: 'h-[18px] w-[18px]',},
+      {value: MenuPage.SEARCH, icon: '/assets/icon/search-car-ico.png', label: 'Пошук', iconClass: 'h-[20px] w-[20px]'},
+      {value: MenuPage.SALE, icon: '/assets/icon/sale-menu-ico.png', label: 'Акції', iconClass: 'h-[20px] w-[20px]'},
+      {value: MenuPage.CREATE, icon: '/assets/icon/add-avto-ico.png', label: 'Оголошення', iconClass: 'h-[20px] w-[20px]'},
+      {value: MenuPage.NEWS, icon: '/assets/icon/news-menu-ico.png', label: 'Новини', iconClass: 'h-[18px] w-[18px]'},
+      {value: MenuPage.NEWS, icon: '/assets/icon/notifications-menu-ico.png', label: 'Сповіщення', iconClass: 'h-[20px] w-[20px]'},
+      {value: MenuPage.SETTINGS, icon: '/assets/icon/settings-menu-icon.png', label: 'Налаштування', iconClass: 'h-[18px] w-[18px]'},
+      {value: MenuPage.HELP, icon: 'assets/icon/support-menu-icon.png', label: 'Допомога', iconClass: 'h-[20px] w-[20px]'},
     ]);
   }
 
@@ -97,8 +97,8 @@ export class MenuComponent implements OnInit {
 
   setCarsMarks(): void {
     this.dataService.setCarsMarks([
-      {icon: 'car-outline', count: 4, description: 'Транспортні засоби', value: 'car'},
-      {icon: 'checkmark-circle-outline', count: 4, description: 'Здано в оренду', value: 'checkmark'}
+      {icon: '/assets/icon/all-cars-ico.png', count: 4, description: '', value: 'car'},
+      {icon: '/assets/icon/car-in-rent-ico.png', count: 1, description: '', value: 'in-rent'},
     ])
   }
 

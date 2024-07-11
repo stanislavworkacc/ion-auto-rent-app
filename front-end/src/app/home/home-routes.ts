@@ -1,6 +1,7 @@
 import {Routes} from "@angular/router";
 import {HomePage} from "./home.page";
 import {AppComponent} from "../app.component";
+import {CreatePageComponent} from "../shared/components/create-page/create-page.component";
 
 export const HOME_ROUTES: Routes = [
   {
@@ -30,6 +31,10 @@ export const HOME_ROUTES: Routes = [
         loadChildren: () =>
           import('./menu/menu-routes')
             .then(m => m.MENU_ROUTES),
+      },
+      {
+        path: 'create',
+        component: CreatePageComponent
       },
     ]
   },

@@ -1,82 +1,46 @@
-ion-list {
-  margin: 0;
-  padding: 0;
+ion-content {
+  --background: linear-gradient(to bottom, #f0f4f7, #b3bac0) !important;
 
-  .chip-container {
-    display: flex;
-    flex-direction: row;
-    overflow-x: auto;
-    white-space: nowrap;
-    min-width: 80%;
-    flex: 1;
-    max-width: 80%;
-    padding: 10px 10px 0 10px;
-  }
-
-  ion-chip {
-    background: #fff;
-    color: #333333;
-    border: 0.1px solid #d1d1d1;
-    min-width: 120px !important;
-    display: flex;
-    justify-content: center;
-  }
-
-  ion-buttons {
-    ion-button {
-      .add-btn {
-        ion-icon {
-          font-size: 22px;
-        }
-      }
-    }
-  }
-
-}
-
-ion-item {
-  --background: transparent;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-
-  ion-card {
-    --background: black;
-    margin: 20px 0;
-    img {
-      width: 100%;
-      height: auto;
+  ion-list {
+    margin: 0;
+    padding: 0;
+    background: transparent !important;
+    .chip-container {
+      display: flex;
+      flex-direction: row;
+      overflow-x: auto;
+      white-space: nowrap;
+      min-width: 85%;
+      flex: 1;
+      max-width: 85%;
+      padding: 10px 10px 0 10px;
     }
 
-    ion-card-header {
-      background: #c6ecf6;
-      padding: 20px 16px;
+    ion-chip {
+      background: #e8edfc;
+      color: #333333;
+      min-width: 120px !important;
+      display: flex;
+      justify-content: center;
+      border: 0.1px solid #333333;
 
-      ion-card-title {
-        font-size: 18px;
-        font-weight: 500;
-        color: #333;
+      ion-icon {
+        color: #ff4500;
       }
+    }
 
-      ion-card-subtitle {
-        font-size: 14px;
-        color: #666;
-        margin-top: 4px;
-      }
+    .selected-chip {
+      border: 1px solid #c9c8c8;
+      background: #dfe6ec;
+    }
+
+    .archive-chip {
+      min-width: 160px !important;
+    }
+
+    .review-chip {
+      min-width: 140px !important;
     }
   }
 }
-swiper-container {
-}
 
-swiper-slide {
-  background-position: center;
-  background-size: cover;
-  width: 300px;
-  height: 300px;
-}
-
-swiper-slide img {
-  display: block;
-  width: 100%;
-}

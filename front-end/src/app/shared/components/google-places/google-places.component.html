@@ -1,0 +1,11 @@
+<div class="suggestion-list absolute z-50 top-[55px] w-[99.5%]"
+     [class.show]="control.value.length > 0">
+  <ion-list>
+    <ion-item lines="none" *ngFor="let suggestion of suggestions()" (click)="selectSuggestion(suggestion)">
+      <ion-icon slot="start" name="location-outline" class="text-[#ff4400] text-[20px]"></ion-icon>
+      <ion-text class="ellipsis-text text-gray-600">
+        {{ suggestion }}
+      </ion-text>
+    </ion-item>
+  </ion-list>
+</div>

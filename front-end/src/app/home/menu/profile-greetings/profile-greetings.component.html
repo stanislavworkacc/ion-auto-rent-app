@@ -16,7 +16,7 @@
           outline="outline"
           (click)="chipSelected(chip.value)"
         >
-          <ion-icon [name]="chip.icon" color="primary"></ion-icon>
+          <img [src]="chip.icon" class="h-[14px] w-[14px] mr-2">
           <ion-label>{{ chip.label }}</ion-label>
         </ion-chip>
       }

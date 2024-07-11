@@ -1,0 +1,14 @@
+ion-list {
+  border-radius: 12px;
+  background: #ffffff;
+  ion-item {
+    --background: transparent;
+    font-size: 14px;
+  }
+
+  .selectedChip {
+    background: #19273c;
+    color: white;
+  }
+}
+

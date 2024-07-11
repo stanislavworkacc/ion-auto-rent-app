@@ -1,0 +1,51 @@
+<div class="chip-container flex-wrap py-2">
+  <div class="flex w-full items-center">
+    <ion-label class="text-[#494949] font-[600] pr-2 flex items-center">
+      Комфорт
+    </ion-label>
+    <div class="w-full border-t-[2px] border-dotted border-[#818181db]"></div>
+
+  </div>
+
+  @for (chip of additionalOptions.chipsArray(); track chip.label) {
+    @if (chip.group.value === 'comfort') {
+      <ion-chip outline="outline"
+                (click)="selectOption(chip)"
+                [class.selected-chip]="chip.selected"
+      >
+        <ion-label>{{ !chip.value ? chip.label : (isItemArray(chip.value) ? chip.label : chip.value ) }}</ion-label>
+
+        @if (isItemArray(chip.value)) {
+          <ion-badge class="ml-1 bg-green-400">{{chip.value.length}}</ion-badge>
+        }
+
+        @if (chip.selected && !isItemArray(chip.value)) {
+          <ion-icon name="checkmark-circle-outline" class="!text-green-400"></ion-icon>
+        }
+      </ion-chip>
+    }
+  }
+  <div class="flex w-full items-center">
+    <ion-label class="text-[#494949] font-[600] pr-2">Безпека</ion-label>
+    <div class="w-full border-t-[2px] border-dotted border-[#818181db]"></div>
+
+  </div>
+  @for (chip of additionalOptions.chipsArray(); track chip.label) {
+    @if (chip.group.value === 'safety') {
+      <ion-chip outline="outline"
+                (click)="selectOption(chip)"
+                [class.selected-chip]="chip.selected"
+      >
+        <ion-label>{{ !chip.value ? chip.label : (isItemArray(chip.value) ? chip.label : chip.value ) }}</ion-label>
+
+        @if (isItemArray(chip.value)) {
+          <ion-badge class="ml-1 bg-green-400">{{chip.value.length}}</ion-badge>
+        }
+
+        @if (chip.selected && !isItemArray(chip.value)) {
+          <ion-icon name="checkmark-circle-outline" class="!text-green-400"></ion-icon>
+        }
+      </ion-chip>
+    }
+  }
+</div>

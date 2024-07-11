@@ -22,6 +22,7 @@ import {matchingPasswordsValidator} from "../../../../../shared/utils/validators
 import {PhoneNumberFormatterDirective} from "../../../../../shared/directives/phone-formatter.directive";
 import {BreadcrumbLabelPipe} from "../../../../../shared/breadcrumb-map-name.pipe";
 import {BreadcrumbService} from "../../../../../shared/services/breadcrumb.service";
+import {StorageService} from "../../../../../shared/services/storage.service";
 
 @Component({
   selector: 'app-profile-edit-page',
@@ -69,6 +70,7 @@ export class ProfileEditPage implements OnInit {
   private alertCtrl: AlertController = inject(AlertController);
   private fb: FormBuilder = inject(FormBuilder);
   private breadcrumbs: BreadcrumbService = inject(BreadcrumbService);
+  private storage: StorageService = inject(StorageService);
 
   public form!: FormGroup;
   public name!: FormControl;
@@ -227,8 +229,13 @@ export class ProfileEditPage implements OnInit {
 
   async presentPopover(e: Event): Promise<void> {
     const eventDetail = (e as CustomEvent).detail;
-    this.collapsedBreadcrumbs = this.breadcrumbsService.buildCollapsedBreadcrumbs(eventDetail.collapsedBreadcrumbs, ['/home']);
-
+    this.collapsedBreadcrumbs = this.breadcrumbsService.buildCollapsedBreadcrumbs(
+      eventDetail.collapsedBreadcrumbs,
+      ['/home'],
+      [
+        { url: '/home/menu/profile', label: 'Профіль' },
+      ]
+    );
     this.popover.event = e;
     this.isBreadCrumbPopoverOpen = true;
   }
@@ -255,9 +262,22 @@ export class ProfileEditPage implements OnInit {
     this.assignFormControls();
   }
 
+  async setUserData(): Promise<void> {
+    const user = await this.storage.getObject('user');
 
-  ngOnInit(): void {
-    this.initForm()
+    if (user) {
+      const { userName, userLastName, email } = user;
+      this.form.patchValue({
+        name: userName,
+        lastName: userLastName,
+        email: email
+      });
+    }
+  }
+
+  async ngOnInit(): Promise<void> {
+    this.initForm();
+    await this.setUserData();
   }
 
 }

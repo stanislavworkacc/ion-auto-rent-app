@@ -1,0 +1,43 @@
+ion-list {
+  border-radius: 12px;
+  background: #ffffff;
+  padding-top: 15px;
+  ion-item {
+    --background: transparent;
+    font-size: 14px;
+  }
+
+  .selectedChip {
+    background: #19273c;
+    color: white;
+  }
+
+}
+.slide-down-animation {
+  animation: slide-down 0.8s ease-out forwards;
+}
+
+.auth-modal {
+  --background: white !important;
+  ion-content {
+    --background: white !important;
+  }
+}
+
+.sc-ion-input-md-h {
+  --highlight-color-focused: #9ca3af !important;
+  --highlight-color-valid: transparent !important;
+  --highlight-color-invalid: transparent !important;
+}
+@keyframes slide-down {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+

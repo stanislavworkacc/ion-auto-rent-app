@@ -1,0 +1,17 @@
+<div class="h-[20px] bg-[#efefef] flex justify-center items-center"
+     (click)="fileInput.click()"
+>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  Додати
+  <input #fileInput
+         multiple
+         accept="image/*"
+         type="file"
+         (change)="handleFileUpload($event)"
+         style="display: none;"
+  >
+</div>
+

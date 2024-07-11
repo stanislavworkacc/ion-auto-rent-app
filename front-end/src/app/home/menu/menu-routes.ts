@@ -7,6 +7,9 @@ import {CarParkComponent} from "./car-park/car-park.component";
 import {AllCarsComponent} from "./car-park/all-cars/all-cars.component";
 import {InRentComponent} from "./car-park/in-rent/in-rent.component";
 import {AllParksComponent} from "./car-park/all-parks/all-parks.component";
+import {ReviewsPageComponent} from "./car-park/all-cars/reviews-page/reviews-page.component";
+import {ArchivePageComponent} from "./car-park/all-cars/archive-page/archive-page.component";
+import {CarListComponent} from "./car-park/all-cars/car-list/car-list.component";
 
 export const MENU_ROUTES: Routes = [
   {
@@ -31,16 +34,30 @@ export const MENU_ROUTES: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'all-parks',
+        redirectTo: 'parks',
         pathMatch: 'full'
       },
       {
-        path: 'all-parks',
+        path: 'parks',
         component: AllParksComponent
       },
       {
         path: 'all-cars',
-        component: AllCarsComponent
+        component: AllCarsComponent,
+        children: [
+          {
+            path: 'reviews',
+            component: ReviewsPageComponent
+          },
+          {
+            path: 'rent-archive',
+            component: ArchivePageComponent
+          },
+          {
+            path: 'cars',
+            component: CarListComponent
+          }
+        ]
       },
       {
         path: 'in-rent',

@@ -22,19 +22,19 @@
 </ion-header>
 
 <ion-content>
-  <div class="wrapper bg-white h-full rounded-tl-[30px] rounded-tr-[30px]">
-    <div class="flex justify-between p-3 items-center bg-[#d0d5db] rounded-tl-[30px] rounded-tr-[30px]">
-      <div class="flex items-center bg-[#d0d5db] rounded-tl-[30px]">
+  <div class="wrapper bg-white h-full rounded-tl-[30px] rounded-tr-[30px] mt-[5px]">
+    <div class="flex justify-between p-3 items-center bg-[#182130] rounded-tl-[30px] rounded-tr-[30px]">
+      <div class="flex items-center bg-[#182130] rounded-tl-[30px]">
         <ion-avatar slot="start">
-          <img class="rounded-[15px]" src="https://ionicframework.com/docs/img/demos/avatar.svg"/>
+          <img src="assets/icon/user2.png"/>
         </ion-avatar>
         <div class="ml-4">
-          <p class="text-[18px] font-bold text-gray-800">Станіслав</p>
+          <p class="text-[18px] font-bold text-white">Станіслав</p>
           <p class="text-sm text-gray-600">+380(93)-567-890</p>
           <p class="text-sm text-blue-600">johndoe.com</p>
         </div>
       </div>
-      <ion-icon class=" text-[30px] text-black"
+      <ion-icon class=" text-[30px] text-white"
                 name="ellipsis-horizontal-circle-outline"
                 id="popover-button"
       >
@@ -173,7 +173,7 @@
           </div>
         </div>
 
-        <ion-label class="text-[#1f2937] !border-none mb-2">Безпека даних</ion-label>
+        <ion-label class="text-[#1f2937] !border-none mb-2 flex !justify-start">Безпека даних</ion-label>
 
         <div (click)="confirmEditPassword()">
           <div [class.blurred]="passwordBlurred()">
@@ -266,13 +266,16 @@
     <ion-content>
       <ion-list>
         <ion-item [button]="true" [detail]="false" (click)="isBlurred.set(false)">
-          <ion-label>Редагувати профіль</ion-label>
-          <ion-icon slot="end" name="create-outline"></ion-icon>
+          <ion-label>Редагувати</ion-label>
+          <img src="/assets/icon/edit-ico2.png" class="h-[22px]">
         </ion-item>
-        <ion-item [button]="true" [detail]="false" (click)="deleteAccount()" id="delete-alert">
-
-          <ion-label>Видалити аккаунт</ion-label>
-          <ion-icon slot="end" name="person-remove-outline"></ion-icon>
+        <ion-item id="delete-alert"
+                  [button]="true"
+                  [detail]="false"
+                  (click)="deleteAccount()"
+        >
+          <ion-label>Видалити</ion-label>
+          <img src="/assets/icon/delete-user-ico.png" class="h-[23px]">
         </ion-item>
       </ion-list>
     </ion-content>
@@ -286,6 +289,10 @@
 >
   <ng-template>
     <ion-content>
+      <div class="bg-[#212c40] p-2 flex justify-between items-center">
+        <ion-label class="text-xs uppercase">Попередні сторінки</ion-label>
+        <ion-icon name="return-down-back-outline"></ion-icon>
+      </div>
       <ion-list>
         <ion-item
           *ngFor="let breadcrumb of collapsedBreadcrumbs; last as isLast"

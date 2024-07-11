@@ -1,11 +1,9 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  CUSTOM_ELEMENTS_SCHEMA,
+  effect,
   inject,
   OnInit,
-  signal,
-  WritableSignal
 } from '@angular/core';
 import {
   IonBadge, IonButton, IonButtons,
@@ -13,15 +11,18 @@ import {
   IonCardContent,
   IonCardHeader,
   IonCardSubtitle,
-  IonCardTitle, IonChip, IonHeader, IonIcon,
+  IonCardTitle, IonChip, IonContent, IonHeader, IonIcon,
   IonItem, IonLabel,
-  IonList, IonSegment, IonSegmentButton, IonTitle, IonToolbar
+  IonList, IonSegment, IonSegmentButton, IonTitle, IonToolbar, ModalController
 } from "@ionic/angular/standalone";
 import {NgClass, NgForOf} from "@angular/common";
 import {AllCarsService} from "./all-cars.service";
 // import { register } from 'swiper/element/bundle';
 import {CarParkDataService} from "../car-park-data.service";
-import {NavController} from "@ionic/angular";
+import {NavController, Platform} from "@ionic/angular";
+import {InRentAllSegmentComponent} from "../in-rent-all-segment/in-rent-all-segment.component";
+import {RouterOutlet} from "@angular/router";
+import {AllCarsChip, AllCarsSegment} from "./all-cars.enums";
 
 // register();
 @Component({
@@ -30,7 +31,6 @@ import {NavController} from "@ionic/angular";
   styleUrls: ['./all-cars.component.scss'],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
     IonCard,
     IonList,
@@ -51,7 +51,10 @@ import {NavController} from "@ionic/angular";
     IonHeader,
     IonToolbar,
     IonSegment,
-    IonSegmentButton
+    IonSegmentButton,
+    IonContent,
+    InRentAllSegmentComponent,
+    RouterOutlet
   ]
 })
 export class AllCarsComponent  implements OnInit {
@@ -59,6 +62,8 @@ export class AllCarsComponent  implements OnInit {
   private allCarsService: AllCarsService = inject(AllCarsService);
   private carParkDataService: CarParkDataService = inject(CarParkDataService);
   private navCtrl: NavController = inject(NavController);
+
+  public AllCarsChip = AllCarsChip;
 
   get allCarsData() {
     return this.allCarsService;
@@ -68,113 +73,49 @@ export class AllCarsComponent  implements OnInit {
     return this.carParkDataService;
   }
 
-
-  onSegmentChanged(event: any): void {
-    this.carDataService.selectedSegment.update(() => event.detail.value);
-    this.navCtrl.navigateForward([`home/menu/car-park/${this.carDataService.selectedSegment()}`])
-  }
-  setAllCars(): void {
-    this.allCarsData.setAllCars([
-      {
-        title: 'Card Title 1',
-        subtitle: 'Card Subtitle 1',
-        content: 'Here\'s a small text description for the card content. Nothing more, nothing less.',
-        images: [
-          'https://swiperjs.com/demos/images/nature-1.jpg',
-          'https://swiperjs.com/demos/images/nature-2.jpg',
-          'https://swiperjs.com/demos/images/nature-3.jpg',
-          'https://swiperjs.com/demos/images/nature-4.jpg'
-        ]
-      },
-      {
-        title: 'Card Title 2',
-        subtitle: 'Card Subtitle 2',
-        content: 'Here\'s a small text description for the card content. Nothing more, nothing less.',
-        images: [
-          'https://swiperjs.com/demos/images/nature-1.jpg',
-          'https://swiperjs.com/demos/images/nature-2.jpg',
-          'https://swiperjs.com/demos/images/nature-3.jpg',
-          'https://swiperjs.com/demos/images/nature-4.jpg'
-        ]
-      },
-      {
-        title: 'Card Title 3',
-        subtitle: 'Card Subtitle 3',
-        content: 'Here\'s a small text description for the card content. Nothing more, nothing less.',
-        images: [
-          'https://swiperjs.com/demos/images/nature-1.jpg',
-          'https://swiperjs.com/demos/images/nature-2.jpg',
-          'https://swiperjs.com/demos/images/nature-3.jpg',
-          'https://swiperjs.com/demos/images/nature-4.jpg'
-        ]
-      },
-      {
-        title: 'Card Title 4',
-        subtitle: 'Card Subtitle 4',
-        content: 'Here\'s a small text description for the card content. Nothing more, nothing less.',
-        images: [
-          'https://swiperjs.com/demos/images/nature-1.jpg',
-          'https://swiperjs.com/demos/images/nature-2.jpg',
-          'https://swiperjs.com/demos/images/nature-3.jpg',
-          'https://swiperjs.com/demos/images/nature-4.jpg'
-        ]
-      }
-    ]);
-
+  setChips(): void {
+    this.allCarsData.chips.set([
+      { value: AllCarsChip.INFO, label: 'Деталі', icon: '/assets/icon/detail-car-icon.png' },
+      { value: AllCarsChip.REVIEWS, label: 'Відгуки', icon: '/assets/icon/reviews-ico.png' },
+      { value: AllCarsChip.RENT_ARCHIVE, label: 'Архів оренд', icon: '/assets/icon/archive-ico.png' },
+    ])
   }
 
   chipSelected(chip: { value: string, label: string, icon: string }): void {
     this.allCarsData.selectedChip.set(chip);
+    this.navCtrl.navigateForward([`/home/menu/car-park/all-cars/${ chip.value }`])
   }
 
-  setChips(): void {
-    this.allCarsData.chips.set([
-      { value: 'reviews', label: 'Відгуки', icon: 'heart-circle-outline' },
-      { value: 'history-rent', label: 'Архів оренд', icon: 'cloud-done-outline' },
-    ])
+  closeSelectedChip(ev): void {
+    ev.preventDefault();
+    ev.stopPropagation();
+    this.navCtrl.navigateForward(['/home/menu/car-park/all-cars/cars']);
+    this.allCarsData.selectedChip.set(null)
   }
 
-  setParkRates(): void {
-    this.allCarsData.setRateIcons([
-      {
-        name: 'car-outline',
-        textClass: 'text-[#89a1c8]',
-        badgeClass: 'bg-[#89a1c8]',
-        badgeText: '2'
-      },
-      {
-        name: 'checkmark-circle-outline',
-        textClass: 'text-[#49a66b]',
-        badgeClass: 'bg-[#2f9253]',
-        badgeText: '2'
-      },
-      {
-        name: 'heart-outline',
-        textClass: 'text-[#b5b5b5]',
-        badgeClass: 'bg-[#b5b5b5]',
-        badgeText: '2'
-      },
-      {
-        name: 'heart-dislike-outline',
-        textClass: 'text-[#b5b5b529]',
-        badgeClass: 'bg-[#b5b5b5]',
-        badgeText: '2'
-      },
-      {
-        name: 'star-half-outline',
-        textClass: 'text-[#b5b5b529]',
-        badgeClass: 'bg-[#3e4673]',
-        badgeText: '4.3'
-      }
-    ])
+  handleBreadCrubms(): void {
+    this.carDataService.routes.set(['/home', '/home/menu/car-park', '/home/menu/car-park/all-cars']);
+    this.carDataService.newRoutes.set([ { url: '/home/menu/car-park', label: 'Автопарки' } ])
   }
+
   setParkData(): void {
-    this.setAllCars();
     this.setChips();
-    this.setParkRates();
   }
+
+  async vehicleCreation(): Promise<void> {
+    this.navCtrl.navigateForward(['/home/create'])
+  }
+
   ngOnInit(): void {
     this.setParkData();
+    this.handleBreadCrubms();
   }
-  constructor() { }
+  constructor() {
+
+    effect((): void => {
+      if (this.carDataService.selectedSegment() === AllCarsSegment.ALL_CARS) {
+        this.navCtrl.navigateForward(['/home/menu/car-park/all-cars/cars'])
+      }
+    });
+  }
 }

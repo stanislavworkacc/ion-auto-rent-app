@@ -1,0 +1,17 @@
+ion-header {
+  box-shadow: none;
+
+  ion-toolbar {
+    --background: #f0f4f7 !important;
+    --border-width: 0;
+    padding: 0 10px;
+  }
+}
+
+ion-content {
+  --background: linear-gradient(to bottom, #f0f4f7, #b3bac0) !important;
+
+  ion-list {
+    background: linear-gradient(to bottom, #f0f4f7, #b3bac0) !important;
+  }
+}

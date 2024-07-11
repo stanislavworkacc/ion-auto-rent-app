@@ -15,18 +15,30 @@ import {
   CompaniesMarqueeComponent
 } from "../../../../../auth/authorizator/auth-form-wrapper/companies-marquee/companies-marquee.component";
 import {
-  IonAvatar, IonButton,
+  IonAvatar,
+  IonButton,
   IonButtons,
   IonContent,
-  IonHeader, IonIcon, IonInput,
-  IonItem, IonLabel, IonSpinner,
+  IonHeader,
+  IonIcon,
+  IonInput,
+  IonItem,
+  IonLabel,
+  IonList,
+  IonPopover,
+  IonProgressBar,
+  IonRange,
+  IonSearchbar,
+  IonSelect,
+  IonSelectOption,
+  IonSpinner, IonText,
   IonToolbar,
   ModalController
 } from "@ionic/angular/standalone";
 import {SegmentsComponent} from "../../../../../shared/ui-kit/components/segments/segments.component";
-import {NgIf, NgOptimizedImage} from "@angular/common";
+import {NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
 import {ValidateInputDirective} from "../../../../../shared/directives/validate-input.directive";
-import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {matchingPasswordsValidator} from "../../../../../shared/utils/validators/matchingPasswordValidator";
 import {of} from "rxjs/internal/observable/of";
 import {delay, tap} from "rxjs";
@@ -36,6 +48,7 @@ import {catchError, filter, map} from "rxjs/operators";
 import {handleError} from "../../../../../shared/utils/errorHandler";
 import {GoogleSsoService} from "../../../../../auth/authorizator/google-sso.service";
 import {GooglePlacesSerivce} from "../../../../../shared/services/google-places.serivce";
+import {GooglePlacesComponent} from "../../../../../shared/components/google-places/google-places.component";
 
 @Component({
   selector: 'app-create-park-modal',
@@ -62,7 +75,18 @@ import {GooglePlacesSerivce} from "../../../../../shared/services/google-places.
     IonSpinner,
     ValidateInputDirective,
     ReactiveFormsModule,
-    UploadBtnComponent
+    UploadBtnComponent,
+    IonProgressBar,
+    IonPopover,
+    IonRange,
+    FormsModule,
+    IonSelect,
+    IonSelectOption,
+    NgForOf,
+    IonSearchbar,
+    IonList,
+    IonText,
+    GooglePlacesComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -81,12 +105,14 @@ export class CreateParkModalComponent  implements OnInit, AfterViewInit {
     name: false,
     address: false,
   };
+  uploadedLogoUrl: string = '';
+  formats: string[] = ['JPEG', 'WEBP', 'PNG', 'SVG', 'JPG'];
 
   logoUploaded: WritableSignal<boolean> = signal(false);
   logoUploading: WritableSignal<boolean> = signal(false);
   uploadProgress: WritableSignal<number>  = signal(0);
 
-  uploadedLogoUrl: string = '';
+  suggestions: WritableSignal<string[]> = signal([]);
 
   @ViewChild('addressInput', { static: false }) addressInput!: IonInput;
 
@@ -102,7 +128,7 @@ export class CreateParkModalComponent  implements OnInit, AfterViewInit {
   closeModal(): void {
     this.modalCtrl.dismiss()
   }
-  handleFileUpload(event: any) {
+  handleFileUpload(event: any): void {
     const file = event.target.files[0];
     if (file) {
       this.logoUploading.set(true);
@@ -136,6 +162,13 @@ export class CreateParkModalComponent  implements OnInit, AfterViewInit {
     }
   }
 
+  clearSelectedLogo(): void {
+    this.uploadedLogoUrl = '';
+    this.logoUploaded.set(false);
+    this.logoUploading.set(false);
+    this.uploadProgress.set(0);
+  }
+
   assignFormControls(): void {
     this.name = this.form.get('name') as FormControl;
     this.address = this.form.get('address') as FormControl;
@@ -158,28 +191,28 @@ export class CreateParkModalComponent  implements OnInit, AfterViewInit {
       .pipe(
         takeUntilDestroyed(this.destroyRef),
         filter((loaded: boolean) => loaded),
-        map(() => this.initAutocomplete()),
       )
       .subscribe();
 
     this.googlePlacesService.loadGoogleSSOScript(this.renderer).subscribe();
   }
 
-  initAutocomplete(): void {
-    const inputElement: Promise<HTMLInputElement> = this.addressInput.getInputElement();
-
-    inputElement.then((input: HTMLInputElement): void => {
-      // @ts-ignore
-      const autocomplete = new google.maps.places.Autocomplete(input as HTMLInputElement, {
-        types: ['geocode']
-      });
-
-      autocomplete.addListener('place_changed', (): void => {
-        const place = autocomplete.getPlace();
-        this.address.setValue(place.formatted_address);
-      });
+  fetchSuggestions(query: any): void {
+    //@ts-ignore
+    const autocompleteService = new google.maps.places.AutocompleteService();
+    autocompleteService.getPlacePredictions({ input: query }, (predictions, status) => {
+      //@ts-ignore
+      if (status === google.maps.places.PlacesServiceStatus.OK && predictions) {
+        this.suggestions.set(predictions.map(prediction => prediction.description));
+      }
     });
   }
+
+  selectSuggestion(suggestion: string): void {
+    this.address.setValue(suggestion);
+    this.suggestions.set([]);
+  }
+
 
   ngAfterViewInit(): void {
     this.initGooglePlaces();

@@ -11,8 +11,9 @@ export class BreadcrumbLabelPipe implements PipeTransform {
       menu: 'Меню',
       profile: 'Профіль',
       edit: 'Редагування',
-      "all-parks": 'Колекції',
+      parks: 'Автопарки',
       "all-cars": 'Автопарк',
+      "cars": 'Автопарк',
       "in-rent": 'В оренді',
     };
 
