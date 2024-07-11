@@ -3,16 +3,23 @@
     @if (logoUploaded()) {
       <div class="grid grid-cols-3 gap-2">
         @for (url of uploadedLogoUrls; track url.valueOf()) {
-          <img [src]="url" alt="Logo" class="!h-[6rem] !w-[6rem] object-cover mb-2 rounded border-dotted border-[2px]">
+          @if (url.loading) {
+            <div class="flex justify-center items-center h-full w-full text-gray-500">...</div>
+          }
+          @else {
+            <img [src]="url" alt="Logo" class="!h-[6rem] !w-[6rem] object-cover mb-2 rounded border-dotted border-[2px]">
+
+          }
         }
       </div>
     }
   </div>
 
+
+
   <upload-gallery-btn
     [handleFileUpload]="handleFileUpload.bind(this)"
     [logoUploading]="logoUploading()"
-    [uploadProgress]="uploadProgress()"
   >
   </upload-gallery-btn>
 </div>

@@ -33,13 +33,13 @@ export class ImagesInfoComponent  implements OnInit {
   logoUploading: WritableSignal<boolean> = signal(false);
   uploadProgress: WritableSignal<number>  = signal(0);
 
-  uploadedLogoUrls: string[] = [];
+  uploadedLogoUrls: { url: string, loading: boolean }[] = [];
+
   handleFileUpload(event: any) {
     const files = event.target.files;
     if (files && files.length > 0) {
       this.logoUploading.set(true);
       const readers: FileReader[] = [];
-      const progressIncrement = 100 / files.length;
 
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
@@ -48,13 +48,11 @@ export class ImagesInfoComponent  implements OnInit {
         reader.onload = (e: any) => {
           of(e.target.result)
             .pipe(
-              delay(1000),
               tap((result) => {
                 this.uploadedLogoUrls.push(result);
                 if (i === files.length - 1) {
                   this.logoUploaded.set(true);
                   this.logoUploading.set(false);
-                  this.uploadProgress.set(0);
                 }
               })
             )
@@ -64,16 +62,6 @@ export class ImagesInfoComponent  implements OnInit {
         readers.push(reader);
         reader.readAsDataURL(file);
       }
-
-      let progress: number = 0;
-      const interval = setInterval(() => {
-        if (progress < 100) {
-          progress += progressIncrement;
-          this.uploadProgress.set(Math.min(progress, 100));
-        } else {
-          clearInterval(interval);
-        }
-      }, 100);
     }
   }
 

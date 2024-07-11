@@ -32,7 +32,6 @@ export class UploadGalleryPreviewComponent  implements OnInit {
 
   @Input() handleFileUpload: (event) => void;
   logoUploading: InputSignal<boolean> = input(false)
-  uploadProgress: InputSignal<number> = input(0)
   constructor() { }
 
   ngOnInit() {}
