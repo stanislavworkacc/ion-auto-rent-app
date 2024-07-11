@@ -14,6 +14,7 @@ import {UploadGalleryPreviewComponent} from "./upload-gallery-btn/upload-gallery
 import {CloseBtnComponent} from "../../../ui-kit/components/close-btn/close-btn.component";
 import {IonButtons, IonIcon, IonItem, IonLabel, IonSkeletonText, IonSpinner} from "@ionic/angular/standalone";
 import {ToasterService} from "../../app-toast/toaster.service";
+import {ActionSheetController} from "@ionic/angular";
 
 @Component({
   selector: 'images-info',
@@ -36,6 +37,7 @@ export class ImagesInfoComponent  implements OnInit {
 
   private cdRef : ChangeDetectorRef = inject(ChangeDetectorRef);
   private toaster : ToasterService = inject(ToasterService);
+  private actionSheetCtrl: ActionSheetController = inject(ActionSheetController);
 
   formats: string[] = ['JPEG', 'WEBP', 'PNG', 'SVG', 'JPG'];
   uploadedLogoUrls: { url: string, loading: boolean }[] = [];
@@ -67,6 +69,38 @@ export class ImagesInfoComponent  implements OnInit {
     }
   }
 
+  async editImage(img) {
+    const actionSheet = await this.actionSheetCtrl.create({
+      cssClass: 'my-custom-class',
+      buttons: [
+        {
+          text: 'Зробити головним',
+          handler: () => {
+            // this.setAsMainPhoto(url);
+          }
+        }, {
+        text: 'Видалити',
+        role: 'destructive',
+        handler: () => {
+         this.deletePhoto(img.url)
+        }
+      }, {
+        text: 'Скасувати',
+        icon: 'close',
+        role: 'cancel',
+        handler: () => {}
+      }]
+    });
+    await actionSheet.present();
+  }
+
+  deletePhoto(url: string) {
+    const index = this.uploadedLogoUrls.findIndex(item => item.url === url);
+    if (index > -1) {
+      this.uploadedLogoUrls.splice(index, 1);
+      this.cdRef.detectChanges()
+    }
+  }
   ngOnInit() {}
 
 }
