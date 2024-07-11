@@ -4,11 +4,12 @@
       <div class="grid grid-cols-3 gap-2">
         @for (url of uploadedLogoUrls; track url.valueOf()) {
           @if (url.loading) {
-            <div class="flex justify-center items-center h-full w-full text-gray-500">...</div>
+            <div class="flex justify-center items-center !h-[6rem] !w-[6rem]">
+              <ion-spinner class="text-[#008080]" name="circles"></ion-spinner>
+            </div>
           }
           @else {
-            <img [src]="url" alt="Logo" class="!h-[6rem] !w-[6rem] object-cover mb-2 rounded border-dotted border-[2px]">
-
+            <img [src]="url.url" alt="Logo" class="!h-[6rem] !w-[6rem] object-cover mb-2 rounded border-dotted border-[2px]">
           }
         }
       </div>

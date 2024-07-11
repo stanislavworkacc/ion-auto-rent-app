@@ -3,10 +3,8 @@ import {
   UploadBtnComponent
 } from "../../../../home/menu/car-park/all-parks/create-park-modal/upload-btn/upload-btn.component";
 import {UploadGalleryPreviewComponent} from "./upload-gallery-btn/upload-gallery-btn.component";
-import {of} from "rxjs/internal/observable/of";
-import {delay, tap} from "rxjs";
 import {CloseBtnComponent} from "../../../ui-kit/components/close-btn/close-btn.component";
-import {IonButtons, IonIcon, IonLabel} from "@ionic/angular/standalone";
+import {IonButtons, IonIcon, IonItem, IonLabel, IonSkeletonText, IonSpinner} from "@ionic/angular/standalone";
 
 @Component({
   selector: 'images-info',
@@ -19,7 +17,9 @@ import {IonButtons, IonIcon, IonLabel} from "@ionic/angular/standalone";
     CloseBtnComponent,
     IonButtons,
     IonLabel,
-    IonIcon
+    IonIcon,
+    IonItem,
+    IonSpinner,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -31,8 +31,6 @@ export class ImagesInfoComponent  implements OnInit {
 
   logoUploaded: WritableSignal<boolean> = signal(false);
   logoUploading: WritableSignal<boolean> = signal(false);
-  uploadProgress: WritableSignal<number>  = signal(0);
-
   uploadedLogoUrls: { url: string, loading: boolean }[] = [];
 
   handleFileUpload(event: any) {
@@ -45,18 +43,19 @@ export class ImagesInfoComponent  implements OnInit {
         const file = files[i];
         const reader: FileReader = new FileReader();
 
+        // Додаємо об'єкт для кожного файлу з початковим станом завантаження
+        this.uploadedLogoUrls.push({ url: '', loading: true });
+
         reader.onload = (e: any) => {
-          of(e.target.result)
-            .pipe(
-              tap((result) => {
-                this.uploadedLogoUrls.push(result);
-                if (i === files.length - 1) {
-                  this.logoUploaded.set(true);
-                  this.logoUploading.set(false);
-                }
-              })
-            )
-            .subscribe();
+          const result = e.target.result;
+
+          // Оновлюємо відповідний об'єкт після завантаження
+          this.uploadedLogoUrls[i] = { url: result, loading: false };
+
+          if (i === files.length - 1) {
+            this.logoUploaded.set(true);
+            this.logoUploading.set(false);
+          }
         };
 
         readers.push(reader);
