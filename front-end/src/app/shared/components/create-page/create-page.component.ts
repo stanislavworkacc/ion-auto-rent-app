@@ -158,9 +158,12 @@ export class CreatePageComponent  implements OnInit {
       this.additionalOptions.chipsArray.set(clearOptionsArray);
     };
 
+    const resetImagesGallery = () => this.imagesInfoService.uploadedLogoUrls.set([])
+
     resetVehicleService();
     resetTechnicalCharacteristics();
     resetAdditionalOptions();
+    resetImagesGallery();
 
     setTimeout(() => {
       this.isFormReset.set(false);

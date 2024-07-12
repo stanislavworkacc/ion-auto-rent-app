@@ -32,27 +32,28 @@
     }
   </div>
   <div class="relative mb-5">
-    <images-info></images-info>
+    <images-info [class.slide-down-animation]="isFormReset()"></images-info>
     <ion-label class="text-black text-sm font-[300] absolute -top-[9px] left-[12px] bg-white rounded-[12px] px-2">Фотогалерея</ion-label>
   </div>
 
   <div class="mb-5 relative">
-    <main-info></main-info>
+    <main-info [class.slide-down-animation]="isFormReset()"></main-info>
     <ion-label class="text-[#333333] text-sm font-[300] absolute -top-[9px] left-[12px] bg-[#ffffff] rounded-[12px] px-2">Головна інформація</ion-label>
   </div>
 
   <div class="mb-5 relative">
-    <app-address-info [isFormReset]="isFormReset()"></app-address-info>
+    <app-address-info [isFormReset]="isFormReset()" [class.slide-down-animation]="isFormReset()"></app-address-info>
     <ion-label class="text-[#333333] text-sm font-[300] absolute -top-[9px] left-[12px] bg-white rounded-[12px] px-2 border-t-[1px] border-[#929292]">Місцезнаходження</ion-label>
   </div>
 
   <div class="mb-5 relative">
-    <technical-characteristics></technical-characteristics>
+    <technical-characteristics [class.slide-down-animation]="isFormReset()"></technical-characteristics>
     <ion-label class="text-[#333333] text-sm font-[300] absolute -top-[9px] left-[12px] bg-[#ffffff] rounded-[12px] px-2">Технічні характеристики</ion-label>
   </div>
 
   <div class="flex flex-col"
        [class.mb-[100px]]="!showAdditionalOptions()"
+       [class.slide-down-animation]="isFormReset()"
        (click)="showAdditionalOptions.set(!showAdditionalOptions())"
   >
     <div class="relative flex items-center">

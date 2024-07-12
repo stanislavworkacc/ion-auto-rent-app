@@ -13,9 +13,6 @@ ion-list {
   }
 
 }
-.slide-down-animation {
-  animation: slide-down 0.8s ease-out forwards;
-}
 
 .auth-modal {
   --background: white !important;
@@ -29,15 +26,4 @@ ion-list {
   --highlight-color-valid: transparent !important;
   --highlight-color-invalid: transparent !important;
 }
-@keyframes slide-down {
-  from {
-    transform: translateY(-100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
 
