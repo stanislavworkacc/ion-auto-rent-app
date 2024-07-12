@@ -50,14 +50,14 @@ export class ImagesInfoService {
   }
 
 
-  async editImage(img) {
-    const actionSheet = await this.actionSheetCtrl.create({
+  async editImage(img): Promise<void> {
+    const actionSheet: HTMLIonActionSheetElement = await this.actionSheetCtrl.create({
       cssClass: 'my-custom-class',
       buttons: [
         {
           text: 'Зробити головним',
-          handler: () => {
-            // this.setAsMainPhoto(url);
+          handler: (): void => {
+            this.makeMajorImage(img)
           }
         }, {
           text: 'Видалити',
@@ -86,6 +86,9 @@ export class ImagesInfoService {
     }
   }
 
+  makeMajorImage(img) {
+
+  }
 
   async clearGallery(): Promise<void> {
     const actionSheet: HTMLIonActionSheetElement = await this.actionSheetCtrl.create({

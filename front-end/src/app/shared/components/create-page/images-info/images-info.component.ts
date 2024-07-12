@@ -2,7 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   inject,
-  OnInit,
+  OnInit, signal, WritableSignal,
 } from '@angular/core';
 import {
   UploadBtnComponent
@@ -42,13 +42,13 @@ import {NgClass} from "@angular/common";
 export class ImagesInfoComponent  implements OnInit {
 
   private imagesInfoService: ImagesInfoService = inject(ImagesInfoService);
-  isGridView = true;
+  isGridView: WritableSignal<boolean> = signal(true);
   get imagesInfo() {
     return this.imagesInfoService;
   }
 
-  toggleView() {
-    this.isGridView = !this.isGridView;
+  toggleView(): void {
+    this.isGridView.set(!this.isGridView());
   }
 
   handleFileUpload(ev): void {
