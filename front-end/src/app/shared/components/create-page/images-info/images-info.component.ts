@@ -107,6 +107,27 @@ export class ImagesInfoComponent  implements OnInit {
       this.cdRef.detectChanges()
     }
   }
+
+  async clearGallery(): Promise<void> {
+    const actionSheet: HTMLIonActionSheetElement = await this.actionSheetCtrl.create({
+      buttons: [
+        {
+          text: 'Видалити всі',
+          role: 'destructive',
+          handler: () => {
+            this.uploadedLogoUrls = []
+            this.cdRef.detectChanges()
+
+          }
+        }, {
+          text: 'Скасувати',
+          icon: 'close',
+          role: 'cancel',
+          handler: () => {}
+        }]
+    });
+    await actionSheet.present();
+  }
   ngOnInit() {}
 
 }

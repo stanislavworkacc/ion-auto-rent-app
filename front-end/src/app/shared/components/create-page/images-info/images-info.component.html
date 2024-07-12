@@ -31,4 +31,9 @@
     [handleFileUpload]="handleFileUpload.bind(this)"
   >
   </upload-gallery-btn>
+  @if (uploadedLogoUrls.length) {
+    <ion-button slot="icon-only" class="absolute top-[-5px] right-[5px]" (click)="clearGallery()">
+      <ion-icon name="settings-outline" class="text-black"></ion-icon>
+    </ion-button>
+  }
 </div>
