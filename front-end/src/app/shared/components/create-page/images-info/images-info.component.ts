@@ -18,6 +18,7 @@ import {
   IonSpinner
 } from "@ionic/angular/standalone";
 import {ImagesInfoService} from "./images-info.service";
+import {NgClass} from "@angular/common";
 
 @Component({
   selector: 'images-info',
@@ -34,15 +35,20 @@ import {ImagesInfoService} from "./images-info.service";
     IonItem,
     IonSpinner,
     IonButton,
+    NgClass,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ImagesInfoComponent  implements OnInit {
 
   private imagesInfoService: ImagesInfoService = inject(ImagesInfoService);
-
+  isGridView = true;
   get imagesInfo() {
     return this.imagesInfoService;
+  }
+
+  toggleView() {
+    this.isGridView = !this.isGridView;
   }
 
   handleFileUpload(ev): void {
