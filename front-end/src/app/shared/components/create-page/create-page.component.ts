@@ -123,55 +123,8 @@ export class CreatePageComponent  implements OnInit {
     this.modalCtrl.dismiss()
   }
 
-  async hardReset(): Promise<void> {
-    const actionSheet: HTMLIonActionSheetElement = await this.actionSheetCtrl.create({
-      header: 'Скидання даних',
-      subHeader: 'Всі введені дані будуть скасовані. Ви впевнені, що хочете оновити?',
-      buttons: [{
-        text: 'Оновити',
-        role: 'destructive',
-        handler: (): void => {
-          this.allDataReset();
-          this.isFormReset.set(!this.isFormReset());
-        }
-      }, {
-        text: 'Відмінити',
-        role: 'cancel',
-        handler: () => {
-
-        }
-      }]
-    });
-
-    await actionSheet.present();
-  }
-
-  // allDataReset() {
-  //   this.vehicleService.selectedYear.set({ label: '', value: '' });
-  //   this.vehicleService.selectedVehicleMark.set({ name: '', value: null });
-  //   this.vehicleService.selectedVehicleModel.set({ name: '', value: null });
-  //   this.vehicleService.selectedBodyType.set({ name: '', value: null });
-  //   this.technicalCharacteristics.selectedFuelType.set({ name: '', value: null });
-  //   this.technicalCharacteristics.isFuelConsumption.set(false);
-  //   this.technicalCharacteristics.cityConsumption.set({ label: technicalListLabel.CITY_CONSUMPTION, value: 0, isVisible: false, callback: async (): Promise<void> => await this.technicalCharacteristics.presentFuelConsumptionAlert() });
-  //   this.technicalCharacteristics.highwayConsumption.set({ label: technicalListLabel.HIGHWAY_CONSUMPTION, value: 0, isVisible: false, callback: async (): Promise<void> => await this.technicalCharacteristics.presentFuelConsumptionAlert() });
-  //   this.technicalCharacteristics.combinedConsumption.set({ label: technicalListLabel.COMBINED_CONSUMPTION, value: 0, isVisible: false, callback: async (): Promise<void> => await this.technicalCharacteristics.presentFuelConsumptionAlert() });
-  //   this.technicalCharacteristics.selectedTransMission.set({ name: '', value: null });
-  //   this.technicalCharacteristics.engineValue.set('');
-  //   this.technicalCharacteristics.powerValue.set('');
-  //   this.technicalCharacteristics.hpPower.set(false);
-  //   this.technicalCharacteristics.kWPower.set(false);
-  //   this.technicalCharacteristics.selectedColorType.set({ name: '', value: null });
-  //   const clearOptionsArray = this.additionalOptions.chipsArray().map((additionalOption) => {
-  //     if(additionalOption.selected) {
-  //       return {...additionalOption, selected: false, value: '' }
-  //     }
-  //
-  //     return additionalOption;
-  //   })
-  //   this.additionalOptions.chipsArray.set(clearOptionsArray);
-  // }
   allDataReset() {
+    this.isFormReset.set(true);
     const resetVehicleService = () => {
       this.vehicleService.selectedYear.set({ label: '', value: '' });
       this.vehicleService.selectedVehicleMark.set({ name: '', value: null });
@@ -208,6 +161,10 @@ export class CreatePageComponent  implements OnInit {
     resetVehicleService();
     resetTechnicalCharacteristics();
     resetAdditionalOptions();
+
+    setTimeout(() => {
+      this.isFormReset.set(false);
+    },1000)
   }
 
   ngOnInit() {}
