@@ -2,7 +2,7 @@
   <div class="p-2 !pb-[40px]">
     @if (imagesInfo.uploadedLogoUrls().length) {
       <div [ngClass]="isGridView ? 'grid grid-cols-3 gap-2' : 'flex flex-col w-full'">
-        @for (img of imagesInfo.uploadedLogoUrls(); track img.valueOf()) {
+        @for (img of imagesInfo.uploadedLogoUrls(); let index = $index; track img.valueOf()) {
           @if (img.loading) {
             <div class="flex justify-center items-center !h-[6rem] !w-[6rem]">
               <ion-spinner class="text-[#008080]" name="circles"></ion-spinner>
@@ -11,10 +11,11 @@
             <ion-button
               (click)="imagesInfo.editImage(img)"
             >
-              <img [ngClass]="
-              isGridView ? '!h-[6rem] !w-[6rem] object-cover mb-2 rounded border-dotted border-[2px]'
-                : 'object-cover mb-2 rounded border-dotted border-[2px]'"
-                [src]="img.url"
+              <img [ngClass]="[
+              isGridView ? '!h-[6rem] !w-[6rem] object-cover mb-2 rounded border-dotted border-[2px]' : 'object-cover mb-2 rounded border-dotted border-[2px]',
+              index === 0 ? 'border-4 !border-double  border-yellow-500' : ''
+              ]"
+              [src]="img.url"
               >
             </ion-button>
           }
@@ -34,10 +35,10 @@
   </upload-gallery-btn>
   @if (imagesInfo.uploadedLogoUrls().length) {
     <ion-button slot="icon-only" class="absolute top-[5px] right-[5px] bg-gray-400 rounded-full p-1" (click)="imagesInfo.clearGallery()">
-      <ion-icon name="settings-outline" class="text-[#efefef]"></ion-icon>
+      <ion-icon name="settings-outline" class="text-[#efefef] text-[22px]"></ion-icon>
     </ion-button>
     <ion-button slot="icon-only" class="absolute top-[40px] right-[5px] bg-gray-400 rounded-full p-1" (click)="toggleView()">
-      <ion-icon name="apps-outline" class="text-[#efefef]"></ion-icon>
+      <img src="/assets/icon/panorama-view.png" class="h-[22px]">
     </ion-button>
   }
 
