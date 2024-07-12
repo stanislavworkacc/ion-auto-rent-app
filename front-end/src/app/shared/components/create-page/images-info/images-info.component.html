@@ -13,7 +13,7 @@
             >
               <img [ngClass]="[
               isGridView() ? '!h-[6rem] !w-[6rem] object-cover mb-2 rounded border-dotted border-[2px]' : 'object-cover mb-2 rounded border-dotted border-[2px]',
-              index === 0 ? 'border-4 !border-double  border-yellow-500' : ''
+              img.main ? 'border-4 !border-double  border-[#22296d]' : ''
               ]"
               [src]="img.url"
               >
