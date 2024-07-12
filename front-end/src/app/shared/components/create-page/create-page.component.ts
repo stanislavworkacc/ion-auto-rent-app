@@ -35,6 +35,7 @@ import {AdditionalOptionsComponent} from "./additional-options/additional-option
 import {NgIf} from "@angular/common";
 import {AdditionalOptionsService} from "./additional-options/additional-options.service";
 import {RippleBtnComponent} from "../buttons/ripple-btn/ripple-btn.component";
+import {ImagesInfoService} from "./images-info/images-info.service";
 
 @Component({
   selector: 'app-create-page',
@@ -95,11 +96,16 @@ export class CreatePageComponent  implements OnInit {
   private vehicleTypeService: VehicleTypeService = inject(VehicleTypeService);
   private technicalCharacteristicsService: TechnicalCharacteristicsService = inject(TechnicalCharacteristicsService);
   private additionalOptionsService: AdditionalOptionsService = inject(AdditionalOptionsService);
+  private imagesInfoService: ImagesInfoService = inject(ImagesInfoService);
 
   isFormReset: WritableSignal<boolean> = signal(false);
   showAdditionalOptions: WritableSignal<boolean> =  signal(false);
   get vehicleService() {
     return this.vehicleTypeService;
+  }
+
+  get imagesInfo() {
+    return this.imagesInfoService;
   }
 
   get technicalCharacteristics() {
