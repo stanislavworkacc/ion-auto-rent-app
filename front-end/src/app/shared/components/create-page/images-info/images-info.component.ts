@@ -4,8 +4,6 @@ import {
   Component,
   inject,
   OnInit,
-  signal,
-  WritableSignal
 } from '@angular/core';
 import {
   UploadBtnComponent
@@ -18,7 +16,6 @@ import {
   IonIcon,
   IonItem,
   IonLabel,
-  IonSkeletonText,
   IonSpinner
 } from "@ionic/angular/standalone";
 import {ToasterService} from "../../app-toast/toaster.service";
