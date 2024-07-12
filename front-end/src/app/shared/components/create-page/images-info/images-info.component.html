@@ -8,18 +8,17 @@
               <ion-spinner class="text-[#008080]" name="circles"></ion-spinner>
             </div>
           } @else {
-            <ion-button class="!h-[7rem] !w-[7rem] border-dotted border-[2px]"
+            <ion-button
+              [ngClass]="{
+              '!max-w-full !max-h-full' : !isGridView(),
+              '!max-h-[7rem] !max-w-[7rem] border-dotted border-[2px]' : isGridView()
+               }"
               (click)="imagesInfo.editImage(img)"
             >
-              <img [ngClass]="[
-              isGridView() ? 'object-cover mb-2' : 'object-cover mb-2',
-
-              ]"
-              [src]="img.url"
-              >
+              <img class="object-cover" [src]="img.url">
               @if (img.main) {
                 <div class="absolute w-full bg-[#22296d] text-white top-0 text-xs px-2 py-1">
-                  Головне зображення
+                  Головне фото
                 </div>
               }
             </ion-button>
