@@ -2,7 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   inject,
-  OnInit, signal, WritableSignal,
+  OnInit,
 } from '@angular/core';
 import {
   UploadBtnComponent
@@ -17,8 +17,6 @@ import {
   IonLabel,
   IonSpinner
 } from "@ionic/angular/standalone";
-import {ToasterService} from "../../app-toast/toaster.service";
-import {ActionSheetController} from "@ionic/angular";
 import {ImagesInfoService} from "./images-info.service";
 
 @Component({

@@ -27,7 +27,7 @@
 
   <div class="flex justify-end items-center text-gray-400">
     <span>{{ imagesInfo.uploadedLogoUrls().length }} з 20</span>
-    @if(imagesInfo.uploadedLogoUrls().length === 20) {
+    @if(imagesInfo.uploadedLogoUrls().length !== 20) {
       <ion-icon name="checkbox-outline" class="ml-1"></ion-icon>
     }
   </div>
