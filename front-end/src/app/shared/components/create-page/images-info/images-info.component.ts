@@ -1,9 +1,8 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   inject,
-  OnInit,
+  OnInit, signal, WritableSignal,
 } from '@angular/core';
 import {
   UploadBtnComponent
@@ -41,12 +40,11 @@ import {ActionSheetController} from "@ionic/angular";
 })
 export class ImagesInfoComponent  implements OnInit {
 
-  private cdRef : ChangeDetectorRef = inject(ChangeDetectorRef);
   private toaster : ToasterService = inject(ToasterService);
   private actionSheetCtrl: ActionSheetController = inject(ActionSheetController);
 
   formats: string[] = ['JPEG', 'WEBP', 'PNG', 'SVG', 'JPG'];
-  uploadedLogoUrls: { url: string, loading: boolean }[] = [];
+  uploadedLogoUrls: WritableSignal< { url: string, loading: boolean }[]>  = signal([]);
 
   handleFileUpload(event: any) {
     const files = event.target.files;
@@ -57,13 +55,13 @@ export class ImagesInfoComponent  implements OnInit {
 
         if (this.formats.includes(fileExtension)) {
           const reader = new FileReader();
-          const index = this.uploadedLogoUrls.length;
-          this.uploadedLogoUrls.push({ url: '', loading: true });
-          this.cdRef.detectChanges();
+          const index = this.uploadedLogoUrls().length;
+          this.uploadedLogoUrls.set([...this.uploadedLogoUrls(),{ url: '', loading: true }]);
 
           reader.onload = (e: any) => {
-            this.uploadedLogoUrls[index] = { url: e.target.result, loading: false };
-            this.cdRef.detectChanges();
+            const updatedUrls = this.uploadedLogoUrls().slice();
+            updatedUrls[index] = { url: e.target.result, loading: false };
+            this.uploadedLogoUrls.set(updatedUrls);
           };
           reader.readAsDataURL(file);
         } else {
@@ -100,13 +98,17 @@ export class ImagesInfoComponent  implements OnInit {
     await actionSheet.present();
   }
 
-  deletePhoto(url: string) {
-    const index = this.uploadedLogoUrls.findIndex(item => item.url === url);
+  deletePhoto(url: string): void {
+    const index = this.uploadedLogoUrls().findIndex(item => item.url === url);
     if (index > -1) {
-      this.uploadedLogoUrls.splice(index, 1);
-      this.cdRef.detectChanges()
+      const updatedUrls = [
+        ...this.uploadedLogoUrls().slice(0, index),
+        ...this.uploadedLogoUrls().slice(index + 1)
+      ];
+      this.uploadedLogoUrls.set(updatedUrls);
     }
   }
+
 
   async clearGallery(): Promise<void> {
     const actionSheet: HTMLIonActionSheetElement = await this.actionSheetCtrl.create({
@@ -115,9 +117,7 @@ export class ImagesInfoComponent  implements OnInit {
           text: 'Видалити всі',
           role: 'destructive',
           handler: () => {
-            this.uploadedLogoUrls = []
-            this.cdRef.detectChanges()
-
+            this.uploadedLogoUrls.set([])
           }
         }, {
           text: 'Скасувати',
