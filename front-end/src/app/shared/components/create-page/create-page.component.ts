@@ -125,8 +125,8 @@ export class CreatePageComponent  implements OnInit {
         text: 'Оновити',
         role: 'destructive',
         handler: (): void => {
-          this.isFormReset.set(!this.isFormReset());
           this.allDataReset();
+          this.isFormReset.set(!this.isFormReset());
         }
       }, {
         text: 'Відмінити',
