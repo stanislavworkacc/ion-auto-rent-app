@@ -1,4 +1,13 @@
-import {ChangeDetectionStrategy, Component, inject, OnInit, signal, WritableSignal} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  OnInit,
+  Signal,
+  signal,
+  WritableSignal
+} from '@angular/core';
 import {AdditionalOptionsComponent} from "../additional-options/additional-options.component";
 import {AddressInfoComponent} from "../address-info/address-info.component";
 import {BackButtonComponent} from "../../../ui-kit/components/back-button/back-button.component";
@@ -47,7 +56,14 @@ export class RentInfoComponent  implements OnInit {
 
   private navCtrl: NavController = inject(NavController);
 
-  isFormReset: WritableSignal<boolean> = signal(false);
+  public isFormReset: WritableSignal<boolean> = signal(false);
+  public rentInfoRanges: WritableSignal<{ label: string, value: number | null }[]> = signal([
+    { label: '1-2', value: null },
+    { label: '3-7', value: null },
+    { label: '8+', value: null },
+    { label: '30+', value: null }
+  ]);
+  public daysRentRanges: Signal<{ label: string, value: number | null }[]> = computed(() => this.rentInfoRanges());
 
   goBack() {
     this.navCtrl.back()

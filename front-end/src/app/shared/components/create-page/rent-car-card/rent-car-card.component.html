@@ -27,9 +27,22 @@
           <img src="/assets/icon/discharge-fuel-ico.png" class="w-[13px] h-[13px]">
           <span class="text-xs text-[10px]">8 л</span>
         </div>
-        <ion-icon class="text-gray-400 flex justify-center" name="chevron-down-outline"></ion-icon>
+        <ion-icon
+          class="text-gray-400 flex justify-center"
+          [name]="isCharacteristicsAccordionOpen() ? 'chevron-up-outline' : 'chevron-down-outline'"
+          (click)="toggleAccordion()"
+        >
+        </ion-icon>
       </div>
     </div>
+
+    <ion-accordion-group #accordionGroup>
+      <ion-accordion value="characteristics">
+        <div class="ion-padding bg-white" slot="content">First Content</div>
+      </ion-accordion>
+    </ion-accordion-group>
+
+    <days-rent-range [ranges]="ranges"></days-rent-range>
 
   </ion-card-content>
 </ion-card>
