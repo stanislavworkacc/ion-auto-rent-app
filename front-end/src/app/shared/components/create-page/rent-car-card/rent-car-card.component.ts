@@ -1,5 +1,13 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle} from "@ionic/angular/standalone";
+import {
+  IonCard,
+  IonCardContent,
+  IonCardHeader,
+  IonCardSubtitle,
+  IonCardTitle,
+  IonIcon
+} from "@ionic/angular/standalone";
+import {BookmarkRateComponent} from "./bookmark-rate/bookmark-rate.component";
 
 @Component({
   selector: 'rent-car-card',
@@ -11,7 +19,9 @@ import {IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle} f
     IonCardHeader,
     IonCardTitle,
     IonCardSubtitle,
-    IonCardContent
+    IonCardContent,
+    IonIcon,
+    BookmarkRateComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
