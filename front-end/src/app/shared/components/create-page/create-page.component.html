@@ -1,4 +1,4 @@
-<ion-content class="ion-padding">
+<ion-content>
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
@@ -25,60 +25,61 @@
   </ion-toolbar>
 </ion-header>
 
-  <div class="flex justify-end items-center text-gray-400">
-    <span>{{ imagesInfo.uploadedLogoUrls().length }} з 20</span>
-    @if(imagesInfo.uploadedLogoUrls().length !== 20) {
-      <ion-icon name="checkbox-outline" class="ml-1"></ion-icon>
+  <div class="ion-padding">
+    <div class="flex justify-end items-center text-gray-400">
+      <span>{{ imagesInfo.uploadedLogoUrls().length }} з 20</span>
+      @if(imagesInfo.uploadedLogoUrls().length !== 20) {
+        <ion-icon name="checkbox-outline" class="ml-1"></ion-icon>
+      }
+    </div>
+    <div class="relative mb-5">
+      <images-info [class.slide-down-animation]="isFormReset()"></images-info>
+      <ion-label class="text-black text-sm font-[300] absolute -top-[9px] left-[12px] bg-[#e8edfc] rounded-[12px] px-2">Фотогалерея</ion-label>
+    </div>
+
+    <div class="mb-5 relative">
+      <main-info [class.slide-down-animation]="isFormReset()"></main-info>
+      <ion-label class="text-[#333333] text-sm font-[300] absolute -top-[9px] left-[12px] bg-[#ffffff] rounded-[12px] px-2">Головна інформація</ion-label>
+    </div>
+
+    <div class="mb-5 relative">
+      <app-address-info [isFormReset]="isFormReset()" [class.slide-down-animation]="isFormReset()"></app-address-info>
+      <ion-label class="text-[#333333] text-sm font-[300] absolute -top-[9px] left-[12px] bg-white rounded-[12px] px-2 border-t-[1px] border-[#929292]">Місцезнаходження</ion-label>
+    </div>
+
+    <div class="mb-5 relative">
+      <technical-characteristics [class.slide-down-animation]="isFormReset()"></technical-characteristics>
+      <ion-label class="text-[#333333] text-sm font-[300] absolute -top-[9px] left-[12px] bg-[#ffffff] rounded-[12px] px-2">Технічні характеристики</ion-label>
+    </div>
+
+    <div class="flex flex-col"
+         [class.mb-[100px]]="!showAdditionalOptions()"
+         (click)="showAdditionalOptions.set(!showAdditionalOptions())"
+    >
+      <div class="relative flex items-center">
+        <div class="flex-grow border-t-2 border-dotted border-[#0f1b44]"></div>
+        <ion-label class="text-[#333333] text-[16px] font-[300] px-2">Додаткові опції</ion-label>
+        <div class="flex-grow border-t-2 border-dotted border-[#0f1b44]"></div>
+      </div>
+
+      <div class="ellipsis-text text-[#494949]">
+        @for (option of additionalOptions.additionalChips(); track option.value) {
+          <span class="text-xs pr-[2px] text-justify ellipsis-text">{{ option.label }},</span>
+        }
+        @if (showAdditionalOptions()) {
+          <ion-icon name="chevron-up-outline" class="flex justify-center w-full text-[#494949]"></ion-icon>
+        } @else {
+          <ion-icon name="chevron-down-outline" class="flex justify-center w-full text-[#494949]"></ion-icon>
+        }
+      </div>
+    </div>
+
+    @if (showAdditionalOptions()) {
+      <additional-options></additional-options>
     }
+
+    <ripple-btn [title]="'Зберегти'" [styles]="'text-[#696969]'"></ripple-btn>
   </div>
-  <div class="relative mb-5">
-    <images-info [class.slide-down-animation]="isFormReset()"></images-info>
-    <ion-label class="text-black text-sm font-[300] absolute -top-[9px] left-[12px] bg-white rounded-[12px] px-2">Фотогалерея</ion-label>
-  </div>
-
-  <div class="mb-5 relative">
-    <main-info [class.slide-down-animation]="isFormReset()"></main-info>
-    <ion-label class="text-[#333333] text-sm font-[300] absolute -top-[9px] left-[12px] bg-[#ffffff] rounded-[12px] px-2">Головна інформація</ion-label>
-  </div>
-
-  <div class="mb-5 relative">
-    <app-address-info [isFormReset]="isFormReset()" [class.slide-down-animation]="isFormReset()"></app-address-info>
-    <ion-label class="text-[#333333] text-sm font-[300] absolute -top-[9px] left-[12px] bg-white rounded-[12px] px-2 border-t-[1px] border-[#929292]">Місцезнаходження</ion-label>
-  </div>
-
-  <div class="mb-5 relative">
-    <technical-characteristics [class.slide-down-animation]="isFormReset()"></technical-characteristics>
-    <ion-label class="text-[#333333] text-sm font-[300] absolute -top-[9px] left-[12px] bg-[#ffffff] rounded-[12px] px-2">Технічні характеристики</ion-label>
-  </div>
-
-  <div class="flex flex-col"
-       [class.mb-[100px]]="!showAdditionalOptions()"
-       [class.slide-down-animation]="isFormReset()"
-       (click)="showAdditionalOptions.set(!showAdditionalOptions())"
-  >
-    <div class="relative flex items-center">
-      <div class="flex-grow border-t-2 border-dotted border-[#0f1b44]"></div>
-      <ion-label class="text-[#333333] text-[16px] font-[300] px-2">Додаткові опції</ion-label>
-      <div class="flex-grow border-t-2 border-dotted border-[#0f1b44]"></div>
-    </div>
-
-    <div class="ellipsis-text text-[#494949]">
-      @for (option of additionalOptions.additionalChips(); track option.value) {
-        <span class="text-xs pr-[2px] text-justify ellipsis-text">{{ option.label }},</span>
-      }
-      @if (showAdditionalOptions()) {
-        <ion-icon name="chevron-up-outline" class="flex justify-center w-full text-[#494949]"></ion-icon>
-      } @else {
-        <ion-icon name="chevron-down-outline" class="flex justify-center w-full text-[#494949]"></ion-icon>
-      }
-    </div>
-  </div>
-
-  @if (showAdditionalOptions()) {
-    <additional-options></additional-options>
-  }
-
-  <ripple-btn [title]="'Зберегти'" [styles]="'text-[#696969]'"></ripple-btn>
 </ion-content>
 
 <ion-action-sheet

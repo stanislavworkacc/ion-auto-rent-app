@@ -164,6 +164,7 @@ export class CreatePageComponent  implements OnInit {
     resetTechnicalCharacteristics();
     resetAdditionalOptions();
     resetImagesGallery();
+    this.showAdditionalOptions.set(false);
 
     setTimeout(() => {
       this.isFormReset.set(false);
