@@ -1,0 +1,18 @@
+ion-header {
+  box-shadow: none;
+  background: #fff !important;
+
+  ion-toolbar {
+    --background: #fff !important;
+    --border-width: 0 !important;
+    padding: 0 10px;
+  }
+  ion-searchbar {
+    --background: #e8edfc;
+    --color: gray;
+  }
+}
+
+ion-content {
+  --background: #fff !important;
+}

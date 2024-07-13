@@ -1,6 +1,8 @@
 <div class="flex space-x-[2px] mt-5">
   @for(range of ranges(); let index = $index; track range.label) {
-    <div class="flex flex-col items-center px-2 py-1 w-20 bg-[#f6f6f6]">
+    <div class="flex flex-col items-center px-2 py-1 w-20 bg-[#f6f6f6]"
+         (click)="setRangePrice(range)"
+    >
       <span class="text-xs font-medium text-[#7f7f7f]">{{ range.label }}</span>
       <span class="text-xs font-medium text-[#7f7f7f]">
         @if (!index) {
@@ -11,5 +13,16 @@
       </span>
     </div>
   }
+</div>
 
+<div class="flex space-x-[2px]">
+  @for(range of ranges(); let index = $index; track range.label) {
+    <div class="flex flex-col items-center px-2 py-1 w-20">
+      @if (range.value) {
+        <span class="text-xs font-medium text-[#7f7f7f]">{{ range.value }} ГРН.</span>
+      } @else {
+        -
+      }
+    </div>
+  }
 </div>

@@ -1,0 +1,23 @@
+<ion-header class="flex justify-center items-center py-3">
+  <ion-label class="text-[#0f1b44] font-[300] mx-auto">Встановити ціну</ion-label>
+</ion-header>
+
+
+<ion-content class="ion-padding">
+  <ion-label class="text-gray-400">
+    Обраний період:
+    {{ range['label'] }}
+  </ion-label>
+  <div class="flex items-center space-x-2 w-full">
+    <ion-input
+      type="number"
+      placeholder="Вкажіть ціну"
+      label="Ціна (грн.)"
+      label-placement="floating"
+      class="flex-grow p-2 !px-2 border border-gray-300 rounded-md text-gray-400"
+      (ionInput)="onInputChange($event.target.value)"
+    >
+    </ion-input>
+    <ion-button class="font-[300] uppercase">Зберегти</ion-button>
+  </div>
+</ion-content>
