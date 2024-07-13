@@ -13,10 +13,13 @@ export class ImagesInfoService {
   formats: string[] = ['JPEG', 'WEBP', 'PNG', 'SVG', 'JPG'];
   uploadedLogoUrls: WritableSignal< { url: string, loading: boolean, main: boolean }[]>  = signal([]);
 
-  handleFileUpload(event: any) {
+  async handleFileUpload(event: any): Promise<void> {
     const files = event.target.files;
     if (files.length) {
-      for (let i = 0; i < files.length; i++) {
+      for (let i: number = 0; i < files.length; i++) {
+        const file = files[i];
+        const fileExtension = file.name.split('.').pop().toUpperCase();
+
         if (this.uploadedLogoUrls().length >= 20) {
           this.toaster.show({
             type: 'info',
@@ -25,20 +28,25 @@ export class ImagesInfoService {
           break;
         }
 
-        const file = files[i];
-        const fileExtension = file.name.split('.').pop().toUpperCase();
-
         if (this.formats.includes(fileExtension)) {
-          const reader: FileReader = new FileReader();
-          const index: number = this.uploadedLogoUrls().length;
-          this.uploadedLogoUrls.set([...this.uploadedLogoUrls(), { url: '', loading: true, main: index === 0 }]);
+          const fileContent: string = await this.readFileAsDataURL(file);
+          const fileExists: boolean = this.uploadedLogoUrls().some(item => item.url === fileContent);
 
-          reader.onload = (e: any): void => {
-            const updatedUrls = this.uploadedLogoUrls().slice();
-            updatedUrls[index] = { url: e.target.result, loading: false, main: index === 0 };
-            this.uploadedLogoUrls.set(updatedUrls);
-          };
-          reader.readAsDataURL(file);
+          if (fileExists) {
+            this.toaster.show({
+              type: 'warning',
+              message: `Файл "${ file.name }" вже завантажений.`,
+            });
+            continue;
+          }
+
+          const index: number = this.uploadedLogoUrls().length;
+          const newUrls = [...this.uploadedLogoUrls(), { url: '', loading: true, main: index === 0 }];
+          this.uploadedLogoUrls.set(newUrls);
+
+          const updatedUrls = newUrls.slice();
+          updatedUrls[index] = { url: fileContent, loading: false, main: index === 0 };
+          this.uploadedLogoUrls.set(updatedUrls);
         } else {
           this.toaster.show({
             type: 'warning',
@@ -47,6 +55,15 @@ export class ImagesInfoService {
         }
       }
     }
+  }
+
+  readFileAsDataURL(file: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const reader: FileReader = new FileReader();
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = error => reject(error);
+      reader.readAsDataURL(file);
+    });
   }
 
   async editImage(img): Promise<void> {
