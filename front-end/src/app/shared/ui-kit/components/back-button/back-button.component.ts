@@ -20,6 +20,8 @@ export class BackButtonComponent implements OnInit {
 
   @Input() navigateBack!: () => void;
   @Input() styles: string;
+  @Input() titleStyles: string;
+  @Input() title: string;
 
   constructor() {
   }

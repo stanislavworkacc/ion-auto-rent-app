@@ -23,6 +23,8 @@ import {NavController, Platform} from "@ionic/angular";
 import {InRentAllSegmentComponent} from "../in-rent-all-segment/in-rent-all-segment.component";
 import {RouterOutlet} from "@angular/router";
 import {AllCarsChip, AllCarsSegment} from "./all-cars.enums";
+import {BackButtonComponent} from "../../../../shared/ui-kit/components/back-button/back-button.component";
+import {MenuSection} from "../../menu-enums";
 
 // register();
 @Component({
@@ -54,7 +56,8 @@ import {AllCarsChip, AllCarsSegment} from "./all-cars.enums";
     IonSegmentButton,
     IonContent,
     InRentAllSegmentComponent,
-    RouterOutlet
+    RouterOutlet,
+    BackButtonComponent
   ]
 })
 export class AllCarsComponent  implements OnInit {
@@ -104,6 +107,10 @@ export class AllCarsComponent  implements OnInit {
 
   async vehicleCreation(): Promise<void> {
     this.navCtrl.navigateForward(['/home/create'])
+  }
+
+  navigateBack(): void {
+    this.navCtrl.navigateBack(['/home/menu/car-park/parks']);
   }
 
   ngOnInit(): void {

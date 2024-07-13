@@ -1,4 +1,10 @@
 <ion-content>
+    <app-back-button
+    [styles]="'!text-[20px] !text-black'"
+    [title]="'Автопарки'"
+    [titleStyles]="'!text-black'"
+    [navigateBack]="navigateBack.bind(this)"
+  ></app-back-button>
   <in-rent-all-segment></in-rent-all-segment>
 
   <ion-list lines="none">

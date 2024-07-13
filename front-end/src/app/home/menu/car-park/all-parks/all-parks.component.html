@@ -1,5 +1,11 @@
 <ion-content class="ion-padding">
-  <ion-list>
+  <app-back-button
+    [styles]="'!text-[20px] !text-black'"
+    [title]="'Меню'"
+    [titleStyles]="'!text-black'"
+    [navigateBack]="navigateBack.bind(this)"
+  ></app-back-button>
+  <ion-list class="mt-2">
     <app-header-parks [create]="openModal.bind(this)"></app-header-parks>
 
     @for(parking of userCarParkings; track parking.label) {

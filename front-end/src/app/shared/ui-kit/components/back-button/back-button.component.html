@@ -1,1 +1,5 @@
-<ion-icon (click)="navigateBack()" name="arrow-back" slot="icon-only" class="{{styles}}"></ion-icon>
+<div class="flex items-center gap-1" (click)="navigateBack()">
+  <ion-icon  name="arrow-back" slot="icon-only" class="{{styles}}"></ion-icon>
+  <ion-text class="{{titleStyles}}">{{title}}</ion-text>
+</div>
+

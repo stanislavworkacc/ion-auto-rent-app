@@ -16,6 +16,8 @@ import {HeaderParksComponent} from "./header-parks/header-parks.component";
 import {CreateParkModalComponent} from "./create-park-modal/create-park-modal.component";
 import {MenuDataService} from "../../menu-data.serivce";
 import {NavController, Platform} from "@ionic/angular";
+import {BackButtonComponent} from "../../../../shared/ui-kit/components/back-button/back-button.component";
+import {MenuSection} from "../../menu-enums";
 
 @Component({
   selector: 'app-all-parks',
@@ -45,7 +47,8 @@ import {NavController, Platform} from "@ionic/angular";
     IonAccordion,
     HeaderParksComponent,
     IonAlert,
-    IonButtons
+    IonButtons,
+    BackButtonComponent
   ]
 })
 export class AllParksComponent  implements OnInit {
@@ -80,6 +83,10 @@ export class AllParksComponent  implements OnInit {
     await modal.present();
   }
 
+  navigateBack(): void {
+    this.navCtrl.navigateBack(['home/menu']);
+    this.dataService.selectedMenuChip.set(MenuSection.PROFILE);
+  }
   constructor() { }
 
   ngOnInit() {}

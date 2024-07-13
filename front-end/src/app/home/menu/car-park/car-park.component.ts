@@ -2,13 +2,11 @@ import {
   ChangeDetectionStrategy,
   Component,
   inject,
-  input,
-  InputSignal,
   OnInit, signal,
   ViewChild,
   WritableSignal
 } from '@angular/core';
-import {NavController, Platform} from "@ionic/angular";
+import {NavController} from "@ionic/angular";
 import {
   IonBreadcrumb,
   IonBreadcrumbs,
@@ -116,10 +114,6 @@ export class CarParkComponent  implements OnInit {
 
     this.popover.event = e;
     this.isBreadCrumbPopoverOpen.set(true);
-  }
-  navigateBack(): void {
-    this.navCtrl.navigateBack(['home/menu']);
-    this.dataService.selectedMenuChip.set(MenuSection.PROFILE);
   }
 
   setSegmentOptions(): void {
