@@ -1,11 +1,27 @@
 <ion-content>
-    <app-back-button
-    [styles]="'!text-[20px] !text-black'"
-    [title]="'Автопарки'"
-    [titleStyles]="'!text-black'"
-    [navigateBack]="navigateBack.bind(this)"
-  ></app-back-button>
-  <in-rent-all-segment></in-rent-all-segment>
+  <div class="flex w-full items-center justify-between px-4 py-1">
+    <div class="flex justify-start">
+      <app-back-button
+        [styles]="'!text-[20px] !text-black'"
+        [navigateBack]="navigateBack.bind(this)"
+      ></app-back-button>
+    </div>
+    <div class="flex items-center justify-between">
+      <in-rent-all-segment></in-rent-all-segment>
+      <div class="flex-none">
+        <ion-button (click)="vehicleCreation()" class="rounded flex items-center bg-[#e8edfc] px-2 py-2 border"
+        >
+          <ion-label class="text-xs uppercase text-black mr-1">Додати</ion-label>
+          <ion-icon
+            name="add-outline"
+            class="text-black text-[18px]"
+          >
+          </ion-icon>
+        </ion-button>
+      </div>
+    </div>
+
+  </div>
 
   <ion-list lines="none">
     <div class="flex items-center w-full justify-between pr-[10px]">
@@ -26,13 +42,7 @@
           </ion-chip>
         }
       </div>
-      <ion-buttons slot="end" class="flex flex-col gap-1 w-[15%] pt-[15px]">
-        <ion-button class="flex justify-end" (click)="vehicleCreation()">
-          <div class="add-btn flex flex-col items-center">
-            <ion-icon name="add-circle-outline" class="text-black"></ion-icon>
-            <ion-label class="text-xs text-black">Додати</ion-label>
-          </div>
-        </ion-button>
+      <ion-buttons slot="end" class="flex flex-col gap-1 w-[15%]">
         <ion-button class="flex justify-end">
           <div class="flex flex-col items-center">
             <ion-icon name="funnel-outline" class="text-black"></ion-icon>

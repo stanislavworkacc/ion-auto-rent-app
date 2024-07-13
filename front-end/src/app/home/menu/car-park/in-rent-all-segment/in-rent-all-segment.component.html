@@ -6,8 +6,14 @@
                         [value]="option.value"
                         [hidden]="!option.isVisible"
     >
-      <img [src]="option.icon" class="h-[20px]">
-      <ion-label [class.text-black]="!platform.is('ios')">{{ option.label }}</ion-label>
+      @if (platform.is('ios')) {
+        <img [src]="option.icon" class="h-[20px]">
+      }
+      <ion-label
+        [class.text-black]="!platform.is('ios')"
+      >
+        {{ option.label }}
+      </ion-label>
     </ion-segment-button>
   }
 </ion-segment>
