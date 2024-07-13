@@ -9,15 +9,15 @@
           ></app-back-button>
         </ion-buttons>
 
-        <ion-breadcrumbs [maxItems]="2" (ionCollapsedClick)="presentPopover($event)" [itemsBeforeCollapse]="0">
-          @for (breadcrumb of breadcrumbsService.breadcrumbsRoutes(); track breadcrumb.url) {
-            <ion-breadcrumb
-              [href]="breadcrumb.url"
-            >
-              {{ breadcrumb.label | breadcrumbLabel }}
-            </ion-breadcrumb>
-          }
-        </ion-breadcrumbs>
+<!--        <ion-breadcrumbs [maxItems]="2" (ionCollapsedClick)="presentPopover($event)" [itemsBeforeCollapse]="0">-->
+<!--          @for (breadcrumb of breadcrumbsService.breadcrumbsRoutes(); track breadcrumb.url) {-->
+<!--            <ion-breadcrumb-->
+<!--              [href]="breadcrumb.url"-->
+<!--            >-->
+<!--              {{ breadcrumb.label | breadcrumbLabel }}-->
+<!--            </ion-breadcrumb>-->
+<!--          }-->
+<!--        </ion-breadcrumbs>-->
       </div>
     </div>
   </ion-toolbar>

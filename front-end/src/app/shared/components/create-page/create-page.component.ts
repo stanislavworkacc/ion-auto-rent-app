@@ -19,7 +19,6 @@ import {
   IonToolbar,
   ModalController
 } from "@ionic/angular/standalone";
-import {FormBuilder} from "@angular/forms";
 import {GooglePlacesSerivce} from "../../services/google-places.serivce";
 import {CloseBtnComponent} from "../../ui-kit/components/close-btn/close-btn.component";
 import {BackButtonComponent} from "../../ui-kit/components/back-button/back-button.component";
@@ -88,7 +87,6 @@ export class CreatePageComponent  implements OnInit {
   private autoRIAService: AutoRIAService = inject(AutoRIAService);
   private modalCtrl: ModalController = inject(ModalController);
   private navCtrl: NavController = inject(NavController);
-  private fb: FormBuilder = inject(FormBuilder);
   private googlePlacesService: GooglePlacesSerivce = inject(GooglePlacesSerivce);
   private destroyRef: DestroyRef = inject(DestroyRef);
   private renderer: Renderer2 = inject(Renderer2);
@@ -169,6 +167,10 @@ export class CreatePageComponent  implements OnInit {
     setTimeout(() => {
       this.isFormReset.set(false);
     },1000)
+  }
+
+  onSubmit() {
+    this.navCtrl.navigateForward(['/home/rent-info'])
   }
 
   ngOnInit() {}

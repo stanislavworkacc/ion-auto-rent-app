@@ -2,6 +2,7 @@ import {Routes} from "@angular/router";
 import {HomePage} from "./home.page";
 import {AppComponent} from "../app.component";
 import {CreatePageComponent} from "../shared/components/create-page/create-page.component";
+import {RentInfoComponent} from "../shared/components/create-page/rent-info/rent-info.component";
 
 export const HOME_ROUTES: Routes = [
   {
@@ -34,11 +35,14 @@ export const HOME_ROUTES: Routes = [
       },
       {
         path: 'create',
-        component: CreatePageComponent
+        component: CreatePageComponent,
       },
+      {
+        path: 'rent-info',
+        component: RentInfoComponent
+      }
     ]
   },
-  //home page redirect
   {
     path: '',
     redirectTo: '',

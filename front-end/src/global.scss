@@ -134,7 +134,6 @@ ion-popover {
 
 // radio
 ion-list {
-  background: transparent;
   background: #fff !important;
   ion-item {
     --background: transparent !important;
@@ -158,6 +157,24 @@ ion-list {
   .radio-checked.ios::part(container) {
     border-color: #ee7100;
   }
+}
+
+ion-button {
+  --background: transparent;
+  --border-radius: 0;
+  --padding-top: 0;
+  --padding-bottom: 0;
+  --padding-start: 0;
+  --padding-end: 0;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  --background-activated: transparent;
+  --background-focused: transparent;
+  --background-hover: transparent;
+  min-height: 0;
+  --box-shadow: 0;
 }
 
 //animations

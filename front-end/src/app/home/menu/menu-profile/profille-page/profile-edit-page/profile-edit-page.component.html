@@ -8,15 +8,17 @@
         ></app-back-button>
       </ion-buttons>
 
-      <ion-breadcrumbs [maxItems]="2" (ionCollapsedClick)="presentPopover($event)" [itemsBeforeCollapse]="0">
-        @for (breadcrumb of breadcrumbsService.breadcrumbsRoutes(); track breadcrumb.url) {
-          <ion-breadcrumb
-            [href]="breadcrumb.url"
-          >
-            {{ breadcrumb.label | breadcrumbLabel }}
-          </ion-breadcrumb>
-        }
-      </ion-breadcrumbs>
+      <ion-label class="font-[300] text-[#e8edfc]">Зміна даних</ion-label>
+
+<!--      <ion-breadcrumbs [maxItems]="2" (ionCollapsedClick)="presentPopover($event)" [itemsBeforeCollapse]="0">-->
+<!--        @for (breadcrumb of breadcrumbsService.breadcrumbsRoutes(); track breadcrumb.url) {-->
+<!--          <ion-breadcrumb-->
+<!--            [href]="breadcrumb.url"-->
+<!--          >-->
+<!--            {{ breadcrumb.label | breadcrumbLabel }}-->
+<!--          </ion-breadcrumb>-->
+<!--        }-->
+<!--      </ion-breadcrumbs>-->
     </div>
   </ion-toolbar>
 </ion-header>
@@ -34,11 +36,12 @@
           <p class="text-sm text-blue-600">johndoe.com</p>
         </div>
       </div>
-      <ion-icon class=" text-[30px] text-white"
-                name="ellipsis-horizontal-circle-outline"
-                id="popover-button"
-      >
-      </ion-icon>
+      <ion-button slot="icon-only" (click)="openActionSheet()">
+        <ion-icon class="text-[30px] text-white"
+                  name="ellipsis-horizontal-circle-outline"
+        >
+        </ion-icon>
+      </ion-button>
     </div>
 
     <form [formGroup]="form" class="px-3 my-3">
@@ -261,47 +264,26 @@
   </div>
 </ion-content>
 
-<ion-popover trigger="popover-button" [dismissOnSelect]="true" [showBackdrop]="false">
-  <ng-template>
-    <ion-content>
-      <ion-list>
-        <ion-item [button]="true" [detail]="false" (click)="isBlurred.set(false)">
-          <ion-label>Редагувати</ion-label>
-          <img src="/assets/icon/edit-ico2.png" class="h-[22px]">
-        </ion-item>
-        <ion-item id="delete-alert"
-                  [button]="true"
-                  [detail]="false"
-                  (click)="deleteAccount()"
-        >
-          <ion-label>Видалити</ion-label>
-          <img src="/assets/icon/delete-user-ico.png" class="h-[23px]">
-        </ion-item>
-      </ion-list>
-    </ion-content>
-  </ng-template>
-</ion-popover>
-
-<ion-popover #popover
-             [isOpen]="isBreadCrumbPopoverOpen"
-             (didDismiss)="isBreadCrumbPopoverOpen = false"
-             [showBackdrop]="false"
->
-  <ng-template>
-    <ion-content>
-      <div class="bg-[#212c40] p-2 flex justify-between items-center">
-        <ion-label class="text-xs uppercase">Попередні сторінки</ion-label>
-        <ion-icon name="return-down-back-outline"></ion-icon>
-      </div>
-      <ion-list>
-        <ion-item
-          *ngFor="let breadcrumb of collapsedBreadcrumbs; last as isLast"
-          [href]="breadcrumb?.url"
-          [lines]="isLast ? 'none' : null"
-        >
-          <ion-label>{{ breadcrumb?.label }}</ion-label>
-        </ion-item>
-      </ion-list>
-    </ion-content>
-  </ng-template>
-</ion-popover>
+<!--<ion-popover #popover-->
+<!--             [isOpen]="isBreadCrumbPopoverOpen"-->
+<!--             (didDismiss)="isBreadCrumbPopoverOpen = false"-->
+<!--             [showBackdrop]="false"-->
+<!--&gt;-->
+<!--  <ng-template>-->
+<!--    <ion-content>-->
+<!--      <div class="bg-[#212c40] p-2 flex justify-between items-center">-->
+<!--        <ion-label class="text-xs uppercase">Попередні сторінки</ion-label>-->
+<!--        <ion-icon name="return-down-back-outline"></ion-icon>-->
+<!--      </div>-->
+<!--      <ion-list>-->
+<!--        <ion-item-->
+<!--          *ngFor="let breadcrumb of collapsedBreadcrumbs; last as isLast"-->
+<!--          [href]="breadcrumb?.url"-->
+<!--          [lines]="isLast ? 'none' : null"-->
+<!--        >-->
+<!--          <ion-label>{{ breadcrumb?.label }}</ion-label>-->
+<!--        </ion-item>-->
+<!--      </ion-list>-->
+<!--    </ion-content>-->
+<!--  </ng-template>-->
+<!--</ion-popover>-->

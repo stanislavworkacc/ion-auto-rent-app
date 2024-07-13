@@ -14,7 +14,7 @@ import {
 } from "@ionic/angular/standalone";
 import {BackButtonComponent} from "../../../../../shared/ui-kit/components/back-button/back-button.component";
 import {NotificationsPreviewComponent} from "../../notifications-preview/notifications-preview.component";
-import {NavController} from "@ionic/angular";
+import {ActionSheetController, NavController} from "@ionic/angular";
 import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {NgClass, NgForOf, NgStyle} from "@angular/common";
 import {ValidateInputDirective} from "../../../../../shared/directives/validate-input.directive";
@@ -68,6 +68,7 @@ export class ProfileEditPage implements OnInit {
 
   private navCtrl: NavController = inject(NavController);
   private alertCtrl: AlertController = inject(AlertController);
+  private actionSheetCtrl: ActionSheetController = inject(ActionSheetController);
   private fb: FormBuilder = inject(FormBuilder);
   private breadcrumbs: BreadcrumbService = inject(BreadcrumbService);
   private storage: StorageService = inject(StorageService);
@@ -172,6 +173,32 @@ export class ProfileEditPage implements OnInit {
     });
 
     await alert.present();
+  }
+
+  async openActionSheet(): Promise<void> {
+    const actionSheet = await this.actionSheetCtrl.create({
+      buttons: [
+        {
+          text: 'Редагувати',
+          handler: () => {
+            this.isBlurred.set(false);
+          }
+        },
+        {
+          text: 'Видалити',
+          handler: () => {
+            this.deleteAccount();
+          }
+        },
+        {
+          text: 'Скасувати',
+          icon: 'close',
+          role: 'cancel'
+        }
+      ]
+    });
+
+    await actionSheet.present();
   }
 
   async deleteAccount(): Promise<void> {
