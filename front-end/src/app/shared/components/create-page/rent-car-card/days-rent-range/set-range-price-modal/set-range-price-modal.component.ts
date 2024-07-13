@@ -1,5 +1,14 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit, signal, WritableSignal} from '@angular/core';
-import {IonButton, IonContent, IonHeader, IonInput, IonLabel, IonText, IonToolbar} from "@ionic/angular/standalone";
+import {ChangeDetectionStrategy, Component, inject, Input, OnInit, signal, WritableSignal} from '@angular/core';
+import {
+  IonButton,
+  IonContent,
+  IonHeader,
+  IonInput,
+  IonLabel,
+  IonText,
+  IonToolbar,
+  ModalController
+} from "@ionic/angular/standalone";
 import {FormsModule} from "@angular/forms";
 
 @Component({
@@ -21,9 +30,11 @@ import {FormsModule} from "@angular/forms";
 })
 export class SetRangePriceModalComponent  implements OnInit {
 
+  private modalCtrl: ModalController = inject(ModalController);
+
   @Input() range: { label: string, value: number | null };
   @Input() ranges: WritableSignal<{ label: string, value: number | null }[]> = signal([]);
-  onInputChange(val) {
+  onInputChange(val): void {
     const updatedRanges = this.ranges().map((range: { label: string, value: number | null }) => {
       if (range.label === this.range.label) {
         return { ...range, value: val };
