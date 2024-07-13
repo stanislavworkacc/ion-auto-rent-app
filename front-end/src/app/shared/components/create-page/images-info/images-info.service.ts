@@ -111,12 +111,16 @@ export class ImagesInfoService {
 
   makeMajorImage(img: { url: string, loading: boolean, main: boolean }): void {
     const updatedUrls = this.uploadedLogoUrls().map(item => {
-      if (item.url === img.url) {
-        return { ...item, main: true };
-      } else {
-        return { ...item, main: false };
-      }
+      return { ...item, main: item.url === img.url };
     });
+
+    const mainImageIndex: number = updatedUrls.findIndex(item => item.main);
+
+    if (mainImageIndex > -1) {
+      const [mainImage] = updatedUrls.splice(mainImageIndex, 1);
+      updatedUrls.unshift(mainImage);
+    }
+
     this.uploadedLogoUrls.set(updatedUrls);
   }
 
