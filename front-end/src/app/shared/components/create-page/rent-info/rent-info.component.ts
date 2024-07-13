@@ -16,6 +16,7 @@ import {MainInfoComponent} from "../main-info/main-info.component";
 import {RippleBtnComponent} from "../../buttons/ripple-btn/ripple-btn.component";
 import {TechnicalCharacteristicsComponent} from "../technical-characteristics/technical-characteristics.component";
 import {NavController} from "@ionic/angular";
+import {RentCarCardComponent} from "../rent-car-card/rent-car-card.component";
 
 @Component({
   selector: 'app-rent-info',
@@ -37,7 +38,8 @@ import {NavController} from "@ionic/angular";
     IonToolbar,
     MainInfoComponent,
     RippleBtnComponent,
-    TechnicalCharacteristicsComponent
+    TechnicalCharacteristicsComponent,
+    RentCarCardComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
