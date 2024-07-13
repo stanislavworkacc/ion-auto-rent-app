@@ -4,6 +4,8 @@ ion-content{
   ion-header {
     ion-toolbar {
       --background: #182130 !important;
+      --border-width: 0;
+      padding: 5px 10px;
     }
   }
 }
