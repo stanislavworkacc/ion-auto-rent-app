@@ -19,7 +19,6 @@ ion-content {
     ion-chip {
       background: #e8edfc;
       color: #333333;
-      min-width: 120px !important;
       display: flex;
       justify-content: center;
       border: 0.1px solid #333333;
@@ -32,14 +31,6 @@ ion-content {
     .selected-chip {
       border: 1px solid #c9c8c8;
       background: #dfe6ec;
-    }
-
-    .archive-chip {
-      min-width: 160px !important;
-    }
-
-    .review-chip {
-      min-width: 140px !important;
     }
   }
 }

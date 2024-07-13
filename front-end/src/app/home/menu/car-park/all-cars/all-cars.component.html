@@ -1,8 +1,8 @@
 <ion-content>
-  <div class="flex w-full items-center justify-between px-4 py-1">
+  <div class="flex w-full items-center justify-between px-4 py-1 bg-[#182130]">
     <div class="flex justify-start">
       <app-back-button
-        [styles]="'!text-[20px] !text-black'"
+        [styles]="'!text-[20px] !text-[#e8edfc]'"
         [navigateBack]="navigateBack.bind(this)"
       ></app-back-button>
     </div>
@@ -24,7 +24,7 @@
   </div>
 
   <ion-list lines="none">
-    <div class="flex items-center w-full justify-between pr-[10px]">
+    <div class="flex items-center w-full justify-between pr-[10px] sticky top-[-2px] z-50 bg-[#182130]">
       <div class="chip-container flex-wrap">
         @for (chip of allCarsData.chips(); track chip.value) {
           <ion-chip outline="outline"
@@ -34,7 +34,6 @@
             (click)="chipSelected(chip)"
           >
             <ion-label>{{ chip.label }}</ion-label>
-            <img [src]="chip.icon" class="h-[20px] ml-1">
 
             @if (chip?.value === allCarsData.selectedChip()?.value) {
               <ion-icon name="close-circle-outline" (click)="closeSelectedChip($event)"></ion-icon>
