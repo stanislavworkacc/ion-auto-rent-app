@@ -1,27 +1,14 @@
 <ion-content>
   <ion-header class="shadow-none">
     <ion-toolbar>
-      <ion-buttons slot="start">
+      <ion-buttons slot="start" class="absolute">
         <app-back-button
           [styles]="'!text-[20px] !text-[#e8edfc]'"
           [navigateBack]="goBack.bind(this)"
         ></app-back-button>
       </ion-buttons>
 
-      <ion-label class="text-[#e8edfc] flex justify-center pl-[25px] font-[300]">Інформація оренди</ion-label>
-
-      <ion-buttons slot="end">
-        <ion-button id="1" class="rounded flex items-center py-[2px] bg-[#e8edfc]"
-        >
-          <ion-label class="text-xs uppercase text-black mr-1">Оновити</ion-label>
-          <ion-icon
-            name="sync-outline"
-            class="text-black text-[18px]"
-            [class.rotating]="isFormReset()"
-          >
-          </ion-icon>
-        </ion-button>
-      </ion-buttons>
+      <ion-label class="text-[#e8edfc] flex justify-center font-[300]">Інформація оренди</ion-label>
     </ion-toolbar>
   </ion-header>
 

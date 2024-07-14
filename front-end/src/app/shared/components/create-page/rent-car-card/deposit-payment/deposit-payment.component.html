@@ -1,0 +1,13 @@
+<div class="flex items-center w-full justify-between">
+  <div class="flex flex-col">
+    <ion-label class="text-sm font-[300] text-[#333333]">Залоговий платіж</ion-label>
+    @if (isDepositPaymentOn()) {
+      <ion-input
+        type="number"
+        label="Сума (грн.)"
+        labelPlacement="floating"
+      ></ion-input>
+    }
+  </div>
+  <app-switcher (toggleChange)="onToggleChange($event)" [isOn]="isDepositPaymentOn()"></app-switcher>
+</div>
