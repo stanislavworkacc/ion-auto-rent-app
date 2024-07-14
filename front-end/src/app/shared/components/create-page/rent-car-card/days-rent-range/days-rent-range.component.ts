@@ -2,8 +2,7 @@ import {ChangeDetectionStrategy, Component, inject, Input, OnInit, signal, Writa
 import {NgForOf} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {SetRangePriceModalComponent} from "./set-range-price-modal/set-range-price-modal.component";
-import {SelectModalComponent} from "../../../filters/modals/select-modal/select-modal.component";
-import {ModalController} from "@ionic/angular/standalone";
+import {AlertController, IonAlert, ModalController} from "@ionic/angular/standalone";
 import {ThousandSeparatorPipe} from "../../../../pipes/thousand.pipe";
 
 @Component({
@@ -15,6 +14,7 @@ import {ThousandSeparatorPipe} from "../../../../pipes/thousand.pipe";
     NgForOf,
     FormsModule,
     ThousandSeparatorPipe,
+    IonAlert,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -23,26 +23,44 @@ export class DaysRentRangeComponent  implements OnInit {
   @Input() ranges: WritableSignal<{ label: string, value: number | null }[]> = signal([]);
 
   private modalCtrl: ModalController = inject(ModalController);
+  private alertCtrl: AlertController = inject(AlertController);
 
   async setRangePrice(range): Promise<void> {
-    const modal: HTMLIonModalElement = await this.modalCtrl.create({
-      component: SetRangePriceModalComponent,
-      cssClass: 'auth-modal',
-      initialBreakpoint: 0.5,
-      breakpoints: [0, 0.5],
-      componentProps: {
-        ranges: this.ranges,
-        range,
-      }
+
+    const alert: HTMLIonAlertElement = await this.priceAlert();
+
+    alert.onWillDismiss().then( async (): Promise<void> => {
+      const modal: HTMLIonModalElement = await this.modalCtrl.create({
+        component: SetRangePriceModalComponent,
+        cssClass: 'auth-modal',
+        initialBreakpoint: 0.5,
+        breakpoints: [0, 0.5],
+        componentProps: {
+          ranges: this.ranges,
+          range,
+        }
+      });
+
+      await modal.present();
+
+      await modal.onWillDismiss().then((res) => {
+        if(res.data.updatedRanges) {
+          this.ranges.set(res.data.updatedRanges);
+        }
+      })
+    })
+  }
+
+  async priceAlert(): Promise<HTMLIonAlertElement> {
+    const alert: HTMLIonAlertElement = await this.alertCtrl.create({
+      header: 'Ціни оренди',
+      message: 'Вкажіть ціну за один день оренди в межах зазначених періодів, враховуючи поточний попит та тенденції на ринку. Орендарі мають змогу обрати відповідний період оренди згідно з їхніми потребами та сценаріями використання.',
+      buttons: ['Більше не показувати', 'Зрозуміло']
     });
 
-    await modal.present();
+    await alert.present();
 
-    await modal.onWillDismiss().then((res) => {
-      if(res.data.updatedRanges) {
-        this.ranges.set(res.data.updatedRanges);
-      }
-    })
+    return alert;
   }
   ngOnInit() {}
 
