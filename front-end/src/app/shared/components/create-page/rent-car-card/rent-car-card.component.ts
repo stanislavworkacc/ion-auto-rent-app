@@ -1,4 +1,13 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit, signal, ViewChild, WritableSignal} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  Input,
+  OnInit,
+  signal,
+  ViewChild,
+  WritableSignal
+} from '@angular/core';
 import {
   IonAccordion, IonAccordionGroup,
   IonCard,
@@ -13,6 +22,7 @@ import {DaysRentRangeComponent} from "./days-rent-range/days-rent-range.componen
 import {SwitcherComponent} from "../../../ui-kit/components/switcher/switcher.component";
 import {DepositPaymentComponent} from "./deposit-payment/deposit-payment.component";
 import {CarWithDriverComponent} from "./car-with-driver/car-with-driver.component";
+import {Platform} from "@ionic/angular";
 
 @Component({
   selector: 'rent-car-card',
@@ -39,6 +49,8 @@ import {CarWithDriverComponent} from "./car-with-driver/car-with-driver.componen
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RentCarCardComponent  implements OnInit {
+
+  public platform: Platform = inject(Platform);
 
   @Input() ranges: WritableSignal<{ label: string, value: number | null }[]> = signal([]);
 
