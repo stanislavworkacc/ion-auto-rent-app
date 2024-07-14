@@ -1,11 +1,30 @@
 <div class="flex items-center w-full justify-between">
   <div class="flex flex-col">
-    <ion-label class="text-sm font-[300] text-[#333333]">Залоговий платіж</ion-label>
-    @if (isDepositPaymentOn()) {
+    <div class="flex flex-col gap-1">
+      <ion-label class="text-sm font-[300] text-[#333333]">Залоговий платіж</ion-label>
+      @if (depositPayment() && isDepositPaymentOn()) {
+        <div class="flex items-center gap-1">
+          <span>{{ depositPayment() | thousand }} грн.</span>
+
+          @if (isDepositPaymentBlurred()) {
+            <ion-icon name="create-outline"
+                      class="flex items-center"
+                      (click)="isDepositPaymentBlurred.set(false)"
+            ></ion-icon>
+          }
+        </div>
+      }
+    </div>
+
+
+    @if (isDepositPaymentOn() && !isDepositPaymentBlurred()) {
       <ion-input
         type="number"
         label="Сума (грн.)"
         labelPlacement="floating"
+        [value]="depositPayment()"
+        (ionInput)="onDepositChange($event.target.value)"
+        (ionBlur)="hideDepositInput()"
       ></ion-input>
     }
   </div>
