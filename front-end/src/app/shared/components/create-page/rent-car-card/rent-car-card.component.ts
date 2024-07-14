@@ -14,7 +14,7 @@ import {
   IonCardContent,
   IonCardHeader,
   IonCardSubtitle,
-  IonCardTitle,
+  IonCardTitle, IonCheckbox,
   IonIcon, IonItem, IonLabel
 } from "@ionic/angular/standalone";
 import {BookmarkRateComponent} from "./bookmark-rate/bookmark-rate.component";
@@ -23,6 +23,10 @@ import {SwitcherComponent} from "../../../ui-kit/components/switcher/switcher.co
 import {DepositPaymentComponent} from "./deposit-payment/deposit-payment.component";
 import {CarWithDriverComponent} from "./car-with-driver/car-with-driver.component";
 import {Platform} from "@ionic/angular";
+import {HourRateRangeComponent} from "./hour-rate-range/hour-rate-range.component";
+import {FormsModule} from "@angular/forms";
+import {NgIf} from "@angular/common";
+import {RentRange} from "./rent-card.enums";
 
 @Component({
   selector: 'rent-car-card',
@@ -44,7 +48,11 @@ import {Platform} from "@ionic/angular";
     DaysRentRangeComponent,
     SwitcherComponent,
     DepositPaymentComponent,
-    CarWithDriverComponent
+    CarWithDriverComponent,
+    HourRateRangeComponent,
+    FormsModule,
+    NgIf,
+    IonCheckbox
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -57,6 +65,21 @@ export class RentCarCardComponent  implements OnInit {
   @ViewChild('accordionGroup', { static: true }) accordionGroup: IonAccordionGroup;
 
   isCharacteristicsAccordionOpen: WritableSignal<boolean> = signal(false);
+  public rentTypes: WritableSignal<{ value: string, label: string, checked: boolean }[]> = signal([
+    { label: 'за день', value: RentRange.DAYS, checked: true },
+    { label: 'погодинно', value: RentRange.HOURS, checked: false },
+  ]);
+  public selectedRentType: WritableSignal<string> = signal(RentRange.DAYS);
+
+  onRentTypeChange(selectedType: string): void {
+    const updatedRentTypes = this.rentTypes().map(type => {
+      return { ...type, checked: type.value === selectedType };
+    });
+
+    this.rentTypes.set(updatedRentTypes);
+    this.selectedRentType.set(selectedType)
+  }
+
   toggleAccordion = (): void => {
     this.isCharacteristicsAccordionOpen.set(!this.isCharacteristicsAccordionOpen())
     const nativeEl: IonAccordionGroup = this.accordionGroup;
@@ -67,4 +90,6 @@ export class RentCarCardComponent  implements OnInit {
     }
   };
   ngOnInit() {}
+
+  protected readonly RentRange = RentRange;
 }

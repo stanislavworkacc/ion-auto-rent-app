@@ -44,10 +44,32 @@
       </ion-accordion>
     </ion-accordion-group>
 
-    <days-rent-range [ranges]="ranges"></days-rent-range>
+    <div class="border rounded mt-4 border-[#8da7d7]">
+      @for(type of rentTypes(); track type.value) {
+        <div class="flex justify-between items-center w-full p-1">
+          <ion-label class="font-[300]">Орендна плата:
+            <span class="font-bold">{{ type.label }}</span>
+          </ion-label>
+
+          <ion-checkbox
+            [value]="type.value"
+            [checked]="type.checked"
+            (ionChange)="onRentTypeChange($event.target.value)"
+          >
+          </ion-checkbox>
+        </div>
+      }
+    </div>
+
+
+    @if (selectedRentType() === RentRange.DAYS) {
+      <days-rent-range [ranges]="ranges"></days-rent-range>
+    } @else {
+      <hour-rate-range></hour-rate-range>
+    }
 
     <deposit-payment></deposit-payment>
-
     <car-with-driver></car-with-driver>
+
   </ion-card-content>
 </ion-card>
