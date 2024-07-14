@@ -34,6 +34,7 @@ export class SetRangePriceModalComponent  implements OnInit {
 
   @Input() range: { label: string, value: number | null };
   @Input() ranges: WritableSignal<{ label: string, value: number | null }[]> = signal([]);
+  private updatedRanges: WritableSignal<{ label: string, value: number | null }[]> = signal([]);
   onInputChange(val): void {
     const updatedRanges = this.ranges().map((range: { label: string, value: number | null }) => {
       if (range.label === this.range.label) {
@@ -42,9 +43,12 @@ export class SetRangePriceModalComponent  implements OnInit {
       return range;
     });
 
-    this.ranges.set(updatedRanges);
+    this.updatedRanges.set(updatedRanges);
   }
 
+  onSubmit(): void {
+    this.modalCtrl.dismiss({ updatedRanges: this.updatedRanges() })
+  }
   ngOnInit() {}
 
 }

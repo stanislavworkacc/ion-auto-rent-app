@@ -1,11 +1,15 @@
+<ion-header class="shadow-none">
+  <ion-toolbar>
+    <app-back-button
+      [styles]="'!text-[20px] !text-black'"
+      [title]="'Меню'"
+      [titleStyles]="'!text-black'"
+      [navigateBack]="navigateBack.bind(this)"
+    ></app-back-button>
+  </ion-toolbar>
+</ion-header>
 <ion-content class="ion-padding">
-  <app-back-button
-    [styles]="'!text-[20px] !text-black'"
-    [title]="'Меню'"
-    [titleStyles]="'!text-black'"
-    [navigateBack]="navigateBack.bind(this)"
-  ></app-back-button>
-  <ion-list class="mt-3">
+  <ion-list>
     <app-header-parks [create]="openModal.bind(this)"></app-header-parks>
 
     @for(parking of userCarParkings; track parking.label) {

@@ -8,8 +8,8 @@ import {
   IonCardContent,
   IonCardHeader,
   IonCardSubtitle,
-  IonCardTitle, IonChip, IonContent, IonIcon, IonItem, IonLabel,
-  IonList, IonProgressBar, IonThumbnail, ModalController
+  IonCardTitle, IonChip, IonContent, IonHeader, IonIcon, IonItem, IonLabel,
+  IonList, IonProgressBar, IonThumbnail, IonToolbar, ModalController
 } from "@ionic/angular/standalone";
 import {NgClass, NgForOf} from "@angular/common";
 import {HeaderParksComponent} from "./header-parks/header-parks.component";
@@ -48,7 +48,9 @@ import {MenuSection} from "../../menu-enums";
     HeaderParksComponent,
     IonAlert,
     IonButtons,
-    BackButtonComponent
+    BackButtonComponent,
+    IonHeader,
+    IonToolbar
   ]
 })
 export class AllParksComponent  implements OnInit {

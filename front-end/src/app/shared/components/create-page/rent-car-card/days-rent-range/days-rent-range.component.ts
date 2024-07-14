@@ -35,6 +35,12 @@ export class DaysRentRangeComponent  implements OnInit {
     });
 
     await modal.present();
+
+    await modal.onWillDismiss().then((res) => {
+      if(res.data.updatedRanges) {
+        this.ranges.set(res.data.updatedRanges);
+      }
+    })
   }
   ngOnInit() {}
 
