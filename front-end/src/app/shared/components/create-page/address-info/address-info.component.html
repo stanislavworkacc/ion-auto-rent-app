@@ -3,8 +3,8 @@
     <div class="input-row">
       <ion-input #addressInput
                  type="text"
-                 class="aligned-input"
-                 placeholder="Адреса транспортного засобу"
+                 class="aligned-input font-[300]"
+                 placeholder="Введіть адресу"
                  [formControl]="address"
                  (ionInput)="fetchSuggestions($event.target.value)"
                  (ionFocus)="fetchSuggestions(address.value)"
