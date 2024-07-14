@@ -17,7 +17,7 @@
 
 <div class="flex space-x-[2px] justify-between mt-2">
   @for(range of ranges(); let index = $index; track range.label) {
-    <div class="flex flex-col justify-center items-center px-2 py-1 w-[6rem]"
+    <div class="flex flex-col justify-center items-center px-2 py-1 w-[5.5rem]"
          (click)="setRangePrice(range)"
     >
       @if (range.value) {

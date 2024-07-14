@@ -25,41 +25,49 @@ export class DaysRentRangeComponent  implements OnInit {
   private modalCtrl: ModalController = inject(ModalController);
   private alertCtrl: AlertController = inject(AlertController);
 
+  private isAlertShown = false;
+
   async setRangePrice(range): Promise<void> {
+    if (!this.isAlertShown) {
+      const alert = await this.priceAlert();
 
-    const alert: HTMLIonAlertElement = await this.priceAlert();
-
-    alert.onWillDismiss().then( async (): Promise<void> => {
-      const modal: HTMLIonModalElement = await this.modalCtrl.create({
-        component: SetRangePriceModalComponent,
-        cssClass: 'auth-modal',
-        initialBreakpoint: 0.5,
-        breakpoints: [0, 0.5],
-        componentProps: {
-          ranges: this.ranges,
-          range,
-        }
+      alert.onWillDismiss().then(async () => {
+        this.isAlertShown = true;
+        await this.showModal(range);
       });
+    } else {
+      await this.showModal(range);
+    }
+  }
 
-      await modal.present();
+  async showModal(range): Promise<void> {
+    const modal = await this.modalCtrl.create({
+      component: SetRangePriceModalComponent,
+      cssClass: 'auth-modal',
+      initialBreakpoint: 0.5,
+      breakpoints: [0, 0.5],
+      componentProps: {
+        ranges: this.ranges,
+        range,
+      }
+    });
 
-      await modal.onWillDismiss().then((res) => {
-        if(res.data.updatedRanges) {
-          this.ranges.set(res.data.updatedRanges);
-        }
-      })
-    })
+    await modal.present();
+
+    const { data } = await modal.onWillDismiss();
+    if (data && data.updatedRanges) {
+      this.ranges.set(data.updatedRanges)
+    }
   }
 
   async priceAlert(): Promise<HTMLIonAlertElement> {
-    const alert: HTMLIonAlertElement = await this.alertCtrl.create({
+    const alert = await this.alertCtrl.create({
       header: 'Ціни оренди',
       message: 'Вкажіть ціну за один день оренди в межах зазначених періодів, враховуючи поточний попит та тенденції на ринку. Орендарі мають змогу обрати відповідний період оренди згідно з їхніми потребами та сценаріями використання.',
       buttons: ['Більше не показувати', 'Зрозуміло']
     });
 
     await alert.present();
-
     return alert;
   }
   ngOnInit() {}
