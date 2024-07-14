@@ -4,6 +4,7 @@ import {FormsModule} from "@angular/forms";
 import {SetRangePriceModalComponent} from "./set-range-price-modal/set-range-price-modal.component";
 import {SelectModalComponent} from "../../../filters/modals/select-modal/select-modal.component";
 import {ModalController} from "@ionic/angular/standalone";
+import {ThousandSeparatorPipe} from "../../../../pipes/thousand.pipe";
 
 @Component({
   selector: 'days-rent-range',
@@ -13,6 +14,7 @@ import {ModalController} from "@ionic/angular/standalone";
   imports: [
     NgForOf,
     FormsModule,
+    ThousandSeparatorPipe,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })

@@ -19,7 +19,7 @@
   @for(range of ranges(); let index = $index; track range.label) {
     <div class="flex flex-col justify-center items-center px-2 py-1 w-[6rem]">
       @if (range.value) {
-        <span class="text-sm font-bold text-black w-full overflow-hidden whitespace-nowrap text-ellipsis">{{ range.value }} ГРН.</span>
+        <span class="text-sm font-bold text-black w-full overflow-hidden whitespace-nowrap text-ellipsis">{{ range.value | thousand }} ГРН.</span>
       } @else {
         <span class="text-xs font-medium text-[#7f7f7f]">-</span>
       }
