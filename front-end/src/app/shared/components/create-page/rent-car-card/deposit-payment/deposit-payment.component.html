@@ -1,7 +1,11 @@
 <div class="flex items-center w-full justify-between mt-4">
   <div class="flex flex-col">
     <div class="flex flex-col gap-1">
-      <ion-label class="text-sm font-[300] text-[#333333]">Залоговий платіж</ion-label>
+      <div class="flex items-center gap-1">
+        <ion-label class="text-sm font-[300] text-[#333333]">Залоговий платіж</ion-label>
+        <ion-icon name="information-circle-outline" class="text-[20px]" id="deposit-payment-info"></ion-icon>
+      </div>
+
       @if (depositPayment() && isDepositPaymentOn()) {
         <div class="flex items-center gap-1">
           <span>{{ depositPayment() | thousand }} грн.</span>
@@ -35,3 +39,13 @@
     <app-switcher (toggleChange)="onToggleChange($event)" [isOn]="isDepositPaymentOn()"></app-switcher>
   </div>
 </div>
+
+<ion-popover trigger="deposit-payment-info" [dismissOnSelect]="true" side="bottom" [showBackdrop]="false">
+  <ng-template>
+    <ion-content class="ion-padding">
+      <p class="text-sm text-white">
+        Залоговий платіж — це фінансова гарантія вашої безпеки на час оренди автомобіля. Після підписання договору з клієнтом, залоговий платіж утримується вами до завершення оренди.
+      </p>
+    </ion-content>
+  </ng-template>
+</ion-popover>

@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, OnInit, signal, WritableSignal} from '@angular/core';
-import {IonIcon, IonInput, IonLabel, IonText} from "@ionic/angular/standalone";
+import {IonContent, IonIcon, IonInput, IonLabel, IonPopover, IonText} from "@ionic/angular/standalone";
 import {SwitcherComponent} from "../../../../ui-kit/components/switcher/switcher.component";
 import {ThousandSeparatorPipe} from "../../../../pipes/thousand.pipe";
 
@@ -15,6 +15,8 @@ import {ThousandSeparatorPipe} from "../../../../pipes/thousand.pipe";
     ThousandSeparatorPipe,
     IonIcon,
     IonText,
+    IonContent,
+    IonPopover,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
