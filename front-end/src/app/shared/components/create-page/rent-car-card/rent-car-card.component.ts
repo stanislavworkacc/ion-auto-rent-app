@@ -12,6 +12,7 @@ import {BookmarkRateComponent} from "./bookmark-rate/bookmark-rate.component";
 import {DaysRentRangeComponent} from "./days-rent-range/days-rent-range.component";
 import {SwitcherComponent} from "../../../ui-kit/components/switcher/switcher.component";
 import {DepositPaymentComponent} from "./deposit-payment/deposit-payment.component";
+import {CarWithDriverComponent} from "./car-with-driver/car-with-driver.component";
 
 @Component({
   selector: 'rent-car-card',
@@ -32,7 +33,8 @@ import {DepositPaymentComponent} from "./deposit-payment/deposit-payment.compone
     IonLabel,
     DaysRentRangeComponent,
     SwitcherComponent,
-    DepositPaymentComponent
+    DepositPaymentComponent,
+    CarWithDriverComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
