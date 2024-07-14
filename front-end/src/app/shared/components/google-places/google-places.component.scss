@@ -2,11 +2,15 @@
   opacity: 0;
   transform: translateY(-30px);
   transition: opacity 0.2s ease, transform 0.2s ease;
-  ion-item {
+  ion-text {
     --background: #f8f8f8;
+    color: #e8edfc;
   }
 }
 
+ion-list {
+  background: #182130;
+}
 
 @keyframes slideDown {
   0% {

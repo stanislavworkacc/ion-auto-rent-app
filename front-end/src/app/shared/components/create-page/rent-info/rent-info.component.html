@@ -25,12 +25,14 @@
     </ion-toolbar>
   </ion-header>
 
-  <div class="ion-padding flex flex-col gap-5">
+  <div class="ion-padding flex flex-col">
     <rent-car-card [ranges]="rentInfoRanges"></rent-car-card>
-    <div class="mb-5 relative">
+
+    <div class="mt-5 mb-2 relative">
       <app-address-info [isFormReset]="isFormReset()" [class.slide-down-animation]="isFormReset()"></app-address-info>
-      <ion-label class="text-[#333333] text-sm font-[300] absolute -top-[9px] left-[12px] bg-white rounded-[12px] px-2 border-t-[1px] border-[#929292]">Місце подачі транспорту</ion-label>
+      <ion-label class="text-[#333333] text-sm font-[300] absolute -top-[9px] left-[12px] bg-white rounded-[12px] px-2 border-t-[1px] border-[#929292]">Місцезнаходження транспорту</ion-label>
     </div>
+
     <ripple-btn [title]="'Додати до автопарку'" [styles]="'text-[#696969]'"></ripple-btn>
   </div>
 </ion-content>
