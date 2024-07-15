@@ -44,11 +44,11 @@
       </ion-accordion>
     </ion-accordion-group>
 
-    <div class="border rounded mt-4 border-[#8da7d7]">
+    <div class="rounded mt-4 bg-[#f3fafd]">
       @for(type of rentTypes(); track type.value) {
         <div class="flex justify-between items-center w-full p-1">
-          <ion-label class="font-[300]">Орендна плата:
-            <span class="font-bold">{{ type.label }}</span>
+          <ion-label class="font-[300] ">Орендна плата:
+            <span class="font-bold" [class.text-black]="type.checked">{{ type.label }}</span>
           </ion-label>
 
           <ion-checkbox
