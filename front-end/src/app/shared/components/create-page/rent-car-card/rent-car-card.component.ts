@@ -26,7 +26,8 @@ import {Platform} from "@ionic/angular";
 import {HourRateRangeComponent} from "./hour-rate-range/hour-rate-range.component";
 import {FormsModule} from "@angular/forms";
 import {NgIf} from "@angular/common";
-import {RentRange} from "./rent-card.enums";
+import {INSURANCE_TYPE, RentRange} from "./rent-card.enums";
+import {AddressInfoComponent} from "../address-info/address-info.component";
 
 @Component({
   selector: 'rent-car-card',
@@ -52,7 +53,8 @@ import {RentRange} from "./rent-card.enums";
     HourRateRangeComponent,
     FormsModule,
     NgIf,
-    IonCheckbox
+    IonCheckbox,
+    AddressInfoComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -65,11 +67,19 @@ export class RentCarCardComponent  implements OnInit {
   @ViewChild('accordionGroup', { static: true }) accordionGroup: IonAccordionGroup;
 
   isCharacteristicsAccordionOpen: WritableSignal<boolean> = signal(false);
+
   public rentTypes: WritableSignal<{ value: string, label: string, checked: boolean }[]> = signal([
     { label: 'за день', value: RentRange.DAYS, checked: true },
     { label: 'погодинно', value: RentRange.HOURS, checked: false },
   ]);
   public selectedRentType: WritableSignal<string> = signal(RentRange.DAYS);
+
+  public insuranceTypes: WritableSignal<{ value: string, label: string, checked: boolean }[]> = signal([
+    { label: 'ОСЦПВ', value: INSURANCE_TYPE.OSCPV, checked: false },
+    { label: 'Каско', value: INSURANCE_TYPE.KASKO, checked: false },
+  ]);
+  public insuranceType: WritableSignal<string> = signal(null);
+
 
   onRentTypeChange(selectedType: string): void {
     const updatedRentTypes = this.rentTypes().map(type => {
@@ -78,6 +88,15 @@ export class RentCarCardComponent  implements OnInit {
 
     this.rentTypes.set(updatedRentTypes);
     this.selectedRentType.set(selectedType)
+  }
+
+  insuranceTypeChange(selectedType: string): void {
+    const updatedInsuranceTypes = this.insuranceTypes().map(type => {
+      return { ...type, checked: type.value === selectedType };
+    });
+
+    this.insuranceTypes.set(updatedInsuranceTypes);
+    this.insuranceType.set(selectedType)
   }
 
   toggleAccordion = (): void => {
@@ -91,5 +110,5 @@ export class RentCarCardComponent  implements OnInit {
   };
   ngOnInit() {}
 
-  protected readonly RentRange = RentRange;
+  RentRange = RentRange;
 }
