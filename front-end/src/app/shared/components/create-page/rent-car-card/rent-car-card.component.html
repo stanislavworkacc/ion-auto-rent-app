@@ -44,7 +44,11 @@
       </ion-accordion>
     </ion-accordion-group>
 
-    <div class="rounded mt-4 bg-[#f3fafd]">
+    <div class="rounded mt-4 relative border-[0.1px] border-[#929292] p-2">
+      <ion-label class="text-[#333333] flex items-center gap-1 text-sm font-[300] absolute -top-[9px] left-[12px] bg-white rounded-[12px] px-2">
+        Тип орендної плати
+        <ion-icon name="information-circle-outline" class="text-[16px]"></ion-icon>
+      </ion-label>
       @for(type of rentTypes(); track type.value) {
         <div class="flex justify-between items-center w-full p-1">
           <ion-label class="font-[300] ">Орендна плата:
