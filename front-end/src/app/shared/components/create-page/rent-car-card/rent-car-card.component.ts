@@ -80,6 +80,12 @@ export class RentCarCardComponent  implements OnInit {
   ]);
   public insuranceType: WritableSignal<string> = signal(null);
 
+  carPreviewDetails = [
+    { icon: '/assets/icon/gear-box-ico.png', class: 'w-[13px] h-[13px]', text: 'Автомат' },
+    { icon: '/assets/icon/engine-car-ico.png', class: 'w-[14px] h-[14px]', text: '2.3' },
+    { icon: '/assets/icon/fuel-type-ico.png', class: 'w-[14px] h-[14px]', text: 'Бензин' },
+    { icon: '/assets/icon/discharge-fuel-ico.png', class: 'w-[14px] h-[14px]', text: '8 л' }
+  ];
 
   onRentTypeChange(selectedType: string): void {
     const updatedRentTypes = this.rentTypes().map(type => {
