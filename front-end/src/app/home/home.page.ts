@@ -36,10 +36,13 @@ import {AppToastComponent} from "../shared/components/app-toast/app-toast/app-to
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomePage {
+
   public tabs: WritableSignal<TabConfig[]> = signal<TabConfig[]>([]);
   private translate: TranslateService = inject(TranslateService);
   private destroyRef: DestroyRef = inject(DestroyRef);
   private toaster: ToasterService = inject(ToasterService);
+
+  selected = '/home/menu';
 
   constructor() {
     this.initIcons();
