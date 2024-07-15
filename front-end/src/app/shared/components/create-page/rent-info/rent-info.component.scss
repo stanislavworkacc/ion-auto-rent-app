@@ -9,3 +9,8 @@ ion-content{
   --background: linear-gradient(to bottom, #f0f4f7, #b3bac0) !important;
 }
 
+ion-popover {
+  ion-content {
+    --background: black !important;
+  }
+}

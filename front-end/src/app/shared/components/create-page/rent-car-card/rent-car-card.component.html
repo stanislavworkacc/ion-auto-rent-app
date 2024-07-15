@@ -30,7 +30,7 @@
           <span class="text-[10px]">8 л</span>
         </div>
         <ion-icon
-          class="text-gray-400 flex justify-center text-[20px]"
+          class="text-black flex justify-center text-[20px]"
           [name]="isCharacteristicsAccordionOpen() ? 'chevron-up-outline' : 'chevron-down-outline'"
           (click)="toggleAccordion()"
         >
@@ -48,7 +48,7 @@
       @for(type of rentTypes(); track type.value) {
         <div class="flex justify-between items-center w-full p-1">
           <ion-label class="font-[300] ">Орендна плата:
-            <span class="font-bold" [class.text-black]="type.checked">{{ type.label }}</span>
+            <span class="font-[500]" [class.text-black]="type.checked">{{ type.label }}</span>
           </ion-label>
 
           <ion-checkbox

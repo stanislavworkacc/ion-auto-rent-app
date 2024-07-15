@@ -16,7 +16,10 @@
 
     <div class="mt-5 mb-2 relative">
       <app-address-info [isFormReset]="isFormReset()" [class.slide-down-animation]="isFormReset()"></app-address-info>
-      <ion-label class="text-[#333333] text-sm font-[300] absolute -top-[9px] left-[12px] bg-white rounded-[12px] px-2 border-t-[1px] border-[#929292]">Місцезнаходження транспорту</ion-label>
+      <ion-label class="text-[#333333] flex items-center gap-2 text-sm font-[300] absolute -top-[9px] left-[12px] bg-white rounded-[12px] px-2 border-t-[1px] border-[#929292]">
+        Місцезнаходження транспорту
+        <ion-icon name="information-circle-outline" class="text-[16px]" id="address-info"></ion-icon>
+      </ion-label>
     </div>
 
     <ripple-btn
@@ -26,3 +29,13 @@
     </ripple-btn>
   </div>
 </ion-content>
+
+<ion-popover trigger="address-info" [dismissOnSelect]="true" side="bottom" [showBackdrop]="false">
+  <ng-template>
+    <ion-content class="ion-padding bg-black">
+      <p class="text-sm text-white">
+        Місцезнаходження автомобіля необхідне для точного відображення пропозицій на карті-локаторі. Це дозволяє потенційним орендарям швидко і зручно знайти автомобілі в їхньому регіоні, підвищуючи ймовірність оренди. Крім того, це допомагає забезпечити точність та актуальність даних про доступні автомобілі.
+      </p>
+    </ion-content>
+  </ng-template>
+</ion-popover>

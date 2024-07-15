@@ -19,7 +19,7 @@ import {
   IonContent,
   IonHeader,
   IonIcon,
-  IonLabel, IonToolbar
+  IonLabel, IonPopover, IonToolbar
 } from "@ionic/angular/standalone";
 import {MainInfoComponent} from "../main-info/main-info.component";
 import {RippleBtnComponent} from "../../buttons/ripple-btn/ripple-btn.component";
@@ -48,7 +48,8 @@ import {RentCarCardComponent} from "../rent-car-card/rent-car-card.component";
     MainInfoComponent,
     RippleBtnComponent,
     TechnicalCharacteristicsComponent,
-    RentCarCardComponent
+    RentCarCardComponent,
+    IonPopover
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
