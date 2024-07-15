@@ -1,17 +1,16 @@
+<ion-header class="shadow-none">
+  <ion-toolbar>
+    <ion-buttons slot="start" class="absolute">
+      <app-back-button
+        [styles]="'!text-[20px] !text-[#e8edfc]'"
+        [navigateBack]="goBack.bind(this)"
+      ></app-back-button>
+    </ion-buttons>
+
+    <ion-label class="text-[#e8edfc] flex justify-center font-[300]">Інформація оренди</ion-label>
+  </ion-toolbar>
+</ion-header>
 <ion-content>
-  <ion-header class="shadow-none">
-    <ion-toolbar>
-      <ion-buttons slot="start" class="absolute">
-        <app-back-button
-          [styles]="'!text-[20px] !text-[#e8edfc]'"
-          [navigateBack]="goBack.bind(this)"
-        ></app-back-button>
-      </ion-buttons>
-
-      <ion-label class="text-[#e8edfc] flex justify-center font-[300]">Інформація оренди</ion-label>
-    </ion-toolbar>
-  </ion-header>
-
   <div class="ion-padding flex flex-col">
     <rent-car-card [ranges]="rentInfoRanges"></rent-car-card>
 
@@ -20,6 +19,10 @@
       <ion-label class="text-[#333333] text-sm font-[300] absolute -top-[9px] left-[12px] bg-white rounded-[12px] px-2 border-t-[1px] border-[#929292]">Місцезнаходження транспорту</ion-label>
     </div>
 
-    <ripple-btn [title]="'Додати до автопарку'" [styles]="'text-[#696969]'"></ripple-btn>
+    <ripple-btn
+      [title]="'Додати до автопарку'"
+      [styles]="'text-[#646565] !border-none bg-yellow-400  text-[16px] font-[300] !rounded-none'"
+    >
+    </ripple-btn>
   </div>
 </ion-content>

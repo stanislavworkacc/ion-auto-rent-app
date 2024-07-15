@@ -8,7 +8,7 @@
     Обраний період:
     {{ range['label'] }}
   </ion-label>
-  <div class="flex items-center space-x-2 w-full">
+  <div class="flex items-center space-x-2 w-full mb-5">
     <ion-input
       type="number"
       placeholder="Вкажіть ціну"
@@ -18,6 +18,13 @@
       (ionInput)="onInputChange($event.target.value)"
     >
     </ion-input>
-    <ion-button class="font-[300] uppercase" (click)="onSubmit()">Зберегти</ion-button>
   </div>
+
+  <ripple-btn
+    [title]="'Зберегти'"
+    [styles]="'text-black !border-none bg-yellow-400  text-[16px] font-[300] !rounded-none'"
+    (click)="onSubmit()"
+  >
+  </ripple-btn>
+
 </ion-content>

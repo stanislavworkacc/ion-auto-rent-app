@@ -10,6 +10,7 @@ import {
   ModalController
 } from "@ionic/angular/standalone";
 import {FormsModule} from "@angular/forms";
+import {RippleBtnComponent} from "../../../../buttons/ripple-btn/ripple-btn.component";
 
 @Component({
   selector: 'app-set-range-price-modal',
@@ -24,7 +25,8 @@ import {FormsModule} from "@angular/forms";
     IonText,
     IonInput,
     FormsModule,
-    IonButton
+    IonButton,
+    RippleBtnComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
