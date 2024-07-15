@@ -28,6 +28,7 @@ import {FormsModule} from "@angular/forms";
 import {NgIf} from "@angular/common";
 import {INSURANCE_TYPE, RentRange} from "./rent-card.enums";
 import {AddressInfoComponent} from "../address-info/address-info.component";
+import {CardSliderComponent} from "./card-slider/card-slider.component";
 
 @Component({
   selector: 'rent-car-card',
@@ -54,7 +55,8 @@ import {AddressInfoComponent} from "../address-info/address-info.component";
     FormsModule,
     NgIf,
     IonCheckbox,
-    AddressInfoComponent
+    AddressInfoComponent,
+    CardSliderComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -86,6 +88,12 @@ export class RentCarCardComponent  implements OnInit {
     { icon: '/assets/icon/fuel-type-ico.png', class: 'w-[14px] h-[14px]', text: 'Бензин' },
     { icon: '/assets/icon/discharge-fuel-ico.png', class: 'w-[14px] h-[14px]', text: '8 л' }
   ];
+
+  images = [
+    { src: '/assets/icon/atlas..jpg' },
+    { src: '/assets/icon/atlas-2.jpg' },
+    { src: '/assets/icon/atlas-3.jpg' },
+  ]
 
   onRentTypeChange(selectedType: string): void {
     const updatedRentTypes = this.rentTypes().map(type => {
