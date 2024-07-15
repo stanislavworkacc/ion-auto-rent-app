@@ -75,8 +75,8 @@ export class RentCarCardComponent  implements OnInit {
   public selectedRentType: WritableSignal<string> = signal(RentRange.DAYS);
 
   public insuranceTypes: WritableSignal<{ value: string, label: string, checked: boolean }[]> = signal([
-    { label: 'ОСЦПВ', value: INSURANCE_TYPE.OSCPV, checked: false },
-    { label: 'Каско', value: INSURANCE_TYPE.KASKO, checked: false },
+    { label: 'Поліс ОСЦПВ', value: INSURANCE_TYPE.OSCPV, checked: false },
+    { label: 'КАСКО', value: INSURANCE_TYPE.KASKO, checked: false },
   ]);
   public insuranceType: WritableSignal<string> = signal(null);
 

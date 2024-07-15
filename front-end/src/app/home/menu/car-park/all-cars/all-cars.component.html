@@ -27,9 +27,9 @@
 
 <ion-list lines="none">
   <div class="flex items-center w-full justify-between pr-[10px] bg-[#182130] py-1">
-    <div class="chip-container flex-wrap">
+    <div class="chip-container !flex-nowrap">
       @for (chip of allCarsData.chips(); track chip.value) {
-        <ion-chip outline="outline"
+        <ion-chip outline="outline" class="!text-white !flex !justify-center !rounded-[4px]"
           [class.selected-chip]="chip?.value === allCarsData.selectedChip()?.value"
           [class.archive-chip]="chip?.value === AllCarsChip.RENT_ARCHIVE"
           [class.review-chip]="chip?.value === AllCarsChip.REVIEWS"
@@ -38,7 +38,9 @@
           <ion-label>{{ chip.label }}</ion-label>
 
           @if (chip?.value === allCarsData.selectedChip()?.value) {
-            <ion-icon name="close-circle-outline" (click)="closeSelectedChip($event)"></ion-icon>
+            <ion-icon name="close-circle-outline"
+                      class="!text-[#ff4500]"
+                      (click)="closeSelectedChip($event)"></ion-icon>
           }
         </ion-chip>
       }
