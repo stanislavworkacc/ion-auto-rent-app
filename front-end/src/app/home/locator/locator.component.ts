@@ -11,6 +11,7 @@ import {GoogleMap} from "@capacitor/google-maps";
 import {environment} from "../../../environments/environment";
 import {IonContent, IonHeader, IonIcon, IonLabel, IonToolbar} from "@ionic/angular/standalone";
 import {LocatorService} from "./locator-service";
+import {LocatorLoaderComponent} from "./locator-loader/locator-loader.component";
 
 @Component({
   selector: 'app-locator',
@@ -22,7 +23,8 @@ import {LocatorService} from "./locator-service";
     IonContent,
     IonToolbar,
     IonLabel,
-    IonIcon
+    IonIcon,
+    LocatorLoaderComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

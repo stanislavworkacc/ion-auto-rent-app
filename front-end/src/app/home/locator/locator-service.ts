@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {GoogleMap} from "@capacitor/google-maps";
 import {environment} from "../../../environments/environment";
-
+import { Geolocation } from '@capacitor/geolocation';
 @Injectable({
   providedIn: 'root'
 })
@@ -9,6 +9,7 @@ export class LocatorService {
 
   map: GoogleMap;
   async createGoogleMap(mapRef): Promise<void> {
+    const coordinates = await this.getCurrentPosition();
     // @ts-ignore
     this.map = await GoogleMap.create({
       id: 'my-map',
@@ -23,8 +24,8 @@ export class LocatorService {
         streetViewControl: false,
         keyboardShortcuts: false,
         center: {
-          lat: 48.2915, // Latitude for Chernivtsi
-          lng: 25.9403  // Longitude for Chernivtsi
+          lat: coordinates.lat,
+          lng: coordinates.lng
         },
         zoom: 12,
         styles: [
@@ -270,4 +271,13 @@ export class LocatorService {
 
     observer.observe(mapRef.nativeElement, { childList: true, subtree: true });
   }
+
+  async getCurrentPosition(): Promise<{ lat: number, lng: number }> {
+    const position = await Geolocation.getCurrentPosition();
+    return {
+      lat: position.coords.latitude,
+      lng: position.coords.longitude,
+    };
+  }
+
 }
