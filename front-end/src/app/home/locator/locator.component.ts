@@ -9,9 +9,19 @@ import {
 } from '@angular/core';
 import {GoogleMap} from "@capacitor/google-maps";
 import {environment} from "../../../environments/environment";
-import {IonContent, IonHeader, IonIcon, IonLabel, IonToolbar} from "@ionic/angular/standalone";
+import {
+  IonContent,
+  IonFab,
+  IonFabButton,
+  IonFabList,
+  IonHeader,
+  IonIcon,
+  IonLabel,
+  IonToolbar
+} from "@ionic/angular/standalone";
 import {LocatorService} from "./locator-service";
 import {LocatorLoaderComponent} from "./locator-loader/locator-loader.component";
+import {IonFabComponent} from "../../shared/ui-kit/components/ion-fab/ion-fab.component";
 
 @Component({
   selector: 'app-locator',
@@ -24,7 +34,11 @@ import {LocatorLoaderComponent} from "./locator-loader/locator-loader.component"
     IonToolbar,
     IonLabel,
     IonIcon,
-    LocatorLoaderComponent
+    LocatorLoaderComponent,
+    IonFabComponent,
+    IonFab,
+    IonFabButton,
+    IonFabList
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
