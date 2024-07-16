@@ -9,11 +9,12 @@ ion-tab-button {
   --ripple-color: transparent;
   color: #8a8a8a;
   transition: color 0.3s ease;
-  background-color: #ffffff;
+  background-color: #182130;
 
   &.active-tab {
+    color: #ffffff;
     ion-icon {
-      color: #0d1f3b;
+      color: #ffffff;
     }
   }
 }
