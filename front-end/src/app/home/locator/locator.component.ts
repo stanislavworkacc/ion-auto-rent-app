@@ -38,7 +38,7 @@ export class LocatorComponent  implements OnInit, AfterViewInit {
     this.map = await GoogleMap.create({
       id: 'my-map',
       apiKey: environment.GOOGLE_KEY,
-      forceCreate: true,
+      forceCreate: false,
       element: this.mapRef.nativeElement,
       language: 'uk',
       config: {
@@ -46,6 +46,7 @@ export class LocatorComponent  implements OnInit, AfterViewInit {
         fullscreenControl: false,
         zoomControl: false,
         streetViewControl: false,
+        keyboardShortcuts: false,
         center: {
           lat: 33.6,
           lng: -117.9
@@ -179,17 +180,19 @@ export class LocatorComponent  implements OnInit, AfterViewInit {
       }
     });
 
-    this.addMarker(33.6, -117.9, 'Default Location');
+    this.hideMapAttribution();
   }
 
-  addMarker(lat: number, lng: number, title: string) {
-    this.map.addMarker({
-      coordinate: {
-        lat: lat,
-        lng: lng
-      },
-      title: title
+  hideMapAttribution(): void {
+    const observer: MutationObserver = new MutationObserver((mutations: MutationRecord[]): void => {
+      const elements = document.querySelectorAll('.gm-style-cc, .gmnoprint, .gmnoscreen, .gm-style-cc div[style*="position: relative"]');
+      if (elements.length) {
+        elements.forEach((el: any) => (el.style.display = 'none'));
+        observer.disconnect();
+      }
     });
+
+    observer.observe(this.mapRef.nativeElement, { childList: true, subtree: true });
   }
 
   ngOnInit(): void {}
