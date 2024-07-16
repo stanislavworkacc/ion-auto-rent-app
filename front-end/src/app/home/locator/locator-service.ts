@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {GoogleMap} from "@capacitor/google-maps";
 import {environment} from "../../../environments/environment";
-import { Geolocation } from '@capacitor/geolocation';
+import {Geolocation, PermissionStatus, Position} from '@capacitor/geolocation';
 @Injectable({
   providedIn: 'root'
 })
@@ -9,6 +9,7 @@ export class LocatorService {
 
   map: GoogleMap;
   async createGoogleMap(mapRef): Promise<void> {
+    await this.checkAndRequestPermissions()
     const coordinates = await this.getCurrentPosition();
     // @ts-ignore
     this.map = await GoogleMap.create({
@@ -273,11 +274,19 @@ export class LocatorService {
   }
 
   async getCurrentPosition(): Promise<{ lat: number, lng: number }> {
-    const position = await Geolocation.getCurrentPosition();
+    const position: Position = await Geolocation.getCurrentPosition();
     return {
       lat: position.coords.latitude,
       lng: position.coords.longitude,
     };
   }
+
+  async checkAndRequestPermissions(): Promise<void> {
+    const permissions: PermissionStatus = await Geolocation.checkPermissions();
+    if (permissions.location === 'denied') {
+      await Geolocation.requestPermissions();
+    }
+  }
+
 
 }
