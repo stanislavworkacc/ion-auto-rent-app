@@ -54,53 +54,32 @@ export class LocatorComponent  implements OnInit, AfterViewInit {
         zoom: 12,
         styles: [
           {
-            "featureType": "all",
             "elementType": "geometry",
             "stylers": [
               {
-                "color": "#202c3e"
+                "color": "#242f3e"
               }
             ]
           },
           {
-            "featureType": "all",
             "elementType": "labels.text.fill",
             "stylers": [
               {
-                "gamma": 0.01
-              },
-              {
-                "lightness": 20
-              },
-              {
-                "weight": "1.39"
-              },
-              {
-                "color": "#ffffff"
+                "color": "#746855"
               }
             ]
           },
           {
-            "featureType": "all",
             "elementType": "labels.text.stroke",
             "stylers": [
               {
-                "weight": "0.96"
-              },
-              {
-                "saturation": "9"
-              },
-              {
-                "visibility": "on"
-              },
-              {
-                "color": "#000000"
+                "color": "#242f3e"
               }
             ]
           },
           {
-            "featureType": "all",
-            "elementType": "labels.icon",
+            "featureType": "administrative.land_parcel",
+            "elementType": "labels",
             "stylers": [
               {
                 "visibility": "off"
@@ -108,26 +87,29 @@ export class LocatorComponent  implements OnInit, AfterViewInit {
             ]
           },
           {
-            "featureType": "landscape",
-            "elementType": "geometry",
+            "featureType": "administrative.locality",
+            "elementType": "labels.text.fill",
             "stylers": [
               {
-                "lightness": 30
-              },
-              {
-                "saturation": "9"
-              },
-              {
-                "color": "#29446b"
+                "color": "#d59563"
               }
             ]
           },
           {
             "featureType": "poi",
-            "elementType": "geometry",
+            "elementType": "labels.text",
             "stylers": [
               {
-                "saturation": 20
+                "visibility": "off"
+              }
+            ]
+          },
+          {
+            "featureType": "poi",
+            "elementType": "labels.text.fill",
+            "stylers": [
+              {
+                "color": "#d59563"
               }
             ]
           },
@@ -136,10 +118,16 @@ export class LocatorComponent  implements OnInit, AfterViewInit {
             "elementType": "geometry",
             "stylers": [
               {
-                "lightness": 20
-              },
+                "color": "#263c3f"
+              }
+            ]
+          },
+          {
+            "featureType": "poi.park",
+            "elementType": "labels.text.fill",
+            "stylers": [
               {
-                "saturation": -20
+                "color": "#6b9a76"
               }
             ]
           },
@@ -148,10 +136,7 @@ export class LocatorComponent  implements OnInit, AfterViewInit {
             "elementType": "geometry",
             "stylers": [
               {
-                "lightness": 10
-              },
-              {
-                "saturation": -30
+                "color": "#38414e"
               }
             ]
           },
@@ -160,19 +145,123 @@ export class LocatorComponent  implements OnInit, AfterViewInit {
             "elementType": "geometry.stroke",
             "stylers": [
               {
-                "saturation": 25
-              },
+                "color": "#212a37"
+              }
+            ]
+          },
+          {
+            "featureType": "road",
+            "elementType": "labels.text.fill",
+            "stylers": [
               {
-                "lightness": 25
+                "color": "#9ca5b3"
+              }
+            ]
+          },
+          {
+            "featureType": "road.arterial",
+            "elementType": "labels",
+            "stylers": [
+              {
+                "visibility": "off"
+              }
+            ]
+          },
+          {
+            "featureType": "road.highway",
+            "elementType": "geometry",
+            "stylers": [
+              {
+                "color": "#746855"
+              }
+            ]
+          },
+          {
+            "featureType": "road.highway",
+            "elementType": "geometry.stroke",
+            "stylers": [
+              {
+                "color": "#1f2835"
+              }
+            ]
+          },
+          {
+            "featureType": "road.highway",
+            "elementType": "labels",
+            "stylers": [
+              {
+                "visibility": "off"
+              }
+            ]
+          },
+          {
+            "featureType": "road.highway",
+            "elementType": "labels.text.fill",
+            "stylers": [
+              {
+                "color": "#f3d19c"
+              }
+            ]
+          },
+          {
+            "featureType": "road.local",
+            "stylers": [
+              {
+                "visibility": "off"
+              }
+            ]
+          },
+          {
+            "featureType": "road.local",
+            "elementType": "labels",
+            "stylers": [
+              {
+                "visibility": "off"
+              }
+            ]
+          },
+          {
+            "featureType": "transit",
+            "elementType": "geometry",
+            "stylers": [
+              {
+                "color": "#2f3948"
+              }
+            ]
+          },
+          {
+            "featureType": "transit.station",
+            "elementType": "labels.text.fill",
+            "stylers": [
+              {
+                "color": "#d59563"
               }
             ]
           },
           {
             "featureType": "water",
-            "elementType": "all",
+            "elementType": "geometry",
             "stylers": [
               {
-                "lightness": -20
+                "color": "#17263c"
+              }
+            ]
+          },
+          {
+            "featureType": "water",
+            "elementType": "labels.text.fill",
+            "stylers": [
+              {
+                "color": "#515c6d"
+              }
+            ]
+          },
+          {
+            "featureType": "water",
+            "elementType": "labels.text.stroke",
+            "stylers": [
+              {
+                "color": "#17263c"
               }
             ]
           }
