@@ -48,8 +48,8 @@ export class LocatorComponent  implements OnInit, AfterViewInit {
         streetViewControl: false,
         keyboardShortcuts: false,
         center: {
-          lat: 33.6,
-          lng: -117.9
+          lat: 48.2915, // Latitude for Chernivtsi
+          lng: 25.9403  // Longitude for Chernivtsi
         },
         zoom: 12,
         styles: [
@@ -74,6 +74,18 @@ export class LocatorComponent  implements OnInit, AfterViewInit {
             "stylers": [
               {
                 "color": "#242f3e"
+              }
+            ]
+          },
+          {
+            "featureType": "administrative.country",
+            "elementType": "geometry.stroke",
+            "stylers": [
+              {
+                "color": "#000000"
+              },
+              {
+                "weight": 1.5
               }
             ]
           },
