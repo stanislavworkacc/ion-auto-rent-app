@@ -43,6 +43,9 @@ export class LocatorComponent  implements OnInit, AfterViewInit {
       language: 'uk',
       config: {
         mapTypeControl: false,
+        fullscreenControl: false,
+        zoomControl: false,
+        streetViewControl: false,
         center: {
           lat: 33.6,
           lng: -117.9
