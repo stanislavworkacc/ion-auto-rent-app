@@ -1,14 +1,18 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-label class="!font-[300] flex justify-center text-[#e8edfc] items-center gap-1 text-sm">
-      Локатор пропозицій
-<!--      <ion-icon name="compass-outline"></ion-icon>-->
-    </ion-label>
-
-  </ion-toolbar>
-</ion-header>
 <ion-content>
   <div class="w-full h-full">
+    @if (!isMapCreated()) {
+      <div class="loading-animation">
+        <div class="animated-element">
+          <ion-icon name="compass-outline" class="text-[#8f9695] animate-spin"></ion-icon>
+        </div>
+        <div class="animated-element">
+          <ion-icon name="location-outline"  class="text-[#fb4f1f]"></ion-icon>
+        </div>
+        <div class="animated-element">
+          <ion-icon name="locate-outline"  class="text-[#8f9695]"></ion-icon>
+        </div>
+      </div>
+    }
     <capacitor-google-map class="inline-block w-full h-full" #map></capacitor-google-map>
   </div>
 </ion-content>

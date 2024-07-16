@@ -4,12 +4,13 @@ import {
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
   ElementRef, inject,
-  OnInit,
-  ViewChild
+  OnInit, signal,
+  ViewChild, WritableSignal
 } from '@angular/core';
 import {GoogleMap} from "@capacitor/google-maps";
 import {environment} from "../../../environments/environment";
 import {IonContent, IonHeader, IonIcon, IonLabel, IonToolbar} from "@ionic/angular/standalone";
+import {LocatorService} from "./locator-service";
 
 @Component({
   selector: 'app-locator',
@@ -28,281 +29,24 @@ import {IonContent, IonHeader, IonIcon, IonLabel, IonToolbar} from "@ionic/angul
 })
 export class LocatorComponent  implements OnInit, AfterViewInit {
 
-  private cdRef: ChangeDetectorRef = inject(ChangeDetectorRef);
+  private locatorService: LocatorService = inject(LocatorService);
 
   @ViewChild('map') mapRef: ElementRef;
+  @ViewChild('mapLoader') mapLoader: ElementRef;
 
-  map: GoogleMap;
-  async createMap(): Promise<void> {
-    // @ts-ignore
-    this.map = await GoogleMap.create({
-      id: 'my-map',
-      apiKey: environment.GOOGLE_KEY,
-      forceCreate: false,
-      element: this.mapRef.nativeElement,
-      language: 'uk',
-      config: {
-        mapTypeControl: false,
-        fullscreenControl: false,
-        zoomControl: false,
-        streetViewControl: false,
-        keyboardShortcuts: false,
-        center: {
-          lat: 48.2915, // Latitude for Chernivtsi
-          lng: 25.9403  // Longitude for Chernivtsi
-        },
-        zoom: 12,
-        styles: [
-          {
-            "elementType": "geometry",
-            "stylers": [
-              {
-                "color": "#242f3e"
-              }
-            ]
-          },
-          {
-            "elementType": "labels.text.fill",
-            "stylers": [
-              {
-                "color": "#746855"
-              }
-            ]
-          },
-          {
-            "elementType": "labels.text.stroke",
-            "stylers": [
-              {
-                "color": "#242f3e"
-              }
-            ]
-          },
-          {
-            "featureType": "administrative.country",
-            "elementType": "geometry.stroke",
-            "stylers": [
-              {
-                "color": "#000000"
-              },
-              {
-                "weight": 1.5
-              }
-            ]
-          },
-          {
-            "featureType": "administrative.land_parcel",
-            "elementType": "labels",
-            "stylers": [
-              {
-                "visibility": "off"
-              }
-            ]
-          },
-          {
-            "featureType": "administrative.locality",
-            "elementType": "labels.text.fill",
-            "stylers": [
-              {
-                "color": "#d59563"
-              }
-            ]
-          },
-          {
-            "featureType": "poi",
-            "elementType": "labels.text",
-            "stylers": [
-              {
-                "visibility": "off"
-              }
-            ]
-          },
-          {
-            "featureType": "poi",
-            "elementType": "labels.text.fill",
-            "stylers": [
-              {
-                "color": "#d59563"
-              }
-            ]
-          },
-          {
-            "featureType": "poi.park",
-            "elementType": "geometry",
-            "stylers": [
-              {
-                "color": "#263c3f"
-              }
-            ]
-          },
-          {
-            "featureType": "poi.park",
-            "elementType": "labels.text.fill",
-            "stylers": [
-              {
-                "color": "#6b9a76"
-              }
-            ]
-          },
-          {
-            "featureType": "road",
-            "elementType": "geometry",
-            "stylers": [
-              {
-                "color": "#38414e"
-              }
-            ]
-          },
-          {
-            "featureType": "road",
-            "elementType": "geometry.stroke",
-            "stylers": [
-              {
-                "color": "#212a37"
-              }
-            ]
-          },
-          {
-            "featureType": "road",
-            "elementType": "labels.text.fill",
-            "stylers": [
-              {
-                "color": "#9ca5b3"
-              }
-            ]
-          },
-          {
-            "featureType": "road.arterial",
-            "elementType": "labels",
-            "stylers": [
-              {
-                "visibility": "off"
-              }
-            ]
-          },
-          {
-            "featureType": "road.highway",
-            "elementType": "geometry",
-            "stylers": [
-              {
-                "color": "#746855"
-              }
-            ]
-          },
-          {
-            "featureType": "road.highway",
-            "elementType": "geometry.stroke",
-            "stylers": [
-              {
-                "color": "#1f2835"
-              }
-            ]
-          },
-          {
-            "featureType": "road.highway",
-            "elementType": "labels",
-            "stylers": [
-              {
-                "visibility": "off"
-              }
-            ]
-          },
-          {
-            "featureType": "road.highway",
-            "elementType": "labels.text.fill",
-            "stylers": [
-              {
-                "color": "#f3d19c"
-              }
-            ]
-          },
-          {
-            "featureType": "road.local",
-            "stylers": [
-              {
-                "visibility": "off"
-              }
-            ]
-          },
-          {
-            "featureType": "road.local",
-            "elementType": "labels",
-            "stylers": [
-              {
-                "visibility": "off"
-              }
-            ]
-          },
-          {
-            "featureType": "transit",
-            "elementType": "geometry",
-            "stylers": [
-              {
-                "color": "#2f3948"
-              }
-            ]
-          },
-          {
-            "featureType": "transit.station",
-            "elementType": "labels.text.fill",
-            "stylers": [
-              {
-                "color": "#d59563"
-              }
-            ]
-          },
-          {
-            "featureType": "water",
-            "elementType": "geometry",
-            "stylers": [
-              {
-                "color": "#17263c"
-              }
-            ]
-          },
-          {
-            "featureType": "water",
-            "elementType": "labels.text.fill",
-            "stylers": [
-              {
-                "color": "#515c6d"
-              }
-            ]
-          },
-          {
-            "featureType": "water",
-            "elementType": "labels.text.stroke",
-            "stylers": [
-              {
-                "color": "#17263c"
-              }
-            ]
-          }
-        ]
-      }
-    });
+  isMapCreated: WritableSignal<boolean>  = signal(false);
 
-    this.hideMapAttribution();
-  }
-
-  hideMapAttribution(): void {
-    const observer: MutationObserver = new MutationObserver((mutations: MutationRecord[]): void => {
-      const elements = document.querySelectorAll('.gm-style-cc, .gmnoprint, .gmnoscreen, .gm-style-cc div[style*="position: relative"]');
-      if (elements.length) {
-        elements.forEach((el: any) => (el.style.display = 'none'));
-        observer.disconnect();
-      }
-    });
-
-    observer.observe(this.mapRef.nativeElement, { childList: true, subtree: true });
+  get locator() {
+    return this.locatorService;
   }
 
   ngOnInit(): void {}
 
   async ngAfterViewInit(): Promise<void> {
-    setTimeout(async () => {
-      await this.createMap();
-
-    },1260)
-    // this.cdRef.markForCheck()
+    await this.locator.createGoogleMap(this.mapRef).then(() => {
+      setTimeout(() => {
+        this.isMapCreated.set(true)
+      },1500)
+    });
   }
 }
