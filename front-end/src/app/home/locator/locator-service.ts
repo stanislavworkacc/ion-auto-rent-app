@@ -2,6 +2,7 @@ import {Injectable, signal, WritableSignal} from "@angular/core";
 import {Circle, GoogleMap, Marker} from "@capacitor/google-maps";
 import {environment} from "../../../environments/environment";
 import {Geolocation, PermissionStatus, Position} from '@capacitor/geolocation';
+import {MarkerClickCallbackData} from "@capacitor/google-maps/dist/typings/definitions";
 @Injectable({
   providedIn: 'root'
 })
@@ -262,8 +263,8 @@ export class LocatorService {
     });
 
     this.hideMapAttribution(mapRef);
-    this.createInstanceOfMap(coordinates, mapRef);
     await this.markersHandler(coordinates);
+    await this.setMarkerClickListener();
   }
 
   private carsLocations: WritableSignal<any> = signal([
@@ -284,35 +285,30 @@ export class LocatorService {
     }
   }
 
-  createInstanceOfMap(coordinates,mapRef): void {
-    this.googleMap = new google.maps.Map(mapRef.nativeElement, {
-      center: { lat: coordinates.lat, lng: coordinates.lng },
-      zoom: 9,
-      disableDefaultUI: true,
-      styles: this.mapStyles,
+
+  async setMarkerClickListener() {
+    await this.map.setOnMarkerClickListener((callback: MarkerClickCallbackData) => {
+      console.log('Marker clicked:', callback);
+      alert(`Marker clicked:\nID: ${callback.markerId}`);
     });
   }
 
+  handleMarkerClick(marker: { lat: number, lng: number, title: string, snippet: string }) {
+    alert(`Marker clicked:\nTitle: ${marker.title}\nSnippet: ${marker.snippet}`);
+  }
+
   async addMarkerToMap(location: { lat: number, lng: number, title: string, snippet: string, isVehicle: boolean }) {
+    const markerPath = !location.isVehicle ? '/assets/icon/user-geo-marker.png' : '/assets/icon/gps-big.png';
     const marker: Marker = {
       coordinate: { lat: location.lat, lng: location.lng },
       title: location.title,
       snippet: location.snippet,
       draggable: false,
+      iconUrl: markerPath,
+      iconSize: { width: 40, height: 40 }
     };
 
     await this.map.addMarkers([marker]);
-    this.addBounceAnimationToMarker({ coordinate: marker.coordinate, isVehicle: location.isVehicle });
-  }
-  addBounceAnimationToMarker(car) {
-    new google.maps.Marker({
-      position: car.coordinate,
-      map: this.googleMap,
-      animation: google.maps.Animation.DROP,
-      icon: {
-        url: car.isVehicle ? '/assets/icon/svg/car-marker.svg' : '/assets/icon/svg/marker.svg'
-      }
-    });
   }
 
   hideMapAttribution(mapRef): void {
