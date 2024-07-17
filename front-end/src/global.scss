@@ -44,17 +44,24 @@
 :root.ios ion-modal {
   --ion-background-color: #2a3b4e;
 }
+ion-header {
+  box-shadow: none;
+}
 
 .auth-modal {
   --border-radius: 16px 16px 0 0;
 
   &::part(content) {
-    --border-radius: 20px 20px 0 0;
+    --border-radius: 20px 20px 0 0 !important;
     background: transparent !important;
   }
 
   ion-header {
     border-radius: 20px 20px 0 0 !important;
+    box-shadow: none;
+    ion-toolbar {
+      border-radius: 16px 16px 0 0 !important;
+    }
   }
 }
 

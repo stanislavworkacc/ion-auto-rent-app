@@ -65,6 +65,7 @@ export class RentCarCardComponent  implements OnInit {
   public platform: Platform = inject(Platform);
 
   @Input() ranges: WritableSignal<{ label: string, value: number | null }[]> = signal([]);
+  @Input() editMode: boolean;
 
   @ViewChild('accordionGroup', { static: true }) accordionGroup: IonAccordionGroup;
 
