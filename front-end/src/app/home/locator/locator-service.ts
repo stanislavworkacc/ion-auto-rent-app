@@ -1,4 +1,4 @@
-import {Injectable} from "@angular/core";
+import {Injectable, signal, WritableSignal} from "@angular/core";
 import {Circle, GoogleMap, Marker} from "@capacitor/google-maps";
 import {environment} from "../../../environments/environment";
 import {Geolocation, PermissionStatus, Position} from '@capacitor/geolocation';
@@ -261,53 +261,58 @@ export class LocatorService {
       }
     });
 
+    this.hideMapAttribution(mapRef);
+    this.createInstanceOfMap(coordinates, mapRef);
+    await this.markersHandler(coordinates);
+  }
+
+  private carsLocations: WritableSignal<any> = signal([
+    { lat: 48.3915, lng: 25.9203, title: "Location 1", snippet: "This is location 1 in Chernivtsi", isVehicle: true },
+    { lat: 48.4922, lng: 25.9355, title: "Location 2", snippet: "This is location 2 in Chernivtsi", isVehicle: true },
+    { lat: 48.1900, lng: 25.9478, title: "Location 3", snippet: "This is location 3 in Chernivtsi", isVehicle: true },
+    { lat: 48.1900, lng: 25.9978, title: "Location 3", snippet: "This is location 3 in Chernivtsi", isVehicle: true },
+    { lat: 48.1900, lng: 25.8478, title: "Location 3", snippet: "This is location 3 in Chernivtsi", isVehicle: true },
+    { lat: 48.1900, lng: 25.8278, title: "Location 3", snippet: "This is location 3 in Chernivtsi", isVehicle: true },
+  ]);
+  async markersHandler(coordinates): Promise<void> {
+     this.carsLocations.update((allCars) => {
+      return [...allCars, { lat: coordinates.lat, lng: coordinates.lng, title: "Your Location", snippet: "This is your current location", isVehicle: false }]
+    })
+
+    for (const location of this.carsLocations()) {
+      await this.addMarkerToMap(location);
+    }
+  }
+
+  createInstanceOfMap(coordinates,mapRef): void {
     this.googleMap = new google.maps.Map(mapRef.nativeElement, {
       center: { lat: coordinates.lat, lng: coordinates.lng },
       zoom: 9,
       disableDefaultUI: true,
       styles: this.mapStyles,
     });
-
-    await this.addMarkerToMap(coordinates);
-    this.hideMapAttribution(mapRef);
   }
 
-  async addMarkerToMap(coordinates: { lat: number, lng: number }) {
+  async addMarkerToMap(location: { lat: number, lng: number, title: string, snippet: string, isVehicle: boolean }) {
     const marker: Marker = {
-      coordinate: coordinates,
-      title: "Your Location",
-      snippet: "This is your current location",
+      coordinate: { lat: location.lat, lng: location.lng },
+      title: location.title,
+      snippet: location.snippet,
       draggable: false,
-      iconUrl: '/assets/icon/svg/marker.svg'
     };
 
     await this.map.addMarkers([marker]);
-    this.addBounceAnimationToMarker(coordinates);
+    this.addBounceAnimationToMarker({ coordinate: marker.coordinate, isVehicle: location.isVehicle });
   }
-  addBounceAnimationToMarker(coordinates: { lat: number, lng: number }) {
+  addBounceAnimationToMarker(car) {
     new google.maps.Marker({
-      position: coordinates,
+      position: car.coordinate,
       map: this.googleMap,
-      title: "Your Location",
       animation: google.maps.Animation.DROP,
       icon: {
-        url: '/assets/icon/svg/marker.svg'
+        url: car.isVehicle ? '/assets/icon/svg/car-marker.svg' : '/assets/icon/svg/marker.svg'
       }
     });
-  }
-
-  async addCircleToMap(coordinates: { lat: number, lng: number }) {
-    const circle: Circle = {
-      center: coordinates,
-      radius: 2000,
-      strokeColor: '#122c56',
-      strokeOpacity: 0.8,
-      strokeWeight: 2,
-      fillColor: '#a0a2a8',
-      fillOpacity: 0.35
-    };
-
-    await this.map.addCircles([circle]);
   }
 
   hideMapAttribution(mapRef): void {
