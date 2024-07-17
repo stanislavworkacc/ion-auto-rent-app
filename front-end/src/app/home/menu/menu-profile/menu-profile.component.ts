@@ -17,6 +17,7 @@ import {NavController, Platform} from "@ionic/angular";
 import {LogOutComponent} from "./log-out/log-out.component";
 import {Router} from "@angular/router";
 import {StorageService} from "../../../shared/services/storage.service";
+import {MenuDataService} from "../menu-data.serivce";
 
 @Component({
   selector: 'menu-profile',
@@ -49,14 +50,16 @@ import {StorageService} from "../../../shared/services/storage.service";
 export class MenuProfileComponent implements OnInit {
 
   public platform: Platform = inject(Platform);
+  public menuDataService: MenuDataService = inject(MenuDataService);
   private navCtrl: NavController = inject(NavController);
 
   public pages: InputSignal<{ value: string, icon: string, label: string , iconClass: string}[]> = input([]);
 
   public MenuPage = MenuPage;
 
-  openPage(page: { value: string, icon: string, label: string }): void {
-    this.navCtrl.navigateForward(['/home/menu/profile']);
+  openPage(page: { value: string, icon: string, label: string, iconClass:string }): void {
+    // this.navCtrl.navigateForward(['/home/menu/profile']);
+    this.menuDataService.selectedMenuChip.set(page)
   }
 
   get lastTwoPages() {

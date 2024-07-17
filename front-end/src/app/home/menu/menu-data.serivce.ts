@@ -18,11 +18,6 @@ export class MenuDataService {
     value: string
   }[]> = signal([]);
 
-  public options: WritableSignal<{
-    value: string,
-    icon: string,
-    label: string
-  }[]> = signal([]);
   public profilePages: WritableSignal<{
     value: string,
     icon: string,
@@ -36,7 +31,7 @@ export class MenuDataService {
     label: string
   }[]> = signal([]);
 
-  public selectedMenuChip: WritableSignal<string> = signal(MenuSection.PROFILE);
+  public selectedMenuChip: WritableSignal<{ value: string, icon: string, label: string, iconClass:string }> = signal(null);
 
   setProfilePageItems(options: { value: string, icon: string, label: string }[]): void {
     this.menuItems.set(options)
@@ -44,14 +39,6 @@ export class MenuDataService {
 
   getProfilePageItems(): { value: string; icon: string; label: string }[] {
     return this.menuItems();
-  }
-
-  setOptions(options: { value: string, icon: string, label: string }[]): void {
-    this.options.set(options)
-  }
-
-  getOptions(): { value: string; icon: string; label: string }[] {
-    return this.options();
   }
 
   setProfilePages(options: { value: string, icon: string, label: string, iconClass: string }[]): void {

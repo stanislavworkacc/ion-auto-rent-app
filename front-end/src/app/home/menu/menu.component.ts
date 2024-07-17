@@ -48,7 +48,7 @@ export class MenuComponent implements OnInit {
   private navCtrl: NavController = inject(NavController);
   private authService: AuthService = inject(AuthService);
 
-  public selectedMenuChip: WritableSignal<string> = this.dataService.selectedMenuChip;
+  public selectedMenuChip: WritableSignal<{ value: string, icon: string, label: string, iconClass:string }> = this.dataService.selectedMenuChip;
 
   public MenuSection = MenuSection;
 
@@ -64,23 +64,14 @@ export class MenuComponent implements OnInit {
     this.translate.use(language);
   }
 
-  setOptions(): void {
-    this.dataService.setOptions([
-      {value: MenuSection.PROFILE, icon: '/assets/icon/profile-gray.png', label: 'Профіль'},
-      {value: MenuSection.CAR_PARK, icon: '/assets/icon/cars-park-gray.png', label: 'Автопарк'},
-      {value: MenuSection.FILES, icon: '/assets/icon/files-gray.png', label: 'Файли'},
-      {value: MenuSection.GEO, icon: '/assets/icon/geo-gray.png', label: 'Локатор'},
-    ]);
-  }
-
   setProfilePages(): void {
     this.dataService.setProfilePages([
       {value: MenuPage.PROFILE, icon: '/assets/icon/user-menu-icon.png', label: 'Мій профіль', iconClass: 'h-[18px] w-[18px]',},
       {value: MenuPage.SALE, icon: '/assets/icon/sale-menu-ico.png', label: 'Акції', iconClass: 'h-[20px] w-[20px]'},
       {value: MenuPage.NEWS, icon: '/assets/icon/news-menu-ico.png', label: 'Новини', iconClass: 'h-[18px] w-[18px]'},
       {value: MenuPage.NOTIFICATIONS, icon: '/assets/icon/notifications-blue.png', label: 'Сповіщення', iconClass: 'h-[20px] w-[20px]'},
-      {value: MenuPage.SETTINGS, icon: '/assets/icon/settings-menu-icon.png', label: 'Налаштування', iconClass: 'h-[18px] w-[18px]'},
       {value: MenuPage.HELP, icon: 'assets/icon/support_blue.png', label: 'Допомога', iconClass: 'h-[20px] w-[20px]'},
+      {value: MenuPage.SETTINGS, icon: '/assets/icon/settings-menu-icon.png', label: 'Налаштування', iconClass: 'h-[18px] w-[18px]'},
       {value: MenuSection.CAR_PARK, icon: '/assets/icon/park-bluc.png', label: 'Автопарк',iconClass: 'h-[18px] w-[18px]'},
       {value: MenuPage.CREATE, icon: '/assets/icon/plus-blue.png', label: 'Додати', iconClass: 'h-[20px] w-[20px]'},
     ]);
@@ -103,7 +94,6 @@ export class MenuComponent implements OnInit {
   }
 
   setSignals(): void {
-    this.setOptions();
     this.setProfilePages();
     this.setSocialMarks();
     this.setCarsMarks();
@@ -114,10 +104,10 @@ export class MenuComponent implements OnInit {
   }
 
   chipChangeSubscription(): void  {
-    if(this.selectedMenuChip() === MenuSection.FILES) {
-      this.navCtrl.navigateForward(['/home/menu/files'])
+    if(this.selectedMenuChip()?.value === MenuSection.PROFILE) {
+      this.navCtrl.navigateForward(['/home/menu/profile'])
     }
-    if(this.selectedMenuChip() === MenuSection.CAR_PARK) {
+    if(this.selectedMenuChip()?.value === MenuSection.CAR_PARK) {
       this.navCtrl.navigateForward(['/home/menu/car-park'])
     }
   }

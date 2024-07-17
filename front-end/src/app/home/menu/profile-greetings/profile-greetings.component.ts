@@ -43,7 +43,6 @@ export class ProfileGreetingsComponent implements OnInit {
 
   @Input() selected: WritableSignal<string>;
 
-  public options: InputSignal<{ value: string, icon: string, label: string }[]> = input([]);
   public socialMarks: InputSignal<{ value: string, icon: string, count: number, description: string }[]> = input([]);
   public carsMarks: InputSignal<{ value: string, icon: string, count: number, description: string }[]> = input([]);
 

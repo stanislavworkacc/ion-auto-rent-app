@@ -17,7 +17,7 @@ import {CreateParkModalComponent} from "./create-park-modal/create-park-modal.co
 import {MenuDataService} from "../../menu-data.serivce";
 import {NavController, Platform} from "@ionic/angular";
 import {BackButtonComponent} from "../../../../shared/ui-kit/components/back-button/back-button.component";
-import {MenuSection} from "../../menu-enums";
+import {MenuPage, MenuSection} from "../../menu-enums";
 
 @Component({
   selector: 'app-all-parks',
@@ -87,7 +87,7 @@ export class AllParksComponent  implements OnInit {
 
   navigateBack(): void {
     this.navCtrl.navigateBack(['home/menu']);
-    this.dataService.selectedMenuChip.set(MenuSection.PROFILE);
+    this.dataService.selectedMenuChip.set({value: MenuPage.PROFILE, icon: '/assets/icon/user-menu-icon.png', label: 'Мій профіль', iconClass: 'h-[18px] w-[18px]'});
   }
   constructor() { }
 
