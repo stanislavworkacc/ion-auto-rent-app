@@ -7,16 +7,12 @@
   >
   </app-profile-greetings>
 
-  @switch (selectedMenuChip()) {
-    @case (MenuSection.PROFILE) {
-      <menu-profile
-        [pages]="dataService.getProfilePages()"
-      ></menu-profile>
-    }
-  }
+  <menu-profile [pages]="dataService.getProfilePages()"></menu-profile>
+
+
 </ion-content>
 
-<log-out class="bg-[#b3bac0]" (click)="initLogout()"></log-out>
+<log-out class="bg-[#eef0f6]" (click)="initLogout()"></log-out>
 
 <!--  <ion-button (click)="switchLanguage('uk')">UK</ion-button>-->
 <!--  <ion-button (click)="switchLanguage('en')">EN</ion-button>-->

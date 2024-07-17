@@ -1,9 +1,9 @@
 export enum MenuPage {
   PROFILE = 'profile',
-  SEARCH = 'search',
   SALE = 'sale',
   CREATE = 'create',
   NEWS = 'news',
+  NOTIFICATIONS = 'notifications',
   SETTINGS = 'settings',
   HELP = 'help',
 }

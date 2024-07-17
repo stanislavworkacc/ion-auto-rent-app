@@ -8,19 +8,19 @@
     >
     </notifications-preview>
   </div>
-  <ion-card-content>
-    <div class="chip-container">
-      @for (chip of options(); track chip.value) {
-        <ion-chip
-          [class.bg-[#dce1e4]]="chip.value === selected()"
-          outline="outline"
-          (click)="chipSelected(chip.value)"
-        >
-          <img [src]="chip.icon" class="h-[14px] w-[14px] mr-2">
-          <ion-label>{{ chip.label }}</ion-label>
-        </ion-chip>
-      }
-    </div>
-  </ion-card-content>
+<!--  <ion-card-content>-->
+<!--    <div class="chip-container">-->
+<!--      @for (chip of options(); track chip.value) {-->
+<!--        <ion-chip-->
+<!--          [class.bg-[#dce1e4]]="chip.value === selected()"-->
+<!--          outline="outline"-->
+<!--          (click)="chipSelected(chip.value)"-->
+<!--        >-->
+<!--          <img [src]="chip.icon" class="h-[14px] w-[14px] mr-2">-->
+<!--          <ion-label>{{ chip.label }}</ion-label>-->
+<!--        </ion-chip>-->
+<!--      }-->
+<!--    </div>-->
+<!--  </ion-card-content>-->
 
 </ion-card>

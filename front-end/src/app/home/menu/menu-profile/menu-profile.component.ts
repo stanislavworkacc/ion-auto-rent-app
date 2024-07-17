@@ -51,7 +51,7 @@ export class MenuProfileComponent implements OnInit {
   public platform: Platform = inject(Platform);
   private navCtrl: NavController = inject(NavController);
 
-  public pages: InputSignal<{ value: string, icon: string, label: string }[]> = input([]);
+  public pages: InputSignal<{ value: string, icon: string, label: string , iconClass: string}[]> = input([]);
 
   public MenuPage = MenuPage;
 
