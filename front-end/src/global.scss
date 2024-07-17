@@ -197,27 +197,4 @@ ion-button {
 }
 
 
-.pulse-overlay {
-  position: absolute;
-}
-
-.pulse {
-  width: 100px;
-  height: 100px;
-  background: rgba(255, 158, 78, 0.4);
-  border-radius: 50%;
-  position: absolute;
-  transform: translate(-50%, -50%);
-  animation: pulse-animation 2s infinite;
-}
-
-@keyframes pulse-animation {
-  0% {
-    transform: translate(-50%, -50%) scale(0.5);
-    opacity: 1;
-  }
-  100% {
-    transform: translate(-50%, -50%) scale(1.5);
-    opacity: 0;
-  }
-}
+//maps
