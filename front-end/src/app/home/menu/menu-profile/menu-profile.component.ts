@@ -59,6 +59,18 @@ export class MenuProfileComponent implements OnInit {
     this.navCtrl.navigateForward(['/home/menu/profile']);
   }
 
+  get lastTwoPages() {
+    return this.pages().slice(-2);
+  }
+
+  get mainPages() {
+    return this.pages().slice(0, -2).filter(page => page.value !== MenuPage.SETTINGS && page.value !== MenuPage.HELP);
+  }
+
+  get settingsAndHelpPages() {
+    return this.pages().filter(page => page.value === MenuPage.SETTINGS || page.value === MenuPage.HELP);
+  }
+
   constructor() {
   }
 

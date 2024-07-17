@@ -1,6 +1,50 @@
 <ion-grid>
   <ion-row>
-    @for (page of pages().slice(-2); track page.value) {
+    @for(page of lastTwoPages; track page.value) {
+    <ion-col size="6">
+      <ion-card (click)="openPage(page)" [class.create]="page.value === MenuPage.CREATE">
+       <ion-card-header>
+          <ion-card-subtitle>
+            <img [src]="page.icon" [class]="page.iconClass">
+          </ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content class="ion-padding">
+          <ion-label class="text-black">{{ page.label }}</ion-label>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+    }
+  </ion-row>
+</ion-grid>
+
+<ion-label class="px-3 text-black font-[600] upp">Інформація аккаунту</ion-label>
+<ion-grid>
+  <ion-row>
+    @for(page of mainPages; track page.value) {
+    <ion-col size="6">
+    <ion-card (click)="openPage(page)">
+      <ion-card-header>
+        <ion-card-subtitle>
+
+          <img [src]="page.icon" [class]="page.iconClass">
+        </ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content class="ion-padding">
+        <ion-label class="text-black" [class.left-padding]="platform.is('ios')">
+      {{ page.label }}
+      </ion-label>
+      </ion-card-content>
+      <ion-badge *ngIf="page.value === MenuPage.SALE" class="sale-badge">1</ion-badge>
+      </ion-card>
+    </ion-col>
+    }
+  </ion-row>
+</ion-grid>
+
+<ion-label class="px-3 text-black font-[600] upp">Допомога</ion-label>
+<ion-grid>
+  <ion-row>
+    @for(page of settingsAndHelpPages; track page.value) {
     <ion-col size="6">
       <ion-card (click)="openPage(page)">
         <ion-card-header>
@@ -10,54 +54,8 @@
         </ion-card-header>
         <ion-card-content class="ion-padding">
           <ion-label class="text-black">{{ page.label }}</ion-label>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-    }
-  </ion-row>
-</ion-grid>
-
-<ion-label class="px-3 text-black font-[600] upp">Інформація аккаунту</ion-label>
-<ion-grid>
-  <ion-row>
-    @for (page of pages().slice(0, -4); track page.value) {
-    <ion-col size="6">
-      <ion-card (click)="openPage(page)">
-        <ion-card-header>
-          <ion-card-subtitle>
-            <img [src]="page.icon" [class]="page.iconClass">
-          </ion-card-subtitle>
-        </ion-card-header>
-        <ion-card-content class="ion-padding">
-          <ion-label class="text-black" [class.left-padding]="platform.is('ios')">
-    {{ page.label }}
-    </ion-label>
-  </ion-card-content>
-  <ion-badge *ngIf="page.value === MenuPage.SALE" class="sale-badge">1</ion-badge>
-</ion-card>
-</ion-col>
-    }
-  </ion-row>
-</ion-grid>
-
-<ion-label class="px-3 text-black font-[600]">Допомога та налаштування</ion-label>
-
-<ion-grid>
-  <ion-row>
-    @for (page of pages();track page.value) {
-    <ion-col size="6">
-    @if(page.value === MenuPage.SETTINGS || page.value=== MenuPage.HELP) {
-    <ion-card (click)="openPage(page)">
-      <ion-card-header>
-        <ion-card-subtitle>
-          <img [src]="page.icon" [class]="page.iconClass">
-        </ion-card-subtitle>
-      </ion-card-header>
-      <ion-card-content class="ion-padding">
-        <ion-label class="text-black">{{ page.label }}</ion-label>
-      </ion-card-content>
-    </ion-card>
-    }
+        </ion-card-content>
+      </ion-card>
     </ion-col>
     }
   </ion-row>
