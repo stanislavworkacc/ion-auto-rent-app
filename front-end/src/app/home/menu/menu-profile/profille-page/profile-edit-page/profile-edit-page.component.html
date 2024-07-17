@@ -1,14 +1,12 @@
 <ion-header>
-  <ion-toolbar class="p-2">
-    <div class="flex justify-between items-center py-2">
+  <ion-toolbar>
+    <div class="flex justify-between items-center px-2">
       <ion-buttons slot="start">
         <app-back-button
           [styles]="'!text-[20px]'"
           [navigateBack]="goBack.bind(this)"
         ></app-back-button>
       </ion-buttons>
-
-      <ion-label class="font-[300] text-[#e8edfc]">Зміна даних</ion-label>
 
 <!--      <ion-breadcrumbs [maxItems]="2" (ionCollapsedClick)="presentPopover($event)" [itemsBeforeCollapse]="0">-->
 <!--        @for (breadcrumb of breadcrumbsService.breadcrumbsRoutes(); track breadcrumb.url) {-->

@@ -33,9 +33,10 @@ ion-card {
 ion-chip {
   background: #fff;
   color: #333333;
-  border: 0.1px solid #d1d1d1;
-  min-width: 112px;
+  border: 0.1px solid #ff8146;
+  //min-width: 112px;
   display: flex;
   justify-content: center;
+  border-radius: 8px;
 }
 

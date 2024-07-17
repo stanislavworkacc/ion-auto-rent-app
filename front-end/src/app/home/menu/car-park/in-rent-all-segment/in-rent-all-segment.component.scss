@@ -1,14 +1,4 @@
 ion-segment {
   border-radius: 10px;
-  ion-segment-button {
-    --color-checked: #ffffff;
-    --indicator-color: #182130;
-    border-radius: 10px;
-    transition: background-color 0.3s ease, color 0.3s ease;
-    --color: #000000;
-    ion-label {
-      font-weight: 300;
-      color: #e8edfc !important;
-    }
-  }
+  ion-segment-button {}
 }

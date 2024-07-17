@@ -85,13 +85,16 @@ export class AllCarsComponent  implements OnInit {
   }
 
   chipSelected(chip: { value: string, label: string, icon: string }): void {
-    this.allCarsData.selectedChip.set(chip);
-    this.navCtrl.navigateForward([`/home/menu/car-park/all-cars/${ chip.value }`])
+    if(chip === this.allCarsData.selectedChip()) {
+      this.closeSelectedChip()
+    } else {
+      this.allCarsData.selectedChip.set(chip);
+      this.navCtrl.navigateForward([`/home/menu/car-park/all-cars/${ chip.value }`])
+    }
+
   }
 
-  closeSelectedChip(ev): void {
-    ev.preventDefault();
-    ev.stopPropagation();
+  closeSelectedChip(): void {
     this.navCtrl.navigateForward(['/home/menu/car-park/all-cars/cars']);
     this.allCarsData.selectedChip.set(null)
   }

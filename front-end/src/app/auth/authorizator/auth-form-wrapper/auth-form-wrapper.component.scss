@@ -6,7 +6,8 @@
   --color: #000000;
   border-top-right-radius: 20px;
   border-top-left-radius: 20px;
-  backdrop-filter: blur(10px) brightness(2.5);
+  //backdrop-filter: blur(10px) brightness(2.5);
+  --ion-backdrop-color: transparent;
 
   ion-header {
     box-shadow: none;

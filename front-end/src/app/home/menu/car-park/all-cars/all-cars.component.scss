@@ -1,8 +1,10 @@
 ion-header {
   --box-shadow: 0;
-  --background: #182130 !important;
+  --background: #eff1f7 !important;
+  position: sticky;
+  top: 0;
   ion-toolbar {
-    --background: #182130 !important;
+    --background: #eff1f7 !important;
     --border-width: 0;
   }
 }
@@ -14,7 +16,7 @@ ion-list {
   background: transparent !important;
   .chip-container {
     display: flex;
-    flex-direction: row;
+    flex-direction: row !important;
     overflow-x: auto;
     white-space: nowrap;
     min-width: 85%;
@@ -25,5 +27,6 @@ ion-list {
 }
 
 .selected-chip {
-  border: 1px solid white !important;
+  border: 0.1px solid #ff8146 !important;
+  background: white;
 }
