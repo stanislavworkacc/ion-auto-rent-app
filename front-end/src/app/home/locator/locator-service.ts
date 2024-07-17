@@ -283,6 +283,34 @@ export class LocatorService {
 
     await this.map.addMarkers([marker]);
     this.addBounceAnimationToMarker(coordinates);
+    this.addPulseEffect(coordinates);
+  }
+
+  addPulseEffect(coordinates: { lat: number, lng: number }) {
+    const pulseDiv = document.createElement('div');
+    pulseDiv.className = 'pulse';
+
+    const pulseOverlay = new google.maps.OverlayView();
+    pulseOverlay.onAdd = function() {
+      const layer = document.createElement('div');
+      layer.className = 'pulse-overlay';
+      layer.appendChild(pulseDiv);
+
+      const panes = this.getPanes();
+      panes.overlayLayer.appendChild(layer);
+    };
+
+    pulseOverlay.draw = function() {
+      const overlayProjection = this.getProjection();
+      const position = overlayProjection.fromLatLngToDivPixel(new google.maps.LatLng(coordinates.lat, coordinates.lng));
+
+      if (position) {
+        pulseDiv.style.left = position.x + 'px';
+        pulseDiv.style.top = position.y + 'px';
+      }
+    };
+
+    pulseOverlay.setMap(this.googleMap);
   }
 
   addBounceAnimationToMarker(coordinates: { lat: number, lng: number }) {
