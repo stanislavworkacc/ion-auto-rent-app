@@ -234,6 +234,8 @@ export class LocatorService {
       ]
     }
   ]
+
+  googleMap: any;
   async createGoogleMap(mapRef): Promise<void> {
     await this.checkAndRequestPermissions()
     const coordinates = await this.getCurrentPosition();
@@ -254,14 +256,20 @@ export class LocatorService {
           lat: coordinates.lat,
           lng: coordinates.lng
         },
-        zoom: 9,
+        zoom: 12,
         styles: this.mapStyles
       }
     });
 
-    this.hideMapAttribution(mapRef);
-    await this.addCircleToMap(coordinates);
+    this.googleMap = new google.maps.Map(mapRef.nativeElement, {
+      center: { lat: coordinates.lat, lng: coordinates.lng },
+      zoom: 9,
+      disableDefaultUI: true,
+      styles: this.mapStyles,
+    });
+
     await this.addMarkerToMap(coordinates);
+    this.hideMapAttribution(mapRef);
   }
 
   async addMarkerToMap(coordinates: { lat: number, lng: number }) {
@@ -269,15 +277,30 @@ export class LocatorService {
       coordinate: coordinates,
       title: "Your Location",
       snippet: "This is your current location",
+      draggable: false,
+      iconUrl: '/assets/icon/svg/marker.svg'
     };
 
     await this.map.addMarkers([marker]);
+    this.addBounceAnimationToMarker(coordinates);
+  }
+
+  addBounceAnimationToMarker(coordinates: { lat: number, lng: number }) {
+    new google.maps.Marker({
+      position: coordinates,
+      map: this.googleMap,
+      title: "Your Location",
+      animation: google.maps.Animation.DROP,
+      icon: {
+        url: '/assets/icon/svg/marker.svg'
+      }
+    });
   }
 
   async addCircleToMap(coordinates: { lat: number, lng: number }) {
     const circle: Circle = {
       center: coordinates,
-      radius: 20000,
+      radius: 2000,
       strokeColor: '#122c56',
       strokeOpacity: 0.8,
       strokeWeight: 2,
@@ -287,7 +310,6 @@ export class LocatorService {
 
     await this.map.addCircles([circle]);
   }
-
 
   hideMapAttribution(mapRef): void {
     const observer: MutationObserver = new MutationObserver((mutations: MutationRecord[]): void => {
