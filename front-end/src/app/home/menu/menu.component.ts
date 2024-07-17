@@ -72,7 +72,7 @@ export class MenuComponent implements OnInit {
       {value: MenuPage.NOTIFICATIONS, icon: '/assets/icon/notifications-blue.png', label: 'Сповіщення', iconClass: 'h-[20px] w-[20px]'},
       {value: MenuPage.HELP, icon: 'assets/icon/support_blue.png', label: 'Допомога', iconClass: 'h-[20px] w-[20px]'},
       {value: MenuPage.SETTINGS, icon: '/assets/icon/settings-menu-icon.png', label: 'Налаштування', iconClass: 'h-[18px] w-[18px]'},
-      {value: MenuSection.CAR_PARK, icon: '/assets/icon/park-bluc.png', label: 'Автопарк',iconClass: 'h-[18px] w-[18px]'},
+      {value: MenuSection.CAR_PARK, icon: '/assets/icon/car-parks-blue.png', label: 'Автопарк',iconClass: 'h-[18px] w-[18px]'},
       {value: MenuPage.CREATE, icon: '/assets/icon/plus-blue.png', label: 'Додати', iconClass: 'h-[20px] w-[20px]'},
     ]);
   }
