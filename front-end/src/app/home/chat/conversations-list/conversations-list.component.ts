@@ -10,7 +10,7 @@ import {
   IonSearchbar, ModalController
 } from "@ionic/angular/standalone";
 import {NgForOf} from "@angular/common";
-import {ActionSheetController} from "@ionic/angular";
+import {ActionSheetController, NavController} from "@ionic/angular";
 import {OptionsItemListComponent} from "./options-item-list/options-item-list.component";
 
 @Component({
@@ -37,6 +37,7 @@ import {OptionsItemListComponent} from "./options-item-list/options-item-list.co
 export class ConversationsListComponent  implements OnInit {
 
   private actionSheetCtrl: ActionSheetController = inject(ActionSheetController);
+  private navCtrl: NavController = inject(NavController);
 
   conversations = [
     { id: 1, person: 'John Doe', date: '2024-07-18', message: 'Hey, how are you?' },
@@ -65,6 +66,10 @@ export class ConversationsListComponent  implements OnInit {
   constructor() { }
 
   ngOnInit() {}
+
+  openConversation(conversation) {
+    this.navCtrl.navigateForward([`/home/chat/${ conversation.id }`])
+  }
 
   async deleteConversation(): Promise<void> {
     const actionSheet: HTMLIonActionSheetElement = await this.actionSheetCtrl.create({
