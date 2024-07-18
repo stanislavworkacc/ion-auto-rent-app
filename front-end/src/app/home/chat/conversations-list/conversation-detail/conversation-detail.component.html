@@ -1,9 +1,15 @@
 <ion-header>
   <ion-toolbar>
     <div class="flex items-center">
-      <ion-icon name="menu" class="text-[20px]"></ion-icon>
-      <ion-title>Чати</ion-title>
+      <app-back-button
+        [styles]="'!text-[20px]'"
+        [navigateBack]="goBack.bind(this)"
+      ></app-back-button>
+
+      <ion-title>John Doe</ion-title>
     </div>
+
+    <ion-icon slot="end" name="person-circle" class="text-[30px]"></ion-icon>
   </ion-toolbar>
 </ion-header>
 

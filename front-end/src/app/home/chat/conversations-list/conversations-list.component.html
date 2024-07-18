@@ -14,11 +14,18 @@
           <p>{{ conversation.message }}</p>
         </ion-label>
 
-        <ion-note slot="end" class="text-gray-400 text-xs flex items-start pt-[15px] h-full">
-          <ion-icon name="checkmark-done-outline" class="text-green-400 text-[15px] mr-1"></ion-icon>
-          {{ conversation.date }}
-        </ion-note>
+        <div class="flex flex-col">
+          <div class="flex items-center">
+            <ion-icon name="checkmark-done-outline" class="text-green-400 text-[15px] mr-1"></ion-icon>
+            <ion-note slot="end" class="text-gray-400 text-xs flex items-start h-full">
+              {{ conversation.date }}
+            </ion-note>
+          </div>
 
+          <div class="flex justify-end">
+            <ion-label class="text-end py-[2px] px-[8px] !text-[12px] bg-[#6da8ff] rounded-full">12</ion-label>
+          </div>
+        </div>
       </ion-item>
 
       <options-item [deleteConversation]="deleteConversation.bind(this)"></options-item>
