@@ -50,6 +50,8 @@
 
 <ion-footer>
   <ion-toolbar>
+    <preview-attached-files [attachedFiles]="attachedFiles"></preview-attached-files>
+
     <ion-item>
       <input #fileInput type="file" class="hidden" (change)="onFileSelected($event)" multiple />
 

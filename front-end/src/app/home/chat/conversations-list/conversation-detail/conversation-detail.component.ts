@@ -25,6 +25,7 @@ import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {tap} from "rxjs";
 import {JsonPipe, NgForOf, NgIf} from "@angular/common";
 import {FormsModule} from "@angular/forms";
+import {PreviewAttachedFilesComponent} from "./preview-attached-files/preview-attached-files.component";
 
 @Component({
   selector: 'app-conversation-detail',
@@ -52,7 +53,8 @@ import {FormsModule} from "@angular/forms";
     IonButton,
     IonTextarea,
     IonSearchbar,
-    FormsModule
+    FormsModule,
+    PreviewAttachedFilesComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -67,6 +69,7 @@ export class ConversationDetailComponent  implements OnInit {
     { sender: 'me', text: 'Hi there!', time: '10:00 AM' },
     { sender: 'them', text: 'Hello! How are you?', time: '10:01 AM' },
     { sender: 'me', text: 'I am good, thanks! How about you?', time: '10:02 AM' },
+    { sender: 'them', text: 'Hello! How are you?', time: '10:01 AM' },
     { sender: 'me', text: 'I am good, thanks! How about you?', time: '10:02 AM' },
     { sender: 'me', text: 'I am good, thanks! How about you?', time: '10:02 AM' },
     { sender: 'them', text: 'Doing great, thanks for asking!', time: '10:03 AM' },
@@ -145,13 +148,13 @@ export class ConversationDetailComponent  implements OnInit {
     this.fileInput.nativeElement.click();
   }
 
-  attachedFiles = [];
+  attachedFiles: WritableSignal<File[]> = signal([]);
   onFileSelected(event: any): void {
 
     setTimeout((): void => {
       const files = event.target.files;
       Array.from(files).forEach((file: File): void => {
-        this.attachedFiles.unshift(file);
+        this.attachedFiles.set([...this.attachedFiles(), file])
       });
       event.target.value = '';
     }, 1500);

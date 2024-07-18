@@ -1,0 +1,9 @@
+<div class="flex w-full overflow-x-auto items-center gap-2">
+  @for(file of attachedFiles(); track file.valueOf()) {
+    <div class="border rounded min-w-[100px] min-h-[100px] max-w-[100px] max-h-[100px] bg-white flex flex-col items-center justify-evenly">
+      <ion-label class="overflow-hidden whitespace-nowrap text-ellipsis w-[80%] text-xs font-[300]">{{ file.name }}</ion-label>
+      <ion-icon name="document" class="text-[20px] text-[#3880ff]"></ion-icon>
+    </div>
+  }
+</div>
+
