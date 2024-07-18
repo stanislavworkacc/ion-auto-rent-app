@@ -1,6 +1,15 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {IonContent, IonHeader, IonIcon, IonSearchbar, IonTitle, IonToolbar} from "@ionic/angular/standalone";
+import {
+  IonContent,
+  IonHeader,
+  IonIcon,
+  IonRouterOutlet,
+  IonSearchbar,
+  IonTitle,
+  IonToolbar
+} from "@ionic/angular/standalone";
 import {ConversationsListComponent} from "./conversations-list/conversations-list.component";
+import {RouterOutlet} from "@angular/router";
 
 @Component({
   selector: 'app-chat',
@@ -14,7 +23,9 @@ import {ConversationsListComponent} from "./conversations-list/conversations-lis
     IonTitle,
     IonSearchbar,
     IonIcon,
-    ConversationsListComponent
+    ConversationsListComponent,
+    IonRouterOutlet,
+    RouterOutlet
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
