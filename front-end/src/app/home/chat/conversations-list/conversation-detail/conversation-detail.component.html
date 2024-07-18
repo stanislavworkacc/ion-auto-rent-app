@@ -29,24 +29,41 @@
 <ion-content>
   <ion-list>
     <ng-container *ngFor="let group of groupedMessages; let i = index">
+      <!--     their avatar       -->
       <ion-item [class]="group.sender === 'me' ? 'my-message' : 'their-message'">
         <ion-avatar slot="start" *ngIf="group.sender !== 'me' && group.showAvatar">
           <ion-icon name="person-circle-outline" class="text-[2rem]"></ion-icon>
         </ion-avatar>
+
         <ion-label class="message-label">
           <ng-container *ngFor="let message of group.messages">
+
+            <!--    message text    -->
             <span class="break-all">{{ message.text }}</span>
 
+            <!--     files       -->
+            @if(message.files && message.files.length > 0) {
+              @for(file of message.files; track file.name) {
+                <div class="flex items-center ">
+                  <ion-icon name="document" class="text-[20px] text-[#3880ff]"></ion-icon>
+                  <span>{{ file.name }}</span>
+                </div>
+              }
+            }
+
+            <!--     time       -->
             <div class="flex items-center gap-1">
               <ion-note>{{ message.time }}</ion-note>
               <ion-icon name="checkmark-done" class="text-gray-400"></ion-icon>
             </div>
+
           </ng-container>
         </ion-label>
       </ion-item>
     </ng-container>
   </ion-list>
 </ion-content>
+
 
 <ion-footer>
   <ion-toolbar>

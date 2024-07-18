@@ -66,16 +66,16 @@ export class ConversationDetailComponent  implements OnInit {
 
   conversation: WritableSignal<any> = signal(null)
   messages = [
-    { sender: 'me', text: 'Hi there!', time: '10:00 AM' },
-    { sender: 'them', text: 'Hello! How are you?', time: '10:01 AM' },
-    { sender: 'me', text: 'I am good, thanks! How about you?', time: '10:02 AM' },
-    { sender: 'them', text: 'Hello! How are you?', time: '10:01 AM' },
-    { sender: 'me', text: 'I am good, thanks! How about you?', time: '10:02 AM' },
-    { sender: 'me', text: 'I am good, thanks! How about you?', time: '10:02 AM' },
-    { sender: 'them', text: 'Doing great, thanks for asking!', time: '10:03 AM' },
-    { sender: 'them', text: 'Doing great, thanks for asking!', time: '10:03 AM' },
-    { sender: 'them', text: 'Doing great, thanks for asking!', time: '10:03 AM' },
-    { sender: 'them', text: 'Doing great, thanks for asking!', time: '10:03 AM' },
+    { sender: 'me', text: 'Hi there!', time: '10:00 AM', files: [] },
+    { sender: 'them', text: 'Hello! How are you?', time: '10:01 AM', files: [] },
+    { sender: 'me', text: 'I am good, thanks! How about you?', time: '10:02 AM', files: [] },
+    { sender: 'them', text: 'Hello! How are you?', time: '10:01 AM', files: [] },
+    { sender: 'me', text: 'I am good, thanks! How about you?', time: '10:02 AM', files: [] },
+    { sender: 'me', text: 'I am good, thanks! How about you?', time: '10:02 AM', files: [] },
+    { sender: 'them', text: 'Doing great, thanks for asking!', time: '10:03 AM', files: [] },
+    { sender: 'them', text: 'Doing great, thanks for asking!', time: '10:03 AM', files: [] },
+    { sender: 'them', text: 'Doing great, thanks for asking!', time: '10:03 AM', files: [] },
+    { sender: 'them', text: 'Doing great, thanks for asking!', time: '10:03 AM', files: [] },
   ];
   groupedMessages: any[] = [];
   newMessage: string = '';
@@ -91,16 +91,18 @@ export class ConversationDetailComponent  implements OnInit {
     this.showSearchBar.set(!this.showSearchBar())
   }
 
-  sendMessage() {
-    if (this.newMessage.trim() !== '') {
-      const newMsg =
-        { sender: 'me',
-          text: this.newMessage,
-          time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-        };
+  sendMessage(): void {
+    if (this.newMessage.trim() !== '' || this.attachedFiles.length > 0) {
+      const newMsg = {
+        sender: 'me',
+        text: this.newMessage,
+        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        files: [...this.attachedFiles()]
+      };
       this.messages = [...this.messages, newMsg];
       this.groupMessages();
       this.newMessage = '';
+      this.attachedFiles.set([]);
       setTimeout(() => {
         this.messageInput.setFocus();
       }, 0);
@@ -120,11 +122,11 @@ export class ConversationDetailComponent  implements OnInit {
         currentSender = message.sender;
         currentGroup = {
           sender: message.sender,
-          messages: [{ text: message.text, time: message.time }],
+          messages: [{ text: message.text, time: message.time, files: message.files }],
           showAvatar: true
         };
       } else {
-        currentGroup.messages.push({ text: message.text, time: message.time });
+        currentGroup.messages.push({ text: message.text, time: message.time, files: message.files });
         currentGroup.showAvatar = true;
       }
     });
@@ -133,7 +135,6 @@ export class ConversationDetailComponent  implements OnInit {
       this.groupedMessages.push(currentGroup);
     }
   }
-  constructor() { }
 
   goBack(): void {
     this.navCtrl.back()
