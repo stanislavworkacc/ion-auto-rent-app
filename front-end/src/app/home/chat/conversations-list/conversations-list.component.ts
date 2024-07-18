@@ -1,5 +1,14 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {IonAvatar, IonIcon, IonItem, IonLabel, IonList, IonNote, IonSearchbar} from "@ionic/angular/standalone";
+import {
+  IonAvatar,
+  IonIcon,
+  IonItem, IonItemOption,
+  IonItemOptions, IonItemSliding,
+  IonLabel,
+  IonList,
+  IonNote,
+  IonSearchbar
+} from "@ionic/angular/standalone";
 import {NgForOf} from "@angular/common";
 
 @Component({
@@ -15,7 +24,10 @@ import {NgForOf} from "@angular/common";
     IonIcon,
     IonLabel,
     IonNote,
-    IonSearchbar
+    IonSearchbar,
+    IonItemOptions,
+    IonItemOption,
+    IonItemSliding
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
