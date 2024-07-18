@@ -1,15 +1,17 @@
 <ion-tabs>
-  <ion-tab-bar slot="bottom">
-    @for (tab of tabs(); track tab.route) {
-      <ion-tab-button
-        [routerLink]="tab.route"
-        routerLinkActive="active-tab"
-        [attr.aria-selected]="selected === tab.route ? 'true' : 'false'"
-        (click)="selected = tab.route"
-      >
-        <ion-icon [name]="selected === tab.route ? tab.iconActive : tab.icon"></ion-icon>
-        <ion-label>{{ tab.label }}</ion-label>
-      </ion-tab-button>
-    }
-  </ion-tab-bar>
+  @if (showTabs()) {
+    <ion-tab-bar slot="bottom">
+      @for (tab of tabs(); track tab.route) {
+        <ion-tab-button
+          [routerLink]="tab.route"
+          routerLinkActive="active-tab"
+          [attr.aria-selected]="selected() === tab.route ? 'true' : 'false'"
+          (click)="selected.set(tab.route)"
+        >
+          <ion-icon [name]="selected() === tab.route ? tab.iconActive : tab.icon"></ion-icon>
+          <ion-label>{{ tab.label }}</ion-label>
+        </ion-tab-button>
+      }
+    </ion-tab-bar>
+  }
 </ion-tabs>

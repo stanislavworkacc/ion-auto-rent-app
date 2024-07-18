@@ -2,7 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component, DestroyRef, inject, signal, WritableSignal,
 } from '@angular/core';
-import {RouterLink, RouterLinkActive, RouterOutlet} from "@angular/router";
+import {NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet} from "@angular/router";
 import {tabConfig, TabConfig} from "./tab-config";
 import {NgForOf} from "@angular/common";
 import {addIcons} from "ionicons";
@@ -26,6 +26,7 @@ import {
 } from "../shared/components/app-toast/app-toast-container/app-toast-container.component";
 import {ToasterService} from "../shared/components/app-toast/toaster.service";
 import {AppToastComponent} from "../shared/components/app-toast/app-toast/app-toast.component";
+import {filter} from "rxjs/operators";
 
 @Component({
   selector: 'app-home',
@@ -40,9 +41,10 @@ export class HomePage {
   public tabs: WritableSignal<TabConfig[]> = signal<TabConfig[]>([]);
   private translate: TranslateService = inject(TranslateService);
   private destroyRef: DestroyRef = inject(DestroyRef);
-  private toaster: ToasterService = inject(ToasterService);
+  private router: Router = inject(Router);
 
-  selected = '/home/menu';
+  selected: WritableSignal<string> = signal('/home/menu');
+  showTabs: WritableSignal<boolean> = signal(true);
 
   constructor() {
     this.initIcons();
@@ -56,18 +58,32 @@ export class HomePage {
     }
   }
 
-  ngOnInit(): void {
-    this.translateLabels();
+  routeSubscription(): void {
+    this.checkCurrentRoute(this.router.url);
+    this.router.events.pipe(
+      takeUntilDestroyed(this.destroyRef),
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: NavigationEnd) => {
+      this.checkCurrentRoute(event.urlAfterRedirects);
+    });
+  }
 
+  private checkCurrentRoute(url: string) {
+    this.showTabs.set(!url.includes('/home/chat/'))
+  }
+
+  langSubscription(): void {
     this.translate.onLangChange.pipe(
       takeUntilDestroyed(this.destroyRef)
     ).subscribe((): void => {
       this.translateLabels();
     });
-    // setInterval(() => {
-    //   this.toaster.show({type: 'success', message: 'ssss'})
-    //
-    // }, 20)
+  }
+
+  ngOnInit(): void {
+    this.translateLabels();
+    this.routeSubscription();
+    this.langSubscription();
   }
 
   private translateLabels(): void {

@@ -22,7 +22,7 @@
         </ion-avatar>
         <ion-label class="message-label">
           <ng-container *ngFor="let message of group.messages">
-            <span>{{ message.text }}</span>
+            <span class="break-all">{{ message.text }}</span>
             <ion-note>{{ message.time }}</ion-note>
           </ng-container>
         </ion-label>
@@ -31,4 +31,14 @@
   </ion-list>
 </ion-content>
 
+<ion-footer>
+  <ion-toolbar>
+    <ion-item>
+      <ion-textarea placeholder="Type your message..."></ion-textarea>
+      <ion-button slot="end">
+        <ion-icon name="send"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-toolbar>
+</ion-footer>
 

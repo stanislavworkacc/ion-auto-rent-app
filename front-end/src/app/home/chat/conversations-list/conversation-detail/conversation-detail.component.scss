@@ -63,3 +63,18 @@ ion-item {
     }
   }
 }
+ion-footer {
+  ion-toolbar {
+    ion-item {
+      --background: transparent;
+      display: flex;
+      align-items: center;
+      ion-textarea {
+        flex: 1;
+      }
+      ion-button {
+        --color: #3880ff;
+      }
+    }
+  }
+}

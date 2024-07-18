@@ -1,11 +1,11 @@
 import {ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit, signal, WritableSignal} from '@angular/core';
 import {
-  IonAvatar,
-  IonContent,
+  IonAvatar, IonButton,
+  IonContent, IonFooter,
   IonHeader,
-  IonIcon,
+  IonIcon, IonInput,
   IonItem, IonLabel,
-  IonList, IonNote,
+  IonList, IonNote, IonTextarea,
   IonTitle,
   IonToolbar
 } from "@ionic/angular/standalone";
@@ -36,7 +36,11 @@ import {JsonPipe, NgForOf, NgIf} from "@angular/common";
     IonLabel,
     IonNote,
     NgForOf,
-    NgIf
+    NgIf,
+    IonFooter,
+    IonInput,
+    IonButton,
+    IonTextarea
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
