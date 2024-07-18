@@ -68,23 +68,14 @@ export class LocatorService {
     await this.map.setOnMarkerClickListener(async (callback: MarkerClickCallbackData): Promise<void> => {
       const markerPosition = callback.latitude ? { lat: callback.latitude, lng: callback.longitude } : { lat: 0, lng: 0 };
 
-      await this.map.setCamera({
-        coordinate: markerPosition,
-        zoom: 12,
-        animate: true,
-        angle: 2,
-        bearing: 520
+      const modal = await this.modalCtrl.create({
+        component: MarkerModalComponent,
+        cssClass: 'auth-modal',
+        componentProps: { marker: markerPosition },
+        initialBreakpoint: 0.9,
+        breakpoints: [0, 1]
       });
-      //
-      // const modal = await this.modalCtrl.create({
-      //   component: MarkerModalComponent,
-      //   cssClass: 'auth-modal',
-      //   componentProps: { marker: markerPosition },
-      //   initialBreakpoint: 0.9,
-      //   breakpoints: [0, 1]
-      // });
-      //
-      // await modal.present();
+      await modal.present();
     });
   }
   async addMarkerToMap(location: { lat: number, lng: number, title: string, snippet: string, isVehicle: boolean }) {

@@ -91,7 +91,7 @@ export class RentCarCardComponent  implements OnInit {
   ];
 
   images = [
-    { src: '/assets/icon/atlas..jpg' },
+    { src: '/assets/icon/atlas-1.jpeg' },
     { src: '/assets/icon/atlas-2.jpg' },
     { src: '/assets/icon/atlas-3.jpg' },
   ]
