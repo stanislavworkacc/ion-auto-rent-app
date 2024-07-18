@@ -43,7 +43,7 @@ export class LocatorService {
           lat: coordinates.lat,
           lng: coordinates.lng
         },
-        zoom: 10,
+        zoom: 8,
         styles: mapStyles
       }
     });
