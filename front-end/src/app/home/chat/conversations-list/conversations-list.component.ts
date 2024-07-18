@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, OnInit} from '@angular/core';
 import {
   IonAvatar,
   IonIcon,
@@ -7,9 +7,11 @@ import {
   IonLabel,
   IonList,
   IonNote,
-  IonSearchbar
+  IonSearchbar, ModalController
 } from "@ionic/angular/standalone";
 import {NgForOf} from "@angular/common";
+import {ActionSheetController} from "@ionic/angular";
+import {OptionsItemListComponent} from "./options-item-list/options-item-list.component";
 
 @Component({
   selector: 'conversations-list',
@@ -27,11 +29,14 @@ import {NgForOf} from "@angular/common";
     IonSearchbar,
     IonItemOptions,
     IonItemOption,
-    IonItemSliding
+    IonItemSliding,
+    OptionsItemListComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ConversationsListComponent  implements OnInit {
+
+  private actionSheetCtrl: ActionSheetController = inject(ActionSheetController);
 
   conversations = [
     { id: 1, person: 'John Doe', date: '2024-07-18', message: 'Hey, how are you?' },
@@ -60,5 +65,25 @@ export class ConversationsListComponent  implements OnInit {
   constructor() { }
 
   ngOnInit() {}
+
+  async deleteConversation(): Promise<void> {
+    const actionSheet: HTMLIonActionSheetElement = await this.actionSheetCtrl.create({
+      buttons: [
+        {
+          text: 'Видалити',
+          handler: () => {
+
+          }
+        },
+        {
+          text: 'Скасувати',
+          icon: 'close',
+          role: 'cancel'
+        }
+      ]
+    });
+
+    await actionSheet.present();
+  }
 
 }

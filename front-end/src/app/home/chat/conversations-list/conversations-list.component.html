@@ -17,20 +17,7 @@
         </ion-note>
       </ion-item>
 
-      <ion-item-options side="end">
-        <ion-item-option color="danger">
-          <div class="flex flex-col items-center gap-2">
-            <ion-icon name="trash" class="text-[20px]"></ion-icon>
-            <ion-label class="text-xs">Видалити</ion-label>
-          </div>
-        </ion-item-option>
-        <ion-item-option color="primary">
-          <div class="flex flex-col items-center gap-2">
-            <ion-icon name="archive" class="text-[20px]"></ion-icon>
-            <ion-label class="text-xs">До архіву</ion-label>
-          </div>
-        </ion-item-option>
-      </ion-item-options>
+      <options-item [deleteConversation]="deleteConversation.bind(this)"></options-item>
     </ion-item-sliding>
   }
 </ion-list>
