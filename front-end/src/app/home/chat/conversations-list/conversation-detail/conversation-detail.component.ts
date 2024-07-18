@@ -145,19 +145,16 @@ export class ConversationDetailComponent  implements OnInit {
     this.fileInput.nativeElement.click();
   }
 
+  attachedFiles = [];
   onFileSelected(event: any): void {
-    // this.isUploading = true;
-    // this.cdr.markForCheck();
-    //
-    // setTimeout((): void => {
-    //   const files = event.target.files;
-    //   Array.from(files).forEach((file: File): void => {
-    //     this.attachedFiles.unshift(file);
-    //   });
-    //   event.target.value = '';
-    //   this.isUploading = false;
-    //   this.cdr.markForCheck();
-    // }, 1500);
+
+    setTimeout((): void => {
+      const files = event.target.files;
+      Array.from(files).forEach((file: File): void => {
+        this.attachedFiles.unshift(file);
+      });
+      event.target.value = '';
+    }, 1500);
   }
 
   ngOnInit(): void {
