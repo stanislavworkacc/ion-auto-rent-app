@@ -12,6 +12,7 @@ import {
 import {NgForOf} from "@angular/common";
 import {ActionSheetController, NavController} from "@ionic/angular";
 import {OptionsItemListComponent} from "./options-item-list/options-item-list.component";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'conversations-list',
@@ -37,7 +38,7 @@ import {OptionsItemListComponent} from "./options-item-list/options-item-list.co
 export class ConversationsListComponent  implements OnInit {
 
   private actionSheetCtrl: ActionSheetController = inject(ActionSheetController);
-  private navCtrl: NavController = inject(NavController);
+  private router: Router = inject(Router);
 
   conversations = [
     { id: 1, person: 'John Doe', date: '2024-07-18', message: 'Hey, how are you?' },
@@ -68,7 +69,7 @@ export class ConversationsListComponent  implements OnInit {
   ngOnInit() {}
 
   openConversation(conversation) {
-    this.navCtrl.navigateForward([`/home/chat/${ conversation.id }`])
+    this.router.navigate([`/home/chat/${ conversation.id }`])
   }
 
   async deleteConversation(): Promise<void> {
