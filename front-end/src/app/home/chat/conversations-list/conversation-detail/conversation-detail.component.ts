@@ -15,6 +15,7 @@ import {NavController} from "@ionic/angular";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {tap} from "rxjs";
 import {JsonPipe, NgForOf, NgIf} from "@angular/common";
+import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-conversation-detail',
@@ -41,7 +42,8 @@ import {JsonPipe, NgForOf, NgIf} from "@angular/common";
     IonInput,
     IonButton,
     IonTextarea,
-    IonSearchbar
+    IonSearchbar,
+    FormsModule
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -62,6 +64,7 @@ export class ConversationDetailComponent  implements OnInit {
     { sender: 'them', text: 'Doing great, thanks for asking!', time: '10:03 AM' }
   ];
   groupedMessages: any[] = [];
+  newMessage: string = '';
 
   showSearchBar: WritableSignal<boolean> = signal(false)
 
@@ -69,7 +72,21 @@ export class ConversationDetailComponent  implements OnInit {
     this.showSearchBar.set(!this.showSearchBar())
   }
 
-  groupMessages() {
+  sendMessage() {
+    if (this.newMessage.trim() !== '') {
+      const newMsg =
+        { sender: 'me',
+          text: this.newMessage,
+          time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        };
+      this.messages = [...this.messages, newMsg];
+      this.groupMessages();
+      this.newMessage = '';
+    }
+  }
+
+  groupMessages(): void {
+    this.groupedMessages = [];
     let currentSender = null;
     let currentGroup = null;
 

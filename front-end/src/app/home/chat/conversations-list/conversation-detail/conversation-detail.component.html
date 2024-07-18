@@ -51,8 +51,8 @@
 <ion-footer>
   <ion-toolbar>
     <ion-item>
-      <ion-textarea placeholder="Type your message..."></ion-textarea>
-      <ion-button slot="end">
+      <ion-textarea [(ngModel)]="newMessage" placeholder="Type your message..."></ion-textarea>
+      <ion-button slot="end" (click)="sendMessage()">
         <ion-icon name="send"></ion-icon>
       </ion-button>
     </ion-item>
