@@ -14,6 +14,17 @@
 </ion-header>
 
 <ion-content>
-
-
+  <ion-list>
+    <ion-item *ngFor="let message of messages" [class]="message.sender === 'me' ? 'my-message' : 'their-message'">
+      <ion-avatar slot="start" *ngIf="message.sender !== 'me'">
+        <ion-icon name="person-circle-outline" class="text-[2rem]"></ion-icon>
+      </ion-avatar>
+      <ion-label>
+        <span>{{ message.text }}</span>
+        <ion-note>{{ message.time }}</ion-note>
+      </ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>
+
+

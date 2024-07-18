@@ -6,3 +6,60 @@ ion-header {
     --background: #eff1f7;
   }
 }
+
+ion-item {
+  --padding-start: 10px;
+  --inner-padding-end: 10px;
+  --min-height: 60px;
+  --background: #f8f9fa;
+  border-bottom: none;
+
+  &.my-message {
+    justify-content: flex-end;
+    text-align: right;
+    ion-label {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      border-radius: 10px;
+      span {
+        text-align: right;
+        width: fit-content;
+        background-color: #e0f7fa;
+        padding: 5px 10px;
+        border-radius: 12px;
+      }
+    }
+  }
+
+  &.their-message {
+    justify-content: flex-start;
+    text-align: left;
+    ion-label {
+      display: flex;
+      flex-direction: column;
+      border-radius: 10px;
+      span {
+        text-align: left;
+        width: fit-content;
+        background-color: #ececec;
+        padding: 5px 10px;
+        border-radius: 12px;
+      }
+    }
+    ion-avatar {
+      margin-right: 10px;
+    }
+  }
+
+  ion-label {
+    p {
+      margin: 0;
+      color: #333;
+    }
+    ion-note {
+      font-size: 0.8em;
+      color: #999;
+    }
+  }
+}
