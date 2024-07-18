@@ -1,4 +1,5 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {IonContent, IonHeader, IonIcon, IonSearchbar, IonTitle, IonToolbar} from "@ionic/angular/standalone";
 
 @Component({
   selector: 'app-chat',
@@ -6,6 +7,12 @@ import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
   styleUrls: ['./chat.component.scss'],
   standalone: true,
   imports: [
+    IonHeader,
+    IonToolbar,
+    IonContent,
+    IonTitle,
+    IonSearchbar,
+    IonIcon
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
