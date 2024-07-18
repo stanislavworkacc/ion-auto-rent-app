@@ -44,9 +44,9 @@
             <!--     files       -->
             @if(message.files && message.files.length > 0) {
               @for(file of message.files; track file.name) {
-                <div class="flex items-center ">
-                  <ion-icon name="document" class="text-[20px] text-[#3880ff]"></ion-icon>
-                  <span>{{ file.name }}</span>
+                <div class="flex items-center mt-1 overflow-hidden whitespace-nowrap text-ellipsis w-[60%] bg-red-50 rounded p-1">
+                  <ion-icon name="document" class="text-[14px] text-[#3880ff] min-w-[10%]"></ion-icon>
+                  <p class="font-[300] text-gray-400 text-xs">{{ file.name }}</p>
                 </div>
               }
             }
