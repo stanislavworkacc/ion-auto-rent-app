@@ -82,3 +82,25 @@ ion-footer {
     }
   }
 }
+
+.send-button {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.send-button:active {
+  animation: sendPulse 0.3s ease-in-out;
+}
+
+@keyframes sendPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

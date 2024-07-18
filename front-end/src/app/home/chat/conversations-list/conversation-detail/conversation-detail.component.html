@@ -52,7 +52,7 @@
   <ion-toolbar>
     <ion-item>
       <ion-textarea #messageInput [(ngModel)]="newMessage" placeholder="Напишіть ваше повідомлення"></ion-textarea>
-      <ion-button (click)="sendMessage()" slot="end">
+      <ion-button (click)="sendMessage()" slot="end" class="send-button">
         <ion-icon name="send-outline"></ion-icon>
       </ion-button>
     </ion-item>
