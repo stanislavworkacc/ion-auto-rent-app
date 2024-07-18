@@ -23,7 +23,6 @@ export class LocatorService {
   ]);
 
   map: GoogleMap;
-
   async createGoogleMap(mapRef): Promise<void> {
     await this.checkAndRequestPermissions()
     const coordinates = await this.getCurrentPosition();
@@ -66,21 +65,28 @@ export class LocatorService {
 
 
   async setMarkerClickListener(): Promise<void> {
-    await this.map.setOnMarkerClickListener(async (callback: MarkerClickCallbackData):Promise<void> => {
-      const modal = await this.modalCtrl.create({
-        component: MarkerModalComponent,
-        cssClass: 'auth-modal',
-        initialBreakpoint: 0.7,
-        breakpoints: [0, 1]
+    await this.map.setOnMarkerClickListener(async (callback: MarkerClickCallbackData): Promise<void> => {
+      const markerPosition = callback.latitude ? { lat: callback.latitude, lng: callback.longitude } : { lat: 0, lng: 0 };
+
+      await this.map.setCamera({
+        coordinate: markerPosition,
+        zoom: 12,
+        animate: true,
+        angle: 2,
+        bearing: 520
       });
-      await modal.present();
-    })
+      //
+      // const modal = await this.modalCtrl.create({
+      //   component: MarkerModalComponent,
+      //   cssClass: 'auth-modal',
+      //   componentProps: { marker: markerPosition },
+      //   initialBreakpoint: 0.9,
+      //   breakpoints: [0, 1]
+      // });
+      //
+      // await modal.present();
+    });
   }
-
-  handleMarkerClick(marker: { lat: number, lng: number, title: string, snippet: string }) {
-    alert(`Marker clicked:\nTitle: ${marker.title}\nSnippet: ${marker.snippet}`);
-  }
-
   async addMarkerToMap(location: { lat: number, lng: number, title: string, snippet: string, isVehicle: boolean }) {
     const markerPath = !location.isVehicle ? '/assets/icon/user-geo-marker.png' : '/assets/icon/gps-big.png';
     const marker: Marker = {

@@ -1,7 +1,9 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {IonicModule} from "@ionic/angular";
-import {IonContent, IonHeader, IonToolbar} from "@ionic/angular/standalone";
+import {IonContent, IonHeader, IonIcon, IonLabel, IonToolbar} from "@ionic/angular/standalone";
 import {RentCarCardComponent} from "../../../shared/components/create-page/rent-car-card/rent-car-card.component";
+import {RippleBtnComponent} from "../../../shared/components/buttons/ripple-btn/ripple-btn.component";
+import {CloseBtnComponent} from "../../../shared/ui-kit/components/close-btn/close-btn.component";
 
 @Component({
   selector: 'app-marker-modal',
@@ -12,7 +14,11 @@ import {RentCarCardComponent} from "../../../shared/components/create-page/rent-
     IonHeader,
     IonToolbar,
     IonContent,
-    RentCarCardComponent
+    RentCarCardComponent,
+    RippleBtnComponent,
+    CloseBtnComponent,
+    IonLabel,
+    IonIcon
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })

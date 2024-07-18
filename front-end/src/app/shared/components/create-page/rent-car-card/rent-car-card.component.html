@@ -1,6 +1,7 @@
 <ion-card class="bg-white m-0">
-<!--  <bookmark-rate [rate]="''"></bookmark-rate>-->
-
+<!--  @if(!editMode) {-->
+<!--    <bookmark-rate [rate]="''"></bookmark-rate>-->
+<!--  }-->
   <ion-card-header>
     <ion-card-subtitle>BMW X5 M</ion-card-subtitle>
   </ion-card-header>
@@ -36,65 +37,88 @@
       </ion-accordion>
     </ion-accordion-group>
 
-    <div class="rounded mt-4 relative border-[0.1px] border-[#929292] p-2">
-      <ion-label class="text-[#333333] flex items-center gap-1 text-sm font-[300] absolute -top-[9px] left-[12px] bg-white rounded-[12px] px-2">
-        Тип орендної плати
-        <ion-icon name="information-circle-outline" class="text-[16px]"></ion-icon>
-      </ion-label>
-      @for(type of rentTypes(); track type.value) {
-        <div class="flex justify-between items-center w-full p-1">
-          <ion-label class="font-[300] ">Орендна плата:
-            <span class="font-[500]" [class.text-black]="type.checked">{{ type.label }}</span>
-          </ion-label>
 
-          <ion-checkbox
-            [value]="type.value"
-            [checked]="type.checked"
-            (ionChange)="onRentTypeChange($event.target.value)"
-          >
-          </ion-checkbox>
+    <ion-accordion-group class="mt-[30px]">
+      <ion-accordion>
+        <ion-item slot="header" color="light">
+          <ion-label>Тип орендної плати</ion-label>
+        </ion-item>
+        <div slot="content">
+          <div class="rounded my-4 relative border-[0.1px] border-[#929292] p-2">
+            <ion-label class="text-[#333333] flex items-center gap-1 text-sm font-[300] absolute -top-[9px] left-[12px] bg-white rounded-[12px] px-2">
+              Тип орендної плати
+              <ion-icon name="information-circle-outline" class="text-[16px]"></ion-icon>
+            </ion-label>
+            @for(type of rentTypes(); track type.value) {
+            <div class="flex justify-between items-center w-full p-1">
+              <ion-label class="font-[300] ">Орендна плата:
+                <span class="font-[500]" [class.text-black]="type.checked">{{ type.label }}</span>
+            </ion-label>
+
+            <ion-checkbox
+              [value]="type.value"
+              [checked]="type.checked"
+              (ionChange)="onRentTypeChange($event.target.value)"
+            >
+            </ion-checkbox>
+          </div>
+            }
+            @if (selectedRentType() === RentRange.DAYS) {
+            <days-rent-range [ranges]="ranges"></days-rent-range>
+            } @else {
+            <hour-rate-range></hour-rate-range>
+            }
+            <deposit-payment></deposit-payment>
+            <car-with-driver></car-with-driver>
+          </div>
         </div>
-      }
-    </div>
+      </ion-accordion>
 
-    @if (selectedRentType() === RentRange.DAYS) {
-      <days-rent-range [ranges]="ranges"></days-rent-range>
-    } @else {
-      <hour-rate-range></hour-rate-range>
-    }
-
-    <deposit-payment></deposit-payment>
-
-    <car-with-driver></car-with-driver>
-
-    <div class="mt-5 relative">
-      <app-address-info></app-address-info>
-      <ion-label class="text-[#333333] flex items-center gap-1 text-sm font-[300] absolute -top-[9px] left-[12px] bg-white rounded-[12px] px-2">
-        Місцезнаходження транспорту
-        <ion-icon name="information-circle-outline" class="text-[16px]" id="address-info"></ion-icon>
-      </ion-label>
-    </div>
-
-    <div class="rounded mt-4 relative border-[0.1px] border-[#929292] p-2">
-      <ion-label class="text-[#333333] flex items-center gap-1 text-sm font-[300] absolute -top-[9px] left-[12px] bg-white rounded-[12px] px-2">
-        Страхування транспорту
-        <ion-icon name="information-circle-outline" class="text-[16px]"></ion-icon>
-      </ion-label>
-
-      @for(type of insuranceTypes(); track type.value) {
-        <div class="flex justify-between items-center w-full p-1">
-          <ion-label class="font-[300]">
-            <span class="font-[500]" [class.text-black]="type.checked">{{ type.label }}</span>
-          </ion-label>
-
-          <ion-checkbox
-            [value]="type.value"
-            [checked]="type.checked"
-            (ionChange)="insuranceTypeChange($event.target.value)"
-          >
-          </ion-checkbox>
+      <!-- Accordion for Address Info -->
+      <ion-accordion>
+        <ion-item slot="header" color="light">
+          <ion-label>Місцезнаходження транспорту</ion-label>
+        </ion-item>
+        <div slot="content">
+          <div class="my-5 relative">
+            <app-address-info></app-address-info>
+            <ion-label class="text-[#333333] flex items-center gap-1 text-sm font-[300] absolute -top-[9px] left-[12px] bg-white rounded-[12px] px-2">
+              Місцезнаходження транспорту
+              <ion-icon name="information-circle-outline" class="text-[16px]" id="address-info"></ion-icon>
+            </ion-label>
+          </div>
         </div>
-      }
-    </div>
+      </ion-accordion>
+
+      <!-- Accordion for Insurance Types -->
+      <ion-accordion>
+        <ion-item slot="header" color="light">
+          <ion-label>Страхування транспорту</ion-label>
+        </ion-item>
+        <div slot="content">
+          <div class="rounded mt-4 relative border-[0.1px] border-[#929292] p-2">
+            <ion-label class="text-[#333333] flex items-center gap-1 text-sm font-[300] absolute -top-[9px] left-[12px] bg-white rounded-[12px] px-2">
+              Страхування транспорту
+              <ion-icon name="information-circle-outline" class="text-[16px]"></ion-icon>
+            </ion-label>
+            @for(type of insuranceTypes(); track type.value) {
+            <div class="flex justify-between items-center w-full p-1">
+              <ion-label class="font-[300]">
+                <span class="font-[500]" [class.text-black]="type.checked">{{ type.label }}</span>
+            </ion-label>
+
+            <ion-checkbox
+              [value]="type.value"
+              [checked]="type.checked"
+              (ionChange)="insuranceTypeChange($event.target.value)"
+            >
+            </ion-checkbox>
+          </div>
+            }
+          </div>
+        </div>
+      </ion-accordion>
+    </ion-accordion-group>
+
   </ion-card-content>
 </ion-card>
