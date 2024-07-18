@@ -1,4 +1,14 @@
-import {ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, Input, OnInit} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  inject, input,
+  Input, InputSignal,
+  OnInit,
+  WritableSignal
+} from '@angular/core';
+import {SliderFullPreviewComponent} from "./slider-full-preview/slider-full-preview.component";
+import {ModalController} from "@ionic/angular/standalone";
 
 @Component({
   selector: 'app-card-slider',
@@ -10,9 +20,17 @@ import {ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, Input, OnIni
 })
 export class CardSliderComponent  implements OnInit {
 
-  @Input({ required: true }) images: any;
-  constructor() { }
+  private modalCtrl: ModalController = inject(ModalController);
 
+  images : InputSignal<any[]> = input([])
+  async openImagePreview() {
+    const modal = await this.modalCtrl.create({
+      component: SliderFullPreviewComponent,
+      componentProps: this.images,
+      cssClass: 'full-screen-modal'
+    });
+    await modal.present();
+  }
   ngOnInit() {}
 
 }
