@@ -15,15 +15,19 @@
 
 <ion-content>
   <ion-list>
-    <ion-item *ngFor="let message of messages" [class]="message.sender === 'me' ? 'my-message' : 'their-message'">
-      <ion-avatar slot="start" *ngIf="message.sender !== 'me'">
-        <ion-icon name="person-circle-outline" class="text-[2rem]"></ion-icon>
-      </ion-avatar>
-      <ion-label>
-        <span>{{ message.text }}</span>
-        <ion-note>{{ message.time }}</ion-note>
-      </ion-label>
-    </ion-item>
+    <ng-container *ngFor="let group of groupedMessages; let i = index">
+      <ion-item [class]="group.sender === 'me' ? 'my-message' : 'their-message'">
+        <ion-avatar slot="start" *ngIf="group.sender !== 'me' && group.showAvatar">
+          <ion-icon name="person-circle-outline" class="text-[2rem]"></ion-icon>
+        </ion-avatar>
+        <ion-label class="message-label">
+          <ng-container *ngFor="let message of group.messages">
+            <span>{{ message.text }}</span>
+            <ion-note>{{ message.time }}</ion-note>
+          </ng-container>
+        </ion-label>
+      </ion-item>
+    </ng-container>
   </ion-list>
 </ion-content>
 

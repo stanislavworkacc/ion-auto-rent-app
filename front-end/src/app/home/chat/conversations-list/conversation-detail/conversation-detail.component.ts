@@ -53,9 +53,37 @@ export class ConversationDetailComponent  implements OnInit {
     { sender: 'me', text: 'I am good, thanks! How about you?', time: '10:02 AM' },
     { sender: 'me', text: 'I am good, thanks! How about you?', time: '10:02 AM' },
     { sender: 'me', text: 'I am good, thanks! How about you?', time: '10:02 AM' },
+    { sender: 'them', text: 'Doing great, thanks for asking!', time: '10:03 AM' },
     { sender: 'them', text: 'Doing great, thanks for asking!', time: '10:03 AM' }
   ];
 
+  groupedMessages: any[] = [];
+
+  groupMessages() {
+    let currentSender = null;
+    let currentGroup = null;
+
+    this.messages.forEach(message => {
+      if (message.sender !== currentSender) {
+        if (currentGroup) {
+          this.groupedMessages.push(currentGroup);
+        }
+        currentSender = message.sender;
+        currentGroup = {
+          sender: message.sender,
+          messages: [{ text: message.text, time: message.time }],
+          showAvatar: true
+        };
+      } else {
+        currentGroup.messages.push({ text: message.text, time: message.time });
+        currentGroup.showAvatar = false;
+      }
+    });
+
+    if (currentGroup) {
+      this.groupedMessages.push(currentGroup);
+    }
+  }
   constructor() { }
 
   goBack(): void {
@@ -69,6 +97,7 @@ export class ConversationDetailComponent  implements OnInit {
     ).subscribe()
   }
   ngOnInit(): void {
+    this.groupMessages()
     this.getResolverData();
   }
 
