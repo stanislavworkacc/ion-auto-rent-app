@@ -1,4 +1,13 @@
-import {ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit, signal, WritableSignal} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  inject,
+  OnInit,
+  signal,
+  ViewChild,
+  WritableSignal
+} from '@angular/core';
 import {
   IonAvatar, IonButton,
   IonContent, IonFooter,
@@ -61,12 +70,16 @@ export class ConversationDetailComponent  implements OnInit {
     { sender: 'me', text: 'I am good, thanks! How about you?', time: '10:02 AM' },
     { sender: 'me', text: 'I am good, thanks! How about you?', time: '10:02 AM' },
     { sender: 'them', text: 'Doing great, thanks for asking!', time: '10:03 AM' },
-    { sender: 'them', text: 'Doing great, thanks for asking!', time: '10:03 AM' }
+    { sender: 'them', text: 'Doing great, thanks for asking!', time: '10:03 AM' },
+    { sender: 'them', text: 'Doing great, thanks for asking!', time: '10:03 AM' },
+    { sender: 'them', text: 'Doing great, thanks for asking!', time: '10:03 AM' },
   ];
   groupedMessages: any[] = [];
   newMessage: string = '';
 
   showSearchBar: WritableSignal<boolean> = signal(false)
+
+  @ViewChild('messageInput', { static: false }) messageInput: IonTextarea;
 
   showSearchbar(): void {
     this.showSearchBar.set(!this.showSearchBar())
@@ -82,6 +95,9 @@ export class ConversationDetailComponent  implements OnInit {
       this.messages = [...this.messages, newMsg];
       this.groupMessages();
       this.newMessage = '';
+      setTimeout(() => {
+        this.messageInput.setFocus();
+      }, 0);
     }
   }
 
@@ -103,7 +119,7 @@ export class ConversationDetailComponent  implements OnInit {
         };
       } else {
         currentGroup.messages.push({ text: message.text, time: message.time });
-        currentGroup.showAvatar = false;
+        currentGroup.showAvatar = true;
       }
     });
 
