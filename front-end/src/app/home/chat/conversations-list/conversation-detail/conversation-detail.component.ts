@@ -1,7 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  DestroyRef,
+  DestroyRef, ElementRef,
   inject,
   OnInit,
   signal,
@@ -80,6 +80,7 @@ export class ConversationDetailComponent  implements OnInit {
   showSearchBar: WritableSignal<boolean> = signal(false)
 
   @ViewChild('messageInput', { static: false }) messageInput: IonTextarea;
+  @ViewChild('fileInput', { static: false }) fileInput: ElementRef;
 
   showSearchbar(): void {
     this.showSearchBar.set(!this.showSearchBar())
@@ -139,9 +140,28 @@ export class ConversationDetailComponent  implements OnInit {
       tap((data: { conversation: any }) => this.conversation.set(data))
     ).subscribe()
   }
+
+  triggerFileInputClick(): void {
+    this.fileInput.nativeElement.click();
+  }
+
+  onFileSelected(event: any): void {
+    // this.isUploading = true;
+    // this.cdr.markForCheck();
+    //
+    // setTimeout((): void => {
+    //   const files = event.target.files;
+    //   Array.from(files).forEach((file: File): void => {
+    //     this.attachedFiles.unshift(file);
+    //   });
+    //   event.target.value = '';
+    //   this.isUploading = false;
+    //   this.cdr.markForCheck();
+    // }, 1500);
+  }
+
   ngOnInit(): void {
     this.groupMessages()
     this.getResolverData();
   }
-
 }

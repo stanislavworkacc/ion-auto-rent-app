@@ -51,6 +51,14 @@
 <ion-footer>
   <ion-toolbar>
     <ion-item>
+      <input #fileInput type="file" class="hidden" (change)="onFileSelected($event)" multiple />
+
+      <ion-icon
+        class="text-black  p-1 bg-gray-300 bg-opacity-50 rounded-full"
+        name="attach-outline"
+        slot="start"
+        (click)="triggerFileInputClick()">
+      </ion-icon>
       <ion-textarea #messageInput [(ngModel)]="newMessage" placeholder="Напишіть ваше повідомлення"></ion-textarea>
       <ion-button (click)="sendMessage()" slot="end" class="send-button">
         <ion-icon name="send-outline"></ion-icon>
@@ -58,4 +66,5 @@
     </ion-item>
   </ion-toolbar>
 </ion-footer>
+
 
