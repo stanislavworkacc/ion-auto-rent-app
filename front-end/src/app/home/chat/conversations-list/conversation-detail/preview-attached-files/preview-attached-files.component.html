@@ -1,3 +1,13 @@
+
+@if (attachingFile()) {
+  <div class="rolling-icons">
+    <ion-icon name="document"></ion-icon>
+    <ion-icon name="document"></ion-icon>
+    <ion-icon name="document"></ion-icon>
+    <ion-icon name="document"></ion-icon>
+  </div>
+}
+
 <div class="flex w-full overflow-x-auto items-center gap-2">
   @for(file of attachedFiles(); track file.valueOf()) {
     <div class="border rounded min-w-[100px] min-h-[100px] max-w-[100px] max-h-[100px] bg-white flex flex-col items-center justify-evenly">

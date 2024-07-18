@@ -79,6 +79,8 @@ export class ConversationDetailComponent  implements OnInit {
   ];
   groupedMessages: any[] = [];
   newMessage: string = '';
+  attachedFiles: WritableSignal<File[]> = signal([]);
+  attachingFile: WritableSignal<boolean> = signal(false);
 
   showSearchBar: WritableSignal<boolean> = signal(false)
 
@@ -148,16 +150,16 @@ export class ConversationDetailComponent  implements OnInit {
     this.fileInput.nativeElement.click();
   }
 
-  attachedFiles: WritableSignal<File[]> = signal([]);
   onFileSelected(event: any): void {
-
+    this.attachingFile.set(true);
     setTimeout((): void => {
       const files = event.target.files;
       Array.from(files).forEach((file: File): void => {
         this.attachedFiles.set([...this.attachedFiles(), file])
       });
       event.target.value = '';
-    }, 1500);
+      this.attachingFile.set(false);
+    }, 2500);
   }
 
   ngOnInit(): void {

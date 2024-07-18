@@ -16,6 +16,7 @@ import {IonIcon, IonLabel, IonTitle} from "@ionic/angular/standalone";
 export class PreviewAttachedFilesComponent  implements OnInit {
 
   @Input({ required: true }) attachedFiles: WritableSignal<File[]> = signal([])
+  @Input({ required: true }) attachingFile: WritableSignal<boolean> = signal(false)
   constructor() { }
 
   ngOnInit() {}
