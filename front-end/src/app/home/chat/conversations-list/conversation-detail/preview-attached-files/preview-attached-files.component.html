@@ -8,6 +8,15 @@
   </div>
 }
 
+@if (attachedFiles().length) {
+  <div class="flex justify-end items-center text-gray-400">
+    <span>{{ attachedFiles().length }} з 20</span>
+      <ion-icon name="checkbox-outline" class="ml-1"></ion-icon>
+  </div>
+}
+
+
+
 <div class="flex w-full overflow-x-auto items-center gap-2">
   @for(file of attachedFiles();let index = $index; track file.valueOf()) {
     <div class="border rounded min-w-[100px] min-h-[100px] max-w-[100px] max-h-[100px] bg-white flex flex-col items-center justify-evenly"
