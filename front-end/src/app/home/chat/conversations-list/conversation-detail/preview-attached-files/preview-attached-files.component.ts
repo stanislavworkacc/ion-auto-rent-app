@@ -1,5 +1,6 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit, signal, WritableSignal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, Input, OnInit, signal, WritableSignal} from '@angular/core';
 import {IonIcon, IonLabel, IonTitle} from "@ionic/angular/standalone";
+import {ActionSheetController} from "@ionic/angular";
 
 @Component({
   selector: 'preview-attached-files',
@@ -15,9 +16,34 @@ import {IonIcon, IonLabel, IonTitle} from "@ionic/angular/standalone";
 })
 export class PreviewAttachedFilesComponent  implements OnInit {
 
+  private actionSheetCtrl: ActionSheetController = inject(ActionSheetController);
+
   @Input({ required: true }) attachedFiles: WritableSignal<File[]> = signal([])
   @Input({ required: true }) attachingFile: WritableSignal<boolean> = signal(false)
-  constructor() { }
+
+  async deleteSingleFile(index: number): Promise<void> {
+    const actionSheet: HTMLIonActionSheetElement = await this.actionSheetCtrl.create({
+      buttons: [
+        {
+          text: 'Видалити',
+          handler: () => {
+            this.attachedFiles.update((files: File[]) => {
+              const updatedFiles: File[] = [...files];
+              updatedFiles.splice(index, 1);
+              return updatedFiles;
+            });
+          }
+        },
+        {
+          text: 'Скасувати',
+          icon: 'close',
+          role: 'cancel'
+        }
+      ]
+    });
+
+    await actionSheet.present();
+  }
 
   ngOnInit() {}
 
