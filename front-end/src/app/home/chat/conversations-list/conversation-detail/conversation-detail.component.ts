@@ -5,7 +5,7 @@ import {
   IonHeader,
   IonIcon, IonInput,
   IonItem, IonLabel,
-  IonList, IonNote, IonTextarea,
+  IonList, IonNote, IonSearchbar, IonTextarea,
   IonTitle,
   IonToolbar
 } from "@ionic/angular/standalone";
@@ -40,7 +40,8 @@ import {JsonPipe, NgForOf, NgIf} from "@angular/common";
     IonFooter,
     IonInput,
     IonButton,
-    IonTextarea
+    IonTextarea,
+    IonSearchbar
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -60,8 +61,13 @@ export class ConversationDetailComponent  implements OnInit {
     { sender: 'them', text: 'Doing great, thanks for asking!', time: '10:03 AM' },
     { sender: 'them', text: 'Doing great, thanks for asking!', time: '10:03 AM' }
   ];
-
   groupedMessages: any[] = [];
+
+  showSearchBar: WritableSignal<boolean> = signal(false)
+
+  showSearchbar(): void {
+    this.showSearchBar.set(!this.showSearchBar())
+  }
 
   groupMessages() {
     let currentSender = null;

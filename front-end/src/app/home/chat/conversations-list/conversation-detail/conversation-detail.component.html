@@ -1,15 +1,28 @@
 <ion-header>
-  <ion-toolbar>
-    <div class="flex items-center">
-      <app-back-button
-        [styles]="'!text-[20px]'"
-        [navigateBack]="goBack.bind(this)"
-      ></app-back-button>
+  <ion-toolbar [class.h-[100px]]="showSearchBar()">
+    <div class="flex w-full items-center justify-between">
+      <div class="flex items-center">
+        <app-back-button
+          [styles]="'!text-[20px]'"
+          [navigateBack]="goBack.bind(this)"
+        ></app-back-button>
+      </div>
 
-      <ion-title>{{ conversation().conversation.person }}</ion-title>
+      <div class="flex items-center justify-center flex-1">
+        <ion-label class="font-bold">{{ conversation().conversation.person }}</ion-label>
+        <ion-icon name="person-circle" class="text-[30px] ml-2"></ion-icon>
+      </div>
+
+      <div class="flex items-center">
+        <ion-icon slot="end" name="search-outline" class="text-[25px]" (click)="showSearchbar()"></ion-icon>
+      </div>
     </div>
 
-    <ion-icon slot="end" name="person-circle" class="text-[30px]"></ion-icon>
+    @if (showSearchBar()) {
+      <div class="flex flex-col justify-end h-full slide-down-animation">
+        <ion-searchbar></ion-searchbar>
+      </div>
+    }
   </ion-toolbar>
 </ion-header>
 
@@ -23,7 +36,11 @@
         <ion-label class="message-label">
           <ng-container *ngFor="let message of group.messages">
             <span class="break-all">{{ message.text }}</span>
-            <ion-note>{{ message.time }}</ion-note>
+
+            <div class="flex items-center gap-1">
+              <ion-note>{{ message.time }}</ion-note>
+              <ion-icon name="checkmark-done" class="text-gray-400"></ion-icon>
+            </div>
           </ng-container>
         </ion-label>
       </ion-item>
