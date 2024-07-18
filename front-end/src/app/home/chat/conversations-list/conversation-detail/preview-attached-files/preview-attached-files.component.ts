@@ -35,6 +35,12 @@ export class PreviewAttachedFilesComponent  implements OnInit {
           }
         },
         {
+          text: 'Видалити усі',
+          handler: () => {
+            this.attachedFiles.set([])
+          }
+        },
+        {
           text: 'Скасувати',
           icon: 'close',
           role: 'cancel'
