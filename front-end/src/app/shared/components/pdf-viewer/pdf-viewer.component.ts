@@ -24,6 +24,7 @@ import {PdfViewerModule} from "ng2-pdf-viewer";
 import {JsonPipe, NgIf} from "@angular/common";
 import {BackButtonComponent} from "../../ui-kit/components/back-button/back-button.component";
 import {NavController} from "@ionic/angular";
+import {DomSanitizer} from "@angular/platform-browser";
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 @Component({
@@ -55,9 +56,10 @@ export class PdfViewerComponent implements AfterViewInit {
 
   private modalCtrl: ModalController = inject(ModalController);
   private cdr: ChangeDetectorRef = inject(ChangeDetectorRef);
+  private sanitizer: DomSanitizer = inject(DomSanitizer);
 
   pdfSrc: WritableSignal<string> = signal('');
-  signatureImage: WritableSignal<string> = signal('');
+  signatureImage: WritableSignal<any> = signal(null);
   isSignPad: WritableSignal<boolean> = signal(false);
 
   public signaturePadOptions: Object = {
@@ -69,6 +71,7 @@ export class PdfViewerComponent implements AfterViewInit {
   @ViewChild(SignaturePad) signaturePad: SignaturePad;
   @ViewChild('generateBtn') generateBtn: ElementRef;
   @ViewChild('signSvg') signSvg: ElementRef;
+  @ViewChild('fileInput') fileInput: ElementRef;
 
   drawComplete() {
     this.signatureImage.set(this.signaturePad.toDataURL());
@@ -79,6 +82,22 @@ export class PdfViewerComponent implements AfterViewInit {
     this.signaturePad.clear();
     this.signatureImage.set('');
     this.generateAndViewPDF()
+  }
+
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length) {
+      const file = input.files[0];
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.signatureImage.set(reader.result)
+        this.generateAndViewPDF();
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  addStamp() {
 
   }
 
@@ -97,7 +116,7 @@ export class PdfViewerComponent implements AfterViewInit {
         { text: 'Signature:', style: 'subheader' },
         { text: 'Signature:', style: 'subheader' },
         { text: 'Signature:', style: 'subheader' },
-        this.signatureImage() ? { image: this.signatureImage(), width: 200 } : ''
+        this.signatureImage() ? { image: this.signatureImage(), width: 75, height: 75 } : ''
       ],
       styles: {
         header: {

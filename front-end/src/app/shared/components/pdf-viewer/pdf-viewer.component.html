@@ -46,7 +46,8 @@
 
     @if (isSignPad()) {
       <div class="flex items-center justify-start gap-2">
-        <ion-button (click)="clearSignature()">
+        <input type="file" #fileInput (change)="onFileSelected($event)" style="display: none;">
+        <ion-button (click)="fileInput.click()">
           <div class="flex flex-col items-center justify-between border rounded w-fit px-2 py-1 bg-[#dbe8ff]">
             <img src="assets/icon/svg/stamp.svg" class="h-[29px]">
             <ion-label class="text-xs text-black">Печатка</ion-label>
