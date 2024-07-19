@@ -1,7 +1,7 @@
 import {
   AfterViewInit,
   ChangeDetectionStrategy, ChangeDetectorRef,
-  Component, ElementRef, inject,
+  Component, effect, ElementRef, inject,
   Input, NgZone,
   OnInit,
   signal,
@@ -68,7 +68,7 @@ export class PdfViewerComponent implements AfterViewInit {
   };
   @ViewChild(SignaturePad) signaturePad: SignaturePad;
   @ViewChild('generateBtn') generateBtn: ElementRef;
-  @ViewChild(IonContent) content: IonContent;
+  @ViewChild('signSvg') signSvg: ElementRef;
 
   drawComplete() {
     this.signatureImage.set(this.signaturePad.toDataURL());
@@ -137,9 +137,25 @@ export class PdfViewerComponent implements AfterViewInit {
   showSignaturePad() {
     this.isSignPad.set(true)
   }
+
+  hideSignSvg() {
+    this.signSvg.nativeElement.style.display = 'none';
+  }
   ngAfterViewInit() {
     setTimeout(() => {
       this.generateBtn.nativeElement.click();
     },16)
+  }
+
+  constructor() {
+    effect(() => {
+      if(this.isSignPad()) {
+        setTimeout(() => {
+          if(this.signSvg.nativeElement) {
+            this.signSvg.nativeElement.style.display = 'none';
+          }
+        },2000)
+      }
+    });
   }
 }
