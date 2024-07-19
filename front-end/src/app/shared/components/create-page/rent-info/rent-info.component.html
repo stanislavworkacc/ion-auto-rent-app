@@ -13,11 +13,16 @@
 <ion-content>
   <div class="ion-padding flex gap-5 flex-col">
     <rent-car-card [ranges]="rentInfoRanges"></rent-car-card>
-    <ripple-btn
-      [title]="'Додати до автопарку'"
-      [styles]="'text-[#646565] !border-none bg-yellow-400  text-[16px] font-[300] !rounded-none'"
-    >
-    </ripple-btn>
+
+    @if (rentCard.pdfCreated()) {
+      <ripple-btn
+        [title]="'Додати до автопарку'"
+        [icon]="'add-circle'"
+        [styles]="'text-[#646565] !border-none text-[16px] font-[500] '"
+      >
+      </ripple-btn>
+    }
+
   </div>
 </ion-content>
 

@@ -26,6 +26,7 @@ import {RippleBtnComponent} from "../../buttons/ripple-btn/ripple-btn.component"
 import {TechnicalCharacteristicsComponent} from "../technical-characteristics/technical-characteristics.component";
 import {NavController} from "@ionic/angular";
 import {RentCarCardComponent} from "../rent-car-card/rent-car-card.component";
+import {RentCardService} from "../rent-car-card/rent-card.service";
 
 @Component({
   selector: 'app-rent-info',
@@ -56,20 +57,22 @@ import {RentCarCardComponent} from "../rent-car-card/rent-car-card.component";
 export class RentInfoComponent  implements OnInit {
 
   private navCtrl: NavController = inject(NavController);
+  private rentCardService: RentCardService = inject(RentCardService);
 
-  public isFormReset: WritableSignal<boolean> = signal(false);
   public rentInfoRanges: WritableSignal<{ label: string, value: number | null }[]> = signal([
     { label: '1-2', value: null },
     { label: '3-7', value: null },
     { label: '8+', value: null },
     { label: '30+', value: null }
   ]);
-  public daysRentRanges: Signal<{ label: string, value: number | null }[]> = computed(() => this.rentInfoRanges());
+
+  get rentCard() {
+    return this.rentCardService;
+  }
 
   goBack() {
     this.navCtrl.back()
   }
 
   ngOnInit() {}
-  constructor() { }
 }

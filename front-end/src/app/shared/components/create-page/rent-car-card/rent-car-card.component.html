@@ -3,8 +3,9 @@
 <!--    <bookmark-rate [rate]="''"></bookmark-rate>-->
 <!--  }-->
 
-  <generated-pdf [generatingContract]="generatingContract"></generated-pdf>
-
+  @if (rentCard.pdfCreated()) {
+    <generated-pdf [generatingContract]="rentCard.generatingContract"></generated-pdf>
+  }
   <ion-card-header>
     <ion-card-subtitle>BMW X5 M</ion-card-subtitle>
   </ion-card-header>
@@ -14,11 +15,11 @@
       <div class="flex flex-col justify-end"
            [class.justify-center]="!platform.is('ios')"
       >
-       <app-card-slider [images]="images"></app-card-slider>
+       <app-card-slider [images]="rentCard.images"></app-card-slider>
       </div>
 
       <div class="flex flex-col h-full items-center justify-between">
-        @for(item of carPreviewDetails; track item.text) {
+        @for(item of rentCard.carPreviewDetails; track item.text) {
           <div class="flex flex-col items-center">
             <img [src]="item.icon" [class]="item.class">
             <span class="text-[10px]">{{ item.text }}</span>
@@ -27,7 +28,7 @@
 
       <ion-icon
           class=" flex justify-center text-[20px]"
-          [name]="isCharacteristicsAccordionOpen() ? 'chevron-up-circle-outline' : 'chevron-down-circle-outline'"
+          [name]="rentCard.isCharacteristicsAccordionOpen() ? 'chevron-up-circle-outline' : 'chevron-down-circle-outline'"
           (click)="toggleAccordion()"
         >
         </ion-icon>
@@ -52,7 +53,7 @@
               Тип орендної плати
               <ion-icon name="information-circle-outline" class="text-[16px]"></ion-icon>
             </ion-label>
-            @for(type of rentTypes(); track type.value) {
+            @for(type of rentCard.rentTypes(); track type.value) {
             <div class="flex justify-between items-center w-full p-1 mt-1">
               <ion-label class="font-[300] text-sm ">Орендна плата:
                 <span class="font-[500]" [class.text-black]="type.checked">{{ type.label }}</span>
@@ -66,7 +67,7 @@
             </ion-checkbox>
           </div>
             }
-            @if (selectedRentType() === RentRange.DAYS) {
+            @if (rentCard.selectedRentType() === RentRange.DAYS) {
             <days-rent-range [ranges]="ranges"></days-rent-range>
             } @else {
             <hour-rate-range></hour-rate-range>
@@ -104,7 +105,7 @@
               Страхування транспорту
               <ion-icon name="information-circle-outline" class="text-[16px]"></ion-icon>
             </ion-label>
-            @for(type of insuranceTypes(); track type.value) {
+            @for(type of rentCard.insuranceTypes(); track type.value) {
             <div class="flex justify-between items-center w-full p-1">
               <ion-label class="font-[300] text-sm">
                 <span class="font-[500]" [class.text-black]="type.checked">{{ type.label }}</span>
@@ -123,7 +124,7 @@
       </ion-accordion>
     </ion-accordion-group>
 
-    @if (!pdfCreated()) {
+    @if (!rentCard.pdfCreated()) {
       <ripple-btn
         [title]="'Згенерувати договір'"
         [styles]="'text-white !border-none bg-[#182130] text-[16px] font-[300] !mt-[10px] !h-[40px]'"
