@@ -21,10 +21,8 @@ import {IonButton, IonContent, ModalController} from "@ionic/angular/standalone"
 import {NgIf} from "@angular/common";
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
-import {DomSanitizer} from "@angular/platform-browser";
 import {SignaturePad, SignaturePadModule} from "angular2-signaturepad";
 import {PdfViewerModule} from "ng2-pdf-viewer";
-import {single} from "rxjs";
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 @Component({
@@ -54,7 +52,6 @@ export class DashboardComponent implements OnInit {
 
   private modalCtrl: ModalController = inject(ModalController);
   private navCtrl: NavController = inject(NavController);
-  private cdr: ChangeDetectorRef = inject(ChangeDetectorRef);
 
   async openModal(): Promise<void> {
     const modal: HTMLIonModalElement = await this.modalCtrl.create({
@@ -96,10 +93,7 @@ export class DashboardComponent implements OnInit {
     this.signatureImage = this.signaturePad.toDataURL();
   }
 
-  constructor(private sanitizer: DomSanitizer) {
-  }
-
-  generateAndViewPDF() {
+  generateAndViewPDF(): void {
     const documentDefinition = {
       content: [
         { text: 'Form Data', style: 'header' },
@@ -131,8 +125,6 @@ export class DashboardComponent implements OnInit {
         });
       }
     }
-
-
   }
 
   ngOnInit(): void {

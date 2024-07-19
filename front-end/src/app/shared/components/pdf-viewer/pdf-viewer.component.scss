@@ -1,0 +1,17 @@
+ion-header {
+  box-shadow: none;
+  ion-toolbar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    --background: #eff1f7;
+
+    button {
+      display: none;
+    }
+  }
+}
+ion-content {
+  --background: #eef0f6 !important;
+}
