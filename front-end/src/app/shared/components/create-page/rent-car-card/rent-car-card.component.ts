@@ -89,6 +89,7 @@ export class RentCarCardComponent  implements OnInit {
   ]);
   public insuranceType: WritableSignal<string> = signal(null);
   public generatingContract: WritableSignal<boolean> = signal(false);
+  public pdfCreated: WritableSignal<boolean> = signal(false);
 
   carPreviewDetails = [
     { icon: '/assets/icon/gear-box-ico.png', class: 'w-[13px] h-[13px]', text: 'Автомат' },
@@ -138,9 +139,11 @@ export class RentCarCardComponent  implements OnInit {
 
   generateCarContract() {
     this.generatingContract.set(true);
+    this.pdfCreated.set(true)
+
     setTimeout(() => {
       this.generatingContract.set(false);
 
-    },2000)
+    },4000)
   }
 }

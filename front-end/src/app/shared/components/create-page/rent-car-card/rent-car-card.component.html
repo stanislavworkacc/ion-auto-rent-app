@@ -122,12 +122,14 @@
         </div>
       </ion-accordion>
     </ion-accordion-group>
-    <ripple-btn
-      [title]="'Згенерувати договір'"
-      [styles]="'text-white !border-none bg-[#182130] text-[16px] font-[300] !mt-[10px] !h-[40px]'"
-      (click)="generateCarContract()"
-    >
-    </ripple-btn>
 
+    @if (!pdfCreated()) {
+      <ripple-btn
+        [title]="'Згенерувати договір'"
+        [styles]="'text-white !border-none bg-[#182130] text-[16px] font-[300] !mt-[10px] !h-[40px]'"
+        (click)="generateCarContract()"
+      >
+      </ripple-btn>
+    }
   </ion-card-content>
 </ion-card>
