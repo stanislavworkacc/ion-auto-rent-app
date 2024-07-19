@@ -4,7 +4,7 @@
 <!--  }-->
 
   @if (rentCard.pdfCreated()) {
-    <generated-pdf [generatingContract]="rentCard.generatingContract"></generated-pdf>
+    <generated-pdf [generatingContract]="rentCard.generatingContract" [openPdf]="openPdf.bind(this)"></generated-pdf>
   }
   <ion-card-header>
     <ion-card-subtitle>BMW X5 M</ion-card-subtitle>

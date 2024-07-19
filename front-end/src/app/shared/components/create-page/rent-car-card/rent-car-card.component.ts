@@ -97,5 +97,9 @@ export class RentCarCardComponent  implements OnInit {
   generateCarContract(): void {
     this.rentCard.generateCarContract()
   }
+
+  async openPdf(): Promise<void> {
+    await this.rentCard.openPdf();
+  }
   ngOnInit() {}
 }

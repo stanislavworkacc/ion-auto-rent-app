@@ -1,11 +1,13 @@
-import {Injectable, signal, WritableSignal} from "@angular/core";
-import {IonAccordionGroup} from "@ionic/angular/standalone";
+import {inject, Injectable, signal, WritableSignal} from "@angular/core";
+import {IonAccordionGroup, ModalController} from "@ionic/angular/standalone";
 import {INSURANCE_TYPE, RentRange} from "./rent-card.enums";
+import {PdfViewerComponent} from "../../pdf-viewer/pdf-viewer.component";
 
 @Injectable({
   providedIn: 'root'
 })
 export class RentCardService {
+  private modalCtrl: ModalController = inject(ModalController);
   public generatingContract: WritableSignal<boolean> = signal(false);
   public pdfCreated: WritableSignal<boolean> = signal(false);
 
@@ -53,6 +55,14 @@ export class RentCardService {
 
     this.insuranceTypes.set(updatedInsuranceTypes);
     this.insuranceType.set(selectedType)
+  }
+
+  async openPdf(): Promise<void> {
+    const modal: HTMLIonModalElement = await this.modalCtrl.create({
+      component: PdfViewerComponent
+    })
+
+    await modal.present();
   }
 
   generateCarContract() {

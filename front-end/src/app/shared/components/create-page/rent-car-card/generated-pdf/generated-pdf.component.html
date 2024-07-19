@@ -1,1 +1,5 @@
-<img src="assets/icon/svg/pdf-black.svg" class="h-[30px] absolute top-[7px] right-[2%]" [class.pdf-icon]="generatingContract()">
+<img src="assets/icon/svg/pdf-black.svg"
+     class="h-[30px] absolute top-[7px] right-[2%] !z-50"
+     [class.pdf-icon]="generatingContract()"
+     (click)="openPdf()"
+>

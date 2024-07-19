@@ -10,6 +10,7 @@ import {ChangeDetectionStrategy, Component, Input, OnInit, signal, WritableSigna
 export class GeneratedPdfComponent  implements OnInit {
 
   @Input() generatingContract: WritableSignal<boolean> = signal(false)
+  @Input() openPdf: () => void;
   constructor() { }
 
   ngOnInit() {}
