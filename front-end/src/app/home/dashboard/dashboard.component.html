@@ -9,6 +9,14 @@
   </div>
 
   <signature-pad [options]="signaturePadOptions" (onEndEvent)="drawComplete()"></signature-pad>
+  @if (pdfSrc()) {
+    <pdf-viewer [src]="pdfSrc()" class="flex w-full h-full"
+                [render-text]="true"
+                [original-size]="false"
+                [show-borders]="true"
+                [autoresize]="true"
+    ></pdf-viewer>
+  }
 
-  <iframe *ngIf="pdfSrc" [src]="pdfSrc" width="100%" height="600px"></iframe>
+
 </ion-content>

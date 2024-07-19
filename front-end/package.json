@@ -41,6 +41,7 @@
     "@ngx-translate/http-loader": "^8.0.0",
     "angular2-signaturepad": "^4.0.2",
     "ionicons": "^7.2.1",
+    "ng2-pdf-viewer": "^10.2.2",
     "pdfmake": "^0.2.10",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

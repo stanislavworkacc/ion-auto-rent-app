@@ -1,4 +1,12 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnInit, ViewChild} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  inject,
+  OnInit, signal,
+  ViewChild,
+  WritableSignal
+} from '@angular/core';
 import {NavController} from "@ionic/angular";
 import {IonFabComponent} from "../../shared/ui-kit/components/ion-fab/ion-fab.component";
 import {AuthFormWrapperComponent} from "../../auth/authorizator/auth-form-wrapper/auth-form-wrapper.component";
@@ -15,6 +23,8 @@ import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import {DomSanitizer} from "@angular/platform-browser";
 import {SignaturePad, SignaturePadModule} from "angular2-signaturepad";
+import {PdfViewerModule} from "ng2-pdf-viewer";
+import {single} from "rxjs";
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 @Component({
@@ -35,7 +45,8 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
     IonContent,
     IonButton,
     NgIf,
-    SignaturePadModule
+    SignaturePadModule,
+    PdfViewerModule
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -60,7 +71,7 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  pdfSrc;
+  pdfSrc: WritableSignal<any> = signal('')
   signatureImage;
   @ViewChild(SignaturePad) signaturePad: SignaturePad;
   public signaturePadOptions: Object = {
@@ -112,15 +123,19 @@ export class DashboardComponent implements OnInit {
       }
     };
 
-    const pdfDocGenerator = pdfMake.createPdf(documentDefinition);
-    pdfDocGenerator.getBlob((blob) => {
-      const url = URL.createObjectURL(blob);
-      this.pdfSrc = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-      this.cdr.detectChanges();
-    });
+    if(documentDefinition) {
+      const pdfDocGenerator = pdfMake.createPdf(documentDefinition);
+      if(pdfDocGenerator) {
+        pdfDocGenerator?.getBlob((blob) => {
+          this.pdfSrc.set(URL.createObjectURL(blob))
+        });
+      }
+    }
+
+
   }
 
   ngOnInit(): void {
-    this.openModal();
+    // this.openModal();
   }
 }
