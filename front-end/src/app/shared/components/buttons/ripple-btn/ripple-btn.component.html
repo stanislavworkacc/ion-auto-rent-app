@@ -1,4 +1,7 @@
 <div class="ion-activatable ripple-parent {{ styles }}">
   <ion-icon name="{{ icon }}" class="mr-2"></ion-icon> {{ title }}
   <ion-ripple-effect class="submit-ripple-btn"></ion-ripple-effect>
+  @if (image) {
+    <img [src]="image" class="h-[25px] ml-1 text-right">
+  }
 </div>

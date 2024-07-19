@@ -29,6 +29,9 @@ import {NgIf} from "@angular/common";
 import {INSURANCE_TYPE, RentRange} from "./rent-card.enums";
 import {AddressInfoComponent} from "../address-info/address-info.component";
 import {CardSliderComponent} from "./card-slider/card-slider.component";
+import {CarContractComponent} from "./car-contract/car-contract.component";
+import {RippleBtnComponent} from "../../buttons/ripple-btn/ripple-btn.component";
+import {GeneratedPdfComponent} from "./generated-pdf/generated-pdf.component";
 
 @Component({
   selector: 'rent-car-card',
@@ -56,7 +59,10 @@ import {CardSliderComponent} from "./card-slider/card-slider.component";
     NgIf,
     IonCheckbox,
     AddressInfoComponent,
-    CardSliderComponent
+    CardSliderComponent,
+    CarContractComponent,
+    RippleBtnComponent,
+    GeneratedPdfComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -82,6 +88,7 @@ export class RentCarCardComponent  implements OnInit {
     { label: 'КАСКО', value: INSURANCE_TYPE.KASKO, checked: false },
   ]);
   public insuranceType: WritableSignal<string> = signal(null);
+  public generatingContract: WritableSignal<boolean> = signal(false);
 
   carPreviewDetails = [
     { icon: '/assets/icon/gear-box-ico.png', class: 'w-[13px] h-[13px]', text: 'Автомат' },
@@ -95,6 +102,9 @@ export class RentCarCardComponent  implements OnInit {
     { src: '/assets/icon/atlas-2.jpg' },
     { src: '/assets/icon/atlas-3.jpg' },
   ]
+
+  RentRange = RentRange;
+
 
   onRentTypeChange(selectedType: string): void {
     const updatedRentTypes = this.rentTypes().map(type => {
@@ -125,5 +135,12 @@ export class RentCarCardComponent  implements OnInit {
   };
   ngOnInit() {}
 
-  RentRange = RentRange;
+
+  generateCarContract() {
+    this.generatingContract.set(true);
+    setTimeout(() => {
+      this.generatingContract.set(false);
+
+    },2000)
+  }
 }

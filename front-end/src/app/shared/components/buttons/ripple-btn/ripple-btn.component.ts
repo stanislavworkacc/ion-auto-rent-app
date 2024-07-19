@@ -14,6 +14,7 @@ export class RippleBtnComponent  implements OnInit {
   @Input({ required: true }) title: string = 'Підтвердити'
   @Input() icon: string = ''
   @Input() styles: string = ''
+  @Input() image: string = ''
   constructor() { }
 
   ngOnInit() {}

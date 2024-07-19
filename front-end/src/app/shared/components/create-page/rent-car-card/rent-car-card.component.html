@@ -2,6 +2,9 @@
 <!--  @if(!editMode) {-->
 <!--    <bookmark-rate [rate]="''"></bookmark-rate>-->
 <!--  }-->
+
+  <generated-pdf [generatingContract]="generatingContract"></generated-pdf>
+
   <ion-card-header>
     <ion-card-subtitle>BMW X5 M</ion-card-subtitle>
   </ion-card-header>
@@ -39,8 +42,8 @@
 
 
     <ion-accordion-group class="mt-[30px]">
-      <ion-accordion>
-        <ion-item slot="header" color="light">
+      <ion-accordion toggleIconSlot="start" toggleIcon="chevron-down-circle-outline">
+        <ion-item slot="header" color="light" class="!text-sm font-[300]">
           <ion-label>Тип орендної плати</ion-label>
         </ion-item>
         <div slot="content">
@@ -50,8 +53,8 @@
               <ion-icon name="information-circle-outline" class="text-[16px]"></ion-icon>
             </ion-label>
             @for(type of rentTypes(); track type.value) {
-            <div class="flex justify-between items-center w-full p-1">
-              <ion-label class="font-[300] ">Орендна плата:
+            <div class="flex justify-between items-center w-full p-1 mt-1">
+              <ion-label class="font-[300] text-sm ">Орендна плата:
                 <span class="font-[500]" [class.text-black]="type.checked">{{ type.label }}</span>
             </ion-label>
 
@@ -75,8 +78,8 @@
       </ion-accordion>
 
       <!-- Accordion for Address Info -->
-      <ion-accordion>
-        <ion-item slot="header" color="light">
+      <ion-accordion toggleIconSlot="start" toggleIcon="chevron-down-circle-outline">
+        <ion-item slot="header" color="light" class="!text-sm font-[300]">
           <ion-label>Місцезнаходження транспорту</ion-label>
         </ion-item>
         <div slot="content">
@@ -91,8 +94,8 @@
       </ion-accordion>
 
       <!-- Accordion for Insurance Types -->
-      <ion-accordion>
-        <ion-item slot="header" color="light">
+      <ion-accordion toggleIconSlot="start" toggleIcon="chevron-down-circle-outline">
+        <ion-item slot="header" color="light" class="!text-sm font-[300]">
           <ion-label>Страхування транспорту</ion-label>
         </ion-item>
         <div slot="content">
@@ -103,7 +106,7 @@
             </ion-label>
             @for(type of insuranceTypes(); track type.value) {
             <div class="flex justify-between items-center w-full p-1">
-              <ion-label class="font-[300]">
+              <ion-label class="font-[300] text-sm">
                 <span class="font-[500]" [class.text-black]="type.checked">{{ type.label }}</span>
             </ion-label>
 
@@ -119,6 +122,12 @@
         </div>
       </ion-accordion>
     </ion-accordion-group>
+    <ripple-btn
+      [title]="'Згенерувати договір'"
+      [styles]="'text-white !border-none bg-[#182130] text-[16px] font-[300] !mt-[10px] !h-[40px]'"
+      (click)="generateCarContract()"
+    >
+    </ripple-btn>
 
   </ion-card-content>
 </ion-card>
