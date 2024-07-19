@@ -58,14 +58,11 @@ export class PdfViewerComponent implements AfterViewInit {
 
   pdfSrc: WritableSignal<string> = signal('');
   signatureImage: WritableSignal<string> = signal('');
-  zoom: WritableSignal<number> = signal(0);
+  isSignPad: WritableSignal<boolean> = signal(false);
 
   public signaturePadOptions: Object = {
-    minWidth: 2,
-    canvasWidth: 500,
-    canvasHeight: 200
+    penColor: '#000'
   };
-
   @ViewChild(SignaturePad) signaturePad: SignaturePad;
   @ViewChild('generateBtn') generateBtn: ElementRef;
   @ViewChild(IonContent) content: IonContent;
@@ -93,84 +90,6 @@ export class PdfViewerComponent implements AfterViewInit {
         { text: 'Name: John Doe', style: 'subheader' },
         { text: 'Email: john.doe@example.com', style: 'subheader' },
         { text: 'Message: This is a test message.', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
         { text: 'Signature:', style: 'subheader' },
         { text: 'Signature:', style: 'subheader' },
         { text: 'Signature:', style: 'subheader' },
@@ -210,8 +129,10 @@ export class PdfViewerComponent implements AfterViewInit {
     link.href = this.pdfSrc();
     link.download = 'document.pdf';
     link.click();
+  }
 
-
+  showSignaturePad() {
+    this.isSignPad.set(true)
   }
   ngAfterViewInit() {
     setTimeout(() => {
