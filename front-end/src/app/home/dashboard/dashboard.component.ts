@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnInit, ViewChild} from '@angular/core';
 import {NavController} from "@ionic/angular";
 import {IonFabComponent} from "../../shared/ui-kit/components/ion-fab/ion-fab.component";
 import {AuthFormWrapperComponent} from "../../auth/authorizator/auth-form-wrapper/auth-form-wrapper.component";
@@ -14,6 +14,7 @@ import {NgIf} from "@angular/common";
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import {DomSanitizer} from "@angular/platform-browser";
+import {SignaturePad, SignaturePadModule} from "angular2-signaturepad";
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 @Component({
@@ -33,7 +34,8 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
     SignUpFormComponent,
     IonContent,
     IonButton,
-    NgIf
+    NgIf,
+    SignaturePadModule
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -59,7 +61,32 @@ export class DashboardComponent implements OnInit {
   }
 
   pdfSrc;
-  constructor(private sanitizer: DomSanitizer) {}
+  signatureImage;
+  @ViewChild(SignaturePad) signaturePad: SignaturePad;
+  public signaturePadOptions: Object = {
+    minWidth: 2,
+    canvasWidth: 500,
+    canvasHeight: 200
+  };
+
+  drawComplete() {
+    this.signatureImage = this.signaturePad.toDataURL();
+    this.generateAndViewPDF()
+  }
+
+  clearSignature() {
+    this.signaturePad.clear();
+    this.signatureImage = null;
+    this.generateAndViewPDF()
+
+  }
+
+  saveSignature() {
+    this.signatureImage = this.signaturePad.toDataURL();
+  }
+
+  constructor(private sanitizer: DomSanitizer) {
+  }
 
   generateAndViewPDF() {
     const documentDefinition = {
@@ -67,7 +94,9 @@ export class DashboardComponent implements OnInit {
         { text: 'Form Data', style: 'header' },
         { text: 'Name: John Doe', style: 'subheader' },
         { text: 'Email: john.doe@example.com', style: 'subheader' },
-        { text: 'Message: This is a test message.', style: 'subheader' }
+        { text: 'Message: This is a test message.', style: 'subheader' },
+        { text: 'Signature:', style: 'subheader' },
+        this.signatureImage ? { image: this.signatureImage, width: 200 } : ''
       ],
       styles: {
         header: {
@@ -79,11 +108,6 @@ export class DashboardComponent implements OnInit {
           fontSize: 14,
           bold: true,
           margin: [0, 10, 0, 5]
-        },
-        story: {
-          italic: true,
-          alignment: 'center',
-          width: '50%'
         }
       }
     };
@@ -92,7 +116,7 @@ export class DashboardComponent implements OnInit {
     pdfDocGenerator.getBlob((blob) => {
       const url = URL.createObjectURL(blob);
       this.pdfSrc = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-      this.cdr.detectChanges()
+      this.cdr.detectChanges();
     });
   }
 
