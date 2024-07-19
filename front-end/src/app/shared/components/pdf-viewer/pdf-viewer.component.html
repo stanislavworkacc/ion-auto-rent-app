@@ -45,9 +45,23 @@
   <ion-toolbar>
 
     @if (isSignPad()) {
-      <ion-button (click)="clearSignature()">
-        <img src="assets/icon/svg/eraser.svg" class="h-[40px]">
-      </ion-button>
+      <div class="flex items-center justify-start gap-2">
+        <ion-button (click)="clearSignature()">
+          <div class="flex flex-col items-center justify-between border rounded w-fit px-2 py-1 bg-[#dbe8ff]">
+            <img src="assets/icon/svg/stamp.svg" class="h-[29px]">
+            <ion-label class="text-xs text-black">Печатка</ion-label>
+          </div>
+        </ion-button>
+
+        <ion-button (click)="clearSignature()">
+          <div class="flex flex-col items-center justify-between border rounded w-fit px-3 py-1 bg-[#eff2f4]">
+            <img src="assets/icon/svg/eraser.svg" class="h-[30px]">
+            <ion-label class="text-xs text-black">Стерти</ion-label>
+          </div>
+        </ion-button>
+      </div>
+
+
       <div #signSvg (click)="hideSignSvg()">
         <svg  id="text" width="400" height="300" viewBox="0 0 1037 442" fill="none" xmlns="http://www.w3.org/2000/svg" >
           <rect width="1037" height="442" fill="#f7f7f7"/>
