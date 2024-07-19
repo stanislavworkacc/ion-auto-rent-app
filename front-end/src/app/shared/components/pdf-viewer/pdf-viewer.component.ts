@@ -61,7 +61,10 @@ export class PdfViewerComponent implements AfterViewInit {
   isSignPad: WritableSignal<boolean> = signal(false);
 
   public signaturePadOptions: Object = {
-    penColor: '#000'
+    penColor: '#000',
+    canvasHeight: 300,
+    canvasWidth: 600,
+    minWidth: 2,
   };
   @ViewChild(SignaturePad) signaturePad: SignaturePad;
   @ViewChild('generateBtn') generateBtn: ElementRef;
