@@ -45,6 +45,9 @@
   <ion-toolbar>
 
     @if (isSignPad()) {
+      <ion-button (click)="clearSignature()">
+        <img src="assets/icon/svg/eraser.svg" class="h-[40px]">
+      </ion-button>
       <div #signSvg (click)="hideSignSvg()">
         <svg  id="text" width="400" height="300" viewBox="0 0 1037 442" fill="none" xmlns="http://www.w3.org/2000/svg" >
           <rect width="1037" height="442" fill="#f7f7f7"/>
