@@ -5,7 +5,7 @@ import {
   IonHeader,
   IonInput,
   IonLabel,
-  IonText,
+  IonText, IonTitle,
   IonToolbar,
   ModalController
 } from "@ionic/angular/standalone";
@@ -26,7 +26,8 @@ import {RippleBtnComponent} from "../../../../buttons/ripple-btn/ripple-btn.comp
     IonInput,
     FormsModule,
     IonButton,
-    RippleBtnComponent
+    RippleBtnComponent,
+    IonTitle
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
