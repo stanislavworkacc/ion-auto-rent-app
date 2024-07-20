@@ -21,7 +21,7 @@ import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import {SignaturePad, SignaturePadModule} from "angular2-signaturepad";
 import {PdfViewerModule} from "ng2-pdf-viewer";
-import {JsonPipe, NgForOf, NgIf, NgStyle} from "@angular/common";
+import {JsonPipe, NgClass, NgForOf, NgIf, NgStyle} from "@angular/common";
 import {BackButtonComponent} from "../../ui-kit/components/back-button/back-button.component";
 import {NavController} from "@ionic/angular";
 import {DomSanitizer} from "@angular/platform-browser";
@@ -52,7 +52,8 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
     IonFabList,
     PdfLoaderComponent,
     NgForOf,
-    NgStyle
+    NgStyle,
+    NgClass
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
