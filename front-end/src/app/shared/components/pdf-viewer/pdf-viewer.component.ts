@@ -232,10 +232,6 @@ export class PdfViewerComponent implements AfterViewInit {
           }
         },2000)
       }
-
-      if(this.pdfOnLoaded()) {
-        this.pdfOnLoaded.set(false);
-      }
     });
   }
 }

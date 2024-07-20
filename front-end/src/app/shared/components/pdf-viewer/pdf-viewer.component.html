@@ -48,6 +48,8 @@
 <ion-footer>
   <ion-toolbar>
     @if (isSignPad()) {
+      <input type="file" #fileInput (change)="onFileSelected($event)" style="display: none;">
+
       <div class="flex space-x-1 py-[3px]">
         @for (button of signaturePadActions; track button.label) {
           <ion-button (click)="button.callback()" [ngClass]="{ 'absolute top-[3px] right-[3px]' : button.label === 'Готово' }">
