@@ -18,16 +18,20 @@
 
   </ion-toolbar>
 </ion-header>
-<ion-content class="ion-padding">
+<ion-content>
+  @if (!pdfOnLoaded()) {
+    <pdf-loader></pdf-loader>
+  }
   @if (pdfSrc()) {
     <pdf-viewer [src]="pdfSrc()" class="flex w-full h-full overflow-y-auto"
                 [render-text]="true"
                 [original-size]="false"
                 [show-borders]="true"
+                (after-load-complete)="pdfOnLoad()"
     ></pdf-viewer>
   }
 
-  <ion-fab slot="fixed" vertical="bottom" horizontal="end" [edge]="true">
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end" [edge]="isFabEdged()">
     <ion-fab-button>
       <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
     </ion-fab-button>
@@ -43,32 +47,19 @@
 </ion-content>
 <ion-footer>
   <ion-toolbar>
-
     @if (isSignPad()) {
-      <div class="flex items-center justify-start gap-2">
-        <input type="file" #fileInput (change)="onFileSelected($event)" style="display: none;">
-        <ion-button (click)="fileInput.click()">
-          <div class="flex flex-col items-center justify-between border rounded w-fit px-2 py-1 bg-[#dbe8ff]">
-            <img src="assets/icon/svg/stamp.svg" class="h-[29px]">
-            <ion-label class="text-xs text-black">Печатка</ion-label>
-          </div>
-        </ion-button>
-
-        <ion-button (click)="fileInput.click()">
-          <div class="flex flex-col items-center justify-between border rounded w-fit px-3 py-1 bg-[#dbe8ff]">
-            <img src="assets/icon/svg/signature.svg" class="h-[29px]">
-            <ion-label class="text-xs text-black">Підпис</ion-label>
-          </div>
-        </ion-button>
-
-        <ion-button (click)="clearSignature()">
-          <div class="flex flex-col items-center justify-between border rounded w-fit px-3 py-1 bg-[#eff2f4]">
-            <img src="assets/icon/svg/eraser.svg" class="h-[30px]">
-            <ion-label class="text-xs text-black">Стерти</ion-label>
-          </div>
-        </ion-button>
+      <div class="flex space-x-2">
+        @for (button of signaturePadActions; track button.label) {
+          <ion-button (click)="button.callback()">
+            <div class="flex flex-col items-center justify-between border rounded w-fit px-3 py-1"
+                 [ngStyle]="{'background-color': button.bgColor}"
+            >
+              <img [src]="button.icon" class="h-[29px]">
+              <ion-label class="text-xs text-black">{{ button.label }}</ion-label>
+            </div>
+          </ion-button>
+        }
       </div>
-
 
       <div #signSvg (click)="hideSignSvg()">
         <svg  id="text" width="400" height="300" viewBox="0 0 1037 442" fill="none" xmlns="http://www.w3.org/2000/svg" >
