@@ -1,3 +1,6 @@
-<p>
-  top-card-list works!
-</p>
+<div class="top-cards-container">
+  <div class="top-card" *ngFor="let card of topCards">
+    <img [src]="card.imageUrl" alt="Top Card">
+<!--    <p>{{ card.title }}</p>-->
+  </div>
+</div>
