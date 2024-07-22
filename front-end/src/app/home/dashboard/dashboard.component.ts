@@ -1,11 +1,8 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   inject,
-  OnInit, signal,
-  ViewChild,
-  WritableSignal
+  OnInit,
 } from '@angular/core';
 import {NavController} from "@ionic/angular";
 import {IonFabComponent} from "../../shared/ui-kit/components/ion-fab/ion-fab.component";
@@ -17,14 +14,12 @@ import {BackButtonComponent} from "../../shared/ui-kit/components/back-button/ba
 import {GoogleSsoComponent} from "../../auth/authorizator/google-sso/google-sso.component";
 import {SegmentsComponent} from "../../shared/ui-kit/components/segments/segments.component";
 import {SignUpFormComponent} from "../../auth/authorizator/sign-up-form/sign-up-form.component";
-import {IonButton, IonContent, ModalController} from "@ionic/angular/standalone";
+import {IonButton, IonContent, IonHeader, IonLabel, IonToolbar, ModalController} from "@ionic/angular/standalone";
 import {NgIf} from "@angular/common";
-import * as pdfMake from 'pdfmake/build/pdfmake';
-import * as pdfFonts from 'pdfmake/build/vfs_fonts';
-import {SignaturePad, SignaturePadModule} from "angular2-signaturepad";
-import {PdfViewerModule} from "ng2-pdf-viewer";
-
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
+import {CardListComponent} from "../../shared/components/card-list/card-list.component";
+import {CardListFiltersComponent} from "./card-list-filters/card-list-filters.component";
+import {SearchHistoryComponent} from "./search-history/search-history.component";
+import {NearByComponent} from "./near-by/near-by.component";
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -42,9 +37,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
     SignUpFormComponent,
     IonContent,
     IonButton,
-    NgIf,
-    SignaturePadModule,
-    PdfViewerModule
+    NgIf, CardListComponent, CardListFiltersComponent, SearchHistoryComponent, NearByComponent, IonHeader, IonToolbar, IonLabel,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -66,65 +59,6 @@ export class DashboardComponent implements OnInit {
     modal.onWillDismiss().then((): void => {
       this.navCtrl.navigateForward('home/menu');
     })
-  }
-
-  pdfSrc: WritableSignal<any> = signal('')
-  signatureImage;
-  @ViewChild(SignaturePad) signaturePad: SignaturePad;
-  public signaturePadOptions: Object = {
-    minWidth: 2,
-    canvasWidth: 500,
-    canvasHeight: 200
-  };
-
-  drawComplete() {
-    this.signatureImage = this.signaturePad.toDataURL();
-    this.generateAndViewPDF()
-  }
-
-  clearSignature() {
-    this.signaturePad.clear();
-    this.signatureImage = null;
-    this.generateAndViewPDF()
-
-  }
-
-  saveSignature() {
-    this.signatureImage = this.signaturePad.toDataURL();
-  }
-
-  generateAndViewPDF(): void {
-    const documentDefinition = {
-      content: [
-        { text: 'Form Data', style: 'header' },
-        { text: 'Name: John Doe', style: 'subheader' },
-        { text: 'Email: john.doe@example.com', style: 'subheader' },
-        { text: 'Message: This is a test message.', style: 'subheader' },
-        { text: 'Signature:', style: 'subheader' },
-        this.signatureImage ? { image: this.signatureImage, width: 200 } : ''
-      ],
-      styles: {
-        header: {
-          fontSize: 18,
-          bold: true,
-          margin: [0, 0, 0, 10]
-        },
-        subheader: {
-          fontSize: 14,
-          bold: true,
-          margin: [0, 10, 0, 5]
-        }
-      }
-    };
-
-    if(documentDefinition) {
-      const pdfDocGenerator = pdfMake.createPdf(documentDefinition);
-      if(pdfDocGenerator) {
-        pdfDocGenerator?.getBlob((blob) => {
-          this.pdfSrc.set(URL.createObjectURL(blob))
-        });
-      }
-    }
   }
 
   ngOnInit(): void {

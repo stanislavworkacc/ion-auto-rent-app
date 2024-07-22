@@ -1,20 +1,11 @@
-<ion-content>
-  <div class="flex flex-col gap-2">
-    <ion-button (click)="generateAndViewPDF()" class="text-black">Generate and View PDF</ion-button>
-    <div class="flex items-center gap-2 border rounded justify-between">
-      <ion-button (click)="clearSignature()"  class="text-black">Clear Signature</ion-button>
-      <ion-button (click)="saveSignature()"  class="text-black">Save Signature</ion-button>
-    </div>
-
-  </div>
-
-  <signature-pad [options]="signaturePadOptions" (onEndEvent)="drawComplete()"></signature-pad>
-  @if (pdfSrc()) {
-    <pdf-viewer [src]="pdfSrc()" class="flex w-full h-full"
-                [render-text]="true"
-                [original-size]="false"
-                [show-borders]="true"
-                [autoresize]="true"
-    ></pdf-viewer>
-  }
+<ion-header>
+  <ion-toolbar>
+    <ion-label>ssasda</ion-label>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <card-list-filters></card-list-filters>
+  <search-history></search-history>
+  <app-near-by></app-near-by>
+  <card-list></card-list>
 </ion-content>
