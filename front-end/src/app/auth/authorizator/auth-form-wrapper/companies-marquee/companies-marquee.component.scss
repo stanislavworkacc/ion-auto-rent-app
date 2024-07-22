@@ -36,7 +36,7 @@ ion-icon {
 }
 .popover-content {
   text-align: center;
-  background: linear-gradient(135deg, #0d1f3b 0%, #8f99aa 100%);
+  background: black;
 
   h2 {
     font-size: 20px;
@@ -67,10 +67,11 @@ ion-icon {
 }
 
 ion-item {
-  --background: #696969 !important;
+  --background: black !important;
+  color: white;
 }
 
 ion-list {
-  --background: #696969 !important;
+  --background: black !important;
   padding: 0;
 }
