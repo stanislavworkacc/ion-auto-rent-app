@@ -18,7 +18,6 @@ import {IonButton, IonContent, IonHeader, IonLabel, IonToolbar, ModalController}
 import {NgIf} from "@angular/common";
 import {CardListComponent} from "../../shared/components/card-list/card-list.component";
 import {CardListFiltersComponent} from "./card-list-filters/card-list-filters.component";
-import {SearchHistoryComponent} from "./search-history/search-history.component";
 import {NearByComponent} from "./near-by/near-by.component";
 @Component({
   selector: 'app-dashboard',
@@ -37,7 +36,7 @@ import {NearByComponent} from "./near-by/near-by.component";
     SignUpFormComponent,
     IonContent,
     IonButton,
-    NgIf, CardListComponent, CardListFiltersComponent, SearchHistoryComponent, NearByComponent, IonHeader, IonToolbar, IonLabel,
+    NgIf, CardListComponent, CardListFiltersComponent, NearByComponent, IonHeader, IonToolbar, IonLabel,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
