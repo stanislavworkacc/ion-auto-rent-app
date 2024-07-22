@@ -33,6 +33,7 @@ import {
 import {CardListFiltersComponent} from "./card-list-filters/card-list-filters.component";
 import {DashboardHeaderComponent} from "./dashboard-header/dashboard-header.component";
 import {LocatorComponent} from "../locator/locator.component";
+import {TopCardListComponent} from "../../shared/components/card-list/top-card-list/top-card-list.component";
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -50,7 +51,7 @@ import {LocatorComponent} from "../locator/locator.component";
     SignUpFormComponent,
     IonContent,
     IonButton,
-    NgIf, CardListComponent, NearByComponent, IonHeader, IonToolbar, IonLabel, RippleBtnComponent, CompaniesMarqueeComponent, IonIcon, CardListFiltersComponent, DashboardHeaderComponent, LocatorComponent,
+    NgIf, CardListComponent, NearByComponent, IonHeader, IonToolbar, IonLabel, RippleBtnComponent, CompaniesMarqueeComponent, IonIcon, CardListFiltersComponent, DashboardHeaderComponent, LocatorComponent, TopCardListComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
