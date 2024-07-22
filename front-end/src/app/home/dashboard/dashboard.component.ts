@@ -14,11 +14,24 @@ import {BackButtonComponent} from "../../shared/ui-kit/components/back-button/ba
 import {GoogleSsoComponent} from "../../auth/authorizator/google-sso/google-sso.component";
 import {SegmentsComponent} from "../../shared/ui-kit/components/segments/segments.component";
 import {SignUpFormComponent} from "../../auth/authorizator/sign-up-form/sign-up-form.component";
-import {IonButton, IonContent, IonHeader, IonLabel, IonToolbar, ModalController} from "@ionic/angular/standalone";
+import {
+  IonButton,
+  IonContent,
+  IonHeader,
+  IonIcon,
+  IonLabel,
+  IonToolbar,
+  ModalController
+} from "@ionic/angular/standalone";
 import {NgIf} from "@angular/common";
 import {CardListComponent} from "../../shared/components/card-list/card-list.component";
-import {CardListFiltersComponent} from "./card-list-filters/card-list-filters.component";
 import {NearByComponent} from "./near-by/near-by.component";
+import {RippleBtnComponent} from "../../shared/components/buttons/ripple-btn/ripple-btn.component";
+import {
+  CompaniesMarqueeComponent
+} from "../../auth/authorizator/auth-form-wrapper/companies-marquee/companies-marquee.component";
+import {CardListFiltersComponent} from "./card-list-filters/card-list-filters.component";
+import {DashboardHeaderComponent} from "./dashboard-header/dashboard-header.component";
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -36,7 +49,7 @@ import {NearByComponent} from "./near-by/near-by.component";
     SignUpFormComponent,
     IonContent,
     IonButton,
-    NgIf, CardListComponent, CardListFiltersComponent, NearByComponent, IonHeader, IonToolbar, IonLabel,
+    NgIf, CardListComponent, NearByComponent, IonHeader, IonToolbar, IonLabel, RippleBtnComponent, CompaniesMarqueeComponent, IonIcon, CardListFiltersComponent, DashboardHeaderComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
