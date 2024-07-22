@@ -1,14 +1,12 @@
 import {
   AfterViewInit,
-  ChangeDetectionStrategy, ChangeDetectorRef,
+  ChangeDetectionStrategy,
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
   ElementRef, inject,
   OnInit, signal,
   ViewChild, WritableSignal
 } from '@angular/core';
-import {GoogleMap} from "@capacitor/google-maps";
-import {environment} from "../../../environments/environment";
 import {
   IonContent,
   IonFab,

@@ -32,6 +32,7 @@ import {
 } from "../../auth/authorizator/auth-form-wrapper/companies-marquee/companies-marquee.component";
 import {CardListFiltersComponent} from "./card-list-filters/card-list-filters.component";
 import {DashboardHeaderComponent} from "./dashboard-header/dashboard-header.component";
+import {LocatorComponent} from "../locator/locator.component";
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -49,7 +50,7 @@ import {DashboardHeaderComponent} from "./dashboard-header/dashboard-header.comp
     SignUpFormComponent,
     IonContent,
     IonButton,
-    NgIf, CardListComponent, NearByComponent, IonHeader, IonToolbar, IonLabel, RippleBtnComponent, CompaniesMarqueeComponent, IonIcon, CardListFiltersComponent, DashboardHeaderComponent,
+    NgIf, CardListComponent, NearByComponent, IonHeader, IonToolbar, IonLabel, RippleBtnComponent, CompaniesMarqueeComponent, IonIcon, CardListFiltersComponent, DashboardHeaderComponent, LocatorComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
