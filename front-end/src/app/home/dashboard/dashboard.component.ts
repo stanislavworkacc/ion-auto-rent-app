@@ -1,8 +1,8 @@
 import {
   ChangeDetectionStrategy,
-  Component,
+  Component, computed,
   inject,
-  OnInit,
+  OnInit, Signal, signal, WritableSignal,
 } from '@angular/core';
 import {NavController} from "@ionic/angular";
 import {IonFabComponent} from "../../shared/ui-kit/components/ion-fab/ion-fab.component";
@@ -19,7 +19,7 @@ import {
   IonContent,
   IonHeader,
   IonIcon,
-  IonLabel,
+  IonLabel, IonSegment, IonSegmentButton,
   IonToolbar,
   ModalController
 } from "@ionic/angular/standalone";
@@ -51,7 +51,7 @@ import {TopCardListComponent} from "../../shared/components/card-list/top-card-l
     SignUpFormComponent,
     IonContent,
     IonButton,
-    NgIf, CardListComponent, NearByComponent, IonHeader, IonToolbar, IonLabel, RippleBtnComponent, CompaniesMarqueeComponent, IonIcon, CardListFiltersComponent, DashboardHeaderComponent, LocatorComponent, TopCardListComponent,
+    NgIf, CardListComponent, NearByComponent, IonHeader, IonToolbar, IonLabel, RippleBtnComponent, CompaniesMarqueeComponent, IonIcon, CardListFiltersComponent, DashboardHeaderComponent, LocatorComponent, TopCardListComponent, IonSegment, IonSegmentButton,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -59,6 +59,31 @@ export class DashboardComponent implements OnInit {
 
   private modalCtrl: ModalController = inject(ModalController);
   private navCtrl: NavController = inject(NavController);
+
+
+  transportTypes: WritableSignal<{ label: string, value: string, icon: string, category_id: number }[]> = signal([
+    {
+      label: 'Авто',
+      value: 'cars',
+      icon: '/assets/icon/car-type-ico.png',
+      category_id: 1,
+    },
+    {
+      label: 'Спецтехніка',
+      value: 'special',
+      icon: '/assets/icon/tractor-type-ico.png',
+      category_id: 4,
+    },
+    {
+      label: 'Водний транспорт',
+      value: '',
+      icon: '/assets/icon/water-vehicle-type.png',
+      category_id: 0,
+    },
+  ]);
+  selectedType: WritableSignal<{ label: string, value: string, icon: string, category_id: number }> = signal(this.transportTypes()[0]);
+  vehicleType: Signal<{ label: string, value: string, icon: string, category_id: number }> = computed(() => this.selectedType());
+
 
   async openModal(): Promise<void> {
     const modal: HTMLIonModalElement = await this.modalCtrl.create({

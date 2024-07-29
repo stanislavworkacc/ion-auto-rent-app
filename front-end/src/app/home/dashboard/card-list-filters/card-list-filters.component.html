@@ -1,8 +1,18 @@
-<div class="flex items-center justify-center px-1 w-full">
+<div class="flex items-center flex-col justify-center px-1 w-full py-1">
+
   <ripple-btn class="w-full"
               [title]="'Пошук авто'"
               [icon]="'search-outline'"
               [styles]="'text-black text-gray-400 !border-none text-[16px] font-[500]'"
   >
   </ripple-btn>
+
+<!--  <ion-segment scrollable="true">-->
+<!--    @for (option of transportTypes(); track option.value) {-->
+<!--      <ion-segment-button [value]="option.value">-->
+<!--        <ion-label>{{ option.label }}</ion-label>-->
+<!--        <img [src]="option.icon" class="h-[30px]">-->
+<!--      </ion-segment-button>-->
+<!--    }-->
+<!--  </ion-segment>-->
 </div>

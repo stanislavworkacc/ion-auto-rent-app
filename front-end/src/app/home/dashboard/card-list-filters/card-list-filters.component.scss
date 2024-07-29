@@ -1,0 +1,17 @@
+ion-segment {
+  --background: linear-gradient(to right, #f4f5f8, #4e5096);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+ion-segment-button {
+  --color-checked: black;
+  --indicator-color: #eef0f6;
+  border-radius: 10px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  --color: #323333;
+}
+
+ion-segment-button ion-icon {
+  margin-right: 8px;
+}
