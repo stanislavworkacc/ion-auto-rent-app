@@ -1,31 +1,26 @@
 .auth-modal {
   --border-radius: 16px 16px 0 0;
   --max-height: 90%;
-  --background: #2a3c4e;
-  --ion-background-color: #2a3c4e;
+  --background: #eef0f6;
+  --ion-background-color: #eef0f6;
   --color: #000000;
-  border-top-right-radius: 20px;
-  border-top-left-radius: 20px;
-  //backdrop-filter: blur(10px) brightness(2.5);
+  //border-top-right-radius: 20px;
+  //border-top-left-radius: 20px;
+  backdrop-filter: blur(15px) brightness(2.5);
   --ion-backdrop-color: transparent;
 
   ion-header {
     box-shadow: none;
-    padding: 0 15px;
-    background: #2a3c4e;
+    background: #eef0f6;
+    padding: 15px;
   }
 
   ion-toolbar {
     border-radius: 16px 16px 0 0;
-    --background: #2a3c4e;
-    --color: #ffffff;
+    --background: #eef0f6;
+    --color: black;
     --padding-bottom: 5px;
     padding: 0 !important;
-
-    app-close-btn {
-      top: 10px;
-      right: 10px;
-    }
   }
 
   app-fab {
@@ -49,13 +44,13 @@
 
     &-text {
       font-size: 14px;
-      color: #d1d5db;
+      color: #676e79;
       margin-bottom: 5px;
     }
 
     .register-link {
       font-size: 13px;
-      color: #94a3b8;
+      color: #323333;
     }
   }
 }

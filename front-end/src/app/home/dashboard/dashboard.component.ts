@@ -76,6 +76,6 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.openModal();
+    this.openModal();
   }
 }

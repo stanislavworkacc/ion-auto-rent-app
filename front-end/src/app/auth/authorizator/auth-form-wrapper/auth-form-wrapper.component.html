@@ -1,16 +1,12 @@
 <ion-header>
-  <companies-marquee></companies-marquee>
+  @if (!isLogin()) {
   <ion-toolbar>
-    @if (!isLogin()) {
-      <app-back-button
-        [styles]="'text-[20px]'"
-        [navigateBack]="navigateBack.bind(this)"
-      ></app-back-button>
-    }
-    <ion-buttons slot="end">
-      <app-close-btn (click)="closeModal()"></app-close-btn>
-    </ion-buttons>
+    <app-back-button
+      [styles]="'text-[20px] !text-black'"
+      [navigateBack]="navigateBack.bind(this)"
+    ></app-back-button>
   </ion-toolbar>
+  }
 
   <app-segments
     [options]="options"

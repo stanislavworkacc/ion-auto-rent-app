@@ -42,7 +42,7 @@
 @tailwind utilities;
 
 :root.ios ion-modal {
-  --ion-background-color: #2a3b4e;
+  --ion-background-color: white;
 }
 ion-header {
   box-shadow: none;
@@ -101,6 +101,7 @@ form {
     margin-bottom: 10px;
     border-radius: 10px;
     padding: 5px 2px;
+    border: 0.1px solid #3c3835;
   }
 
   .input-row {
