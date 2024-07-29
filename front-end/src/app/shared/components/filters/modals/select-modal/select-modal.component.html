@@ -1,17 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="end">
-      <ion-button (click)="submitSelection()">
-        <div class="flex flex-col items-center bg-[#b5d1b3] justify-between border rounded w-fit px-1 py-1"
-        >
-          <img src="assets/icon/svg/done.svg" class="h-[29px]">
-        </div>
-      </ion-button>
-    </ion-buttons>
-
-
     <ion-title class=" flex justify-center ">{{ title }}</ion-title>
-
   </ion-toolbar>
   @if (withSearch) {
     <ion-searchbar class="bg-white"
@@ -59,4 +48,24 @@
       </ion-infinite-scroll-content>
     </ion-infinite-scroll>
   </ion-list>
+
+  @if(tempSelection().value) {
+    <div class="sticky bottom-0 bg-[#eef0f6] w-full flex items-center justify-between py-2">
+      <ion-label class="ml-2">
+        <ion-text class="font-bold">Обрано:</ion-text>
+        {{tempSelection().label}}
+      </ion-label>
+      <ion-buttons slot="end">
+        <ion-button (click)="submitSelection()">
+          <div class="flex items-center gap-1 border-[0.1px] border-black rounded w-fit px-1 py-1 bg-[#ffffff] "
+          >
+            <ion-label class="text-sm font-bold text-black">{{ 'Зберегти' }}</ion-label>
+            <img src="assets/icon/svg/done.svg" class="h-[29px]">
+
+          </div>
+        </ion-button>
+      </ion-buttons>
+    </div>
+  }
+
 </ion-content>

@@ -12,7 +12,7 @@ import {
   IonContent,
   IonHeader, IonInfiniteScroll, IonInfiniteScrollContent, IonItem,
   IonLabel,
-  IonList, IonRadio, IonRadioGroup, IonSearchbar, IonTitle,
+  IonList, IonRadio, IonRadioGroup, IonSearchbar, IonText, IonTitle,
   IonToolbar,
   ModalController
 } from "@ionic/angular/standalone";
@@ -44,7 +44,8 @@ import {JsonPipe, NgIf} from "@angular/common";
     IonInfiniteScrollContent,
     NgIf,
     IonTitle,
-    IonButton
+    IonButton,
+    IonText
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
