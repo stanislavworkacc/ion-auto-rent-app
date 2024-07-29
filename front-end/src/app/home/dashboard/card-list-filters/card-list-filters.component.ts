@@ -27,30 +27,6 @@ import {IonIcon, IonLabel, IonSegment, IonSegmentButton} from "@ionic/angular/st
 export class CardListFiltersComponent  implements OnInit {
 
 
-  transportTypes: WritableSignal<{ label: string, value: string, icon: string, category_id: number }[]> = signal([
-    {
-      label: 'Авто',
-      value: 'cars',
-      icon: '/assets/icon/car-type-ico.png',
-      category_id: 1,
-    },
-    {
-      label: 'Спецтехніка',
-      value: 'special',
-      icon: '/assets/icon/tractor-type-ico.png',
-      category_id: 4,
-    },
-    {
-      label: 'Водний транспорт',
-      value: '',
-      icon: '/assets/icon/water-vehicle-type.png',
-      category_id: 0,
-    },
-  ]);
-  selectedType: WritableSignal<{ label: string, value: string, icon: string, category_id: number }> = signal(this.transportTypes()[0]);
-  vehicleType: Signal<{ label: string, value: string, icon: string, category_id: number }> = computed(() => this.selectedType());
-
-
   ngOnInit() {}
 
 }
