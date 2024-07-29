@@ -1,14 +1,17 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <app-close-btn [btnStyles]="'!w-[20px]'" [color]="'gray'" (click)="closeModal(false)"></app-close-btn>
-    </ion-buttons>
-
-    <ion-label class="text-gray-400 flex justify-center pl-[25px] font-[300]">{{ title }}</ion-label>
-
     <ion-buttons slot="end">
-      <ion-label (click)="submitSelection()" class="text-gray-400">Обрати</ion-label>
+      <ion-button (click)="submitSelection()">
+        <div class="flex flex-col items-center bg-[#b5d1b3] justify-between border rounded w-fit px-1 py-1"
+        >
+          <img src="assets/icon/svg/done.svg" class="h-[29px]">
+        </div>
+      </ion-button>
     </ion-buttons>
+
+
+    <ion-title class=" flex justify-center ">{{ title }}</ion-title>
+
   </ion-toolbar>
   @if (withSearch) {
     <ion-searchbar class="bg-white"

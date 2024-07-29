@@ -7,11 +7,12 @@ import {
   WritableSignal
 } from '@angular/core';
 import {
+  IonButton,
   IonButtons,
   IonContent,
   IonHeader, IonInfiniteScroll, IonInfiniteScrollContent, IonItem,
   IonLabel,
-  IonList, IonRadio, IonRadioGroup, IonSearchbar,
+  IonList, IonRadio, IonRadioGroup, IonSearchbar, IonTitle,
   IonToolbar,
   ModalController
 } from "@ionic/angular/standalone";
@@ -41,7 +42,9 @@ import {JsonPipe, NgIf} from "@angular/common";
     JsonPipe,
     IonInfiniteScroll,
     IonInfiniteScrollContent,
-    NgIf
+    NgIf,
+    IonTitle,
+    IonButton
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
