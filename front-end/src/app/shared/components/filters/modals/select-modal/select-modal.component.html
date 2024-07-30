@@ -1,7 +1,15 @@
 <ion-header>
   <ion-toolbar>
     <ion-title class=" flex justify-center ">{{ title }}</ion-title>
+    @if(tempSelection().value) {
+      <ion-buttons slot="end">
+        <ion-button (click)="submitSelection()">
+          <ion-label>Зберегти</ion-label>
+        </ion-button>
+      </ion-buttons>
+    }
   </ion-toolbar>
+
   @if (withSearch) {
     <ion-searchbar class="bg-white"
       placeholder="Пошук"
@@ -55,16 +63,6 @@
         <ion-text class="font-bold">Обрано:</ion-text>
         {{tempSelection().label}}
       </ion-label>
-      <ion-buttons slot="end">
-        <ion-button (click)="submitSelection()">
-          <div class="flex items-center gap-1 border-[0.1px] border-black rounded w-fit px-1 py-1 bg-[#ffffff] "
-          >
-            <ion-label class="text-sm font-bold text-black">{{ 'Зберегти' }}</ion-label>
-            <img src="assets/icon/svg/done.svg" class="h-[29px]">
-
-          </div>
-        </ion-button>
-      </ion-buttons>
     </div>
   }
 
