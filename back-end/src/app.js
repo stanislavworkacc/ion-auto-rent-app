@@ -39,8 +39,8 @@ app.use(compression());
 
 app.use('/api', coreAuthRouter);
 app.use('/api/cars',  carsApiRouter);
-app.use('/api', adminAuth.isValidAuthToken, coreApiRouter);
 app.use('/api', adminAuth.isValidAuthToken, erpApiRouter);
+app.use('/api', adminAuth.isValidAuthToken, coreApiRouter);
 app.use('/download', coreDownloadRouter);
 app.use('/public', corePublicRouter);
 

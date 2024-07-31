@@ -8,6 +8,7 @@ const schema = new mongoose.Schema({
     userLastName: { type: String, default: '', required: false},
     ssoUser: { type: Boolean, default: false, required: false},
     phone: { type: String, unique: true, required: false, trim: true, default: null },
+    userSurname: {type: String, default: '', required: false, trim: true},
 });
 
 schema.plugin(require('mongoose-autopopulate'));
