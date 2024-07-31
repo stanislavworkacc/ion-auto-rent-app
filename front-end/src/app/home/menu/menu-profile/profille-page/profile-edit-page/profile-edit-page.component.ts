@@ -1,16 +1,16 @@
 import {ChangeDetectionStrategy, Component, inject, OnInit, signal, ViewChild, WritableSignal} from '@angular/core';
 import {
-  AlertController,
-  IonAlert,
-  IonAvatar, IonBreadcrumb, IonBreadcrumbs,
-  IonButton, IonButtons, IonChip,
-  IonContent,
-  IonHeader, IonIcon,
-  IonInput,
-  IonItem, IonItemDivider,
-  IonLabel, IonList, IonPopover, IonRange, IonSearchbar, IonSpinner,
-  IonTitle,
-  IonToolbar
+    AlertController,
+    IonAlert,
+    IonAvatar, IonBreadcrumb, IonBreadcrumbs,
+    IonButton, IonButtons, IonChip,
+    IonContent, IonFab, IonFabButton, IonFabList,
+    IonHeader, IonIcon,
+    IonInput,
+    IonItem, IonItemDivider,
+    IonLabel, IonList, IonPopover, IonRange, IonSearchbar, IonSpinner,
+    IonTitle,
+    IonToolbar
 } from "@ionic/angular/standalone";
 import {BackButtonComponent} from "../../../../../shared/ui-kit/components/back-button/back-button.component";
 import {NotificationsPreviewComponent} from "../../notifications-preview/notifications-preview.component";
@@ -23,45 +23,49 @@ import {PhoneNumberFormatterDirective} from "../../../../../shared/directives/ph
 import {BreadcrumbLabelPipe} from "../../../../../shared/breadcrumb-map-name.pipe";
 import {BreadcrumbService} from "../../../../../shared/services/breadcrumb.service";
 import {StorageService} from "../../../../../shared/services/storage.service";
+import {ProfileEditService} from "./profile-edit.service";
 
 @Component({
   selector: 'app-profile-edit-page',
   templateUrl: './profile-edit-page.component.html',
   styleUrls: ['./profile-edit-page.component.scss'],
   standalone: true,
-  imports: [
-    IonHeader,
-    IonToolbar,
-    IonTitle,
-    IonContent,
-    IonItem,
-    IonLabel,
-    IonInput,
-    IonButton,
-    BackButtonComponent,
-    IonAvatar,
-    IonButtons,
-    NotificationsPreviewComponent,
-    IonRange,
-    FormsModule,
-    NgStyle,
-    NgClass,
-    IonIcon,
-    IonSpinner,
-    ValidateInputDirective,
-    ReactiveFormsModule,
-    PhoneNumberFormatterDirective,
-    IonItemDivider,
-    IonAlert,
-    IonChip,
-    IonPopover,
-    IonList,
-    BreadcrumbLabelPipe,
-    IonBreadcrumb,
-    IonBreadcrumbs,
-    IonSearchbar,
-    NgForOf,
-  ],
+    imports: [
+        IonHeader,
+        IonToolbar,
+        IonTitle,
+        IonContent,
+        IonItem,
+        IonLabel,
+        IonInput,
+        IonButton,
+        BackButtonComponent,
+        IonAvatar,
+        IonButtons,
+        NotificationsPreviewComponent,
+        IonRange,
+        FormsModule,
+        NgStyle,
+        NgClass,
+        IonIcon,
+        IonSpinner,
+        ValidateInputDirective,
+        ReactiveFormsModule,
+        PhoneNumberFormatterDirective,
+        IonItemDivider,
+        IonAlert,
+        IonChip,
+        IonPopover,
+        IonList,
+        BreadcrumbLabelPipe,
+        IonBreadcrumb,
+        IonBreadcrumbs,
+        IonSearchbar,
+        NgForOf,
+        IonFab,
+        IonFabButton,
+        IonFabList,
+    ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProfileEditPage implements OnInit {
@@ -72,6 +76,7 @@ export class ProfileEditPage implements OnInit {
   private fb: FormBuilder = inject(FormBuilder);
   private breadcrumbs: BreadcrumbService = inject(BreadcrumbService);
   private storage: StorageService = inject(StorageService);
+  private profileEditService: ProfileEditService = inject(ProfileEditService);
 
   public form!: FormGroup;
   public name!: FormControl;
@@ -94,22 +99,6 @@ export class ProfileEditPage implements OnInit {
 
   @ViewChild('popover') popover;
 
-  public alertButtons = [
-    {
-      text: 'Відмінити',
-      role: 'cancel',
-      handler: () => {
-
-      },
-    },
-    {
-      text: 'Підтвердити',
-      role: 'confirm',
-      handler: () => {
-        this.onDeleteAccount('confirm')
-      },
-    },
-  ];
 
   showPassword: boolean = false;
   showConfirmPassword: boolean = false;
@@ -118,6 +107,10 @@ export class ProfileEditPage implements OnInit {
 
   get breadcrumbsService() {
     return this.breadcrumbs;
+  }
+
+  get profile() {
+    return this.profileEditService;
   }
 
   goBack(): void {
@@ -140,40 +133,6 @@ export class ProfileEditPage implements OnInit {
     this.showConfirmPassword = !this.showConfirmPassword;
   }
 
-  onDeleteAccount(confirm: string): void {
-    if (confirm) {
-      this.presentAccountAlert()
-    }
-  }
-
-  async presentAccountAlert(): Promise<void> {
-    const alert: HTMLIonAlertElement = await this.alertCtrl.create({
-      header: 'Введіть пароль',
-      inputs: [
-        {
-          name: 'password',
-          type: 'password',
-          placeholder: 'Пароль'
-        }
-      ],
-      buttons: [
-        {
-          text: 'Скасувати',
-          role: 'cancel',
-          handler: () => {
-          }
-        },
-        {
-          text: 'Підтвердити',
-          role: 'confirm',
-          handler: () => {
-          }
-        },
-      ]
-    });
-
-    await alert.present();
-  }
 
   async openActionSheet(): Promise<void> {
     const actionSheet = await this.actionSheetCtrl.create({
@@ -202,26 +161,7 @@ export class ProfileEditPage implements OnInit {
   }
 
   async deleteAccount(): Promise<void> {
-    const alert: HTMLIonAlertElement = await this.alertCtrl.create({
-      header: 'Дійсно бажаєте видалити свій профіль?',
-      buttons: [
-        {
-          text: 'Скасувати',
-          role: 'cancel',
-          handler: () => {
-          }
-        },
-        {
-          text: 'Підтвердити',
-          role: 'confirm',
-          handler: () => {
-            this.onDeleteAccount('confirm')
-          }
-        },
-      ]
-    });
-
-    await alert.present()
+    await this.profile.deleteAccount()
   }
 
   async confirmEditPassword(): Promise<void> {
@@ -302,9 +242,12 @@ export class ProfileEditPage implements OnInit {
     }
   }
 
+  saveChanges() {
+    this.profile.editUser(this.form.getRawValue())
+  }
+
   async ngOnInit(): Promise<void> {
     this.initForm();
     await this.setUserData();
   }
-
 }
