@@ -31,8 +31,9 @@ export class ProfileEditService {
     },
   ];
 
-  editUser() {
-    this.userItem.updateItem()
+  editUser(userData) {
+    debugger
+    this.userItem.updateItem({data: {}, method: 'PATCH'})
   }
 
   async deleteAccount(): Promise<void> {
