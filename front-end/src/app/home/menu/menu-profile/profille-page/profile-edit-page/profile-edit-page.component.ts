@@ -242,8 +242,8 @@ export class ProfileEditPage implements OnInit {
     }
   }
 
-  saveChanges() {
-    this.profile.editUser(this.form.getRawValue())
+  async saveChanges() {
+    await this.profile.editUser(this.form.getRawValue())
   }
 
   async ngOnInit(): Promise<void> {

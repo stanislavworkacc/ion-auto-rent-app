@@ -1,18 +1,20 @@
-import {inject, Injectable} from "@angular/core";
+import {inject, Injectable, OnChanges, OnInit} from "@angular/core";
 import {CrudService} from "../../../../../../../libs/collection/src/lib/crud.service";
-import {Item} from "../../../../../../../libs/collection/src/lib/entity-item";
-import {ItemModel} from "../../../../../../../libs/collection/src/lib/models/item.model";
 import {AlertController} from "@ionic/angular/standalone";
+import {environment} from "../../../../../../environments/environment";
+import {StorageService} from "../../../../../shared/services/storage.service";
+import {PostEntityModel} from "../../../../../../../libs/collection/src/lib/models/post-entity.model";
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProfileEditService {
+export class ProfileEditService implements OnInit {
 
   private crud: CrudService = inject(CrudService);
   private alertCtrl: AlertController = inject(AlertController);
+  private storage: StorageService = inject(StorageService);
 
-  userItem: ItemModel;
+  editEntity: PostEntityModel;
 
   public alertButtons = [
     {
@@ -31,9 +33,11 @@ export class ProfileEditService {
     },
   ];
 
-  editUser(userData) {
+  async editUser(userData) {
+    const user = await this.storage.getObject('user');
+
     debugger
-    this.userItem.updateItem({data: {}, method: 'PATCH'})
+    this.editEntity.save({data: userData, name: environment.editUser + '/' + user._id})
   }
 
   async deleteAccount(): Promise<void> {
@@ -95,11 +99,16 @@ export class ProfileEditService {
   }
 
 
+   constructor () {
+    this.ngOnInit();
+  }
 
-  constructor() {
+  // eslint-disable-next-line @angular-eslint/contextual-lifecycle
+  async ngOnInit() {
+    const user = await this.storage.getObject('user');
 
-    this.userItem = new Item({
-      api: this.crud.createEntity({ name: '' }),
+    this.editEntity = this.crud.createPostEntity({
+      name: environment.editUser + '/' + user._id,
     })
   }
 }

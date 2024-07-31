@@ -1,7 +1,7 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const notRememberMeExpirationTime = 600;
+const notRememberMeExpirationTime = 60000000000;
 
 const authUser = async (req, res, {user, databasePassword, password, UserPasswordModel}) => {
     const isMatch = await bcrypt.compare(databasePassword.salt + password, databasePassword.password);

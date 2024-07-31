@@ -13,6 +13,8 @@ export const environment = {
   logout: 'api/logout',
   register: 'api/register',
   googleSsoLogin: 'api/login-google-sso',
+  editUser: 'api/user/update',
+
 
   // RIA
   autoRIAEntity: 'https://developers.ria.com/auto/new'
