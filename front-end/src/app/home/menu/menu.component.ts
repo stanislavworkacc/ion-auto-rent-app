@@ -67,8 +67,8 @@ export class MenuComponent implements OnInit {
   setProfilePages(): void {
     this.dataService.setProfilePages([
       {value: MenuPage.PROFILE, icon: '/assets/icon/user-menu-icon.png', label: 'Мій профіль', iconClass: 'h-[18px] w-[18px]',},
-      {value: MenuPage.SALE, icon: '/assets/icon/sale-menu-ico.png', label: 'Акції', iconClass: 'h-[20px] w-[20px]'},
-      {value: MenuPage.NEWS, icon: '/assets/icon/news-menu-ico.png', label: 'Новини', iconClass: 'h-[18px] w-[18px]'},
+      // {value: MenuPage.SALE, icon: '/assets/icon/sale-menu-ico.png', label: 'Акції', iconClass: 'h-[20px] w-[20px]'},
+      // {value: MenuPage.NEWS, icon: '/assets/icon/news-menu-ico.png', label: 'Новини', iconClass: 'h-[18px] w-[18px]'},
       {value: MenuPage.NOTIFICATIONS, icon: '/assets/icon/notifications-blue.png', label: 'Сповіщення', iconClass: 'h-[20px] w-[20px]'},
       {value: MenuPage.HELP, icon: 'assets/icon/support_blue.png', label: 'Допомога', iconClass: 'h-[20px] w-[20px]'},
       {value: MenuPage.SETTINGS, icon: '/assets/icon/settings-menu-icon.png', label: 'Налаштування', iconClass: 'h-[18px] w-[18px]'},

@@ -8,13 +8,13 @@
   <div class="h-[30%] p-1 border-[0.1px] border-[#ffa27f] rounded mx-1">
     <app-locator></app-locator>
   </div>
-  <ion-segment scrollable="true">
-    @for (option of transportTypes(); track option.value) {
-      <ion-segment-button [value]="option.value">
-        <ion-label>{{ option.label }}</ion-label>
-        <img [src]="option.icon" class="h-[30px]">
-      </ion-segment-button>
-    }
-  </ion-segment>
+<!--  <ion-segment scrollable="true">-->
+<!--    @for (option of transportTypes(); track option.value) {-->
+<!--      <ion-segment-button [value]="option.value">-->
+<!--        <ion-label>{{ option.label }}</ion-label>-->
+<!--        <img [src]="option.icon" class="h-[30px]">-->
+<!--      </ion-segment-button>-->
+<!--    }-->
+<!--  </ion-segment>-->
   <card-list></card-list>
 </ion-content>

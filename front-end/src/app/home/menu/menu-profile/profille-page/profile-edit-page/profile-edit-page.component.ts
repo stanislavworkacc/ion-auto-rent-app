@@ -179,13 +179,13 @@ export class ProfileEditPage implements OnInit {
     const actionSheet = await this.actionSheetCtrl.create({
       buttons: [
         {
-          text: 'Редагувати',
+          text: 'Редагувати профіль',
           handler: () => {
             this.isBlurred.set(false);
           }
         },
         {
-          text: 'Видалити',
+          text: 'Видалити профіль',
           handler: () => {
             this.deleteAccount();
           }
