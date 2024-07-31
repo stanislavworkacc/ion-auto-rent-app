@@ -15,16 +15,17 @@ const {authUser} = require("@/controllers/middlewaresControllers/createAuthMiddl
 const login = async (req, res, { userModel }) => {
   const UserPasswordModel = mongoose.model(userModel + 'Password');
   const UserModel = mongoose.model(userModel);
-  const { email, password } = req.body;
+  const { email, password, phone = null } = req.body;
 
   const objectSchema = Joi.object({
     email: Joi.string()
         .email({ tlds: { allow: true } })
         .required(),
     password: Joi.string().required(),
+    phone: Joi.string().allow(null),
   });
 
-  const { error, value } = objectSchema.validate({ email, password });
+  const { error, value } = objectSchema.validate({ email, password, phone });
   if (error) {
     return res.status(409).json({
       success: false,
@@ -35,7 +36,7 @@ const login = async (req, res, { userModel }) => {
     });
   }
 
-  const user = await UserModel.findOne({ email: email });
+  const user = await UserModel.findOne({ email: email, phone: phone });
 
   if (!user)
     return res.status(404).json({
