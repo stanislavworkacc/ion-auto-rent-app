@@ -1,16 +1,16 @@
 import {ChangeDetectionStrategy, Component, inject, OnInit, signal, ViewChild, WritableSignal} from '@angular/core';
 import {
-  AlertController,
-  IonAlert,
-  IonAvatar, IonBreadcrumb, IonBreadcrumbs,
-  IonButton, IonButtons, IonChip,
-  IonContent,
-  IonHeader, IonIcon,
-  IonInput,
-  IonItem, IonItemDivider,
-  IonLabel, IonList, IonPopover, IonRange, IonSearchbar, IonSpinner,
-  IonTitle,
-  IonToolbar
+    AlertController,
+    IonAlert,
+    IonAvatar, IonBreadcrumb, IonBreadcrumbs,
+    IonButton, IonButtons, IonChip,
+    IonContent, IonFab, IonFabButton, IonFabList,
+    IonHeader, IonIcon,
+    IonInput,
+    IonItem, IonItemDivider,
+    IonLabel, IonList, IonPopover, IonRange, IonSearchbar, IonSpinner,
+    IonTitle,
+    IonToolbar
 } from "@ionic/angular/standalone";
 import {BackButtonComponent} from "../../../../../shared/ui-kit/components/back-button/back-button.component";
 import {NotificationsPreviewComponent} from "../../notifications-preview/notifications-preview.component";
@@ -29,39 +29,42 @@ import {StorageService} from "../../../../../shared/services/storage.service";
   templateUrl: './profile-edit-page.component.html',
   styleUrls: ['./profile-edit-page.component.scss'],
   standalone: true,
-  imports: [
-    IonHeader,
-    IonToolbar,
-    IonTitle,
-    IonContent,
-    IonItem,
-    IonLabel,
-    IonInput,
-    IonButton,
-    BackButtonComponent,
-    IonAvatar,
-    IonButtons,
-    NotificationsPreviewComponent,
-    IonRange,
-    FormsModule,
-    NgStyle,
-    NgClass,
-    IonIcon,
-    IonSpinner,
-    ValidateInputDirective,
-    ReactiveFormsModule,
-    PhoneNumberFormatterDirective,
-    IonItemDivider,
-    IonAlert,
-    IonChip,
-    IonPopover,
-    IonList,
-    BreadcrumbLabelPipe,
-    IonBreadcrumb,
-    IonBreadcrumbs,
-    IonSearchbar,
-    NgForOf,
-  ],
+    imports: [
+        IonHeader,
+        IonToolbar,
+        IonTitle,
+        IonContent,
+        IonItem,
+        IonLabel,
+        IonInput,
+        IonButton,
+        BackButtonComponent,
+        IonAvatar,
+        IonButtons,
+        NotificationsPreviewComponent,
+        IonRange,
+        FormsModule,
+        NgStyle,
+        NgClass,
+        IonIcon,
+        IonSpinner,
+        ValidateInputDirective,
+        ReactiveFormsModule,
+        PhoneNumberFormatterDirective,
+        IonItemDivider,
+        IonAlert,
+        IonChip,
+        IonPopover,
+        IonList,
+        BreadcrumbLabelPipe,
+        IonBreadcrumb,
+        IonBreadcrumbs,
+        IonSearchbar,
+        NgForOf,
+        IonFab,
+        IonFabButton,
+        IonFabList,
+    ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProfileEditPage implements OnInit {
@@ -302,9 +305,12 @@ export class ProfileEditPage implements OnInit {
     }
   }
 
+  saveChanges() {
+
+  }
+
   async ngOnInit(): Promise<void> {
     this.initForm();
     await this.setUserData();
   }
-
 }

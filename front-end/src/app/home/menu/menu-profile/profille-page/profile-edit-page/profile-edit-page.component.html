@@ -260,6 +260,15 @@
       </div>
     </form>
   </div>
+
+  @if(form.dirty) {
+    <ion-fab slot="fixed" vertical="bottom" horizontal="end" [edge]="false" class="animate-pulse">
+      <ion-fab-button (click)="saveChanges()">
+        <ion-icon name="checkmark-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  }
+
 </ion-content>
 
 <!--<ion-popover #popover-->
