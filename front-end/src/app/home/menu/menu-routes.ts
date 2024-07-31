@@ -17,10 +17,6 @@ export const MENU_ROUTES: Routes = [
     component: MenuComponent,
   },
   {
-    path: 'profile',
-    component: ProfilePage,
-  },
-  {
     path: 'edit',
     component: ProfileEditPage
   },

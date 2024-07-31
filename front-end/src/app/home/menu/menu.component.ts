@@ -107,7 +107,7 @@ export class MenuComponent implements OnInit {
 
   chipChangeSubscription(): void  {
     if(this.selectedMenuChip()?.value === MenuSection.PROFILE) {
-      this.navCtrl.navigateForward(['/home/menu/profile'])
+      this.navCtrl.navigateForward(['/home/menu/edit'])
     }
     if(this.selectedMenuChip()?.value === MenuSection.CAR_PARK) {
       this.navCtrl.navigateForward(['/home/menu/car-park'])
