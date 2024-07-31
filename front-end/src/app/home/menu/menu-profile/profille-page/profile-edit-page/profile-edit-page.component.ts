@@ -23,6 +23,7 @@ import {PhoneNumberFormatterDirective} from "../../../../../shared/directives/ph
 import {BreadcrumbLabelPipe} from "../../../../../shared/breadcrumb-map-name.pipe";
 import {BreadcrumbService} from "../../../../../shared/services/breadcrumb.service";
 import {StorageService} from "../../../../../shared/services/storage.service";
+import {ProfileEditService} from "./profile-edit.service";
 
 @Component({
   selector: 'app-profile-edit-page',
@@ -75,6 +76,7 @@ export class ProfileEditPage implements OnInit {
   private fb: FormBuilder = inject(FormBuilder);
   private breadcrumbs: BreadcrumbService = inject(BreadcrumbService);
   private storage: StorageService = inject(StorageService);
+  private profileEditService: ProfileEditService = inject(ProfileEditService);
 
   public form!: FormGroup;
   public name!: FormControl;
@@ -97,22 +99,6 @@ export class ProfileEditPage implements OnInit {
 
   @ViewChild('popover') popover;
 
-  public alertButtons = [
-    {
-      text: 'Відмінити',
-      role: 'cancel',
-      handler: () => {
-
-      },
-    },
-    {
-      text: 'Підтвердити',
-      role: 'confirm',
-      handler: () => {
-        this.onDeleteAccount('confirm')
-      },
-    },
-  ];
 
   showPassword: boolean = false;
   showConfirmPassword: boolean = false;
@@ -121,6 +107,10 @@ export class ProfileEditPage implements OnInit {
 
   get breadcrumbsService() {
     return this.breadcrumbs;
+  }
+
+  get profile() {
+    return this.profileEditService;
   }
 
   goBack(): void {
@@ -143,40 +133,6 @@ export class ProfileEditPage implements OnInit {
     this.showConfirmPassword = !this.showConfirmPassword;
   }
 
-  onDeleteAccount(confirm: string): void {
-    if (confirm) {
-      this.presentAccountAlert()
-    }
-  }
-
-  async presentAccountAlert(): Promise<void> {
-    const alert: HTMLIonAlertElement = await this.alertCtrl.create({
-      header: 'Введіть пароль',
-      inputs: [
-        {
-          name: 'password',
-          type: 'password',
-          placeholder: 'Пароль'
-        }
-      ],
-      buttons: [
-        {
-          text: 'Скасувати',
-          role: 'cancel',
-          handler: () => {
-          }
-        },
-        {
-          text: 'Підтвердити',
-          role: 'confirm',
-          handler: () => {
-          }
-        },
-      ]
-    });
-
-    await alert.present();
-  }
 
   async openActionSheet(): Promise<void> {
     const actionSheet = await this.actionSheetCtrl.create({
@@ -205,26 +161,7 @@ export class ProfileEditPage implements OnInit {
   }
 
   async deleteAccount(): Promise<void> {
-    const alert: HTMLIonAlertElement = await this.alertCtrl.create({
-      header: 'Дійсно бажаєте видалити свій профіль?',
-      buttons: [
-        {
-          text: 'Скасувати',
-          role: 'cancel',
-          handler: () => {
-          }
-        },
-        {
-          text: 'Підтвердити',
-          role: 'confirm',
-          handler: () => {
-            this.onDeleteAccount('confirm')
-          }
-        },
-      ]
-    });
-
-    await alert.present()
+    await this.profile.deleteAccount()
   }
 
   async confirmEditPassword(): Promise<void> {
@@ -306,7 +243,7 @@ export class ProfileEditPage implements OnInit {
   }
 
   saveChanges() {
-
+    this.profile.editUser()
   }
 
   async ngOnInit(): Promise<void> {
