@@ -16,6 +16,7 @@ import {StorageService} from "../../../../../../shared/services/storage.service"
 import {ProfileEditService} from "../profile-edit.service";
 import {PassportComponent} from "./passport/passport.component";
 import {InnComponent} from "./inn/inn.component";
+import {DriverLicenceComponent} from "./driver-licence/driver-licence.component";
 
 @Component({
   selector: 'profile-form',
@@ -34,7 +35,8 @@ import {InnComponent} from "./inn/inn.component";
     IonFab,
     IonFabButton,
     PassportComponent,
-    InnComponent
+    InnComponent,
+    DriverLicenceComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
