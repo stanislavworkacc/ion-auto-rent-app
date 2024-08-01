@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, OnInit, signal, WritableSignal} from '@angular/core';
 import {
-  IonContent,
-  IonHeader,
+  IonContent, IonFab, IonFabButton, IonFabList,
+  IonHeader, IonIcon,
   IonInput,
   IonItem,
   IonLabel,
@@ -35,7 +35,11 @@ import {UrkIdPassportComponent} from "./ukraine/urk-id-passport/urk-id-passport.
     IonSegmentButton,
     IonFabComponent,
     SignUpFormComponent,
-    UrkIdPassportComponent
+    UrkIdPassportComponent,
+    IonFab,
+    IonFabButton,
+    IonFabList,
+    IonIcon
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })

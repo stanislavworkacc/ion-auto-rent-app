@@ -1,5 +1,6 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {IonIcon} from "@ionic/angular/standalone";
+import {ChangeDetectionStrategy, Component, inject, OnInit, signal, WritableSignal} from '@angular/core';
+import {IonFab, IonFabButton, IonFabList, IonIcon} from "@ionic/angular/standalone";
+import {AuthService} from "../../../../../../../../../../shared/services/auth-service";
 
 @Component({
   selector: 'urk-id-passport',
@@ -8,13 +9,34 @@ import {IonIcon} from "@ionic/angular/standalone";
   standalone: true,
   imports: [
     IonIcon,
+    IonFab,
+    IonFabButton,
+    IonFabList,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UrkIdPassportComponent  implements OnInit {
 
-  constructor() { }
+  private authService: AuthService = inject(AuthService);
+  isSignPad: WritableSignal<boolean> = signal(false);
 
+  get auth() {
+    return this.authService;
+  }
+  async signPassport() {
+    await this.matchPassword().then(() => this.showSignaturePad());
+  }
+
+  async editPassport() {
+    const confirmed: boolean = await this.matchPassword();
+  }
+
+  showSignaturePad(): void {
+    this.isSignPad.set(true);
+  }
+  matchPassword() {
+    return this.auth.confirmPassword()
+  }
   ngOnInit() {}
 
 }
