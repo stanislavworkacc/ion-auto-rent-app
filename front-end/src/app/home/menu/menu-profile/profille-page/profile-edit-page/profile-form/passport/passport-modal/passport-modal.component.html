@@ -15,7 +15,10 @@
 
   @switch (selectedPassport().value) {
     @case (PASSPORT_UKR.ID) {
-          <urk-id-passport></urk-id-passport>
-        }
+      <urk-id-passport></urk-id-passport>
     }
+    @case (PASSPORT_UKR.OLD) {
+      <urk-old-passport></urk-old-passport>
+    }
+  }
 </ion-content>

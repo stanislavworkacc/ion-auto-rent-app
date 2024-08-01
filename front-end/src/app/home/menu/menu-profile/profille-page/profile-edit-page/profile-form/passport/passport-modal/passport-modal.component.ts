@@ -15,6 +15,7 @@ import {DOC_TYPE, PASSPORT_UKR} from "../../profile-form.enums";
 import {IonFabComponent} from "../../../../../../../../shared/ui-kit/components/ion-fab/ion-fab.component";
 import {SignUpFormComponent} from "../../../../../../../../auth/authorizator/sign-up-form/sign-up-form.component";
 import {UrkIdPassportComponent} from "./ukraine/urk-id-passport/urk-id-passport.component";
+import {UrkOldPassportComponent} from "./ukraine/urk-old-passport/urk-old-passport.component";
 
 @Component({
   selector: 'app-passport-modal',
@@ -39,7 +40,8 @@ import {UrkIdPassportComponent} from "./ukraine/urk-id-passport/urk-id-passport.
     IonFab,
     IonFabButton,
     IonFabList,
-    IonIcon
+    IonIcon,
+    UrkOldPassportComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
