@@ -14,6 +14,8 @@ import {ValidateInputDirective} from "../../../../../../shared/directives/valida
 import {matchingPasswordsValidator} from "../../../../../../shared/utils/validators/matchingPasswordValidator";
 import {StorageService} from "../../../../../../shared/services/storage.service";
 import {ProfileEditService} from "../profile-edit.service";
+import {PassportComponent} from "./passport/passport.component";
+import {InnComponent} from "./inn/inn.component";
 
 @Component({
   selector: 'profile-form',
@@ -30,7 +32,9 @@ import {ProfileEditService} from "../profile-edit.service";
     ReactiveFormsModule,
     ValidateInputDirective,
     IonFab,
-    IonFabButton
+    IonFabButton,
+    PassportComponent,
+    InnComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -47,6 +51,7 @@ export class ProfileFormComponent  implements OnInit {
   public name!: FormControl;
   public lastName!: FormControl;
   public surname!: FormControl;
+  public passport!: FormControl;
   public email!: FormControl;
   public phone!: FormControl;
   public password!: FormControl;
@@ -55,6 +60,7 @@ export class ProfileFormComponent  implements OnInit {
     name: false,
     lastName: false,
     surname: false,
+    passport: false,
     google: false,
     lockOpen: false,
     lockClosed: false,
@@ -118,6 +124,7 @@ export class ProfileFormComponent  implements OnInit {
     this.lastName = this.form.get('lastName') as FormControl;
     this.surname = this.form.get('surname') as FormControl;
     this.email = this.form.get('email') as FormControl;
+    this.passport = this.form.get('passport') as FormControl;
     this.phone = this.form.get('phone') as FormControl;
     this.password = this.form.get('password') as FormControl;
     this.confirmPassword = this.form.get('confirmPassword') as FormControl;
@@ -128,6 +135,7 @@ export class ProfileFormComponent  implements OnInit {
       name: ['', Validators.required],
       lastName: ['', Validators.required],
       surname: ['', Validators.required],
+      passport: ['', Validators.required],
       phone: ['', [Validators.required, Validators.minLength(14)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],

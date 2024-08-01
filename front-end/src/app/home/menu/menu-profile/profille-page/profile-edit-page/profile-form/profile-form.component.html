@@ -62,7 +62,7 @@
         <ion-input
           type="text"
           class="aligned-input"
-          placeholder="По батькові"
+          placeholder="Заповніть дані"
           [formControl]="surname"
           (ionFocus)="onFocus('surname')"
           (ionBlur)="onBlur('surname')"
@@ -170,6 +170,44 @@
 
     <ion-label class="text-[#1f2937] !border-none mb-2 flex !justify-start font-bold">Безпека даних</ion-label>
 
+    <div class="flex items-center gap-2">
+      <passport></passport>
+      <inn-code></inn-code>
+    </div>
+
+
+<!--    <div class="form-input" #passportRef [appValidateInput]="passportRef">-->
+
+<!--      <div class="input-row">-->
+
+<!--        <ion-label position="static" [class.focused]="isFocused['passport']" class="flex !justify-center">-->
+<!--          @if (!isFocused['passport'] || passport.valid) {-->
+<!--            <ion-icon name="logo-google"></ion-icon>-->
+<!--          }-->
+
+<!--          @if (passport.valid) {-->
+<!--            <ion-icon name="checkmark-circle-outline" class="checkmark-icon"></ion-icon>-->
+<!--          }-->
+
+<!--          @if (isFocused['passport'] && !passport.valid) {-->
+<!--            <ion-spinner name="dots" color="primary"></ion-spinner>-->
+<!--          }-->
+<!--        </ion-label>-->
+
+<!--        <ion-input-->
+<!--          type="text"-->
+<!--          class="aligned-input"-->
+<!--          [formControl]="passport"-->
+<!--          (ionFocus)="onFocus('passport')"-->
+<!--          (ionBlur)="onBlur('passport')"-->
+<!--        ></ion-input>-->
+<!--      </div>-->
+
+<!--      <div [appValidateInput]="passportRef" [control]="passport" class="error-container">-->
+<!--        &lt;!&ndash; Контейнер для помилки &ndash;&gt;-->
+<!--      </div>-->
+<!--    </div>-->
+
     <div (click)="confirmEditPassword()">
       <div [class.blurred]="passwordBlurred()">
         <div #passRef [appValidateInput]="passRef" class="form-input">
@@ -253,6 +291,7 @@
 
   </div>
 </form>
+
 @if(form.dirty) {
   <ion-fab slot="fixed" vertical="bottom" horizontal="end" [edge]="false" class="animate-pulse">
     <ion-fab-button (click)="saveChanges()">
