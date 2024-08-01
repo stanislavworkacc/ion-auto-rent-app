@@ -9,7 +9,7 @@
         <ion-label position="static" [class.focused]="isFocused['name']">
 
           @if (!isFocused['name'] || userName.valid) {
-            <span>Ім'я</span>
+            <span class="font-bold">Ім'я</span>
           }
 
           @if (userName.valid) {
@@ -46,7 +46,7 @@
       >
 
         @if (!isFocused['surname'] || userSurname.valid) {
-          <span>По батькові</span>
+          <span class="font-bold">По батькові</span>
         }
 
         @if (userSurname.valid) {
@@ -81,7 +81,7 @@
         <ion-label position="static" [class.focused]="isFocused['lastName']">
 
           @if (!isFocused['lastName'] || userLastName.valid) {
-            <span>Прізвище</span>
+            <span class="font-bold">Прізвище</span>
           }
 
           @if (userLastName.valid) {
@@ -113,7 +113,7 @@
       <div class="input-row">
         <ion-label position="static" [class.focused]="isFocused['phone']">
           <div class="phone-container">
-            <span>+380</span>
+            <span class="font-bold">+380</span>
           </div>
           @if (phone.valid) {
             <ion-icon name="checkmark-circle-outline" class="checkmark-icon"></ion-icon>
