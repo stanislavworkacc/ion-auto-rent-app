@@ -164,7 +164,19 @@ export class ProfileFormComponent  implements OnInit {
   }
 
   async saveChanges(): Promise<void> {
+    this.phoneHandler();
     await this.profile.editUser(this.form.getRawValue())
+  }
+
+  // TODO: create service for handling phones of different countries
+  phoneHandler() {
+    let phone = this.phone.value;
+
+    if (phone.length > 14) {
+      phone = phone.substring(0, 14);
+    }
+
+    this.form.patchValue({ phone });
   }
 
   async openDoc(docType: string): Promise<void> {

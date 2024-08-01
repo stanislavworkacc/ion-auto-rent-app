@@ -91,6 +91,7 @@ export class SignUpFormComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.phoneHandler();
     const formValue = this.form.getRawValue();
     this.handleAuthProcess(formValue);
   }
@@ -114,6 +115,18 @@ export class SignUpFormComponent implements OnInit {
       }
     }
   }
+
+  // TODO: create service for handling phones of different countries
+  phoneHandler() {
+    let phone = this.phone.value;
+
+    if (phone.length > 14) {
+      phone = phone.substring(0, 14);
+    }
+
+    this.form.patchValue({ phone });
+  }
+
 
   prepareLoginData(formValue) {
     const loginData: any = { password: formValue.password };
