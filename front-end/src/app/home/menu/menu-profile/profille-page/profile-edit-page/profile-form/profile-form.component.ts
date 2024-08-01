@@ -101,7 +101,9 @@ export class ProfileFormComponent  implements OnInit {
   }
 
   async confirmEditPassword(): Promise<void> {
-    await this.auth.confirmPassword()
+    const user = await this.storage.getObject('user');
+
+    await this.auth.confirmPassword(user._id)
       .then((confirmed: boolean): void => {
         debugger
       })

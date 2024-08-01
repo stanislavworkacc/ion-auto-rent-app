@@ -14,8 +14,7 @@ export const environment = {
   register: 'api/register',
   googleSsoLogin: 'api/login-google-sso',
   editUser: 'api/user/update',
-
-
+  matchPassword: 'api/matchPassword',
   // RIA
   autoRIAEntity: 'https://developers.ria.com/auto/new'
 };

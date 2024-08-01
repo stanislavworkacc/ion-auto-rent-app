@@ -120,7 +120,7 @@ export class SignUpFormComponent implements OnInit {
   phoneHandler() {
     let phone = this.phone.value;
 
-    if (phone.length > 14) {
+    if (phone?.length > 14) {
       phone = phone.substring(0, 14);
     }
 

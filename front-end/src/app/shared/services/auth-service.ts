@@ -5,6 +5,7 @@ import {environment} from "../../../environments/environment";
 import {Observable, take, tap} from "rxjs";
 import {StorageService} from "./storage.service";
 import {AlertController} from "@ionic/angular/standalone";
+import {Item} from "../../../../libs/collection/src/lib/entity-item";
 
 
 @Injectable({
@@ -15,7 +16,7 @@ export class AuthService {
   logoutEntity!: PostEntityModel;
   registerEntity!: PostEntityModel;
   loginGoogleSsoEntity!: PostEntityModel;
-  confirmPasswordEntity!: PostEntityModel;
+  confirmPasswordEntity!: Item;
 
   private storageService: StorageService = inject(StorageService);
   private alertCtrl: AlertController = inject(AlertController);
@@ -63,7 +64,8 @@ export class AuthService {
     )
   }
 
-  async confirmPassword(): Promise<boolean> {
+  async confirmPassword(id?): Promise<boolean> {
+    debugger;
     return new Promise(async (resolve): Promise<void> => {
       const alert: HTMLIonAlertElement = await this.alertCtrl.create({
         header: 'Введіть пароль',
@@ -86,7 +88,21 @@ export class AuthService {
             text: 'Підтвердити',
             role: 'confirm',
             handler: () => {
-              resolve(true);
+              const item = new Item({
+                api: this._crud.createPostEntity({
+                  name: `${environment.matchPassword}/${id}`
+                })
+              })
+
+
+              item.createItem({
+                path: `${environment.matchPassword}/${id}`,
+                data: {
+                  password: '12121212'
+                }
+              }).pipe(take(1), tap((data) => {
+                resolve(true);
+              })).subscribe()
             }
           },
         ]
@@ -101,6 +117,11 @@ export class AuthService {
     this.logoutEntity = this._crud.createPostEntity({ name: environment.logout });
     this.registerEntity = this._crud.createPostEntity({ name: environment.register });
     this.loginGoogleSsoEntity = this._crud.createPostEntity({ name: environment.googleSsoLogin });
-    this.confirmPasswordEntity = this._crud.createPostEntity({ name: '' });
+    // this.confirmPasswordEntity = this._crud.createPostEntity({ name: environment.matchPassword });
+    this.confirmPasswordEntity = new Item({
+      api: this._crud.createPostEntity({
+        name: '',
+      })
+    })
   }
 }
