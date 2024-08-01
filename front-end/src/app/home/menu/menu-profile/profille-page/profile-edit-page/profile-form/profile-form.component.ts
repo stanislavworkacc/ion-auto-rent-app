@@ -18,6 +18,7 @@ import {PassportComponent} from "./passport/passport.component";
 import {InnComponent} from "./inn/inn.component";
 import {DriverLicenceComponent} from "./driver-licence/driver-licence.component";
 import {DOC_TYPE} from "./profile-form.enums";
+import {AuthService} from "../../../../../../shared/services/auth-service";
 
 @Component({
   selector: 'profile-form',
@@ -47,6 +48,7 @@ export class ProfileFormComponent  implements OnInit {
   private fb: FormBuilder = inject(FormBuilder);
   private profileEditService: ProfileEditService = inject(ProfileEditService);
   private alertCtrl: AlertController = inject(AlertController);
+  private authService: AuthService = inject(AuthService);
 
   @Input() isBlurred: WritableSignal<boolean> = signal(true)
 
@@ -78,6 +80,10 @@ export class ProfileFormComponent  implements OnInit {
   get profile() {
     return this.profileEditService;
   }
+
+  get auth() {
+    return this.authService;
+  }
   onFocus(field: string): void {
     this.isFocused[field] = true;
   }
@@ -95,33 +101,10 @@ export class ProfileFormComponent  implements OnInit {
   }
 
   async confirmEditPassword(): Promise<void> {
-    const alert: HTMLIonAlertElement = await this.alertCtrl.create({
-      header: 'Введіть пароль',
-      inputs: [
-        {
-          name: 'password',
-          type: 'password',
-          placeholder: 'Пароль'
-        }
-      ],
-      buttons: [
-        {
-          text: 'Скасувати',
-          role: 'cancel',
-          handler: () => {
-          }
-        },
-        {
-          text: 'Підтвердити',
-          role: 'confirm',
-          handler: () => {
-            this.passwordBlurred.set(false);
-          }
-        },
-      ]
-    });
-
-    await alert.present();
+    await this.auth.confirmPassword()
+      .then((confirmed: boolean): void => {
+        debugger
+      })
   }
 
   assignFormControls(): void {

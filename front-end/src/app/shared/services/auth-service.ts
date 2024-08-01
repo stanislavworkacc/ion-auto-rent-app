@@ -64,39 +64,36 @@ export class AuthService {
   }
 
   async confirmPassword(): Promise<boolean> {
-    let confirmed: boolean = false;
-
-    const alert: HTMLIonAlertElement = await this.alertCtrl.create({
-      header: 'Введіть пароль',
-      inputs: [
-        {
-          name: 'password',
-          type: 'password',
-          placeholder: 'Пароль'
-        }
-      ],
-      buttons: [
-        {
-          text: 'Скасувати',
-          role: 'cancel',
-          handler: () => {
-            // return this.confirmPasswordEntity.save({})
-            confirmed = true;
+    return new Promise(async (resolve) => {
+      const alert: HTMLIonAlertElement = await this.alertCtrl.create({
+        header: 'Введіть пароль',
+        inputs: [
+          {
+            name: 'password',
+            type: 'password',
+            placeholder: 'Пароль'
           }
-        },
-        {
-          text: 'Підтвердити',
-          role: 'confirm',
-          handler: () => {
+        ],
+        buttons: [
+          {
+            text: 'Скасувати',
+            role: 'cancel',
+            handler: () => {
+              resolve(false);
+            }
+          },
+          {
+            text: 'Підтвердити',
+            role: 'confirm',
+            handler: () => {
+              resolve(true);
+            }
+          },
+        ]
+      });
 
-          }
-        },
-      ]
+      await alert.present();
     });
-
-    await alert.present();
-
-    return confirmed;
   }
 
   constructor(private _crud: CrudService) {
