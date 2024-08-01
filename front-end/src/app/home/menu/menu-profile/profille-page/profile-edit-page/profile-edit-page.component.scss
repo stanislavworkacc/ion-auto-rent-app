@@ -11,25 +11,5 @@ ion-content {
 
   .wrapper {
     background: linear-gradient(to bottom, #f0f4f7, #b3bac0);
-
-    form {
-      overflow-y: auto;
-
-      .eye-icon {
-        font-size: 35px;
-        padding-right: 10px;
-        color: #868686;
-      }
-
-      .blurred {
-        filter: blur(5px);
-        transition: filter 0.3s ease-in-out;
-        pointer-events: none;
-      }
-    }
-  }
-
-  ion-fab-button {
-    --background: #242e3f;
   }
 }

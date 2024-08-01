@@ -1,0 +1,41 @@
+<div class="flex justify-between items-center px-2">
+  <ion-buttons slot="start">
+    <app-back-button
+      [styles]="'!text-[20px]'"
+      [navigateBack]="goBack.bind(this)"
+    ></app-back-button>
+  </ion-buttons>
+
+  <!--      <ion-breadcrumbs [maxItems]="2" (ionCollapsedClick)="presentPopover($event)" [itemsBeforeCollapse]="0">-->
+  <!--        @for (breadcrumb of breadcrumbsService.breadcrumbsRoutes(); track breadcrumb.url) {-->
+  <!--          <ion-breadcrumb-->
+  <!--            [href]="breadcrumb.url"-->
+  <!--          >-->
+  <!--            {{ breadcrumb.label | breadcrumbLabel }}-->
+  <!--          </ion-breadcrumb>-->
+  <!--        }-->
+  <!--      </ion-breadcrumbs>-->
+</div>
+<!--<ion-popover #popover-->
+<!--             [isOpen]="isBreadCrumbPopoverOpen"-->
+<!--             (didDismiss)="isBreadCrumbPopoverOpen = false"-->
+<!--             [showBackdrop]="false"-->
+<!--&gt;-->
+<!--  <ng-template>-->
+<!--    <ion-content>-->
+<!--      <div class="bg-[#212c40] p-2 flex justify-between items-center">-->
+<!--        <ion-label class="text-xs uppercase">Попередні сторінки</ion-label>-->
+<!--        <ion-icon name="return-down-back-outline"></ion-icon>-->
+<!--      </div>-->
+<!--      <ion-list>-->
+<!--        <ion-item-->
+<!--          *ngFor="let breadcrumb of collapsedBreadcrumbs; last as isLast"-->
+<!--          [href]="breadcrumb?.url"-->
+<!--          [lines]="isLast ? 'none' : null"-->
+<!--        >-->
+<!--          <ion-label>{{ breadcrumb?.label }}</ion-label>-->
+<!--        </ion-item>-->
+<!--      </ion-list>-->
+<!--    </ion-content>-->
+<!--  </ng-template>-->
+<!--</ion-popover>-->
