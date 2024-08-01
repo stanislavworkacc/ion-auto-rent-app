@@ -17,6 +17,7 @@ import {ProfileEditService} from "../profile-edit.service";
 import {PassportComponent} from "./passport/passport.component";
 import {InnComponent} from "./inn/inn.component";
 import {DriverLicenceComponent} from "./driver-licence/driver-licence.component";
+import {DOC_TYPE} from "./profile-form.enums";
 
 @Component({
   selector: 'profile-form',
@@ -71,6 +72,8 @@ export class ProfileFormComponent  implements OnInit {
   showPassword: boolean = false;
   showConfirmPassword: boolean = false;
   passwordBlurred: WritableSignal<boolean> = signal(true);
+
+  protected readonly DOC_TYPE = DOC_TYPE;
 
   get profile() {
     return this.profileEditService;
@@ -160,13 +163,29 @@ export class ProfileFormComponent  implements OnInit {
     }
   }
 
-  async saveChanges() {
+  async saveChanges(): Promise<void> {
     await this.profile.editUser(this.form.getRawValue())
+  }
+
+  async openDoc(docType: string): Promise<void> {
+    switch (docType) {
+      case DOC_TYPE.PASSPORT :
+        const modal: HTMLIonModalElement = await this.profile.openPassport();
+        await this.handlePassportData(modal)
+        break;
+      case DOC_TYPE.INN :
+        break;
+      case DOC_TYPE.DRIVER_LICENCE :
+        break;
+    }
+  }
+
+  async handlePassportData(modal: HTMLIonModalElement): Promise<void> {
+    await modal.present()
   }
 
   async ngOnInit(): Promise<void> {
     this.initForm();
     await this.setUserData();
   }
-
 }

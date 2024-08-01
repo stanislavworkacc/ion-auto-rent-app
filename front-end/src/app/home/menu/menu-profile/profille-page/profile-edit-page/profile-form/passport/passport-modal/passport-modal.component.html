@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Паспорт</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-segment scrollable="true" [value]="selectedPassport().value" (ionChange)="onSegmentChange($event)">
+    @for (option of passportTypes(); track option.value) {
+      <ion-segment-button [value]="option.value">
+        <ion-label class="font-[300] text-[16px]">{{ option.label }}</ion-label>
+      </ion-segment-button>
+    }
+  </ion-segment>
+
+  @switch (selectedPassport().value) {
+    @case (PASSPORT_UKR.ID) {
+          <urk-id-passport></urk-id-passport>
+        }
+    }
+
+</ion-content>

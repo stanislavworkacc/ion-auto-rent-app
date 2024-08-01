@@ -1,9 +1,10 @@
 import {inject, Injectable, OnChanges, OnInit} from "@angular/core";
 import {CrudService} from "../../../../../../../libs/collection/src/lib/crud.service";
-import {AlertController} from "@ionic/angular/standalone";
+import {AlertController, ModalController} from "@ionic/angular/standalone";
 import {environment} from "../../../../../../environments/environment";
 import {StorageService} from "../../../../../shared/services/storage.service";
 import {PostEntityModel} from "../../../../../../../libs/collection/src/lib/models/post-entity.model";
+import {PassportModalComponent} from "./profile-form/passport/passport-modal/passport-modal.component";
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ export class ProfileEditService implements OnInit {
 
   private crud: CrudService = inject(CrudService);
   private alertCtrl: AlertController = inject(AlertController);
+  private modalCtrl: ModalController = inject(ModalController);
   private storage: StorageService = inject(StorageService);
 
   editEntity: PostEntityModel;
@@ -98,6 +100,16 @@ export class ProfileEditService implements OnInit {
     await alert.present();
   }
 
+  async openPassport(): Promise<HTMLIonModalElement> {
+    const modal: HTMLIonModalElement = await this.modalCtrl.create({
+      component: PassportModalComponent,
+      cssClass: 'auth-modal',
+      initialBreakpoint: 1,
+      breakpoints: [0]
+    })
+
+     return modal;
+  }
 
    constructor () {
     this.ngOnInit();

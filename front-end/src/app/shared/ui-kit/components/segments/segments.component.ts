@@ -28,7 +28,7 @@ import {IonIcon, IonLabel, IonSegment, IonSegmentButton} from "@ionic/angular/st
 })
 export class SegmentsComponent implements OnInit {
 
-  @Input() options: WritableSignal<{ value: string, icon: string, label: string, isVisible?: boolean } []> = signal([]);
+  @Input() options: WritableSignal<{ value: string, icon?: string, label: string, isVisible?: boolean } []> = signal([]);
   @Input() selectedSegment: WritableSignal<string> = signal(SegmentType.STANTDART);
   @Input() styles: string;
 
