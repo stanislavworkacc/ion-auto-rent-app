@@ -44,7 +44,7 @@
 
     <form [formGroup]="form" class="px-3 my-3">
       <div class="flex justify-between items-center">
-        <ion-label class="text-[#1f2937] !border-none mb-2">Особиста інформація</ion-label>
+        <ion-label class="text-[#1f2937] !border-none mb-2 font-bold">Особиста інформація</ion-label>
       </div>
 
       <div [class.blurred]="isBlurred()">
@@ -79,6 +79,45 @@
           <div [appValidateInput]="nameRef" [control]="name" class="error-container">
             <!-- Контейнер для помилки -->
           </div>
+        </div>
+
+        <div class="flex items-center">
+
+          <ion-label
+            class="!border-r-0 flex !justify-start !py-0 !pb-[5px]"
+            position="static"
+            [class.focused]="isFocused['surname']"
+          >
+
+            @if (!isFocused['surname'] || surname.valid) {
+              <span>По батькові</span>
+            }
+
+            @if (surname.valid) {
+              <ion-icon name="checkmark-circle-outline" class="checkmark-icon"></ion-icon>
+            }
+
+            @if (isFocused['surname'] && !surname.valid) {
+              <ion-spinner name="dots" color="primary"></ion-spinner>
+            }
+          </ion-label>
+
+          <div class="form-input w-full" #surnameRef [appValidateInput]="surnameRef">
+            <ion-input
+              type="text"
+              class="aligned-input"
+              placeholder="По батькові"
+              [formControl]="surname"
+              (ionFocus)="onFocus('surname')"
+              (ionBlur)="onBlur('surname')"
+            ></ion-input>
+
+
+            <div [appValidateInput]="surnameRef" [control]="surname" class="error-container">
+              <!-- Контейнер для помилки -->
+            </div>
+          </div>
+
         </div>
 
         <div class="form-input" #lastNameRef [appValidateInput]="lastNameRef">
@@ -118,7 +157,6 @@
           <div class="input-row">
             <ion-label position="static" [class.focused]="isFocused['phone']">
               <div class="phone-container">
-                <ion-icon name="call-outline"></ion-icon>
                 <span>+380</span>
               </div>
               @if (phone.valid) {
@@ -174,7 +212,7 @@
           </div>
         </div>
 
-        <ion-label class="text-[#1f2937] !border-none mb-2 flex !justify-start">Безпека даних</ion-label>
+        <ion-label class="text-[#1f2937] !border-none mb-2 flex !justify-start font-bold">Безпека даних</ion-label>
 
         <div (click)="confirmEditPassword()">
           <div [class.blurred]="passwordBlurred()">

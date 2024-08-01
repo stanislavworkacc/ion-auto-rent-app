@@ -81,6 +81,7 @@ export class ProfileEditPage implements OnInit {
   public form!: FormGroup;
   public name!: FormControl;
   public lastName!: FormControl;
+  public surname!: FormControl;
   public email!: FormControl;
   public phone!: FormControl;
   public password!: FormControl;
@@ -88,6 +89,7 @@ export class ProfileEditPage implements OnInit {
   public isFocused: { [key: string]: boolean } = {
     name: false,
     lastName: false,
+    surname: false,
     google: false,
     lockOpen: false,
     lockClosed: false,
@@ -98,7 +100,6 @@ export class ProfileEditPage implements OnInit {
   public isBreadCrumbPopoverOpen: boolean = false;
 
   @ViewChild('popover') popover;
-
 
   showPassword: boolean = false;
   showConfirmPassword: boolean = false;
@@ -210,6 +211,7 @@ export class ProfileEditPage implements OnInit {
   assignFormControls(): void {
     this.name = this.form.get('name') as FormControl;
     this.lastName = this.form.get('lastName') as FormControl;
+    this.surname = this.form.get('surname') as FormControl;
     this.email = this.form.get('email') as FormControl;
     this.phone = this.form.get('phone') as FormControl;
     this.password = this.form.get('password') as FormControl;
@@ -220,6 +222,7 @@ export class ProfileEditPage implements OnInit {
     this.form = this.fb.group({
       name: ['', Validators.required],
       lastName: ['', Validators.required],
+      surname: ['', Validators.required],
       phone: ['', [Validators.required, Validators.minLength(14)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
