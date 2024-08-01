@@ -51,19 +51,19 @@ export class ProfileFormComponent  implements OnInit {
   @Input() isBlurred: WritableSignal<boolean> = signal(true)
 
   public form!: FormGroup;
-  public name!: FormControl;
-  public lastName!: FormControl;
-  public surname!: FormControl;
+  public userName!: FormControl;
+  public userLastName!: FormControl;
+  public userSurname!: FormControl;
   public passport!: FormControl;
   public email!: FormControl;
   public phone!: FormControl;
   public password!: FormControl;
   public confirmPassword!: FormControl;
   public isFocused: { [key: string]: boolean } = {
-    name: false,
-    lastName: false,
-    surname: false,
-    passport: false,
+    userName: false,
+    userLastName: false,
+    userSurname: false,
+    // passport: false,
     google: false,
     lockOpen: false,
     lockClosed: false,
@@ -125,11 +125,11 @@ export class ProfileFormComponent  implements OnInit {
   }
 
   assignFormControls(): void {
-    this.name = this.form.get('name') as FormControl;
-    this.lastName = this.form.get('lastName') as FormControl;
-    this.surname = this.form.get('surname') as FormControl;
+    this.userName = this.form.get('userName') as FormControl;
+    this.userLastName = this.form.get('userLastName') as FormControl;
+    this.userSurname = this.form.get('userSurname') as FormControl;
     this.email = this.form.get('email') as FormControl;
-    this.passport = this.form.get('passport') as FormControl;
+    // this.passport = this.form.get('passport') as FormControl;
     this.phone = this.form.get('phone') as FormControl;
     this.password = this.form.get('password') as FormControl;
     this.confirmPassword = this.form.get('confirmPassword') as FormControl;
@@ -137,10 +137,10 @@ export class ProfileFormComponent  implements OnInit {
 
   initForm(): void {
     this.form = this.fb.group({
-      name: ['', Validators.required],
-      lastName: ['', Validators.required],
-      surname: ['', Validators.required],
-      passport: ['', Validators.required],
+      userName: ['', Validators.required],
+      userLastName: ['', Validators.required],
+      userSurname: ['', Validators.required],
+      // passport: ['', Validators.required],
       phone: ['', [Validators.required, Validators.minLength(14)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
@@ -156,8 +156,8 @@ export class ProfileFormComponent  implements OnInit {
     if (user) {
       const { userName, userLastName, email } = user;
       this.form.patchValue({
-        name: userName,
-        lastName: userLastName,
+        userName: userName,
+        userLastName: userLastName,
         email: email
       });
     }

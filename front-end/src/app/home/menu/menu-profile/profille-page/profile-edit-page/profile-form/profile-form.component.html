@@ -8,15 +8,15 @@
       <div class="input-row">
         <ion-label position="static" [class.focused]="isFocused['name']">
 
-          @if (!isFocused['name'] || name.valid) {
+          @if (!isFocused['name'] || userName.valid) {
             <span>Ім'я</span>
           }
 
-          @if (name.valid) {
+          @if (userName.valid) {
             <ion-icon name="checkmark-circle-outline" class="checkmark-icon"></ion-icon>
           }
 
-          @if (isFocused['name'] && !name.valid) {
+          @if (isFocused['name'] && !userName.valid) {
             <ion-spinner name="dots" color="primary"></ion-spinner>
           }
 
@@ -26,13 +26,13 @@
           type="text"
           class="aligned-input"
           placeholder="Введіть ваше ім'я"
-          [formControl]="name"
+          [formControl]="userName"
           (ionFocus)="onFocus('name')"
           (ionBlur)="onBlur('name')"
         ></ion-input>
       </div>
 
-      <div [appValidateInput]="nameRef" [control]="name" class="error-container">
+      <div [appValidateInput]="nameRef" [control]="userName" class="error-container">
         <!-- Контейнер для помилки -->
       </div>
     </div>
@@ -45,15 +45,15 @@
         [class.focused]="isFocused['surname']"
       >
 
-        @if (!isFocused['surname'] || surname.valid) {
+        @if (!isFocused['surname'] || userSurname.valid) {
           <span>По батькові</span>
         }
 
-        @if (surname.valid) {
+        @if (userSurname.valid) {
           <ion-icon name="checkmark-circle-outline" class="checkmark-icon"></ion-icon>
         }
 
-        @if (isFocused['surname'] && !surname.valid) {
+        @if (isFocused['surname'] && !userSurname.valid) {
           <ion-spinner name="dots" color="primary"></ion-spinner>
         }
       </ion-label>
@@ -63,13 +63,13 @@
           type="text"
           class="aligned-input"
           placeholder="Заповніть дані"
-          [formControl]="surname"
+          [formControl]="userSurname"
           (ionFocus)="onFocus('surname')"
           (ionBlur)="onBlur('surname')"
         ></ion-input>
 
 
-        <div [appValidateInput]="surnameRef" [control]="surname" class="error-container">
+        <div [appValidateInput]="surnameRef" [control]="userSurname" class="error-container">
           <!-- Контейнер для помилки -->
         </div>
       </div>
@@ -80,15 +80,15 @@
       <div class="input-row">
         <ion-label position="static" [class.focused]="isFocused['lastName']">
 
-          @if (!isFocused['lastName'] || lastName.valid) {
+          @if (!isFocused['lastName'] || userLastName.valid) {
             <span>Прізвище</span>
           }
 
-          @if (lastName.valid) {
+          @if (userLastName.valid) {
             <ion-icon name="checkmark-circle-outline" class="checkmark-icon"></ion-icon>
           }
 
-          @if (isFocused['lastName'] && !lastName.valid) {
+          @if (isFocused['lastName'] && !userLastName.valid) {
             <ion-spinner name="dots" color="primary"></ion-spinner>
           }
 
@@ -98,13 +98,13 @@
           type="text"
           class="aligned-input"
           placeholder="Додайте прізвище"
-          [formControl]="lastName"
+          [formControl]="userLastName"
           (ionFocus)="onFocus('lastName')"
           (ionBlur)="onBlur('lastName')"
         ></ion-input>
       </div>
 
-      <div [appValidateInput]="lastNameRef" [control]="lastName" class="error-container">
+      <div [appValidateInput]="lastNameRef" [control]="userLastName" class="error-container">
         <!-- Контейнер для помилки -->
       </div>
     </div>
