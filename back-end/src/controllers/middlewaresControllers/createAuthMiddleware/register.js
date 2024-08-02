@@ -8,7 +8,7 @@ const bcrypt = require("bcryptjs");
 async function register(req, res, { userModel }) {
     const { email, password, userName } = req.body;
     const UserModel = mongoose.model(userModel);
-    const UserPasswordModel = mongoose.model('UserPassword');
+    const UserPasswordModel = mongoose.model( 'UserPassword');
 
     const objectSchema = Joi.object({
         email: Joi.string()
