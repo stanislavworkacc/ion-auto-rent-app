@@ -168,7 +168,7 @@
       </div>
     </div>
 
-    <ion-label class="text-[#1f2937] !border-none flex !justify-start font-bold">Безпека даних</ion-label>
+    <ion-label class="text-[#1f2937] !border-none flex !justify-start font-bold">Документи</ion-label>
 
     <div class="flex items-center gap-2 mb-2">
       <passport (click)="openDoc(DOC_TYPE.PASSPORT)"></passport>
@@ -208,9 +208,10 @@
 <!--      </div>-->
 <!--    </div>-->
 
+    <ion-label class="text-[#1f2937] !border-none flex !justify-start font-bold">Зміна пароля</ion-label>
+
     <div (click)="confirmEditPassword()">
-      <div [class.blurred]="passwordBlurred()">
-        <div #passRef [appValidateInput]="passRef" class="form-input">
+        <div #passRef [appValidateInput]="passRef" class="form-input pointer-events-none">
           <div class="input-row">
             <ion-label [class.focused]="isFocused['lockOpen']" position="static" class="flex !justify-center">
 
@@ -234,7 +235,7 @@
               [formControl]="password"
               [type]="showPassword ? 'text' : 'password'"
               class="aligned-input"
-              placeholder="Пароль"
+              placeholder="Новий пароль"
             ></ion-input>
 
             <ion-icon (click)="toggleShowPassword()"
@@ -249,7 +250,7 @@
           </div>
         </div>
 
-        <div class="form-input" #confirmRef [appValidateInput]="confirmRef">
+        <div class="form-input pointer-events-none" #confirmRef [appValidateInput]="confirmRef">
           <div class="input-row">
             <ion-label position="static" [class.focused]="isFocused['lockClosed']" class="flex !justify-center">
 
@@ -286,16 +287,17 @@
             <!-- Контейнер для помилки -->
           </div>
         </div>
-      </div>
     </div>
-
   </div>
+  @if(form.dirty) {
+      <ripple-btn
+        [title]="'Зберегти зміни'"
+        [styles]="'text-[#646565] text-white !border-none bg-[#182130]  text-[16px] font-[300] !mt-[10px]'"
+        (click)="saveChanges()"
+      >
+      </ripple-btn>
+  }
 </form>
 
-@if(form.dirty) {
-  <ion-fab slot="fixed" vertical="bottom" horizontal="end" [edge]="false" class="animate-pulse">
-    <ion-fab-button (click)="saveChanges()">
-      <ion-icon name="checkmark-outline"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
-}
+
+

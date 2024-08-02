@@ -1,6 +1,5 @@
-import {ChangeDetectionStrategy, Component, inject, OnInit, signal, ViewChild, WritableSignal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, OnInit, signal, WritableSignal} from '@angular/core';
 import {
-    AlertController,
     IonAlert,
     IonAvatar, IonBreadcrumb, IonBreadcrumbs,
     IonButton, IonButtons, IonChip,
@@ -14,15 +13,12 @@ import {
 } from "@ionic/angular/standalone";
 import {BackButtonComponent} from "../../../../../shared/ui-kit/components/back-button/back-button.component";
 import {NotificationsPreviewComponent} from "../../notifications-preview/notifications-preview.component";
-import {ActionSheetController, NavController} from "@ionic/angular";
-import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
+import {ActionSheetController } from "@ionic/angular";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import {NgClass, NgForOf, NgStyle} from "@angular/common";
 import {ValidateInputDirective} from "../../../../../shared/directives/validate-input.directive";
-import {matchingPasswordsValidator} from "../../../../../shared/utils/validators/matchingPasswordValidator";
 import {PhoneNumberFormatterDirective} from "../../../../../shared/directives/phone-formatter.directive";
 import {BreadcrumbLabelPipe} from "../../../../../shared/breadcrumb-map-name.pipe";
-import {BreadcrumbService} from "../../../../../shared/services/breadcrumb.service";
-import {StorageService} from "../../../../../shared/services/storage.service";
 import {ProfileEditService} from "./profile-edit.service";
 import {ProfileFormComponent} from "./profile-form/profile-form.component";
 import {EditPageHeaderComponent} from "./edit-page-header/edit-page-header.component";

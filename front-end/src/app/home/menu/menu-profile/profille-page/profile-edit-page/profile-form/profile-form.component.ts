@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, inject, Input, OnInit, signal, WritableSignal} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {
-  AlertController,
+  AlertController, IonButton,
   IonFab,
   IonFabButton,
   IonIcon,
@@ -19,6 +19,7 @@ import {InnComponent} from "./inn/inn.component";
 import {DriverLicenceComponent} from "./driver-licence/driver-licence.component";
 import {DOC_TYPE} from "./profile-form.enums";
 import {AuthService} from "../../../../../../shared/services/auth-service";
+import {RippleBtnComponent} from "../../../../../../shared/components/buttons/ripple-btn/ripple-btn.component";
 
 @Component({
   selector: 'profile-form',
@@ -38,7 +39,9 @@ import {AuthService} from "../../../../../../shared/services/auth-service";
     IonFabButton,
     PassportComponent,
     InnComponent,
-    DriverLicenceComponent
+    DriverLicenceComponent,
+    IonButton,
+    RippleBtnComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -105,8 +108,8 @@ export class ProfileFormComponent  implements OnInit {
 
     await this.auth.confirmPassword(user._id)
       .then((confirmed: boolean): void => {
-        debugger
       })
+
   }
 
   assignFormControls(): void {
@@ -123,10 +126,10 @@ export class ProfileFormComponent  implements OnInit {
   initForm(): void {
     this.form = this.fb.group({
       userName: ['', Validators.required],
-      userLastName: ['', Validators.required],
-      userSurname: ['', Validators.required],
+      userLastName: [''],
+      userSurname: [''],
       // passport: ['', Validators.required],
-      phone: ['', [Validators.required, Validators.minLength(14)]],
+      phone: ['', [Validators.minLength(14)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', [Validators.required]]
