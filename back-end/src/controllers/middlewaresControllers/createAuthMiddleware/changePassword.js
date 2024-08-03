@@ -5,52 +5,35 @@ const mongoose = require('mongoose');
 
 const changePassword = async (req, res, { userModel }) => {
     const UserPasswordModel = mongoose.model(userModel + 'Password');
-    const UserModel = mongoose.model(userModel);
+
     const { id } = req.params;
     const { password } = req.body;
 
-    const user = await UserModel.findOne({
-        _id: id
-    });
+    const salt = await bcrypt.genSalt(10);
+    const passwordHash = new UserPasswordModel().generateHash(salt, password);
 
-    if (!user)
-        return res.status(404).json({
-            success: false,
-            result: null,
-            message: 'No account with this id has been registered.',
-        });
+    const updatedPasswordData = {
+        password: passwordHash,
+        salt: salt,
+    };
 
-    const databasePassword = await UserPasswordModel.findOne({ user: user._id});
+    const updatedPasswordModel = await UserPasswordModel.findOneAndUpdate({user: id}, {
+        $set: updatedPasswordData,
+    }, { new: true })
 
-    if (!user.enabled)
-        return res.status(409).json({
-            success: false,
-            result: null,
-            message: 'Your account is disabled, contact your account adminstrator',
-        });
-
-    //  authUser if your has correct password
-
-    const isMatch = await bcrypt.compare(databasePassword.salt + password, databasePassword.password);
-
-
-    if(isMatch) {
+    if(updatedPasswordModel) {
         return res.status(200).json({
             success: true,
-            result: {
-                matchPassword: true
-            },
-            message: 'Yeah man',
-        });
-    } else {
-        return res.status(404).json({
-            success: false,
-            result: {
-                matchPassword: false
-            },
-            message: 'Sorry man',
-        });
+            result: {},
+            message: 'Password updated successfully.',
+        })
     }
+
+    return res.status(500).json({
+        success: false,
+        result: {},
+        message: 'Sorry we have the problems',
+    })
 };
 
 module.exports = changePassword;

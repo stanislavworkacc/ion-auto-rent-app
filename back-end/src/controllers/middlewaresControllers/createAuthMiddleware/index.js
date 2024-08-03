@@ -7,6 +7,7 @@ const register = require('./register');
 const googleSsoLogin = require('./googleSsoLogin');
 const matchPassword = require('./matchPassword');
 const changePassword = require('./changePassword');
+const deleteAccount = require('./deleteAccount');
 
 const createAuthMiddleware = (userModel) => {
     let authMethods = {};
@@ -43,6 +44,11 @@ const createAuthMiddleware = (userModel) => {
 
     authMethods.changePassword = (req, res) =>
         changePassword(req, res, {
+            userModel,
+        });
+
+    authMethods.deleteAccount = (req, res) =>
+        deleteAccount(req, res, {
             userModel,
         });
 

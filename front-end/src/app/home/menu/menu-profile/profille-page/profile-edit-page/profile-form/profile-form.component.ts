@@ -87,6 +87,19 @@ export class ProfileFormComponent  implements OnInit {
   get auth() {
     return this.authService;
   }
+
+  get userInfoDirty() {
+    return this.form.get('userName').dirty ||
+      this.form.get('userLastName').dirty ||
+      this.form.get('userSurname').dirty ||
+      this.form.get('phone').dirty ||
+      this.form.get('email').dirty;
+  }
+
+  get userPasswordDirty() {
+    return this.form.get('password').dirty ||
+      this.form.get('confirmPassword').dirty
+  }
   onFocus(field: string): void {
     this.isFocused[field] = true;
   }
@@ -108,8 +121,9 @@ export class ProfileFormComponent  implements OnInit {
 
     await this.auth.confirmPassword(user._id)
       .then((confirmed: boolean): void => {
+        this.isBlurred.set(confirmed);
+        // debugger;
       })
-
   }
 
   assignFormControls(): void {
@@ -154,6 +168,14 @@ export class ProfileFormComponent  implements OnInit {
   async saveChanges(): Promise<void> {
     this.phoneHandler();
     await this.profile.editUser(this.form.getRawValue())
+  }
+
+  async changePassword() {
+    const user = await this.storage.getObject('user');
+
+    if(this.password.valid && this.confirmPassword.valid) {
+      this.auth.initPasswordChange(this.password.value, user._id).subscribe()
+    }
   }
 
   // TODO: create service for handling phones of different countries

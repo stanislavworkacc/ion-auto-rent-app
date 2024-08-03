@@ -18,21 +18,14 @@ import {AuthService} from "../../../../../../../../../../shared/services/auth-se
 export class UrkIdPassportComponent  implements OnInit {
 
   private authService: AuthService = inject(AuthService);
-  isSignPad: WritableSignal<boolean> = signal(false);
+  public editMode: WritableSignal<boolean> = signal(false);
 
   get auth() {
     return this.authService;
   }
-  async signPassport() {
-    await this.matchPassword().then(() => this.showSignaturePad());
-  }
-
-  async editPassport() {
+  async editPassport(): Promise<void> {
     const confirmed: boolean = await this.matchPassword();
-  }
-
-  showSignaturePad(): void {
-    this.isSignPad.set(true);
+    this.editMode.set(true);
   }
   matchPassword() {
     return this.auth.confirmPassword()

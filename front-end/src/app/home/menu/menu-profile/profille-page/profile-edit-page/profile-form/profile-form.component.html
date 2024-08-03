@@ -208,10 +208,20 @@
 <!--      </div>-->
 <!--    </div>-->
 
+    @if(userInfoDirty) {
+      <ripple-btn
+        [title]="'Зберегти зміни'"
+        [styles]="'text-[#646565] text-white !border-none bg-[#182130]  text-[16px] font-[300] !mt-[10px]'"
+        (click)="saveChanges()"
+      >
+      </ripple-btn>
+    }
     <ion-label class="text-[#1f2937] !border-none flex !justify-start font-bold">Зміна пароля</ion-label>
 
-    <div (click)="confirmEditPassword()">
-        <div #passRef [appValidateInput]="passRef" class="form-input pointer-events-none">
+<!--    (click)="confirmEditPassword()"-->
+    <div>
+        <div #passRef [appValidateInput]="passRef" class="form-input">
+<!--          [class.pointer-events-none]="isBlurred()"-->
           <div class="input-row">
             <ion-label [class.focused]="isFocused['lockOpen']" position="static" class="flex !justify-center">
 
@@ -250,7 +260,9 @@
           </div>
         </div>
 
-        <div class="form-input pointer-events-none" #confirmRef [appValidateInput]="confirmRef">
+
+<!--      pointer-events-none-->
+        <div class="form-input" #confirmRef [appValidateInput]="confirmRef">
           <div class="input-row">
             <ion-label position="static" [class.focused]="isFocused['lockClosed']" class="flex !justify-center">
 
@@ -288,15 +300,16 @@
           </div>
         </div>
     </div>
-  </div>
-  @if(form.dirty) {
+
+    @if(userPasswordDirty) {
       <ripple-btn
-        [title]="'Зберегти зміни'"
+        [title]="'Оновити пароль'"
         [styles]="'text-[#646565] text-white !border-none bg-[#182130]  text-[16px] font-[300] !mt-[10px]'"
-        (click)="saveChanges()"
+        (click)="changePassword()"
       >
       </ripple-btn>
-  }
+    }
+  </div>
 </form>
 
 
