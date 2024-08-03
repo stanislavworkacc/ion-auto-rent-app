@@ -8,31 +8,49 @@
     ></app-back-button>
   </ion-toolbar>
 </ion-header>
-<ion-content>
-  <ion-list class=m-2>
-    <app-header-parks [create]="openModal.bind(this)"></app-header-parks>
+<!--  <app-header-parks [create]="createPark.bind(this)"></app-header-parks>-->
 
-    @for(parking of userCarParkings; track parking.label) {
-      <ion-item (click)="selectParking()" lines="none" class="!shadow-none">
-<!--        <ion-thumbnail slot="start" class="flex justify-center items-center">-->
-<!--          <img src="/assets/icon/parkings-logo-ico.png" class="h-[40px] w-[40px]">-->
-<!--        </ion-thumbnail>-->
+<!--  <ion-list class="mx-2 mb-2">-->
+<!--  @for(parking of userCarParkings; track parking.label) {-->
+<!--    <ion-item (click)="selectParking()"  class="!shadow-none">-->
+<!--&lt;!&ndash;        <ion-thumbnail slot="start" class="flex justify-center items-center">&ndash;&gt;-->
+<!--&lt;!&ndash;          <img src="/assets/icon/parkings-logo-ico.png" class="h-[40px] w-[40px]">&ndash;&gt;-->
+<!--&lt;!&ndash;        </ion-thumbnail>&ndash;&gt;-->
 
-        <ion-label>
-          <h2>{{ parking.label }}</h2>
-          <p>{{ parking.location }}</p>
-        </ion-label>
-        <ion-button fill="clear" slot="end" >
-          <img src="/assets/icon/edit-orange.png" class="h-[20px]">
-        </ion-button>
-      </ion-item>
-    }
-  </ion-list>
+<!--      <ion-label>-->
+<!--        <h2>{{ parking.label }}</h2>-->
+<!--        <p>{{ parking.location }}</p>-->
+<!--      </ion-label>-->
+<!--      <ion-button fill="clear" slot="end" >-->
+<!--        <img src="/assets/icon/edit-orange.png" class="h-[20px]">-->
+<!--      </ion-button>-->
+<!--    </ion-item>-->
+<!--  }-->
+<!--</ion-list>-->
 
+@for(parking of parkings; track parking.label) {
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{ parking.label }}</ion-card-title>
+      <ion-card-subtitle>{{ parking.location }}</ion-card-subtitle>
+    </ion-card-header>
 
-</ion-content>
-<ion-fab slot="fixed" vertical="bottom" horizontal="end" [edge]="false">
-  <ion-fab-button>
-    <img src="/assets/icon/plus-blue.png" class="h-[33px]">
-  </ion-fab-button>
-</ion-fab>
+    <ion-card-content>
+      Here's a small text description for the card content. Nothing more, nothing less.
+    </ion-card-content>
+
+    <ion-buttons class="flex items-center gap-0 justify-end w-full !mb-1">
+     <ion-button fill="clear" class="text-xs">
+       <div class="flex flex-col items-center">
+         <img src="assets/icon/svg/edit-svg.svg" class="h-[20px]">
+       </div>
+     </ion-button>
+      <ion-button fill="clear" class="text-xs">
+        <div class="flex flex-col items-center">
+          <img src="assets/icon/svg/delete.svg" class="h-[20px]">
+        </div>
+      </ion-button>
+    </ion-buttons>
+  </ion-card>
+}
+

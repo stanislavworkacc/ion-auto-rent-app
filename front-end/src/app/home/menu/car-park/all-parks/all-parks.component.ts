@@ -66,11 +66,11 @@ export class AllParksComponent  implements OnInit {
     return this.menuDataService;
   }
 
-  userCarParkings = [
+  parkings = [
     { img: 'https://ionicframework.com/docs/img/demos/thumbnail.svg', label: 'Car Parking 1', location: 'Location 1' },
-    // { img: 'https://ionicframework.com/docs/img/demos/thumbnail.svg', label: 'Car Parking 2', location: 'Location 2' },
-    // { img: 'https://ionicframework.com/docs/img/demos/thumbnail.svg', label: 'Car Parking 3', location: 'Location 3' },
-    // { img: 'https://ionicframework.com/docs/img/demos/thumbnail.svg', label: 'Car Parking 4', location: 'Location 4' }
+    { img: 'https://ionicframework.com/docs/img/demos/thumbnail.svg', label: 'Car Parking 2', location: 'Location 2' },
+    { img: 'https://ionicframework.com/docs/img/demos/thumbnail.svg', label: 'Car Parking 3', location: 'Location 3' },
+    { img: 'https://ionicframework.com/docs/img/demos/thumbnail.svg', label: 'Car Parking 4', location: 'Location 4' }
   ];
 
   selectParking(): void {
@@ -91,8 +91,10 @@ export class AllParksComponent  implements OnInit {
     this.navCtrl.navigateBack(['home/menu']);
     this.dataService.selectedMenuChip.set({value: MenuPage.PROFILE, icon: '/assets/icon/user-menu-icon.png', label: 'Мій профіль', iconClass: 'h-[18px] w-[18px]'});
   }
-  constructor() { }
 
+  async createPark() {
+    await this.openModal()
+  }
   ngOnInit() {}
 
 }

@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit, signal, WritableSignal} from '@angular/core';
 import {
   IonBadge,
   IonButton,
@@ -31,7 +31,13 @@ import {
 export class HeaderParksComponent  implements OnInit {
 
   @Input() create: () => void
+
+  public showSearch: WritableSignal<boolean>  = signal(false);
   constructor() { }
+
+  showSearchBar(): void {
+    this.showSearch.set(!this.showSearch())
+  }
 
   ngOnInit() {}
 
