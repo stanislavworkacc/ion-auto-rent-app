@@ -9,6 +9,7 @@ import {of} from "rxjs/internal/observable/of";
 import {ModalController} from "@ionic/angular/standalone";
 import {HttpResponse} from "@angular/common/http";
 import {AuthorizatorComponent} from "../../auth/authorizator/authorizator.component";
+import {ToasterService} from "../components/app-toast/toaster.service";
 
 const defaultOptions = {
   responseType: 'json'
@@ -31,7 +32,11 @@ export class CommonHttpService {
 
   private storageService: StorageService = inject(StorageService);
   private modalController: ModalController = inject(ModalController);
+  private toasterService: ToasterService = inject(ToasterService);
 
+  get toaster() {
+    return this.toasterService;
+  }
   get<TResponse>({url, params, additionalOptions}: {
     url: string, params?: StrMap<string>,
     additionalOptions?: any
@@ -153,14 +158,16 @@ export class CommonHttpService {
   intercept<T>() {
     return (source: Observable<T>) => {
       return source.pipe(
-        tap( async (serverResponse: any) => {
+        tap( async (serverResponse: any): Promise<void> => {
           switch (serverResponse.status) {
             case 401:
-              const authModal = await this.modalController.create({
+              this.toaster.show({ type: 'error', message: 'Будь ласка, повторно авторизуйтесь для продовження роботи.' })
+              const authModal: HTMLIonModalElement = await this.modalController.create({
                 component: AuthorizatorComponent,
+                cssClass: 'auth-modal'
               });
 
-              authModal.present();
+              await authModal.present();
           }
         })
       )

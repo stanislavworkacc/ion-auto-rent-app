@@ -47,7 +47,7 @@ export class AuthService {
   }
 
   setStorageData(res): void {
-    const keys: string[] = ['_id', 'email', 'phone', 'ssoUser', 'userName', 'userLastName'];
+    const keys: string[] = ['_id', 'email', 'phone', 'ssoUser', 'userName', 'userLastName','ssoUser'];
     const userData: {} = {};
 
     keys.forEach((key: string): void => {
@@ -125,7 +125,7 @@ export class AuthService {
     });
   }
 
-  createDynamicItem(name, payload) {
+  createDynamicItem(name, payload): Observable<any> {
     const item = new Item({
       api: this._crud.createPostEntity({
         name
@@ -139,14 +139,7 @@ export class AuthService {
     )
   }
 
-  initPasswordChange(password, id) {
-    // return this.changePasswordEntity.createItem({
-    //   data: {
-    //     password
-    //   },
-    //   path: `${environment.changePassword}/${id}`
-    // }).pipe(take(1))
-
+  initPasswordChange(password, id): Observable<any> {
     return this.createDynamicItem(`${environment.changePassword}/${id}`, {
       password
     })
