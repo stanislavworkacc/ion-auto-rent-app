@@ -161,7 +161,6 @@ export class CommonHttpService {
               });
 
               authModal.present();
-              debugger;
           }
         })
       )
@@ -173,7 +172,6 @@ export class CommonHttpService {
     // const token = localStorage.getItem('access_token');
     // const tokenData: any = await this.storageService.getObject('token');
 
-    // debugger;
     if (false) {
 
       return {

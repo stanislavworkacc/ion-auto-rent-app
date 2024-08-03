@@ -38,7 +38,6 @@ export class ProfileEditService implements OnInit {
   async editUser(userData) {
     const user = await this.storage.getObject('user');
 
-    debugger
     this.editEntity.save({data: userData, name: environment.editUser + '/' + user._id})
   }
 

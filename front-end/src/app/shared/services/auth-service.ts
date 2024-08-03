@@ -66,7 +66,6 @@ export class AuthService {
   }
 
   async confirmPassword(id?): Promise<boolean> {
-    // debugger;
     return new Promise(async (resolve): Promise<void> => {
       const alert: HTMLIonAlertElement = await this.alertCtrl.create({
         header: 'Введіть пароль',

@@ -133,7 +133,6 @@ export class Collection<T = { [key: string]: any }> {
         this.unSelectAll();
       }
 
-      // debugger;
       this.itemsSubject$.next(this.items);
 
       this.calculateTotalSelectedItems();

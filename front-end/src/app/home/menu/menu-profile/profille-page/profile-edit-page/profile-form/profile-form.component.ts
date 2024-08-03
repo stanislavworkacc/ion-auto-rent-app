@@ -122,7 +122,6 @@ export class ProfileFormComponent  implements OnInit {
     await this.auth.confirmPassword(user._id)
       .then((confirmed: boolean): void => {
         this.isBlurred.set(confirmed);
-        // debugger;
       })
   }
 
