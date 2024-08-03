@@ -49,7 +49,7 @@
           <span class="font-bold">По батькові</span>
         }
 
-        @if (userSurname.valid) {
+        @if (userSurname.value) {
           <ion-icon name="checkmark-circle-outline" class="checkmark-icon"></ion-icon>
         }
 
@@ -84,7 +84,7 @@
             <span class="font-bold">Прізвище</span>
           }
 
-          @if (userLastName.valid) {
+          @if (userLastName.value) {
             <ion-icon name="checkmark-circle-outline" class="checkmark-icon"></ion-icon>
           }
 
@@ -115,7 +115,7 @@
           <div class="phone-container">
             <span class="font-bold">+380</span>
           </div>
-          @if (phone.valid) {
+          @if (phone.value) {
             <ion-icon name="checkmark-circle-outline" class="checkmark-icon"></ion-icon>
           }
         </ion-label>
