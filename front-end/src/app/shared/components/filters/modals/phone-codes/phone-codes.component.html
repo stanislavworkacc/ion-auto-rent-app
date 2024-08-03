@@ -15,7 +15,7 @@
 <ion-content>
   <ion-list>
     <ion-radio-group>
-      @for(code of displayedCodes; track code.code) {
+      @for(code of displayedCodes; track code.name) {
         <ion-item  class="custom-ion-item">
           <ion-label>
             <span class="font-bold">{{ code.code }}</span> - {{ code.name }}

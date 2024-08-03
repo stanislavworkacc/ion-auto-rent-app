@@ -84,19 +84,19 @@
           <div class="flex items-center gap-1"
                (click)="openCodes($event)"
           >
-            <span class="font-bold">+380</span>
+            <span class="font-bold">{{ countryPhone() }}</span>
             <ion-icon name="caret-down-outline"></ion-icon>
           </div>
-          @if (phone.valid) {
+          @if (phone.value) {
             <ion-icon name="checkmark-circle-outline" class="checkmark-icon"></ion-icon>
           }
         </ion-label>
 
         <ion-input
-          type="text"
+          type="number"
           class="aligned-input"
           phoneFormatter
-          placeholder="(XX)-XXX-XX-XX"
+          placeholder="Ваш мобільний"
           [formControl]="phone"
           (ionFocus)="onFocus('phone')"
           (ionBlur)="onBlur('phone')"

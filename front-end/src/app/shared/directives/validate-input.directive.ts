@@ -30,7 +30,6 @@ export class ValidateInputDirective implements OnInit, OnDestroy, AfterViewInit 
     email: 'Введіть дійсну електронну адресу.',
     min: 'Значення повинно бути не менше ${min}.',
     max: 'Значення повинно бути не більше ${max}.',
-    phoneLength: 'Стандартизована довжина телефону 9 символів.',
     passwordMismatch: 'Паролі не співпадають.'
   };
 

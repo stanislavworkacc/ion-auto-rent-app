@@ -34,7 +34,6 @@ import {handleError} from "../../../shared/utils/errorHandler";
 import {SegmentType} from "../auth-form-wrapper/auth-enums";
 import {RippleBtnComponent} from "../../../shared/components/buttons/ripple-btn/ripple-btn.component";
 import {codes} from "../../../shared/utils/phone-codes";
-import {AlertInput} from "@ionic/angular";
 import {PhoneCodesComponent} from "../../../shared/components/filters/modals/phone-codes/phone-codes.component";
 
 @Component({
@@ -79,6 +78,7 @@ export class SignUpFormComponent implements OnInit {
   @ViewChild(ValidateInputDirective) appValidateInput: ValidateInputDirective;
 
   public loginByPhone: WritableSignal<boolean> = signal(false);
+  public countryPhone: WritableSignal<string> = signal('+380');
   public privacyPolicyAgreement: WritableSignal<boolean> = signal(false);
   public form!: FormGroup;
   public name!: FormControl;
@@ -114,7 +114,7 @@ export class SignUpFormComponent implements OnInit {
   }
 
   async openCodes(ev: Event): Promise<void> {
-    const popover = await this.popoverCtrl.create({
+    const popover: HTMLIonPopoverElement = await this.popoverCtrl.create({
       component: PhoneCodesComponent,
       cssClass: 'phones-popover',
       event: ev,
@@ -126,7 +126,7 @@ export class SignUpFormComponent implements OnInit {
 
     const { data } = await popover.onDidDismiss();
     if (data) {
-      console.log('Selected code:', data);
+      this.countryPhone.set(data.code)
     }
   }
 
@@ -167,7 +167,7 @@ export class SignUpFormComponent implements OnInit {
     if (formValue.email) {
       loginData.email = formValue.email;
     } else if (formValue.phone) {
-      loginData.phone = '+380' + formValue.phone;
+      loginData.phone = this.countryPhone() + formValue.phone;
     }
 
     return loginData;
@@ -261,7 +261,7 @@ export class SignUpFormComponent implements OnInit {
   initForm(): void {
     this.form = this.fb.group({
       name: ['', Validators.required],
-      phone: ['', [Validators.required, Validators.minLength(14)]],
+      phone: [''],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', [Validators.required]]
