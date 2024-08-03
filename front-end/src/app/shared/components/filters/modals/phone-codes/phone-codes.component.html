@@ -1,6 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+   <div class="pt-2 flex items-center">
+     <ion-searchbar placeholder="Пошук"
+                    (ionInput)="filterCodes($event)">
+     </ion-searchbar>
 
+     @if (selectedCode()) {
+       <ion-label class="text-blue-600 pr-1" (click)="submitSelection()">Обрати</ion-label>
+     }
+   </div>
+  </ion-toolbar>
+</ion-header>
 <ion-content>
-  <ion-searchbar placeholder="Пошук"  (ionInput)="filterCodes($event)"></ion-searchbar>
   <ion-list>
     <ion-radio-group>
       @for (code of filteredCodes; track code.code) {

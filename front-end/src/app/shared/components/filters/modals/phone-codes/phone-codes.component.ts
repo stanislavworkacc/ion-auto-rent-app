@@ -1,7 +1,25 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  Input,
+  OnInit, signal,
+  ViewEncapsulation,
+  WritableSignal
+} from '@angular/core';
 import {IonicModule} from "@ionic/angular";
 import {NgForOf} from "@angular/common";
-import {IonContent, IonItem, IonLabel, IonList, IonRadio, IonRadioGroup, IonSearchbar} from "@ionic/angular/standalone";
+import {
+  IonButton,
+  IonContent,
+  IonHeader,
+  IonItem,
+  IonLabel,
+  IonList,
+  IonRadio,
+  IonRadioGroup,
+  IonSearchbar, IonTitle, IonToolbar, PopoverController
+} from "@ionic/angular/standalone";
 
 @Component({
   selector: 'app-phone-codes',
@@ -16,18 +34,25 @@ import {IonContent, IonItem, IonLabel, IonList, IonRadio, IonRadioGroup, IonSear
     IonItem,
     IonLabel,
     IonRadio,
-    IonContent
+    IonContent,
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonButton
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
 export class PhoneCodesComponent implements OnInit {
 
-  @Input() codes: { code: string, name: string }[] = [];
+  private popoverCtrl: PopoverController = inject(PopoverController);
 
+  @Input() codes: { code: string, name: string }[] = [];
   filteredCodes: { code: string, name: string }[] = [];
 
-  filterCodes(event: any) {
+  selectedCode: WritableSignal<{ code: string, name: string }> = signal(null);
+
+  filterCodes(event: any): void {
     const query = event.target.value.toLowerCase();
     if (query.trim() === '') {
       this.filteredCodes = this.codes;
@@ -38,12 +63,15 @@ export class PhoneCodesComponent implements OnInit {
     }
   }
 
-  selectCode(code: { code: string, name: string }) {
-    const popover = document.querySelector('ion-popover');
-    popover.dismiss(code);
+  selectCode(code: { code: string, name: string }): void {
+    this.selectedCode.set(code);
   }
 
-  ngOnInit() {
+  async submitSelection(): Promise<void> {
+    await this.popoverCtrl.dismiss(this.selectedCode())
+  }
+
+  ngOnInit(): void {
     this.filteredCodes = this.codes;
   }
 }
