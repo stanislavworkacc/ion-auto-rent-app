@@ -1,0 +1,17 @@
+
+<ion-content>
+  <ion-searchbar placeholder="Пошук"  (ionInput)="filterCodes($event)"></ion-searchbar>
+  <ion-list>
+    <ion-radio-group>
+      @for (code of filteredCodes; track code.code) {
+        <ion-item>
+          <ion-label>{{ code.code }} - {{ code.name }}</ion-label>
+          <ion-radio slot="start" value="{{ code.code }}" (click)="selectCode(code)"></ion-radio>
+        </ion-item>
+      }
+
+    </ion-radio-group>
+  </ion-list>
+
+</ion-content>
+
