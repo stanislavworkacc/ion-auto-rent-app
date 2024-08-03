@@ -11,18 +11,24 @@
    </div>
   </ion-toolbar>
 </ion-header>
+
 <ion-content>
   <ion-list>
     <ion-radio-group>
-      @for (code of filteredCodes; track code.code) {
-        <ion-item>
-          <ion-label>{{ code.code }} - {{ code.name }}</ion-label>
-          <ion-radio slot="start" value="{{ code.code }}" (click)="selectCode(code)"></ion-radio>
+      @for(code of displayedCodes; track code.code) {
+        <ion-item  class="custom-ion-item">
+          <ion-label>
+            <span class="font-bold">{{ code.code }}</span> - {{ code.name }}
+          </ion-label>
+          <ion-radio slot="start" [value]="code.code" (click)="selectCode(code)"></ion-radio>
         </ion-item>
       }
-
     </ion-radio-group>
+    @if (displayedCodes.length) {
+      <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Завантаження..."></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+    }
   </ion-list>
-
 </ion-content>
 
