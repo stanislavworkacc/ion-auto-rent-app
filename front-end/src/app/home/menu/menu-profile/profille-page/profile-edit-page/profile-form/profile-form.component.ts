@@ -7,7 +7,7 @@ import {
   IonIcon,
   IonInput,
   IonLabel,
-  IonSpinner
+  IonSpinner, PopoverController
 } from "@ionic/angular/standalone";
 import {PhoneNumberFormatterDirective} from "../../../../../../shared/directives/phone-formatter.directive";
 import {ValidateInputDirective} from "../../../../../../shared/directives/validate-input.directive";
@@ -23,6 +23,10 @@ import {RippleBtnComponent} from "../../../../../../shared/components/buttons/ri
 import {ToasterService} from "../../../../../../shared/components/app-toast/toaster.service";
 import {tap} from "rxjs";
 import {filter} from "rxjs/operators";
+import {
+  PhoneCodesComponent
+} from "../../../../../../shared/components/filters/modals/phone-codes/phone-codes.component";
+import {codes} from "../../../../../../shared/utils/phone-codes";
 
 @Component({
   selector: 'profile-form',
@@ -58,11 +62,14 @@ export class ProfileFormComponent  implements OnInit {
   private profileEditService: ProfileEditService = inject(ProfileEditService);
   private authService: AuthService = inject(AuthService);
   private toasterService: ToasterService = inject(ToasterService);
+  private popoverCtrl: PopoverController = inject(PopoverController);
+
 
   public passwordBlurred: WritableSignal<boolean> = signal(true);
   private clearPasswords: WritableSignal<boolean> = signal(false);
   private clearSubmitBtn: WritableSignal<boolean> = signal(false)
   private userModel: WritableSignal<{ _id: string, email: string, phone: string, userName: string, userLastName: string, ssoUser: boolean }> = signal(null);
+  public countryPhone: WritableSignal<string> = signal('+380');
 
   public form!: FormGroup;
   public userName!: FormControl;
@@ -103,13 +110,14 @@ export class ProfileFormComponent  implements OnInit {
       this.form.get('userLastName').dirty ||
       this.form.get('userSurname').dirty ||
       this.form.get('phone').dirty ||
-      this.form.get('email').dirty) && !this.clearSubmitBtn()
+      this.form.get('email').dirty)
   }
 
   get userPasswordDirty() {
     return (this.form.get('password').dirty ||
       this.form.get('confirmPassword').dirty) && !this.clearPasswords()
   }
+
   onFocus(field: string): void {
     this.isFocused[field] = true;
   }
@@ -140,7 +148,7 @@ export class ProfileFormComponent  implements OnInit {
       this.phone.valid &&
       this.email.valid
     ) {
-      this.phoneHandler();
+      this.form.get('phone').setValue(this.countryPhone() + this.phone.value)
       this.profile.editUser(this.form.getRawValue(), this.userModel()._id).pipe(
         filter(({ success }) => success),
         tap((res): void => {
@@ -180,16 +188,6 @@ export class ProfileFormComponent  implements OnInit {
     this.clearPasswords.set(true);
   }
 
-  phoneHandler(): void {
-    let phone = this.phone.value;
-
-    if (phone?.length > 14) {
-      phone = phone.substring(0, 14);
-    }
-
-    this.form.patchValue({ phone });
-  }
-
   async openDoc(docType: string): Promise<void> {
     switch (docType) {
       case DOC_TYPE.PASSPORT :
@@ -205,6 +203,25 @@ export class ProfileFormComponent  implements OnInit {
 
   async handlePassportData(modal: HTMLIonModalElement): Promise<void> {
     await modal.present()
+  }
+
+  async openCodes(ev: Event): Promise<void> {
+    const popover: HTMLIonPopoverElement = await this.popoverCtrl.create({
+      component: PhoneCodesComponent,
+      cssClass: 'phones-popover',
+      event: ev,
+      translucent: true,
+      componentProps: { codes },
+    });
+
+    await popover.present();
+
+    const { data } = await popover.onDidDismiss();
+    if (data) {
+      this.countryPhone.set(data.code);
+      this.form.get('phone').markAsDirty();
+      this.form.get('phone').markAsTouched();
+    }
   }
 
   assignFormControls(): void {

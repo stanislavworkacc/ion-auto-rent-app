@@ -112,8 +112,12 @@
     <div class="form-input" #mobileRef [appValidateInput]="mobileRef">
       <div class="input-row">
         <ion-label position="static" [class.focused]="isFocused['phone']">
-          <div class="phone-container">
-            <span class="font-bold">+380</span>
+          <div class="phone-container flex items-center gap-1"
+               (click)="openCodes($event)"
+          >
+            <span class="font-bold">{{ countryPhone() }}</span>
+            <ion-icon name="caret-down-outline"></ion-icon>
+
           </div>
           @if (phone.value) {
             <ion-icon name="checkmark-circle-outline" class="checkmark-icon"></ion-icon>
@@ -124,7 +128,7 @@
           type="text"
           class="aligned-input"
           phoneFormatter
-          placeholder="(XX)-XXX-XX-XX"
+          placeholder="Ваш мобільний"
           [formControl]="phone"
           (ionFocus)="onFocus('phone')"
           (ionBlur)="onBlur('phone')"
