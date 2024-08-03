@@ -1,15 +1,15 @@
 import {ChangeDetectionStrategy, Component, inject, input, InputSignal, OnInit} from '@angular/core';
 import {
-  IonAccordion,
-  IonAccordionGroup, IonAlert,
-  IonBadge,
-  IonButton, IonButtons,
-  IonCard,
-  IonCardContent,
-  IonCardHeader,
-  IonCardSubtitle,
-  IonCardTitle, IonChip, IonContent, IonHeader, IonIcon, IonItem, IonLabel,
-  IonList, IonProgressBar, IonThumbnail, IonToolbar, ModalController
+    IonAccordion,
+    IonAccordionGroup, IonAlert,
+    IonBadge,
+    IonButton, IonButtons,
+    IonCard,
+    IonCardContent,
+    IonCardHeader,
+    IonCardSubtitle,
+    IonCardTitle, IonChip, IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonItem, IonLabel,
+    IonList, IonProgressBar, IonThumbnail, IonToolbar, ModalController
 } from "@ionic/angular/standalone";
 import {NgClass, NgForOf} from "@angular/common";
 import {HeaderParksComponent} from "./header-parks/header-parks.component";
@@ -25,33 +25,35 @@ import {MenuPage, MenuSection} from "../../menu-enums";
   styleUrls: ['./all-parks.component.scss'],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    IonCard,
-    IonCardContent,
-    IonCardHeader,
-    IonCardTitle,
-    IonCardSubtitle,
-    IonList,
-    IonItem,
-    IonThumbnail,
-    IonLabel,
-    IonContent,
-    NgForOf,
-    IonButton,
-    IonIcon,
-    IonProgressBar,
-    IonChip,
-    IonBadge,
-    NgClass,
-    IonAccordionGroup,
-    IonAccordion,
-    HeaderParksComponent,
-    IonAlert,
-    IonButtons,
-    BackButtonComponent,
-    IonHeader,
-    IonToolbar
-  ]
+    imports: [
+        IonCard,
+        IonCardContent,
+        IonCardHeader,
+        IonCardTitle,
+        IonCardSubtitle,
+        IonList,
+        IonItem,
+        IonThumbnail,
+        IonLabel,
+        IonContent,
+        NgForOf,
+        IonButton,
+        IonIcon,
+        IonProgressBar,
+        IonChip,
+        IonBadge,
+        NgClass,
+        IonAccordionGroup,
+        IonAccordion,
+        HeaderParksComponent,
+        IonAlert,
+        IonButtons,
+        BackButtonComponent,
+        IonHeader,
+        IonToolbar,
+        IonFab,
+        IonFabButton
+    ]
 })
 export class AllParksComponent  implements OnInit {
 

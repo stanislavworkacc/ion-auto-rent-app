@@ -48,9 +48,9 @@ ion-content {
   }
 }
 
-.filter-white {
-  filter: invert(5);
+ion-fab-button {
+  --background: #f0f4f7;
+  --background-activated: transparent;
 }
-
 
 
