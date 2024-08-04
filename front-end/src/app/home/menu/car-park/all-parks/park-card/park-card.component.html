@@ -32,17 +32,25 @@
 
     <hr>
 
-    <ion-buttons class="absolute bottom-[-13px] right-[2%] flex items-center gap-0">
-      <ion-button fill="clear" class="text-xs">
-        <div class="flex flex-col items-center">
-          <img src="assets/icon/svg/edit-svg.svg" class="h-[20px]">
-        </div>
-      </ion-button>
-      <ion-button fill="clear" class="text-xs">
-        <div class="flex flex-col items-center">
-          <img src="assets/icon/svg/delete.svg" class="h-[20px]">
-        </div>
-      </ion-button>
-    </ion-buttons>
+    @if (editMode) {
+      <ion-buttons class="absolute bottom-[-13px] right-[2%] flex items-center gap-0">
+        <ion-button fill="clear" class="text-xs">
+          <div class="flex flex-col items-center">
+            <img src="assets/icon/svg/edit-svg.svg" class="h-[20px]">
+          </div>
+        </ion-button>
+        <ion-button fill="clear" class="text-xs">
+          <div class="flex flex-col items-center">
+            <img src="assets/icon/svg/delete.svg" class="h-[20px]">
+          </div>
+        </ion-button>
+      </ion-buttons>
+    } @else {
+      <div class="absolute bottom-[-13px] right-[4%] flex items-center gap-2">
+        <ion-icon name="call-outline" class="text-[24px]"></ion-icon>
+        <ion-icon name="person-circle" class="text-[28px] text-[#ff9e23]"></ion-icon>
+      </div>
+    }
+
   </ion-card-content>
 </ion-card>

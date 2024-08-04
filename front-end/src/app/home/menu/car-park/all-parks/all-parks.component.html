@@ -11,7 +11,7 @@
 
 <app-header-parks [create]="createPark.bind(this)"></app-header-parks>
 
-<div class="h-full overflow-y-auto">
+<div class="h-full overflow-y-auto mx-[16px]">
   @for(parking of parkings; track parking.label) {
     <park-card
       [selectParking]="selectParking.bind(this)"
@@ -20,4 +20,4 @@
   }
 </div>
 
-<main-action-btn [title]="'Додати'" [action]="createPark.bind(this)"></main-action-btn>
+<main-action-btn [title]="'Додати'" [action]="createPark.bind(this)" [styles]="'mx-[14px]'"></main-action-btn>

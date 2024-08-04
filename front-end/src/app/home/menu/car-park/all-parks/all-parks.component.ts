@@ -37,6 +37,7 @@ import {MenuPage, MenuSection} from "../../menu-enums";
 import {RentCarCardComponent} from "../../../../shared/components/create-page/rent-car-card/rent-car-card.component";
 import {MainActionComponent} from "../../../../shared/components/buttons/main-action/main-action.component";
 import {ParkCardComponent} from "./park-card/park-card.component";
+import {style} from "@angular/animations";
 
 @Component({
   selector: 'app-all-parks',
@@ -95,25 +96,29 @@ export class AllParksComponent  implements OnInit {
       location: 'Location 1',
       contact: '+1234567890',
       schedule: '24/7',
-      freeCars: 10
+      freeCars: 10,
+      carsInRent: 3,
     },
     { label: 'Car Parking 2',
       location: 'Location 2',
       contact: '+1234567890',
       schedule: '24/7',
-      freeCars: 3
+      freeCars: 3,
+      carsInRent: 3,
     },
     { label: 'Car Parking 3',
       location: 'Location 3',
       contact: '+1234567890',
       schedule: '24/7',
-      freeCars: 2
+      freeCars: 2,
+      carsInRent: 3,
     },
     { label: 'Car Parking 4',
       location: 'Location 4',
       contact: '+1234567890',
       schedule: '24/7',
-      freeCars: 5
+      freeCars: 5,
+      carsInRent: 3,
     },
   ];
 
@@ -141,4 +146,5 @@ export class AllParksComponent  implements OnInit {
   }
   ngOnInit() {}
 
+  protected readonly style = style;
 }

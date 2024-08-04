@@ -31,7 +31,7 @@ import {
   IonSearchbar,
   IonSelect,
   IonSelectOption,
-  IonSpinner, IonText,
+  IonSpinner, IonText, IonTitle,
   IonToolbar,
   ModalController
 } from "@ionic/angular/standalone";
@@ -49,6 +49,8 @@ import {handleError} from "../../../../../shared/utils/errorHandler";
 import {GoogleSsoService} from "../../../../../auth/authorizator/google-sso.service";
 import {GooglePlacesSerivce} from "../../../../../shared/services/google-places.serivce";
 import {GooglePlacesComponent} from "../../../../../shared/components/google-places/google-places.component";
+import {MainActionComponent} from "../../../../../shared/components/buttons/main-action/main-action.component";
+import {ParkCardComponent} from "../park-card/park-card.component";
 
 @Component({
   selector: 'app-create-park-modal',
@@ -86,7 +88,10 @@ import {GooglePlacesComponent} from "../../../../../shared/components/google-pla
     IonSearchbar,
     IonList,
     IonText,
-    GooglePlacesComponent
+    GooglePlacesComponent,
+    IonTitle,
+    MainActionComponent,
+    ParkCardComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -113,9 +118,17 @@ export class CreateParkModalComponent  implements OnInit, AfterViewInit {
   uploadProgress: WritableSignal<number>  = signal(0);
 
   suggestions: WritableSignal<string[]> = signal([]);
+  parking: WritableSignal<any> = signal(
+    { label: 'Назва автопарку',
+      location: 'Адреса автопарку',
+      contact: '+1234567890',
+      schedule: '24/7',
+      freeCars: 0,
+      carsInRent: 0,
+    },
+  );
 
   @ViewChild('addressInput', { static: false }) addressInput!: IonInput;
-
 
   onFocus(field: string): void {
     this.isFocused[field] = true;
@@ -182,8 +195,34 @@ export class CreateParkModalComponent  implements OnInit, AfterViewInit {
 
     this.assignFormControls();
   }
+
+  formSubscription() {
+    this.form.valueChanges.pipe(
+      takeUntilDestroyed(this.destroyRef),
+      tap((form) => {
+        const updates: Partial<{ label: string; location: string }> = {};
+
+        if (form.name) {
+          updates.label = form.name;
+        }
+
+        if (form.address) {
+          updates.location = form.address;
+        }
+
+        if (Object.keys(updates).length > 0) {
+          this.parking.update((parking) => ({
+            ...parking,
+            ...updates,
+          }));
+        }
+
+      })
+    ).subscribe()
+  }
   ngOnInit(): void {
     this.initForm();
+    this.formSubscription();
   }
 
   initGooglePlaces(): void {

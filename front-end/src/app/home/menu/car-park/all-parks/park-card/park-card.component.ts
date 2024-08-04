@@ -28,7 +28,8 @@ import {
 export class ParkCardComponent  implements OnInit {
 
   @Input() selectParking: () => void;
-  @Input() parking;
+  @Input() editMode: boolean = true;
+  @Input() parking: { label: string, location: string, contact: string, schedule: string, freeCars: number, carsInRent: number };
   constructor() { }
 
   ngOnInit() {}
