@@ -29,6 +29,7 @@ export class ParkCardComponent  implements OnInit {
 
   @Input() selectParking: () => void;
   @Input() editMode: boolean = true;
+  @Input() uploadedLogoUrl: string = '';
   @Input() parking: { label: string, location: string, contact: string, schedule: string, freeCars: number, carsInRent: number };
   constructor() { }
 

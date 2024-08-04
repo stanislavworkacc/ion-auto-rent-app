@@ -25,8 +25,12 @@
         </div>
       </div>
 
-      <div class="absolute top-[10%] right-[15%]">
-        <img src="assets/icon/default-img.png" class="h-[50px] w-[50px]">
+      <div class="absolute top-[5%] right-[15%]">
+        @if (!uploadedLogoUrl) {
+          <img src="assets/icon/default-img.png" class="h-[50px] w-[50px]">
+        } @else {
+          <img [src]="uploadedLogoUrl" class="h-[60px] w-[60px]">
+        }
       </div>
     </div>
 
