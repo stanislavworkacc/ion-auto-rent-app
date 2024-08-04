@@ -33,22 +33,23 @@
     <hr>
 
     @if (editMode) {
-      <ion-buttons class="absolute bottom-[-13px] right-[2%] flex items-center gap-0">
+      <ion-buttons class="absolute bottom-[-23px] right-[3%] flex items-center gap-0">
         <ion-button fill="clear" class="text-xs">
-          <div class="flex flex-col items-center">
+          <div class="flex flex-col items-center border rounded p-1">
             <img src="assets/icon/svg/edit-svg.svg" class="h-[20px]">
           </div>
         </ion-button>
         <ion-button fill="clear" class="text-xs">
-          <div class="flex flex-col items-center">
+          <div class="flex flex-col items-center border rounded p-1">
             <img src="assets/icon/svg/delete.svg" class="h-[20px]">
           </div>
         </ion-button>
       </ion-buttons>
     } @else {
-      <div class="absolute bottom-[-13px] right-[4%] flex items-center gap-2">
-        <ion-icon name="call-outline" class="text-[24px]"></ion-icon>
-        <ion-icon name="person-circle" class="text-[28px] text-[#ff9e23]"></ion-icon>
+      <div class="absolute bottom-[-23px] right-[5%] flex items-center gap-2">
+        <ion-icon name="time" class="text-[24px] border rounded p-1 text-[#21417f]"></ion-icon>
+        <ion-icon name="call-outline" class="text-[24px] border rounded p-1"></ion-icon>
+        <ion-icon name="person-circle" class="text-[28px] text-[#21417f] border rounded p-1"></ion-icon>
       </div>
     }
 
