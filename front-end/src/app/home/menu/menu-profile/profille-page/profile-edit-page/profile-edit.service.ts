@@ -107,7 +107,6 @@ export class ProfileEditService implements OnInit {
       component: PassportModalComponent,
       cssClass: 'auth-modal',
       initialBreakpoint: 1,
-      breakpoints: [0]
     })
 
      return modal;

@@ -1,4 +1,4 @@
-<div class="w-full h-[200px] border-[1px] border-black rounded-lg p-2 font-sans relative mt-2 bg-[#f2f9ff]">
+<div class="w-full h-[210px] border-[1px] border-gray-400 rounded-lg p-2 font-sans relative mt-2 bg-[#f2f9ff]">
   <div class="flex justify-between items-center">
     <div class="text-left">
       <span class="block text-xs font-bold">УКРАЇНА</span>
@@ -13,57 +13,31 @@
     </div>
   </div>
   <div class="flex mt-2">
-    <div class="w-[100px] h-[130px] border border-black mr-2">
+    <div class="w-[100px] h-[130px] border mr-2">
       <ion-icon name="person" class="text-[100px] flex justify-center items-center h-full"></ion-icon>
     </div>
     <div class="flex-grow text-[10px]">
-      <div class="flex justify-between">
-        <span class="font-bold">Прізвище</span>
-        <span>ТКАЧЕНКО/TKACHENKO</span>
-      </div>
-      <div class="flex justify-between">
-        <span class="font-bold">Ім'я</span>
-        <span>МАР'ЯНА/MARIANA</span>
-      </div>
-      <div class="flex justify-between">
-        <span class="font-bold">По батькові</span>
-        <span>ІВАНІВНА/IVANIVNA</span>
-      </div>
-      <div class="flex justify-between">
-        <span class="font-bold">Стать</span>
-        <span>Ж/F</span>
-      </div>
-      <div class="flex justify-between">
-        <span class="font-bold">Громадянство</span>
-        <span>Україна/UKR</span>
-      </div>
-      <div class="flex justify-between">
-        <span class="font-bold">Дата народження</span>
-        <span>24 08 1991</span>
-      </div>
-      <div class="flex justify-between">
-        <span class="font-bold">Дійсний до</span>
-        <span>13 12 2025</span>
-      </div>
-      <div class="flex justify-between">
-        <span class="font-bold">Запис №.</span>
-        <span>19910824-00026</span>
-      </div>
-      <div class="flex justify-between">
-        <span class="font-bold">Document No.</span>
-        <span>000000000</span>
-      </div>
+      @for (item of passportData(); track item.key) {
+        <div  class="flex justify-between">
+          <span class="font-bold">{{ item.key }}</span>
+          <span>{{ item.value }}</span>
+        </div>
+      }
     </div>
   </div>
+
+  <img [src]="signatureImage()" class="h-[35px] absolute right-[20%] bottom-0">
 </div>
 
-<ion-fab slot="fixed" vertical="bottom" horizontal="end" [edge]="false">
-  <ion-fab-button>
-    <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
-  </ion-fab-button>
-  <ion-fab-list side="top">
-    <ion-fab-button (click)="editPassport()">
-      <img src="assets/icon/svg/edit-svg.svg" class="h-[20px]">
-    </ion-fab-button>
-  </ion-fab-list>
-</ion-fab>
+<edit-urk-id-values [signatureImage]="signatureImage"></edit-urk-id-values>
+
+<!--<ion-fab slot="fixed" vertical="bottom" horizontal="end" [edge]="false">-->
+<!--  <ion-fab-button>-->
+<!--    <ion-icon name="ellipsis-horizontal-outline"></ion-icon>-->
+<!--  </ion-fab-button>-->
+<!--  <ion-fab-list side="top">-->
+<!--    <ion-fab-button (click)="editPassport()">-->
+<!--      <img src="assets/icon/svg/edit-svg.svg" class="h-[20px]">-->
+<!--    </ion-fab-button>-->
+<!--  </ion-fab-list>-->
+<!--</ion-fab>-->
