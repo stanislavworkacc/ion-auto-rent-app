@@ -1,5 +1,5 @@
 <ion-header class="shadow-none">
-  <ion-toolbar class="px-2 !pt-2">
+  <ion-toolbar class="px-2 !py-2">
     <app-back-button
       [styles]="'!text-[20px] !text-black'"
       [title]="'Меню'"
@@ -8,8 +8,8 @@
     ></app-back-button>
   </ion-toolbar>
 </ion-header>
-<!--  <app-header-parks [create]="createPark.bind(this)"></app-header-parks>-->
 
+<app-header-parks [create]="createPark.bind(this)"></app-header-parks>
 
 <div class="h-full overflow-y-auto">
   @for(parking of parkings; track parking.label) {
@@ -64,3 +64,12 @@
   }
 </div>
 
+<ion-button (click)="createPark()" class="rounded flex items-center mx-[14px] bg-[#182130] mb-1 px-2 py-2 border"
+>
+  <ion-label class="text-xs uppercase text-white mr-1">Додати</ion-label>
+  <ion-icon
+    name="add-outline"
+    class="text-white text-[18px]"
+  >
+  </ion-icon>
+</ion-button>

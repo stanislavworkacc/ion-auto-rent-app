@@ -1,15 +1,31 @@
 import {ChangeDetectionStrategy, Component, inject, input, InputSignal, OnInit} from '@angular/core';
 import {
   IonAccordion,
-  IonAccordionGroup, IonAlert,
+  IonAccordionGroup,
+  IonAlert,
   IonBadge,
-  IonButton, IonButtons,
+  IonButton,
+  IonButtons,
   IonCard,
   IonCardContent,
   IonCardHeader,
   IonCardSubtitle,
-  IonCardTitle, IonChip, IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonItem, IonItemDivider, IonLabel,
-  IonList, IonProgressBar, IonThumbnail, IonToolbar, ModalController
+  IonCardTitle,
+  IonChip,
+  IonContent,
+  IonFab,
+  IonFabButton,
+  IonFabList,
+  IonHeader,
+  IonIcon,
+  IonItem,
+  IonItemDivider,
+  IonLabel,
+  IonList,
+  IonProgressBar,
+  IonThumbnail,
+  IonToolbar,
+  ModalController
 } from "@ionic/angular/standalone";
 import {NgClass, NgForOf} from "@angular/common";
 import {HeaderParksComponent} from "./header-parks/header-parks.component";
@@ -55,7 +71,8 @@ import {RentCarCardComponent} from "../../../../shared/components/create-page/re
     IonFab,
     IonFabButton,
     RentCarCardComponent,
-    IonItemDivider
+    IonItemDivider,
+    IonFabList
   ]
 })
 export class AllParksComponent  implements OnInit {
