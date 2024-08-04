@@ -115,14 +115,9 @@
       <schedule-range [parkScheduler]="parkScheduler"></schedule-range>
     </div>
 
-    <div class="flex items-center">
+    <div class="flex items-center gap-1">
       <div class="form-input relative min-w-[86%]" [class.!min-w-[100%]]="!uploadedLogoUrl">
         <div class="input-row">
-          <ion-button id="popover-trigger" class="absolute left-[35px] bottom-[-3px] z-50">
-            <ion-icon name="images-outline" class="text-black"></ion-icon>
-            <ion-icon name="help-circle-outline" class="text-[17px] pb-[25px] text-black"></ion-icon>
-          </ion-button>
-
           <input #fileInput type="file" accept="image/*" (change)="handleFileUpload($event)"
                  class="opacity-0 absolute left-0 right-0 top-0 bottom-0 w-full"
           >
@@ -146,23 +141,6 @@
       }
     </div>
 
-    <main-action-btn [title]="'Створити'" [styles]="'py-3'"></main-action-btn>
+    <main-action-btn [title]="'Створити автопарк'" [styles]="'py-3'"></main-action-btn>
   </form>
 </ion-content>
-
-<ion-popover trigger="popover-trigger">
-  <ng-template>
-    <div class="flex flex-col text-xs p-4 rounded-md text-white">
-      <h3 class=" font-semibold mb-2 text-black">Підтримуючі формати:</h3>
-      <div class="flex flex-col space-y-1">
-        <ng-container *ngFor="let format of formats">
-          <span class="flex items-center text-shadow">
-            <ion-icon name="checkmark-outline" class="mr-1 text-green-400"></ion-icon>
-            <ion-text class="text-black">{{ format }}</ion-text>
-          </span>
-        </ng-container>
-      </div>
-    </div>
-  </ng-template>
-</ion-popover>
-
