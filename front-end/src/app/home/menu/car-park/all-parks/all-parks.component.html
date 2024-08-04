@@ -10,30 +10,12 @@
 </ion-header>
 <!--  <app-header-parks [create]="createPark.bind(this)"></app-header-parks>-->
 
-<!--  <ion-list class="mx-2 mb-2">-->
-<!--  @for(parking of userCarParkings; track parking.label) {-->
-<!--    <ion-item (click)="selectParking()"  class="!shadow-none">-->
-<!--        <ion-thumbnail slot="start" class="flex justify-center items-center">-->
-<!--          <img src="/assets/icon/parkings-logo-ico.png" class="h-[40px] w-[40px]">-->
-<!--        </ion-thumbnail>-->
-
-<!--      <ion-label>-->
-<!--        <h2>{{ parking.label }}</h2>-->
-<!--        <p>{{ parking.location }}</p>-->
-<!--      </ion-label>-->
-<!--      <ion-button fill="clear" slot="end" >-->
-<!--        <img src="/assets/icon/edit-orange.png" class="h-[20px]">-->
-<!--      </ion-button>-->
-<!--    </ion-item>-->
-<!--  }-->
-<!--</ion-list>-->
 
 <div class="h-full overflow-y-auto">
   @for(parking of parkings; track parking.label) {
     <ion-card (click)="selectParking()">
       <ion-card-header class="p-[10px] !flex" >
         <div class="flex items-center gap-2">
-          <img src="assets/icon/default-img.png" class="h-[40px] w-[40px]">
           <div class="flex flex-col">
             <ion-card-subtitle>{{ parking.location }}</ion-card-subtitle>
             <ion-card-title class="text-sm">{{ parking.label }}</ion-card-title>
@@ -42,11 +24,11 @@
       </ion-card-header>
 
       <ion-card-content>
-        <div class="flex">
+        <div class="flex items-center pb-1">
           <div class="flex flex-col">
             <div class="flex items-center mt-2">
-              <ion-icon name="time-outline" class="text-gray-500 mr-1"></ion-icon>
-              <span class="text-sm text-gray-700">Графік роботи: {{ parking.schedule }}</span>
+              <ion-icon name="checkbox-outline" class="text-gray-500 mr-1"></ion-icon>
+              <span class="text-sm text-gray-700">Успішних угод: {{ parking.freeCars }}</span>
             </div>
             <div class="flex items-center mt-2">
               <ion-icon name="car-outline" class="text-gray-500 mr-1"></ion-icon>
@@ -56,14 +38,16 @@
               <ion-icon name="car-outline" class="text-gray-500 mr-1"></ion-icon>
               <span class="text-sm text-gray-700">В оренді: {{ parking.freeCars }}</span>
             </div>
-            <div class="flex items-center mt-2">
-              <ion-icon name="checkbox-outline" class="text-gray-500 mr-1"></ion-icon>
-              <span class="text-sm text-gray-700">Успішних угод: {{ parking.freeCars }}</span>
-            </div>
+          </div>
+
+          <div class="absolute top-[10%] right-[15%]">
+            <img src="assets/icon/default-img.png" class="h-[50px] w-[50px]">
           </div>
         </div>
 
-        <ion-buttons class="absolute bottom-[15px] right-0 flex items-center gap-0 justify-end  !mb-1">
+        <hr>
+
+        <ion-buttons class="absolute bottom-[-13px] right-[2%] flex items-center gap-0">
           <ion-button fill="clear" class="text-xs">
             <div class="flex flex-col items-center">
               <img src="assets/icon/svg/edit-svg.svg" class="h-[20px]">
