@@ -1,13 +1,13 @@
 import {ChangeDetectionStrategy, Component, Input, OnInit, signal, WritableSignal} from '@angular/core';
 import {
   IonButton,
-  IonButtons,
+  IonButtons, IonCheckbox,
   IonContent,
   IonDatetime,
   IonDatetimeButton, IonFooter,
   IonHeader,
   IonLabel,
-  IonModal, IonText,
+  IonModal, IonRadio, IonText,
   IonTitle,
   IonToolbar
 } from "@ionic/angular/standalone";
@@ -29,7 +29,9 @@ import {
     IonFooter,
     IonButtons,
     IonButton,
-    IonText
+    IonText,
+    IonRadio,
+    IonCheckbox
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
