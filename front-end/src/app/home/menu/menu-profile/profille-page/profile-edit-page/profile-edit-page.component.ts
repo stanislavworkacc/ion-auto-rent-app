@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component, inject, OnInit, signal, WritableSign
 import {
   IonAvatar,
   IonButton,
-  IonContent,
+  IonContent, IonFab, IonFabButton, IonFabList,
   IonHeader, IonIcon,
   IonLabel,
   IonTitle,
@@ -29,6 +29,9 @@ import {EditPageHeaderComponent} from "./edit-page-header/edit-page-header.compo
     ProfileFormComponent,
     EditPageHeaderComponent,
     IonIcon,
+    IonFab,
+    IonFabButton,
+    IonFabList,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })

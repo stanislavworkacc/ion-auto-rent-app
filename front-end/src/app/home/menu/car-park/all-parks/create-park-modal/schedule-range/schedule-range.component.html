@@ -14,7 +14,13 @@
             </ion-text>
           </ion-toolbar>
         </ion-header>
-        <ion-datetime id="start" presentation="time" [value]="parkScheduler().open" [preferWheel]="true"></ion-datetime>
+
+        <ion-datetime class="min-w-full"
+                      id="start"
+                      presentation="time"
+                      [value]="parkScheduler().open"
+                      [preferWheel]="true">
+        </ion-datetime>
       </ng-template>
     </ion-modal>
   </div>
@@ -34,7 +40,12 @@
             </ion-text>
           </ion-toolbar>
         </ion-header>
-        <ion-datetime id="end" presentation="time" [value]="parkScheduler().close"  [preferWheel]="true"></ion-datetime>
+        <ion-datetime id="end"
+                      class="min-w-full"
+                      presentation="time"
+                      [value]="parkScheduler().close"
+                      [preferWheel]="true">
+        </ion-datetime>
       </ng-template>
     </ion-modal>
   </div>
