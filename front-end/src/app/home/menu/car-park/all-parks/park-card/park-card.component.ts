@@ -7,6 +7,7 @@ import {
   IonCardHeader,
   IonCardSubtitle, IonCardTitle, IonIcon
 } from "@ionic/angular/standalone";
+import {ScheduleRangeComponent} from "../create-park-modal/schedule-range/schedule-range.component";
 
 @Component({
   selector: 'park-card',
@@ -21,7 +22,8 @@ import {
     IonCardHeader,
     IonCardSubtitle,
     IonCardTitle,
-    IonIcon
+    IonIcon,
+    ScheduleRangeComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })

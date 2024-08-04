@@ -18,13 +18,13 @@ import {
   IonAvatar,
   IonButton,
   IonButtons,
-  IonContent,
+  IonContent, IonDatetime, IonDatetimeButton,
   IonHeader,
   IonIcon,
   IonInput,
   IonItem,
   IonLabel,
-  IonList,
+  IonList, IonModal,
   IonPopover,
   IonProgressBar,
   IonRange,
@@ -33,7 +33,7 @@ import {
   IonSelectOption,
   IonSpinner, IonText, IonTitle,
   IonToolbar,
-  ModalController
+  ModalController, PopoverController
 } from "@ionic/angular/standalone";
 import {SegmentsComponent} from "../../../../../shared/ui-kit/components/segments/segments.component";
 import {NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
@@ -41,7 +41,7 @@ import {ValidateInputDirective} from "../../../../../shared/directives/validate-
 import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {matchingPasswordsValidator} from "../../../../../shared/utils/validators/matchingPasswordValidator";
 import {of} from "rxjs/internal/observable/of";
-import {delay, tap} from "rxjs";
+import {delay, single, tap} from "rxjs";
 import {UploadBtnComponent} from "./upload-btn/upload-btn.component";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {catchError, filter, map} from "rxjs/operators";
@@ -51,6 +51,10 @@ import {GooglePlacesSerivce} from "../../../../../shared/services/google-places.
 import {GooglePlacesComponent} from "../../../../../shared/components/google-places/google-places.component";
 import {MainActionComponent} from "../../../../../shared/components/buttons/main-action/main-action.component";
 import {ParkCardComponent} from "../park-card/park-card.component";
+import {PhoneNumberFormatterDirective} from "../../../../../shared/directives/phone-formatter.directive";
+import {PhoneCodesComponent} from "../../../../../shared/components/filters/modals/phone-codes/phone-codes.component";
+import {codes} from "../../../../../shared/utils/phone-codes";
+import {ScheduleRangeComponent} from "./schedule-range/schedule-range.component";
 
 @Component({
   selector: 'app-create-park-modal',
@@ -91,7 +95,12 @@ import {ParkCardComponent} from "../park-card/park-card.component";
     GooglePlacesComponent,
     IonTitle,
     MainActionComponent,
-    ParkCardComponent
+    ParkCardComponent,
+    PhoneNumberFormatterDirective,
+    IonDatetime,
+    IonDatetimeButton,
+    IonModal,
+    ScheduleRangeComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -102,23 +111,29 @@ export class CreateParkModalComponent  implements OnInit, AfterViewInit {
   private googlePlacesService: GooglePlacesSerivce = inject(GooglePlacesSerivce);
   private destroyRef: DestroyRef = inject(DestroyRef);
   private renderer: Renderer2 = inject(Renderer2);
+  private popoverCtrl: PopoverController = inject(PopoverController);
 
   public form!: FormGroup;
   public name!: FormControl;
   public address!: FormControl;
+  public phone!: FormControl;
   public isFocused: { [key: string]: boolean } = {
     name: false,
     address: false,
+    phone: false,
+
   };
-  uploadedLogoUrl: string = '';
-  formats: string[] = ['JPEG', 'WEBP', 'PNG', 'SVG', 'JPG'];
+  public uploadedLogoUrl: string = '';
+  public formats: string[] = ['JPEG', 'WEBP', 'PNG', 'SVG', 'JPG'];
 
-  logoUploaded: WritableSignal<boolean> = signal(false);
-  logoUploading: WritableSignal<boolean> = signal(false);
-  uploadProgress: WritableSignal<number>  = signal(0);
+  public logoUploaded: WritableSignal<boolean> = signal(false);
+  public logoUploading: WritableSignal<boolean> = signal(false);
+  public uploadProgress: WritableSignal<number>  = signal(0);
+  public countryPhone: WritableSignal<string> = signal('+380');
+  public parkScheduler: WritableSignal<{ open: string, close: string }> = signal({ open: '08:00', close: '18:00' });
 
-  suggestions: WritableSignal<string[]> = signal([]);
-  parking: WritableSignal<any> = signal(
+  public suggestions: WritableSignal<string[]> = signal([]);
+  public parking: WritableSignal<any> = signal(
     { label: 'Назва автопарку',
       location: 'Адреса автопарку',
       contact: '+1234567890',
@@ -185,12 +200,14 @@ export class CreateParkModalComponent  implements OnInit, AfterViewInit {
   assignFormControls(): void {
     this.name = this.form.get('name') as FormControl;
     this.address = this.form.get('address') as FormControl;
+    this.phone = this.form.get('phone') as FormControl;
   }
 
   initForm(): void {
     this.form = this.fb.group({
       name: ['', Validators.required],
       address: [''],
+      phone: [''],
     });
 
     this.assignFormControls();
@@ -245,6 +262,23 @@ export class CreateParkModalComponent  implements OnInit, AfterViewInit {
         this.suggestions.set(predictions.map(prediction => prediction.description));
       }
     });
+  }
+
+  async openCodes(ev: Event): Promise<void> {
+    const popover: HTMLIonPopoverElement = await this.popoverCtrl.create({
+      component: PhoneCodesComponent,
+      cssClass: 'phones-popover',
+      event: ev,
+      translucent: true,
+      componentProps: { codes },
+    });
+
+    await popover.present();
+
+    const { data } = await popover.onDidDismiss();
+    if (data) {
+      this.countryPhone.set(data.code)
+    }
   }
 
   selectSuggestion(suggestion: string): void {

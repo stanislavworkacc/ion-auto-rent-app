@@ -13,7 +13,7 @@
         <ion-label position="static" [class.focused]="isFocused['name']">
 
           @if (!isFocused['name'] || name.valid) {
-            <span>Назва</span>
+            <span class="font-bold">Назва</span>
           }
 
           @if (name.valid) {
@@ -47,7 +47,7 @@
         <ion-label position="static" [class.focused]="isFocused['address']">
 
           @if (!isFocused['address'] || address.valid) {
-            <span>Адреса</span>
+            <span class="font-bold">Адреса</span>
           }
 
           @if (address.value) {
@@ -80,11 +80,44 @@
         </google-places>
       }
     </div>
+    <div class="form-input" #mobileRef [appValidateInput]="mobileRef">
+      <div class="input-row">
+        <ion-label position="static" [class.focused]="isFocused['phone']">
+          <div class="flex items-center gap-1"
+               (click)="openCodes($event)"
+          >
+            <span class="font-bold">{{ countryPhone() }}</span>
+            <ion-icon name="caret-down-outline"></ion-icon>
+          </div>
+          @if (phone.value) {
+            <ion-icon name="checkmark-circle-outline" class="checkmark-icon"></ion-icon>
+          }
+        </ion-label>
+
+        <ion-input
+          type="number"
+          class="aligned-input"
+          phoneFormatter
+          placeholder="Додайте телефон"
+          [formControl]="phone"
+          (ionFocus)="onFocus('phone')"
+          (ionBlur)="onBlur('phone')"
+        ></ion-input>
+      </div>
+
+      <div [appValidateInput]="mobileRef" [control]="phone" class="error-container">
+        <!-- Контейнер для помилки -->
+      </div>
+    </div>
+
+    <div class="flex flex-col items-center justify-center mb-3">
+      <ion-text class="text-xs pb-1">Графік роботи</ion-text>
+
+      <schedule-range [parkScheduler]="parkScheduler"></schedule-range>
+    </div>
 
     <div class="flex items-center">
-      <div class="form-input relative min-w-[86%]" #addressRef [appValidateInput]="addressRef"
-           [class.!min-w-[100%]]="!uploadedLogoUrl"
-      >
+      <div class="form-input relative min-w-[86%]" [class.!min-w-[100%]]="!uploadedLogoUrl">
         <div class="input-row">
           <ion-button id="popover-trigger" class="absolute left-[35px] bottom-[-3px] z-50">
             <ion-icon name="images-outline" class="text-black"></ion-icon>
@@ -113,7 +146,6 @@
         </ion-button>
       }
     </div>
-
 
     <main-action-btn [title]="'Створити'" [styles]="'py-3'"></main-action-btn>
   </form>
