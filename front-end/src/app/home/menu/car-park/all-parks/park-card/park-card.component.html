@@ -1,0 +1,48 @@
+<ion-card (click)="selectParking()">
+  <ion-card-header class="p-[10px] !flex" >
+    <div class="flex items-center gap-2">
+      <div class="flex flex-col">
+        <ion-card-subtitle>{{ parking.location }}</ion-card-subtitle>
+        <ion-card-title class="text-sm">{{ parking.label }}</ion-card-title>
+      </div>
+    </div>
+  </ion-card-header>
+
+  <ion-card-content>
+    <div class="flex items-center pb-1">
+      <div class="flex flex-col">
+        <div class="flex items-center mt-2">
+          <ion-icon name="checkbox-outline" class="text-gray-500 mr-1"></ion-icon>
+          <span class="text-sm text-gray-700">Успішних угод: {{ parking.freeCars }}</span>
+        </div>
+        <div class="flex items-center mt-2">
+          <ion-icon name="car-outline" class="text-gray-500 mr-1"></ion-icon>
+          <span class="text-sm text-gray-700">Вільних авто: {{ parking.freeCars }}</span>
+        </div>
+        <div class="flex items-center mt-2">
+          <ion-icon name="car-outline" class="text-gray-500 mr-1"></ion-icon>
+          <span class="text-sm text-gray-700">В оренді: {{ parking.freeCars }}</span>
+        </div>
+      </div>
+
+      <div class="absolute top-[10%] right-[15%]">
+        <img src="assets/icon/default-img.png" class="h-[50px] w-[50px]">
+      </div>
+    </div>
+
+    <hr>
+
+    <ion-buttons class="absolute bottom-[-13px] right-[2%] flex items-center gap-0">
+      <ion-button fill="clear" class="text-xs">
+        <div class="flex flex-col items-center">
+          <img src="assets/icon/svg/edit-svg.svg" class="h-[20px]">
+        </div>
+      </ion-button>
+      <ion-button fill="clear" class="text-xs">
+        <div class="flex flex-col items-center">
+          <img src="assets/icon/svg/delete.svg" class="h-[20px]">
+        </div>
+      </ion-button>
+    </ion-buttons>
+  </ion-card-content>
+</ion-card>

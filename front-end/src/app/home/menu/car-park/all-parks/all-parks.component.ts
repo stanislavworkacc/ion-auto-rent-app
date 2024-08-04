@@ -35,6 +35,8 @@ import {NavController, Platform} from "@ionic/angular";
 import {BackButtonComponent} from "../../../../shared/ui-kit/components/back-button/back-button.component";
 import {MenuPage, MenuSection} from "../../menu-enums";
 import {RentCarCardComponent} from "../../../../shared/components/create-page/rent-car-card/rent-car-card.component";
+import {MainActionComponent} from "../../../../shared/components/buttons/main-action/main-action.component";
+import {ParkCardComponent} from "./park-card/park-card.component";
 
 @Component({
   selector: 'app-all-parks',
@@ -72,7 +74,9 @@ import {RentCarCardComponent} from "../../../../shared/components/create-page/re
     IonFabButton,
     RentCarCardComponent,
     IonItemDivider,
-    IonFabList
+    IonFabList,
+    MainActionComponent,
+    ParkCardComponent
   ]
 })
 export class AllParksComponent  implements OnInit {
