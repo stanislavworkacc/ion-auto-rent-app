@@ -80,35 +80,6 @@
         </google-places>
       }
     </div>
-    <div class="form-input" #mobileRef [appValidateInput]="mobileRef">
-      <div class="input-row">
-        <ion-label position="static" [class.focused]="isFocused['phone']">
-          <div class="flex items-center gap-1"
-               (click)="openCodes($event)"
-          >
-            <span class="font-bold">{{ countryPhone() }}</span>
-            <ion-icon name="caret-down-outline"></ion-icon>
-          </div>
-          @if (phone.value) {
-            <ion-icon name="checkmark-circle-outline" class="checkmark-icon"></ion-icon>
-          }
-        </ion-label>
-
-        <ion-input
-          type="number"
-          class="aligned-input"
-          phoneFormatter
-          placeholder="Додайте телефон"
-          [formControl]="phone"
-          (ionFocus)="onFocus('phone')"
-          (ionBlur)="onBlur('phone')"
-        ></ion-input>
-      </div>
-
-      <div [appValidateInput]="mobileRef" [control]="phone" class="error-container">
-        <!-- Контейнер для помилки -->
-      </div>
-    </div>
 
     <div class="flex flex-col items-center justify-center mb-3">
       <ion-text class="text-xs pb-1">Графік роботи</ion-text>
