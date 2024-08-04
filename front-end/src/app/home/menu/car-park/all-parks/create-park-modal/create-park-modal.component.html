@@ -112,7 +112,6 @@
 
     <div class="flex flex-col items-center justify-center mb-3">
       <ion-text class="text-xs pb-1">Графік роботи</ion-text>
-
       <schedule-range [parkScheduler]="parkScheduler"></schedule-range>
     </div>
 
@@ -153,13 +152,13 @@
 
 <ion-popover trigger="popover-trigger">
   <ng-template>
-    <div class="flex flex-col text-xs p-4 bg-black rounded-md text-white">
-      <h3 class=" font-semibold mb-2">Підтримуючі формати:</h3>
+    <div class="flex flex-col text-xs p-4 rounded-md text-white">
+      <h3 class=" font-semibold mb-2 text-black">Підтримуючі формати:</h3>
       <div class="flex flex-col space-y-1">
         <ng-container *ngFor="let format of formats">
           <span class="flex items-center text-shadow">
             <ion-icon name="checkmark-outline" class="mr-1 text-green-400"></ion-icon>
-            {{ format }}
+            <ion-text class="text-black">{{ format }}</ion-text>
           </span>
         </ng-container>
       </div>
