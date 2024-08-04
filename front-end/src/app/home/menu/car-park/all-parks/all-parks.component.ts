@@ -18,6 +18,7 @@ import {MenuDataService} from "../../menu-data.serivce";
 import {NavController, Platform} from "@ionic/angular";
 import {BackButtonComponent} from "../../../../shared/ui-kit/components/back-button/back-button.component";
 import {MenuPage, MenuSection} from "../../menu-enums";
+import {RentCarCardComponent} from "../../../../shared/components/create-page/rent-car-card/rent-car-card.component";
 
 @Component({
   selector: 'app-all-parks',
@@ -25,35 +26,36 @@ import {MenuPage, MenuSection} from "../../menu-enums";
   styleUrls: ['./all-parks.component.scss'],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [
-        IonCard,
-        IonCardContent,
-        IonCardHeader,
-        IonCardTitle,
-        IonCardSubtitle,
-        IonList,
-        IonItem,
-        IonThumbnail,
-        IonLabel,
-        IonContent,
-        NgForOf,
-        IonButton,
-        IonIcon,
-        IonProgressBar,
-        IonChip,
-        IonBadge,
-        NgClass,
-        IonAccordionGroup,
-        IonAccordion,
-        HeaderParksComponent,
-        IonAlert,
-        IonButtons,
-        BackButtonComponent,
-        IonHeader,
-        IonToolbar,
-        IonFab,
-        IonFabButton
-    ]
+  imports: [
+    IonCard,
+    IonCardContent,
+    IonCardHeader,
+    IonCardTitle,
+    IonCardSubtitle,
+    IonList,
+    IonItem,
+    IonThumbnail,
+    IonLabel,
+    IonContent,
+    NgForOf,
+    IonButton,
+    IonIcon,
+    IonProgressBar,
+    IonChip,
+    IonBadge,
+    NgClass,
+    IonAccordionGroup,
+    IonAccordion,
+    HeaderParksComponent,
+    IonAlert,
+    IonButtons,
+    BackButtonComponent,
+    IonHeader,
+    IonToolbar,
+    IonFab,
+    IonFabButton,
+    RentCarCardComponent
+  ]
 })
 export class AllParksComponent  implements OnInit {
 
@@ -67,10 +69,30 @@ export class AllParksComponent  implements OnInit {
   }
 
   parkings = [
-    { img: 'https://ionicframework.com/docs/img/demos/thumbnail.svg', label: 'Car Parking 1', location: 'Location 1' },
-    { img: 'https://ionicframework.com/docs/img/demos/thumbnail.svg', label: 'Car Parking 2', location: 'Location 2' },
-    { img: 'https://ionicframework.com/docs/img/demos/thumbnail.svg', label: 'Car Parking 3', location: 'Location 3' },
-    { img: 'https://ionicframework.com/docs/img/demos/thumbnail.svg', label: 'Car Parking 4', location: 'Location 4' }
+    { label: 'Car Parking 1',
+      location: 'Location 1',
+      contact: '+1234567890',
+      schedule: '24/7',
+      freeCars: 10
+    },
+    { label: 'Car Parking 2',
+      location: 'Location 2',
+      contact: '+1234567890',
+      schedule: '24/7',
+      freeCars: 3
+    },
+    { label: 'Car Parking 3',
+      location: 'Location 3',
+      contact: '+1234567890',
+      schedule: '24/7',
+      freeCars: 2
+    },
+    { label: 'Car Parking 4',
+      location: 'Location 4',
+      contact: '+1234567890',
+      schedule: '24/7',
+      freeCars: 5
+    },
   ];
 
   selectParking(): void {

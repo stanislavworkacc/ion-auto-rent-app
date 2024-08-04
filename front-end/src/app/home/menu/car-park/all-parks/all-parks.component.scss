@@ -14,14 +14,11 @@ ion-header {
 }
 
 ion-card {
-  margin-bottom: 0 !important;
-  margin-top: 15px !important;
+  margin-bottom: 15px !important;
+  margin-top: 0 !important;
   border-radius: 0 !important;
   display: flex;
   flex-direction: column;
-  height: 350px;
-
-  ion-buttons {
-    padding-bottom: 20px !important;
-  }
+  min-height: 200px !important;
+  max-height: 200px !important;
 }
