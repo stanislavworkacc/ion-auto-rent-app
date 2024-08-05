@@ -90,24 +90,6 @@ export class AuthService {
             handler: ({password}) => {
               const name = `${environment.matchPassword}/${id}`;
 
-              // const item = new Item({
-              //   api: this._crud.createPostEntity({
-              //     name
-              //   })
-              // })
-              //
-              //
-              // item.createItem({
-              //   data: {
-              //     password,
-              //   }
-              // }).pipe(
-              //   take(1),
-              //   tap(({data}) => {
-              //     resolve(data.result.matchPassword);
-              //   })
-              // ).subscribe()
-
               this.createDynamicItem(name, {
                 password,
               }).pipe(

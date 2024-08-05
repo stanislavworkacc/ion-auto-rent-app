@@ -49,6 +49,7 @@ import {MainActionComponent} from "../../../../../shared/components/buttons/main
 import {ParkCardComponent} from "../park-card/park-card.component";
 import {ScheduleRangeComponent} from "./schedule-range/schedule-range.component";
 import {CreateEditParkModalService} from "./create-edit-park-modal.service";
+import {StorageService} from "../../../../../shared/services/storage.service";
 
 @Component({
   selector: 'app-create-park-modal',
@@ -105,6 +106,7 @@ export class CreateParkModalComponent  implements OnInit, AfterViewInit {
   private destroyRef: DestroyRef = inject(DestroyRef);
   private renderer: Renderer2 = inject(Renderer2);
   private parkModalService: CreateEditParkModalService = inject(CreateEditParkModalService);
+  private storage: StorageService = inject(StorageService);
 
   public form!: FormGroup;
   public name!: FormControl;
@@ -131,6 +133,7 @@ export class CreateParkModalComponent  implements OnInit, AfterViewInit {
       carsInRent: 0,
     },
   );
+  private userModel: WritableSignal<{ _id: string, email: string, phone: string, userName: string, userLastName: string, ssoUser: boolean }> = signal(null);
 
   @ViewChild('addressInput', { static: false }) addressInput!: IonInput;
 
@@ -237,9 +240,16 @@ export class CreateParkModalComponent  implements OnInit, AfterViewInit {
       })
     ).subscribe()
   }
-  ngOnInit(): void {
+
+  async setUserData(): Promise<void> {
+    const user = await this.storage.getObject('user');
+    this.userModel.set(user);
+  }
+
+  async ngOnInit(): Promise<void> {
     this.initForm();
     this.formSubscription();
+    await this.setUserData();
   }
 
   initGooglePlaces(): void {
