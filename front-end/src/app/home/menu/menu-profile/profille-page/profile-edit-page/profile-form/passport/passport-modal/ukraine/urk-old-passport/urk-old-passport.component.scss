@@ -29,3 +29,19 @@
   0 -1px 0 #000;
   z-index: -1;
 }
+#text{
+  stroke-dasharray: 4004;
+  position: absolute;
+  left: 0;
+  right: 0;
+  animation: 2s fillSvg linear;
+}
+
+@keyframes fillSvg{
+  0%{
+    stroke-dashoffset: 4004;
+  }
+  100%{
+    stroke-dashoffset: 0;
+  }
+}
