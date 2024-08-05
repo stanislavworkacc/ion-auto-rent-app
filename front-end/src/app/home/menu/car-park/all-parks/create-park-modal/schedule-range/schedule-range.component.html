@@ -1,6 +1,6 @@
 <div class="flex items-center">
   <div class="flex">
-    <ion-datetime-button datetime="start"></ion-datetime-button>
+    <ion-datetime-button [disabled]="disable" datetime="start"></ion-datetime-button>
 
     <ion-modal [keepContentsMounted]="true" class="wide-alert rounded">
       <ng-template>
@@ -24,9 +24,9 @@
       </ng-template>
     </ion-modal>
   </div>
-  <span class="px-2">-</span>
+  <span class="px-2 text-[#bababa]">-</span>
   <div class="flex">
-    <ion-datetime-button datetime="end"></ion-datetime-button>
+    <ion-datetime-button datetime="end" [disabled]="disable"></ion-datetime-button>
 
     <ion-modal [keepContentsMounted]="true" class="wide-alert">
       <ng-template>

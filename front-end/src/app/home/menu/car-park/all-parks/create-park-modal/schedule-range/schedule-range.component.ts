@@ -38,6 +38,7 @@ import {
 export class ScheduleRangeComponent  implements OnInit {
 
   @Input({ required: false }) parkScheduler: WritableSignal<{ open: string, close: string }> = signal({ open: '08:00', close: '18:00' });
+  @Input() disable: boolean;
   constructor() { }
 
   ngOnInit() {}

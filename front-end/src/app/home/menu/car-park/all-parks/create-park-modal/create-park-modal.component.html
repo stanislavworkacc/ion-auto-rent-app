@@ -5,9 +5,9 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <park-card [parking]="parking()" [editMode]="false" [uploadedLogoUrl]="uploadedLogoUrl"></park-card>
+  <park-card [parking]="parking()" [editMode]="false" [uploadedLogoUrl]="uploadedLogoUrl()"></park-card>
 
-  <form>
+  <form [formGroup]="form">
     <div class="form-input" #nameRef [appValidateInput]="nameRef">
       <div class="input-row">
         <ion-label position="static" [class.focused]="isFocused['name']">
@@ -87,7 +87,7 @@
     </div>
 
     <div class="flex items-center gap-1">
-      <div class="form-input relative min-w-[86%]" [class.!min-w-[100%]]="!uploadedLogoUrl">
+      <div class="form-input relative min-w-[86%]" [class.!min-w-[100%]]="!uploadedLogoUrl()">
         <div class="input-row">
           <input #fileInput type="file" accept="image/*" (change)="handleFileUpload($event)"
                  class="opacity-0 absolute left-0 right-0 top-0 bottom-0 w-full"
@@ -103,7 +103,7 @@
         </div>
       </div>
 
-      @if (uploadedLogoUrl) {
+      @if (uploadedLogoUrl()) {
         <ion-button fill="clear" class="text-xs w-full mb-2.5" (click)="clearSelectedLogo()">
           <div class="flex flex-col items-center border rounded py-2 px-3 border-red-300">
             <img src="assets/icon/svg/delete.svg" class="h-[25px]">
@@ -112,6 +112,6 @@
       }
     </div>
 
-    <main-action-btn [title]="'Створити автопарк'" [styles]="'py-3'"></main-action-btn>
+    <main-action-btn [title]="'Створити автопарк'" [styles]="'py-3'" [action]="submit.bind(this)"></main-action-btn>
   </form>
 </ion-content>

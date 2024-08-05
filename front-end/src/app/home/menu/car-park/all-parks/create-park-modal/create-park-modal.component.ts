@@ -1,7 +1,7 @@
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
-  Component, DestroyRef,
+  Component, DestroyRef, effect,
   inject,
   OnInit, Renderer2,
   signal,
@@ -48,6 +48,7 @@ import {GooglePlacesComponent} from "../../../../../shared/components/google-pla
 import {MainActionComponent} from "../../../../../shared/components/buttons/main-action/main-action.component";
 import {ParkCardComponent} from "../park-card/park-card.component";
 import {ScheduleRangeComponent} from "./schedule-range/schedule-range.component";
+import {CreateEditParkModalService} from "./create-edit-park-modal.service";
 
 @Component({
   selector: 'app-create-park-modal',
@@ -103,6 +104,7 @@ export class CreateParkModalComponent  implements OnInit, AfterViewInit {
   private googlePlacesService: GooglePlacesSerivce = inject(GooglePlacesSerivce);
   private destroyRef: DestroyRef = inject(DestroyRef);
   private renderer: Renderer2 = inject(Renderer2);
+  private parkModalService: CreateEditParkModalService = inject(CreateEditParkModalService);
 
   public form!: FormGroup;
   public name!: FormControl;
@@ -111,7 +113,7 @@ export class CreateParkModalComponent  implements OnInit, AfterViewInit {
     name: false,
     address: false,
   };
-  public uploadedLogoUrl: string = '';
+  public uploadedLogoUrl: WritableSignal<string> = signal('');
   public formats: string[] = ['JPEG', 'WEBP', 'PNG', 'SVG', 'JPG'];
 
   public logoUploaded: WritableSignal<boolean> = signal(false);
@@ -132,6 +134,9 @@ export class CreateParkModalComponent  implements OnInit, AfterViewInit {
 
   @ViewChild('addressInput', { static: false }) addressInput!: IonInput;
 
+  get parkService() {
+    return this.parkModalService;
+  }
   onFocus(field: string): void {
     this.isFocused[field] = true;
   }
@@ -154,7 +159,7 @@ export class CreateParkModalComponent  implements OnInit, AfterViewInit {
           .pipe(
             delay(1000),
             tap((result) => {
-              this.uploadedLogoUrl = result;
+              this.uploadedLogoUrl.set(result);
               this.logoUploaded.set(true);
               this.logoUploading.set(false);
               this.uploadProgress.set(0);
@@ -178,7 +183,7 @@ export class CreateParkModalComponent  implements OnInit, AfterViewInit {
   }
 
   clearSelectedLogo(): void {
-    this.uploadedLogoUrl = '';
+    this.uploadedLogoUrl.set('');
     this.logoUploaded.set(false);
     this.logoUploading.set(false);
     this.uploadProgress.set(0);
@@ -193,9 +198,18 @@ export class CreateParkModalComponent  implements OnInit, AfterViewInit {
     this.form = this.fb.group({
       name: ['', Validators.required],
       address: [''],
+      logo: [this.uploadedLogoUrl()],
+      scheduler: this.parkScheduler()
     });
 
     this.assignFormControls();
+  }
+
+  submit(){
+    this.form.getRawValue();
+
+    debugger
+    this.parkService.initParkCreation(this.form.getRawValue())
   }
 
   formSubscription() {
@@ -256,5 +270,13 @@ export class CreateParkModalComponent  implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.initGooglePlaces();
+  }
+
+  constructor() {
+    effect(() => {
+      if(this.uploadedLogoUrl().length) {
+        this.form.get('logo').setValue(this.uploadedLogoUrl())
+      }
+    });
   }
 }
