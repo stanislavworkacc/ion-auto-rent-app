@@ -11,8 +11,6 @@ const create = async (req, res, {autoParksModelName}) => {
         scheduler
     } = req.body;
 
-    console.log('HERE')
-
     const objectSchema = Joi.object({
         address: Joi.string(),
         logo: Joi.string(),
@@ -55,6 +53,8 @@ const create = async (req, res, {autoParksModelName}) => {
     }
 
     return res.status(200).json({
+        status: 200,
+        message: 'Successfully created this document',
         success: true,
     })
 

@@ -213,7 +213,7 @@ export class CreateParkModalComponent  implements OnInit, AfterViewInit {
     this.form.getRawValue();
 
     debugger
-    this.parkService.initParkCreation(this.form.getRawValue())
+    this.parkService.initParkCreation(this.form.getRawValue(), this.userModel()._id)
   }
 
   formSubscription() {

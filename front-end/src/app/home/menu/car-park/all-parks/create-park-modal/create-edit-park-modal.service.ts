@@ -12,12 +12,10 @@ export class CreateEditParkModalService {
   private _crud: CrudService = inject(CrudService);
   parkItem: ItemModel;
 
-  initParkCreation(data) {
-    // const name = `${environment.matchPassword}/${id}`;
+  initParkCreation(data, id) {
+    const name = `${environment.autoParkCreate}/${id}`;
 
-    this.createDynamicItem(name, {
-      // password,
-    }).pipe(
+    this.createDynamicItem(name, data).pipe(
       take(1),
       tap(({data}) => {
         // resolve(data.result.matchPassword);
