@@ -1,5 +1,13 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {IonIcon} from "@ionic/angular/standalone";
+import {
+  IonDatetime,
+  IonDatetimeButton,
+  IonIcon, IonInput,
+  IonItem,
+  IonLabel, IonModal,
+  IonRadio,
+  IonRadioGroup
+} from "@ionic/angular/standalone";
 
 @Component({
   selector: 'urk-old-passport',
@@ -7,7 +15,15 @@ import {IonIcon} from "@ionic/angular/standalone";
   styleUrls: ['./urk-old-passport.component.scss'],
   standalone: true,
   imports: [
-    IonIcon
+    IonIcon,
+    IonItem,
+    IonLabel,
+    IonRadio,
+    IonRadioGroup,
+    IonDatetimeButton,
+    IonDatetime,
+    IonModal,
+    IonInput
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })

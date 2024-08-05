@@ -1,35 +1,117 @@
-<div class="w-full h-[500px] border-[1px] border-black rounded-lg p-4 bg-gray-100 font-sans mt-2">
-  <div class="flex justify-center mb-4">
-    <span class="text-lg font-bold tracking-widest">ПАСПОРТ</span>
+<!--<div class="w-full h-[500px] border-[1px] border-black rounded-lg p-4 bg-gray-100 font-sans mt-2">-->
+<!--  <div class="flex justify-center mb-4">-->
+<!--    <span class="text-lg font-bold tracking-widest">ПАСПОРТ</span>-->
+<!--  </div>-->
+<!--  <div class="w-full flex justify-center">-->
+
+<!--  </div>-->
+
+<!--  <div class="text-sm">-->
+<!--    <div class="mb-2 flex justify-between items-center">-->
+<!--      <span class="font-bold">Прізвище:</span> <span class="text-right flex-grow">КУТОВА</span>-->
+<!--    </div>-->
+<!--    <div class="mb-2 flex justify-between items-center">-->
+<!--      <span class="font-bold">Ім'я:</span> <span class="text-right flex-grow">ТАМАРА</span>-->
+<!--    </div>-->
+<!--    <div class="mb-2 flex justify-between items-center">-->
+<!--      <span class="font-bold">По батькові:</span> <span class="text-right flex-grow">ВОЛОДИМИРІВНА</span>-->
+<!--    </div>-->
+<!--    <div class="mb-2 flex justify-between items-center">-->
+<!--      <span class="font-bold">Дата народження:</span> <span class="text-right flex-grow">03 КВІТНЯ 1986</span>-->
+<!--    </div>-->
+<!--    <div class="mb-2 flex justify-between items-center">-->
+<!--      <span class="font-bold">Місце народження:</span> <span class="text-right flex-grow">с. ТЕРНАВКА</span>-->
+<!--    </div>-->
+<!--    <div class="mb-2 flex justify-between items-center">-->
+<!--      <span class="font-bold">Область:</span> <span class="text-right flex-grow">ХМЕЛЬНИЦЬКОЇ ОБЛ.</span>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+<div class="flex w-full items-center flex-col pt-2">
+  <div class="text-center font-[600]">
+    <span class="block text-[10px]">ПАСПОРТ ГРОМАДЯНИНА УКРАЇНИ</span>
+    <span class="block text-[10px]">PASSPORT OF THE CITIZEN OF UKRAINE</span>
   </div>
-  <div class="w-full flex justify-center">
-    <div class="w-[100px] h-[130px] text-center border mr-2">
-      <ion-icon name="person" class="text-[100px] flex justify-center items-center h-full"></ion-icon>
+  <div class="flex w-full justify-center items-center">
+    <div class="perforated-text opacity-[0.2]" data-text="MH 111100">
+      MH 111100
+    </div>
+    <img src="assets/icon/ukraine-trizub.png" class="h-[26px]">
+  </div>
+
+  <div class="w-[100px] h-[130px] flex justify-center border mr-2">
+    <ion-icon name="person" class="text-[100px] flex justify-center items-center h-full"></ion-icon>
+  </div>
+
+  <div class="w-full mt-2">
+    <div class="gender-selection">
+      <ion-label class="font-bold">Вкажіть стать</ion-label>
+      <ion-radio-group  class="flex items-center">
+        <ion-item class="w-full">
+          <ion-label class="flex items-center">
+            Чоловік
+            <ion-icon name="male-outline"></ion-icon>
+          </ion-label>
+          <ion-radio slot="start" value="male"></ion-radio>
+        </ion-item>
+        <ion-item class="w-full">
+          <ion-label class="flex items-center">
+            Жінка
+            <ion-icon name="female-outline"></ion-icon>
+          </ion-label>
+          <ion-radio slot="start" value="female"></ion-radio>
+        </ion-item>
+      </ion-radio-group>
     </div>
   </div>
 
-  <div class="text-sm">
-    <div class="mb-2 flex justify-between items-center">
-      <span class="font-bold">Прізвище:</span> <span class="text-right flex-grow">КУТОВА</span>
+  <div class="w-full relative">
+    <ion-label class="font-bold absolute left-0 top-[8px] z-50">День народження</ion-label>
+
+    <ion-item class="flex items-center justify-between">
+      <ion-datetime-button datetime="datetime" slot="end"></ion-datetime-button>
+    </ion-item>
+  </div>
+
+  <div class="w-full relative">
+    <ion-label class="font-bold absolute left-0 top-[8px] z-50">Серія №.</ion-label>
+
+    <ion-item class="flex items-center w-full">
+      <ion-input placeholder="Серія №."
+                 slot="end"
+      >
+      </ion-input>
+    </ion-item>
+  </div>
+
+  <div class="w-full relative">
+    <ion-label class="font-bold absolute left-0 top-[8px] z-50">Паспорт №.</ion-label>
+
+    <ion-item class="flex items-center w-full">
+      <ion-input placeholder="Паспорт №."
+                 slot="end"
+      >
+      </ion-input>
+    </ion-item>
+  </div>
+
+  <div class="mt-4 text-center">
+    <div class="h-[70px]">
+
     </div>
-    <div class="mb-2 flex justify-between items-center">
-      <span class="font-bold">Ім'я:</span> <span class="text-right flex-grow">ТАМАРА</span>
-    </div>
-    <div class="mb-2 flex justify-between items-center">
-      <span class="font-bold">По батькові:</span> <span class="text-right flex-grow">ВОЛОДИМИРІВНА</span>
-    </div>
-    <div class="mb-2 flex justify-between items-center">
-      <span class="font-bold">Дата народження:</span> <span class="text-right flex-grow">03 КВІТНЯ 1986</span>
-    </div>
-    <div class="mb-2 flex justify-between items-center">
-      <span class="font-bold">Місце народження:</span> <span class="text-right flex-grow">с. ТЕРНАВКА</span>
-    </div>
-    <div class="mb-2 flex justify-between items-center">
-      <span class="font-bold">Область:</span> <span class="text-right flex-grow">ХМЕЛЬНИЦЬКОЇ ОБЛ.</span>
-    </div>
-    <div class="mt-4 text-center">
-      <span class="block font-bold">Підпис власника паспорта</span>
-      <span class="block mt-2">________________________</span>
-    </div>
+    <hr>
+    <span class="block text-[10px] font-bold">Підпис власника паспорта</span>
   </div>
 </div>
+
+<ion-modal [keepContentsMounted]="true">
+  <ng-template>
+    <ion-datetime id="datetime"
+                  presentation="date"
+                  locale="uk"
+                  value="1998-02-27"
+                  [formatOptions]="{ date: { day: '2-digit', month: 'long', year: 'numeric' }}"
+    ></ion-datetime>
+  </ng-template>
+</ion-modal>
