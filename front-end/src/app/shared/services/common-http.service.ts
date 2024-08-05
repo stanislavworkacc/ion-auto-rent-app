@@ -164,7 +164,9 @@ export class CommonHttpService {
               this.toaster.show({ type: 'error', message: 'Будь ласка, повторно авторизуйтесь для продовження роботи.' })
               const authModal: HTMLIonModalElement = await this.modalController.create({
                 component: AuthorizatorComponent,
-                cssClass: 'auth-modal'
+                cssClass: 'auth-modal',
+                initialBreakpoint: 1,
+                breakpoints: [0, 1]
               });
 
               await authModal.present();

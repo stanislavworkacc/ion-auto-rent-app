@@ -23,28 +23,28 @@
           </div>
         </div>
       </div>
-      <div class="flex items-center !flex-row w-full justify-between pr-[10px] py-1">
-        <div class="chip-container flex !flex-nowrap">
-          @for (chip of allCarsData.chips(); track chip.value) {
-          <ion-chip outline="outline" class="!flex !justify-center !rounded-[4px]"
-            [class.selected-chip]="chip?.value === allCarsData.selectedChip()?.value"
-            [class.archive-chip]="chip?.value === AllCarsChip.RENT_ARCHIVE"
-            [class.review-chip]="chip?.value === AllCarsChip.REVIEWS"
-            (click)="chipSelected(chip)"
-          >
-            <ion-label>{{ chip.label }}</ion-label>
-          </ion-chip>
-          }
-        </div>
-        <ion-buttons slot="end" class="flex flex-col gap-1 w-[15%]">
-          <ion-button class="flex justify-end">
-            <div class="flex flex-col items-center">
-              <ion-icon name="funnel-outline" class=""></ion-icon>
-              <ion-label class="text-xs">Фільтр</ion-label>
-            </div>
-          </ion-button>
-        </ion-buttons>
-      </div>
+<!--      <div class="flex items-center !flex-row w-full justify-between pr-[10px] py-1">-->
+<!--        <div class="chip-container flex !flex-nowrap">-->
+<!--          @for (chip of allCarsData.chips(); track chip.value) {-->
+<!--          <ion-chip outline="outline" class="!flex !justify-center !rounded-[4px]"-->
+<!--            [class.selected-chip]="chip?.value === allCarsData.selectedChip()?.value"-->
+<!--            [class.archive-chip]="chip?.value === AllCarsChip.RENT_ARCHIVE"-->
+<!--            [class.review-chip]="chip?.value === AllCarsChip.REVIEWS"-->
+<!--            (click)="chipSelected(chip)"-->
+<!--          >-->
+<!--            <ion-label>{{ chip.label }}</ion-label>-->
+<!--          </ion-chip>-->
+<!--          }-->
+<!--        </div>-->
+<!--        <ion-buttons slot="end" class="flex flex-col gap-1 w-[15%]">-->
+<!--          <ion-button class="flex justify-end">-->
+<!--            <div class="flex flex-col items-center">-->
+<!--              <ion-icon name="funnel-outline" class=""></ion-icon>-->
+<!--              <ion-label class="text-xs">Фільтр</ion-label>-->
+<!--            </div>-->
+<!--          </ion-button>-->
+<!--        </ion-buttons>-->
+<!--      </div>-->
     </div>
 
   </ion-toolbar>

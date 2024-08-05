@@ -1,10 +1,12 @@
 <ion-header>
   <ion-toolbar>
-    <app-back-button
-      [styles]="'!text-[20px]'"
-      [navigateBack]="goBack.bind(this)"
-    ></app-back-button>
-    <ion-title>Паспорт</ion-title>
+    <div class="flex items-center px-1">
+      <app-back-button
+        [styles]="'!text-[20px]'"
+        [navigateBack]="goBack.bind(this)"
+      ></app-back-button>
+      <ion-title>Паспорт</ion-title>
+    </div>
   </ion-toolbar>
 </ion-header>
 
