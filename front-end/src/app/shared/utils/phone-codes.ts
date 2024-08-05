@@ -88,10 +88,6 @@ export const codes = [
     "name": "Barbuda"
   },
   {
-    "code": "+375",
-    "name": "Belarus"
-  },
-  {
     "code": "+32",
     "name": "Belgium"
   },
@@ -722,10 +718,6 @@ export const codes = [
   {
     "code": "+40",
     "name": "Romania"
-  },
-  {
-    "code": "+7",
-    "name": "Russia"
   },
   {
     "code": "+250",

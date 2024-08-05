@@ -1,5 +1,14 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
-import {IonBadge, IonButton, IonButtons, IonIcon, IonLabel} from "@ionic/angular/standalone";
+import {ChangeDetectionStrategy, Component, Input, OnInit, signal, WritableSignal} from '@angular/core';
+import {
+  IonBadge,
+  IonButton,
+  IonButtons,
+  IonFab,
+  IonFabButton, IonFabList,
+  IonIcon,
+  IonLabel,
+  IonSearchbar
+} from "@ionic/angular/standalone";
 
 @Component({
   selector: 'app-header-parks',
@@ -11,14 +20,24 @@ import {IonBadge, IonButton, IonButtons, IonIcon, IonLabel} from "@ionic/angular
     IonIcon,
     IonLabel,
     IonButton,
-    IonButtons
+    IonButtons,
+    IonSearchbar,
+    IonFab,
+    IonFabButton,
+    IonFabList
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderParksComponent  implements OnInit {
 
   @Input() create: () => void
+
+  public showSearch: WritableSignal<boolean>  = signal(false);
   constructor() { }
+
+  showSearchBar(): void {
+    this.showSearch.set(!this.showSearch())
+  }
 
   ngOnInit() {}
 

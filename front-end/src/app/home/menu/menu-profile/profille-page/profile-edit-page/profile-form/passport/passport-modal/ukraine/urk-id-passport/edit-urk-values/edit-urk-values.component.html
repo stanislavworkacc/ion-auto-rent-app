@@ -1,0 +1,117 @@
+<div class="gender-selection mt-2">
+  <div class="gender-selection">
+    <ion-label class="font-bold">Вкажіть стать</ion-label>
+    <ion-radio-group  class="flex items-center">
+      <ion-item class="w-full">
+        <ion-label class="flex items-center">
+          Чоловік
+          <ion-icon name="male-outline"></ion-icon>
+        </ion-label>
+        <ion-radio slot="start" value="male"></ion-radio>
+      </ion-item>
+      <ion-item class="w-full">
+        <ion-label class="flex items-center">
+          Жінка
+          <ion-icon name="female-outline"></ion-icon>
+        </ion-label>
+        <ion-radio slot="start" value="female"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+  </div>
+</div>
+
+<div class="w-full relative">
+  <ion-label class="font-bold absolute left-0 top-[8px] z-50">День народження</ion-label>
+
+  <ion-item class="flex items-center justify-between">
+    <ion-datetime-button datetime="datetime" slot="end"></ion-datetime-button>
+  </ion-item>
+</div>
+
+<div class="w-full relative">
+  <ion-label class="font-bold absolute left-0 top-[8px] z-50">Дійсний до</ion-label>
+
+  <ion-item class="flex items-center justify-between">
+    <ion-datetime-button datetime="expiredIn" slot="end"></ion-datetime-button>
+  </ion-item>
+</div>
+
+<div class="w-full relative">
+  <ion-label class="font-bold absolute left-0 top-[8px] z-50">Запис №.</ion-label>
+
+  <ion-item class="flex items-center w-full">
+    <ion-input placeholder="Запис №."
+               slot="end"
+    >
+    </ion-input>
+  </ion-item>
+</div>
+
+<div class="w-full relative">
+  <ion-label class="font-bold absolute left-0 top-[8px] z-50">Document No.</ion-label>
+
+  <ion-item class="flex items-center w-full">
+    <ion-input placeholder="Document No."
+               slot="end"
+    >
+    </ion-input>
+  </ion-item>
+</div>
+
+<ion-label class="font-bold my-1">Ваш підпис</ion-label>
+<div class="flex space-x-1 py-[3px]">
+  <input type="file" #fileInput (change)="onFileSelected($event)" style="display: none;">
+
+  @for (button of signaturePadActions; track button.label) {
+    <ion-button (click)="button.callback()">
+      <div class="flex flex-col items-center justify-between border rounded w-fit px-1 py-1"
+           [ngStyle]="{'background-color': button.bgColor}"
+      >
+        <img [src]="button.icon" class="h-[29px]">
+        <ion-label class="text-xs text-black">{{ button.label }}</ion-label>
+      </div>
+    </ion-button>
+  }
+</div>
+<div #signSvg (click)="hideSignSvg()" >
+  <svg class="!ml-2"  id="text" width="330" height="300" viewBox="0 0 1037 442" fill="none" xmlns="http://www.w3.org/2000/svg" >
+    <rect width="1037" height="442" fill="transparent"/>
+    <path d="M42 264.797C61.344 250.887 79.4883 235.193 97.5556 219.686C109.301 209.605 121.002 199.553 130.889 187.575C143.744 172 153.857 153.902 162.778 135.852C173.886 113.378 185.973 87.3855 187.833 61.9635C188.338 55.0653 187.883 48.0041 187.222 41.1302C186.526 33.8921 183.72 41.0593 182.556 44.1302C171.997 71.9672 166.847 102.846 162.111 132.13C157.846 158.505 160 186.207 160 212.852C160 245.797 160 278.741 160 311.686C160 320.76 160 329.834 160 338.908C160 340.729 160.465 343.419 159.944 345.241C156.734 356.478 161.691 321.732 165.167 310.575C173.735 283.065 185.683 256.347 197.778 230.241C210.874 201.974 227.611 169.297 253.444 150.352C258.353 146.753 265.084 151.536 268.389 155.408C278.404 167.14 280.676 180.213 283 195.019C287.029 220.688 287 245.875 287 271.797C287 287.272 287.492 302.888 293 317.575C295.675 324.707 304.136 324.139 310.667 325.464C322.833 327.931 334.891 330.267 347.333 330.686C357.56 331.029 370.452 332.241 380.222 328.519C390.586 324.571 397.662 311.241 405 303.352C412.112 295.706 420.755 290.383 429.444 284.797C452.158 270.196 477.026 258.401 493.333 235.908C496.177 231.986 500 227.041 500 222.019C500 214.815 500 207.612 500 200.408C500 190.355 498.79 179.096 489 174.019C476.982 167.787 456.264 165.332 443.889 171.519C430.592 178.167 420.369 190.553 412.889 203.019C400.474 223.711 386.551 247.605 381.444 271.352C378.695 284.137 379.463 298.755 380.056 311.797C380.52 322.02 387.15 333.384 395 339.797C402.702 346.089 411.308 350.824 420.444 354.797C429.12 358.569 438.285 360.974 447.444 363.241C456.168 365.401 466.889 368.337 475.944 366.464C487.625 364.047 499.586 349.654 508.278 342.019C538.04 315.877 561.749 281.452 582.111 247.797C599.225 219.511 616.595 189.964 627.389 158.575C633.058 142.09 635.069 124.58 635.778 107.241C636.059 100.354 636.571 93.0261 635.944 86.1302C635.594 82.276 626.156 92.8882 625.778 93.3524C604.007 120.04 592.997 157.077 586.667 190.352C583.198 208.584 583 226.866 583 245.352C583 265.624 584.039 284.934 587.944 304.852C589.821 314.423 590.617 329.777 597.111 338.075C599.388 340.984 603.904 339.257 606.444 337.686C612.484 333.95 617.801 328.463 623.056 323.797C631.922 315.922 640.874 308.108 649.444 299.908C684.722 266.154 709.344 225.286 733.778 183.463C744.405 165.273 755.478 147.221 764.778 128.297C772.458 112.668 778.511 96.1667 784.722 79.9079C784.928 79.3687 790.395 66.6955 787.444 65.8524C785.357 65.2559 783.947 66.7968 782 66.7968C780.04 66.7968 778.726 67.1631 777.389 68.7968C769.717 78.1732 766.265 93.7933 763.056 105.186C758.14 122.634 754.683 140.55 752 158.463C748.614 181.078 744.368 203.688 742.222 226.463C740.047 249.549 740 272.743 740 295.908C740 310.274 739.353 324.981 741.444 339.241C741.872 342.156 742.601 352.215 747.167 352.519C752.893 352.901 759.833 346.146 764.722 343.852C785.101 334.292 806.695 327.829 826.611 317.13C863.592 297.264 892.372 262.908 915.778 228.797C931.392 206.041 942.311 181.434 943.778 153.575C944.254 144.523 944 135.413 944 126.352C944 118.711 944.523 111.192 938.833 105.352C928.756 95.0101 908.308 93.697 895.222 97.6857C869.128 105.64 853.782 137.797 845.444 161.352C839.564 177.966 835.35 194.735 832 212.019C827.894 233.205 822.886 254.254 819.222 275.519C815.081 299.558 813.28 324.082 814.667 348.464C815.356 360.573 815.804 379.188 824.444 389.13C832.642 398.563 852.799 392.885 862.667 390.797C875.332 388.117 888.324 386.22 900.278 381.019C916.167 374.105 932.547 361.482 943.167 347.797C953.988 333.851 960.976 316.371 967.222 300.019C972.309 286.702 976.905 273.383 979.333 259.297C981.636 245.943 981.954 232.536 982 219.019C982.049 204.572 982.373 190.1 980 175.797C977.224 159.063 969.811 140.819 954.278 132.241C940.163 124.447 925.249 117.88 910 112.797" stroke="url(#paint0_linear_2_2)" stroke-width="12" stroke-miterlimit="3.99933" stroke-linecap="round" stroke-linejoin="round"/>
+    <defs>
+      <linearGradient id="paint0_linear_2_2" x1="186" y1="37.9999" x2="975" y2="358" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#FF8A00"/>
+        <stop offset="1" stop-color="#EB00FF"/>
+      </linearGradient>
+    </defs>
+  </svg>
+</div>
+<div class="border rounded p-1 bg-white mt-1">
+  <signature-pad [options]="signaturePadOptions" (onEndEvent)="drawComplete()" class="signature-pad"></signature-pad>
+</div>
+
+
+<ion-modal [keepContentsMounted]="true">
+  <ng-template>
+    <ion-datetime id="datetime"
+                  presentation="date"
+                  locale="uk"
+                  value="1998-02-27"
+                  [formatOptions]="{ date: { day: '2-digit', month: 'long', year: 'numeric' }}"
+    ></ion-datetime>
+  </ng-template>
+</ion-modal>
+
+<ion-modal [keepContentsMounted]="true">
+  <ng-template>
+    <ion-datetime id="expiredIn"
+                  presentation="date"
+                  locale="uk"
+                  value="1998-02-27"
+                  [formatOptions]="{ date: { day: '2-digit', month: 'long', year: 'numeric' }}"
+    ></ion-datetime>
+  </ng-template>
+</ion-modal>
+
+
+
+

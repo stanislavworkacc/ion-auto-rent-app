@@ -1,15 +1,31 @@
 import {ChangeDetectionStrategy, Component, inject, input, InputSignal, OnInit} from '@angular/core';
 import {
   IonAccordion,
-  IonAccordionGroup, IonAlert,
+  IonAccordionGroup,
+  IonAlert,
   IonBadge,
-  IonButton, IonButtons,
+  IonButton,
+  IonButtons,
   IonCard,
   IonCardContent,
   IonCardHeader,
   IonCardSubtitle,
-  IonCardTitle, IonChip, IonContent, IonHeader, IonIcon, IonItem, IonLabel,
-  IonList, IonProgressBar, IonThumbnail, IonToolbar, ModalController
+  IonCardTitle,
+  IonChip,
+  IonContent,
+  IonFab,
+  IonFabButton,
+  IonFabList,
+  IonHeader,
+  IonIcon,
+  IonItem,
+  IonItemDivider,
+  IonLabel,
+  IonList,
+  IonProgressBar,
+  IonThumbnail,
+  IonToolbar,
+  ModalController
 } from "@ionic/angular/standalone";
 import {NgClass, NgForOf} from "@angular/common";
 import {HeaderParksComponent} from "./header-parks/header-parks.component";
@@ -18,6 +34,10 @@ import {MenuDataService} from "../../menu-data.serivce";
 import {NavController, Platform} from "@ionic/angular";
 import {BackButtonComponent} from "../../../../shared/ui-kit/components/back-button/back-button.component";
 import {MenuPage, MenuSection} from "../../menu-enums";
+import {RentCarCardComponent} from "../../../../shared/components/create-page/rent-car-card/rent-car-card.component";
+import {MainActionComponent} from "../../../../shared/components/buttons/main-action/main-action.component";
+import {ParkCardComponent} from "./park-card/park-card.component";
+import {style} from "@angular/animations";
 
 @Component({
   selector: 'app-all-parks',
@@ -50,7 +70,14 @@ import {MenuPage, MenuSection} from "../../menu-enums";
     IonButtons,
     BackButtonComponent,
     IonHeader,
-    IonToolbar
+    IonToolbar,
+    IonFab,
+    IonFabButton,
+    RentCarCardComponent,
+    IonItemDivider,
+    IonFabList,
+    MainActionComponent,
+    ParkCardComponent
   ]
 })
 export class AllParksComponent  implements OnInit {
@@ -64,11 +91,35 @@ export class AllParksComponent  implements OnInit {
     return this.menuDataService;
   }
 
-  userCarParkings = [
-    { img: 'https://ionicframework.com/docs/img/demos/thumbnail.svg', label: 'Car Parking 1', location: 'Location 1' },
-    // { img: 'https://ionicframework.com/docs/img/demos/thumbnail.svg', label: 'Car Parking 2', location: 'Location 2' },
-    // { img: 'https://ionicframework.com/docs/img/demos/thumbnail.svg', label: 'Car Parking 3', location: 'Location 3' },
-    // { img: 'https://ionicframework.com/docs/img/demos/thumbnail.svg', label: 'Car Parking 4', location: 'Location 4' }
+  parkings = [
+    { label: 'Car Parking 1',
+      location: 'Location 1',
+      contact: '+1234567890',
+      schedule: '24/7',
+      freeCars: 10,
+      carsInRent: 3,
+    },
+    { label: 'Car Parking 2',
+      location: 'Location 2',
+      contact: '+1234567890',
+      schedule: '24/7',
+      freeCars: 3,
+      carsInRent: 3,
+    },
+    { label: 'Car Parking 3',
+      location: 'Location 3',
+      contact: '+1234567890',
+      schedule: '24/7',
+      freeCars: 2,
+      carsInRent: 3,
+    },
+    { label: 'Car Parking 4',
+      location: 'Location 4',
+      contact: '+1234567890',
+      schedule: '24/7',
+      freeCars: 5,
+      carsInRent: 3,
+    },
   ];
 
   selectParking(): void {
@@ -89,8 +140,11 @@ export class AllParksComponent  implements OnInit {
     this.navCtrl.navigateBack(['home/menu']);
     this.dataService.selectedMenuChip.set({value: MenuPage.PROFILE, icon: '/assets/icon/user-menu-icon.png', label: 'Мій профіль', iconClass: 'h-[18px] w-[18px]'});
   }
-  constructor() { }
 
+  async createPark() {
+    await this.openModal()
+  }
   ngOnInit() {}
 
+  protected readonly style = style;
 }

@@ -1,0 +1,13 @@
+
+.phones-popover {
+  &::part(content) {
+    --width: 97% !important;
+  }
+}
+
+
+ion-toolbar .sc-ion-searchbar-ios-h {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  min-height: 52px;
+}

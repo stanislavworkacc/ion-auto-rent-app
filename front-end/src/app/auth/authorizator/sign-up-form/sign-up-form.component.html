@@ -21,7 +21,7 @@
 
         <ion-input
           type="text"
-          class="aligned-input"
+          class="aligned-input capitalize"
           placeholder="Введіть ваше ім'я"
           [clearInput]="true"
           [formControl]="name"
@@ -81,19 +81,22 @@
     <div class="form-input" #mobileRef [appValidateInput]="mobileRef">
       <div class="input-row">
         <ion-label position="static" [class.focused]="isFocused['phone']">
-          <div class="phone-container">
-            <span class="font-bold">+380</span>
+          <div class="flex items-center gap-1"
+               (click)="openCodes($event)"
+          >
+            <span class="font-bold">{{ countryPhone() }}</span>
+            <ion-icon name="caret-down-outline"></ion-icon>
           </div>
-          @if (phone.valid) {
+          @if (phone.value) {
             <ion-icon name="checkmark-circle-outline" class="checkmark-icon"></ion-icon>
           }
         </ion-label>
 
         <ion-input
-          type="text"
+          type="number"
           class="aligned-input"
           phoneFormatter
-          placeholder="(XX)-XXX-XX-XX"
+          placeholder="Ваш мобільний"
           [formControl]="phone"
           (ionFocus)="onFocus('phone')"
           (ionBlur)="onBlur('phone')"
@@ -222,4 +225,3 @@
 
   <ng-content></ng-content>
 </form>
-

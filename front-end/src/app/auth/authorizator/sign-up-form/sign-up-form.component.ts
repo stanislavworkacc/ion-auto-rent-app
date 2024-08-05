@@ -13,7 +13,18 @@ import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} fr
 import {ValidateInputDirective} from "../../../shared/directives/validate-input.directive";
 import {matchingPasswordsValidator} from "../../../shared/utils/validators/matchingPasswordValidator";
 import {PrivacyPolicyComponent} from "../privacy-policy/privacy-policy.component";
-import {IonButton, IonIcon, IonInput, IonLabel, IonList, IonSpinner, ModalController} from "@ionic/angular/standalone";
+import {
+  AlertController,
+  IonAlert,
+  IonButton,
+  IonHeader,
+  IonIcon,
+  IonInput,
+  IonLabel,
+  IonList,
+  IonSpinner,
+  ModalController, PopoverController
+} from "@ionic/angular/standalone";
 import {PhoneNumberFormatterDirective} from "../../../shared/directives/phone-formatter.directive";
 import {AuthService} from "../../../shared/services/auth-service";
 import {ToasterService} from "../../../shared/components/app-toast/toaster.service";
@@ -22,28 +33,32 @@ import {catchError} from "rxjs/operators";
 import {handleError} from "../../../shared/utils/errorHandler";
 import {SegmentType} from "../auth-form-wrapper/auth-enums";
 import {RippleBtnComponent} from "../../../shared/components/buttons/ripple-btn/ripple-btn.component";
+import {codes} from "../../../shared/utils/phone-codes";
+import {PhoneCodesComponent} from "../../../shared/components/filters/modals/phone-codes/phone-codes.component";
 
 @Component({
   selector: 'sign-up-form',
   templateUrl: './sign-up-form.component.html',
   styleUrls: ['./sign-up-form.component.scss'],
   standalone: true,
-    imports: [
-        SwitcherComponent,
-        LocalLoaderComponent,
-        NgIf,
-        ReactiveFormsModule,
-        ValidateInputDirective,
-        PrivacyPolicyComponent,
-        IonList,
-        IonLabel,
-        IonIcon,
-        IonSpinner,
-        IonInput,
-        IonButton,
-        PhoneNumberFormatterDirective,
-        RippleBtnComponent
-    ],
+  imports: [
+    SwitcherComponent,
+    LocalLoaderComponent,
+    NgIf,
+    ReactiveFormsModule,
+    ValidateInputDirective,
+    PrivacyPolicyComponent,
+    IonList,
+    IonLabel,
+    IonIcon,
+    IonSpinner,
+    IonInput,
+    IonButton,
+    PhoneNumberFormatterDirective,
+    RippleBtnComponent,
+    IonHeader,
+    IonAlert
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SignUpFormComponent implements OnInit {
@@ -53,6 +68,7 @@ export class SignUpFormComponent implements OnInit {
   private cdRef: ChangeDetectorRef = inject(ChangeDetectorRef);
   private toaster: ToasterService = inject(ToasterService);
   private modalCtrl: ModalController = inject(ModalController);
+  private popoverCtrl: PopoverController = inject(PopoverController);
 
   @Input() isLogin: WritableSignal<boolean> = signal(false);
   @Input() selectedSegment: WritableSignal<string> = signal(SegmentType.STANTDART);
@@ -62,6 +78,7 @@ export class SignUpFormComponent implements OnInit {
   @ViewChild(ValidateInputDirective) appValidateInput: ValidateInputDirective;
 
   public loginByPhone: WritableSignal<boolean> = signal(false);
+  public countryPhone: WritableSignal<string> = signal('+380');
   public privacyPolicyAgreement: WritableSignal<boolean> = signal(false);
   public form!: FormGroup;
   public name!: FormControl;
@@ -96,6 +113,22 @@ export class SignUpFormComponent implements OnInit {
     this.handleAuthProcess(formValue);
   }
 
+  async openCodes(ev: Event): Promise<void> {
+    const popover: HTMLIonPopoverElement = await this.popoverCtrl.create({
+      component: PhoneCodesComponent,
+      cssClass: 'phones-popover',
+      event: ev,
+      translucent: true,
+      componentProps: { codes },
+    });
+
+    await popover.present();
+
+    const { data } = await popover.onDidDismiss();
+    if (data) {
+      this.countryPhone.set(data.code)
+    }
+  }
 
   handleAuthProcess(formValue): void {
     if(this.isLogin()) {
@@ -134,7 +167,7 @@ export class SignUpFormComponent implements OnInit {
     if (formValue.email) {
       loginData.email = formValue.email;
     } else if (formValue.phone) {
-      loginData.phone = '+380' + formValue.phone;
+      loginData.phone = this.countryPhone() + formValue.phone;
     }
 
     return loginData;
@@ -228,7 +261,7 @@ export class SignUpFormComponent implements OnInit {
   initForm(): void {
     this.form = this.fb.group({
       name: ['', Validators.required],
-      phone: ['', [Validators.required, Validators.minLength(14)]],
+      phone: [''],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', [Validators.required]]

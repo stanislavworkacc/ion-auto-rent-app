@@ -1,0 +1,52 @@
+<div class="flex items-center">
+  <div class="flex">
+    <ion-datetime-button [disabled]="disable" datetime="start"></ion-datetime-button>
+
+    <ion-modal [keepContentsMounted]="true" class="wide-alert rounded">
+      <ng-template>
+        <ion-header>
+          <ion-toolbar>
+            <ion-text class="flex w-full justify-center">
+              <div class="flex flex-col items-center">
+                <ion-text class="font-bold">Робочий графік</ion-text>
+                <ion-text>(Початок роботи)</ion-text>
+              </div>
+            </ion-text>
+          </ion-toolbar>
+        </ion-header>
+
+        <ion-datetime class="min-w-full"
+                      id="start"
+                      presentation="time"
+                      [value]="parkScheduler().open"
+                      [preferWheel]="true">
+        </ion-datetime>
+      </ng-template>
+    </ion-modal>
+  </div>
+  <span class="px-2 text-[#bababa]">-</span>
+  <div class="flex">
+    <ion-datetime-button datetime="end" [disabled]="disable"></ion-datetime-button>
+
+    <ion-modal [keepContentsMounted]="true" class="wide-alert">
+      <ng-template>
+        <ion-header>
+          <ion-toolbar>
+            <ion-text class="flex w-full justify-center">
+              <div class="flex flex-col items-center">
+                <ion-text class="font-bold">Робочий графік</ion-text>
+                <ion-text>(Кінець роботи)</ion-text>
+              </div>
+            </ion-text>
+          </ion-toolbar>
+        </ion-header>
+        <ion-datetime id="end"
+                      class="min-w-full"
+                      presentation="time"
+                      [value]="parkScheduler().close"
+                      [preferWheel]="true">
+        </ion-datetime>
+      </ng-template>
+    </ion-modal>
+  </div>
+</div>

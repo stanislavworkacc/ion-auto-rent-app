@@ -74,8 +74,6 @@ export class MenuComponent implements OnInit {
       {value: MenuPage.SETTINGS, icon: '/assets/icon/settings-menu-icon.png', label: 'Налаштування', iconClass: 'h-[18px] w-[18px]'},
       {value: MenuSection.CAR_PARK, icon: '/assets/icon/car-garage.png', label: 'Автопарк',iconClass: 'h-[18px] w-[18px]'},
       {value: MenuPage.CREATE, icon: '/assets/icon/search.png', label: 'Пошук авто', iconClass: 'h-[22px] w-[22px]'},
-      // {value: MenuPage.NEWS, icon: '/assets/icon/news-menu-ico.png', label: 'Новини', iconClass: 'h-[18px] w-[18px]'},
-      // {value: MenuPage.SALE, icon: '/assets/icon/sale-menu-ico.png', label: 'Акції', iconClass: 'h-[20px] w-[20px]'},
     ]);
   }
 
@@ -101,27 +99,12 @@ export class MenuComponent implements OnInit {
     this.setCarsMarks();
   }
 
-  ngOnInit(): void {
-    this.setSignals();
-  }
-
-  chipChangeSubscription(): void  {
-    if(this.selectedMenuChip()?.value === MenuSection.PROFILE) {
-      this.navCtrl.navigateForward(['/home/menu/edit'])
-    }
-    if(this.selectedMenuChip()?.value === MenuSection.CAR_PARK) {
-      this.navCtrl.navigateForward(['/home/menu/car-park'])
-    }
-  }
-
   initLogout() {
-    let data;
     this.auth.logout({}).subscribe()
   }
-  constructor() {
-    effect((): void => {
-      this.chipChangeSubscription();
-    });
+
+  ngOnInit(): void {
+    this.setSignals();
   }
 }
 

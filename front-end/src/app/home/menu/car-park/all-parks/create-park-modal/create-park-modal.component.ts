@@ -1,8 +1,7 @@
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
-  Component, DestroyRef,
-  ElementRef,
+  Component, DestroyRef, effect,
   inject,
   OnInit, Renderer2,
   signal,
@@ -18,37 +17,38 @@ import {
   IonAvatar,
   IonButton,
   IonButtons,
-  IonContent,
+  IonContent, IonDatetime, IonDatetimeButton,
   IonHeader,
   IonIcon,
   IonInput,
   IonItem,
   IonLabel,
-  IonList,
+  IonList, IonModal,
   IonPopover,
   IonProgressBar,
   IonRange,
   IonSearchbar,
   IonSelect,
   IonSelectOption,
-  IonSpinner, IonText,
+  IonSpinner, IonText, IonTitle,
   IonToolbar,
-  ModalController
+  ModalController, PopoverController
 } from "@ionic/angular/standalone";
 import {SegmentsComponent} from "../../../../../shared/ui-kit/components/segments/segments.component";
 import {NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
 import {ValidateInputDirective} from "../../../../../shared/directives/validate-input.directive";
 import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
-import {matchingPasswordsValidator} from "../../../../../shared/utils/validators/matchingPasswordValidator";
 import {of} from "rxjs/internal/observable/of";
 import {delay, tap} from "rxjs";
 import {UploadBtnComponent} from "./upload-btn/upload-btn.component";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
-import {catchError, filter, map} from "rxjs/operators";
-import {handleError} from "../../../../../shared/utils/errorHandler";
-import {GoogleSsoService} from "../../../../../auth/authorizator/google-sso.service";
+import {filter} from "rxjs/operators";
 import {GooglePlacesSerivce} from "../../../../../shared/services/google-places.serivce";
 import {GooglePlacesComponent} from "../../../../../shared/components/google-places/google-places.component";
+import {MainActionComponent} from "../../../../../shared/components/buttons/main-action/main-action.component";
+import {ParkCardComponent} from "../park-card/park-card.component";
+import {ScheduleRangeComponent} from "./schedule-range/schedule-range.component";
+import {CreateEditParkModalService} from "./create-edit-park-modal.service";
 
 @Component({
   selector: 'app-create-park-modal',
@@ -86,7 +86,14 @@ import {GooglePlacesComponent} from "../../../../../shared/components/google-pla
     IonSearchbar,
     IonList,
     IonText,
-    GooglePlacesComponent
+    GooglePlacesComponent,
+    IonTitle,
+    MainActionComponent,
+    ParkCardComponent,
+    IonDatetime,
+    IonDatetimeButton,
+    IonModal,
+    ScheduleRangeComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -97,6 +104,7 @@ export class CreateParkModalComponent  implements OnInit, AfterViewInit {
   private googlePlacesService: GooglePlacesSerivce = inject(GooglePlacesSerivce);
   private destroyRef: DestroyRef = inject(DestroyRef);
   private renderer: Renderer2 = inject(Renderer2);
+  private parkModalService: CreateEditParkModalService = inject(CreateEditParkModalService);
 
   public form!: FormGroup;
   public name!: FormControl;
@@ -105,18 +113,30 @@ export class CreateParkModalComponent  implements OnInit, AfterViewInit {
     name: false,
     address: false,
   };
-  uploadedLogoUrl: string = '';
-  formats: string[] = ['JPEG', 'WEBP', 'PNG', 'SVG', 'JPG'];
+  public uploadedLogoUrl: WritableSignal<string> = signal('');
+  public formats: string[] = ['JPEG', 'WEBP', 'PNG', 'SVG', 'JPG'];
 
-  logoUploaded: WritableSignal<boolean> = signal(false);
-  logoUploading: WritableSignal<boolean> = signal(false);
-  uploadProgress: WritableSignal<number>  = signal(0);
+  public logoUploaded: WritableSignal<boolean> = signal(false);
+  public logoUploading: WritableSignal<boolean> = signal(false);
+  public uploadProgress: WritableSignal<number>  = signal(0);
+  public parkScheduler: WritableSignal<{ open: string, close: string }> = signal({ open: '08:00', close: '18:00' });
 
-  suggestions: WritableSignal<string[]> = signal([]);
+  public suggestions: WritableSignal<string[]> = signal([]);
+  public parking: WritableSignal<any> = signal(
+    { label: 'Назва автопарку',
+      location: 'Адреса автопарку',
+      contact: '+1234567890',
+      schedule: '24/7',
+      freeCars: 0,
+      carsInRent: 0,
+    },
+  );
 
   @ViewChild('addressInput', { static: false }) addressInput!: IonInput;
 
-
+  get parkService() {
+    return this.parkModalService;
+  }
   onFocus(field: string): void {
     this.isFocused[field] = true;
   }
@@ -139,7 +159,7 @@ export class CreateParkModalComponent  implements OnInit, AfterViewInit {
           .pipe(
             delay(1000),
             tap((result) => {
-              this.uploadedLogoUrl = result;
+              this.uploadedLogoUrl.set(result);
               this.logoUploaded.set(true);
               this.logoUploading.set(false);
               this.uploadProgress.set(0);
@@ -163,7 +183,7 @@ export class CreateParkModalComponent  implements OnInit, AfterViewInit {
   }
 
   clearSelectedLogo(): void {
-    this.uploadedLogoUrl = '';
+    this.uploadedLogoUrl.set('');
     this.logoUploaded.set(false);
     this.logoUploading.set(false);
     this.uploadProgress.set(0);
@@ -178,12 +198,47 @@ export class CreateParkModalComponent  implements OnInit, AfterViewInit {
     this.form = this.fb.group({
       name: ['', Validators.required],
       address: [''],
+      logo: [this.uploadedLogoUrl()],
+      scheduler: this.parkScheduler()
     });
 
     this.assignFormControls();
   }
+
+  submit(){
+    this.form.getRawValue();
+
+    debugger
+    this.parkService.initParkCreation(this.form.getRawValue())
+  }
+
+  formSubscription() {
+    this.form.valueChanges.pipe(
+      takeUntilDestroyed(this.destroyRef),
+      tap((form) => {
+        const updates: Partial<{ label: string; location: string }> = {};
+
+        if (form.name) {
+          updates.label = form.name;
+        }
+
+        if (form.address) {
+          updates.location = form.address;
+        }
+
+        if (Object.keys(updates).length > 0) {
+          this.parking.update((parking) => ({
+            ...parking,
+            ...updates,
+          }));
+        }
+
+      })
+    ).subscribe()
+  }
   ngOnInit(): void {
     this.initForm();
+    this.formSubscription();
   }
 
   initGooglePlaces(): void {
@@ -213,10 +268,15 @@ export class CreateParkModalComponent  implements OnInit, AfterViewInit {
     this.suggestions.set([]);
   }
 
-
   ngAfterViewInit(): void {
     this.initGooglePlaces();
   }
 
-
+  constructor() {
+    effect(() => {
+      if(this.uploadedLogoUrl().length) {
+        this.form.get('logo').setValue(this.uploadedLogoUrl())
+      }
+    });
+  }
 }

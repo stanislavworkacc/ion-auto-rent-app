@@ -12,7 +12,7 @@ import {
   IonList, IonRow, IonText
 } from "@ionic/angular/standalone";
 import {NgForOf, NgIf} from "@angular/common";
-import {MenuPage} from "../menu-enums";
+import {MenuPage, MenuSection} from "../menu-enums";
 import {NavController, Platform} from "@ionic/angular";
 import {LogOutComponent} from "./log-out/log-out.component";
 import {Router} from "@angular/router";
@@ -50,16 +50,21 @@ import {MenuDataService} from "../menu-data.serivce";
 export class MenuProfileComponent implements OnInit {
 
   public platform: Platform = inject(Platform);
-  public menuDataService: MenuDataService = inject(MenuDataService);
   private navCtrl: NavController = inject(NavController);
 
   public pages: InputSignal<{ value: string, icon: string, label: string , iconClass: string}[]> = input([]);
 
   public MenuPage = MenuPage;
 
-  openPage(page: { value: string, icon: string, label: string, iconClass:string }): void {
-    // this.navCtrl.navigateForward(['/home/menu/profile']);
-    this.menuDataService.selectedMenuChip.set(page)
+  async openPage(page: { value: string, icon: string, label: string, iconClass:string }): Promise<void> {
+    switch (page.value) {
+      case MenuSection.PROFILE:
+        await this.navCtrl.navigateForward(['/home/menu/edit']);
+        break;
+      case MenuSection.CAR_PARK:
+        await this.navCtrl.navigateForward(['/home/menu/car-park']);
+        break;
+    }
   }
 
   get lastTwoPages() {

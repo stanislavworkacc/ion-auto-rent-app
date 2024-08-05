@@ -5,27 +5,11 @@
 </ion-header>
 
 <ion-content>
-  <div class="wrapper bg-white h-full rounded-tl-[30px] rounded-tr-[30px] mt-[5px]">
-    <div class="flex justify-between p-3 items-center bg-[#182130] rounded-tl-[30px] rounded-tr-[30px]">
-      <div class="flex items-center bg-[#182130] rounded-tl-[30px]">
-        <ion-avatar slot="start">
-          <img src="assets/icon/user2.png"/>
-        </ion-avatar>
-        <div class="ml-4">
-          <p class="text-[18px] font-bold text-white">Станіслав</p>
-          <p class="text-sm text-gray-600">+380(93)-567-890</p>
-          <p class="text-sm text-blue-600">johndoe.com</p>
-        </div>
-      </div>
-      <ion-button slot="icon-only" (click)="openActionSheet()">
-        <ion-icon class="text-[30px] text-white"
-                  name="ellipsis-horizontal-circle-outline"
-        >
-        </ion-icon>
-      </ion-button>
-    </div>
+  <profile-form [isBlurred]="isBlurred"></profile-form>
 
-    <profile-form [isBlurred]="isBlurred"></profile-form>
-  </div>
-
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end" [edge]="false" (click)="openActionSheet()">
+    <ion-fab-button>
+      <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

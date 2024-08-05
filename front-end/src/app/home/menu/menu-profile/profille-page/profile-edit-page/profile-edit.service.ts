@@ -5,6 +5,7 @@ import {environment} from "../../../../../../environments/environment";
 import {StorageService} from "../../../../../shared/services/storage.service";
 import {PostEntityModel} from "../../../../../../../libs/collection/src/lib/models/post-entity.model";
 import {PassportModalComponent} from "./profile-form/passport/passport-modal/passport-modal.component";
+import {take} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -35,11 +36,12 @@ export class ProfileEditService implements OnInit {
     },
   ];
 
-  async editUser(userData) {
-    const user = await this.storage.getObject('user');
-
-    debugger
-    this.editEntity.save({data: userData, name: environment.editUser + '/' + user._id})
+  editUser(userData, id) {
+    return this.editEntity.save(
+      {data: userData, name: environment.editUser + '/' + id}
+    ).pipe(
+      take(1)
+    )
   }
 
   async deleteAccount(): Promise<void> {
@@ -105,7 +107,6 @@ export class ProfileEditService implements OnInit {
       component: PassportModalComponent,
       cssClass: 'auth-modal',
       initialBreakpoint: 1,
-      breakpoints: [0]
     })
 
      return modal;

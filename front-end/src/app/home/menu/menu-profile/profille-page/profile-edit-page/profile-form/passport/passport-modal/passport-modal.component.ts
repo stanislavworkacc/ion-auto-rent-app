@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnInit, signal, WritableSignal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, OnInit, signal, WritableSignal} from '@angular/core';
 import {
   IonContent, IonFab, IonFabButton, IonFabList,
   IonHeader, IonIcon,
@@ -7,7 +7,7 @@ import {
   IonLabel,
   IonSegment, IonSegmentButton,
   IonTitle,
-  IonToolbar
+  IonToolbar, ModalController
 } from "@ionic/angular/standalone";
 import {NgIf} from "@angular/common";
 import {SegmentsComponent} from "../../../../../../../../shared/ui-kit/components/segments/segments.component";
@@ -16,6 +16,7 @@ import {IonFabComponent} from "../../../../../../../../shared/ui-kit/components/
 import {SignUpFormComponent} from "../../../../../../../../auth/authorizator/sign-up-form/sign-up-form.component";
 import {UrkIdPassportComponent} from "./ukraine/urk-id-passport/urk-id-passport.component";
 import {UrkOldPassportComponent} from "./ukraine/urk-old-passport/urk-old-passport.component";
+import {BackButtonComponent} from "../../../../../../../../shared/ui-kit/components/back-button/back-button.component";
 
 @Component({
   selector: 'app-passport-modal',
@@ -41,13 +42,15 @@ import {UrkOldPassportComponent} from "./ukraine/urk-old-passport/urk-old-passpo
     IonFabButton,
     IonFabList,
     IonIcon,
-    UrkOldPassportComponent
+    UrkOldPassportComponent,
+    BackButtonComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PassportModalComponent  implements OnInit {
   protected readonly DOC_TYPE = DOC_TYPE;
   protected readonly PASSPORT_UKR = PASSPORT_UKR;
+  private modalCtrl: ModalController = inject(ModalController);
 
   public passportTypes: WritableSignal<{ value: string, label: string }[]> = signal([]);
   public selectedPassport: WritableSignal<{ value: string, label: string }> = signal(null);
@@ -59,6 +62,10 @@ export class PassportModalComponent  implements OnInit {
     ]);
 
     this.selectedPassport.set({ value: PASSPORT_UKR.ID, label: 'ID Паспорт' })
+  }
+
+  async goBack(): Promise<void> {
+    await this.modalCtrl.dismiss()
   }
 
   onSegmentChange(event: any) {

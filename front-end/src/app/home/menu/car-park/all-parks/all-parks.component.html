@@ -1,5 +1,5 @@
 <ion-header class="shadow-none">
-  <ion-toolbar class="px-2 !pt-2">
+  <ion-toolbar class="px-2 !py-2">
     <app-back-button
       [styles]="'!text-[20px] !text-black'"
       [title]="'Меню'"
@@ -8,24 +8,16 @@
     ></app-back-button>
   </ion-toolbar>
 </ion-header>
-<ion-content>
-  <ion-list class=m-2>
-    <app-header-parks [create]="openModal.bind(this)"></app-header-parks>
 
-    @for(parking of userCarParkings; track parking.label) {
-      <ion-item (click)="selectParking()" lines="none" class="!shadow-none">
-<!--        <ion-thumbnail slot="start" class="flex justify-center items-center">-->
-<!--          <img src="/assets/icon/parkings-logo-ico.png" class="h-[40px] w-[40px]">-->
-<!--        </ion-thumbnail>-->
+<app-header-parks [create]="createPark.bind(this)"></app-header-parks>
 
-        <ion-label>
-          <h2>{{ parking.label }}</h2>
-          <p>{{ parking.location }}</p>
-        </ion-label>
-        <ion-button fill="clear" slot="end" >
-          <img src="/assets/icon/edit-orange.png" class="h-[20px]">
-        </ion-button>
-      </ion-item>
-    }
-  </ion-list>
-</ion-content>
+<div class="h-full overflow-y-auto mx-[16px]">
+  @for(parking of parkings; track parking.label) {
+    <park-card
+      [selectParking]="selectParking.bind(this)"
+      [parking]="parking"
+    ></park-card>
+  }
+</div>
+
+<main-action-btn [title]="'Додати'" [action]="createPark.bind(this)" [styles]="'mx-[14px]'"></main-action-btn>
