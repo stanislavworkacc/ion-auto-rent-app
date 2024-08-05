@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 
 const changePassword = async (req, res, { userModel }) => {
     const UserPasswordModel = mongoose.model(userModel + 'Password');
+    const UserModel = mongoose.model(userModel);
 
     const { id } = req.params;
     const { password } = req.body;
@@ -19,13 +20,22 @@ const changePassword = async (req, res, { userModel }) => {
 
     const updatedPasswordModel = await UserPasswordModel.findOneAndUpdate({user: id}, {
         $set: updatedPasswordData,
-    }, { new: true })
+    }, { new: true });
 
-    if(updatedPasswordModel) {
+
+    const updatedUserModel = await UserModel.findOneAndUpdate({
+        _id: id
+    }, {
+        ssoUser: false,
+    }, {
+        new: true,
+    }).exec();
+
+    if(updatedPasswordModel && updatedUserModel) {
         return res.status(200).json({
             success: true,
-            result: {},
-            message: 'Password updated successfully.',
+            result: updatedUserModel,
+            message: 'Password updated successfully',
         })
     }
 
