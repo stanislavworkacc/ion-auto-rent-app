@@ -8,6 +8,14 @@
   <park-card [parking]="parking()" [editMode]="false" [uploadedLogoUrl]="uploadedLogoUrl()"></park-card>
 
   <form [formGroup]="form">
+    <ion-item>
+      <ion-select placeholder="Обрати тип" formControlName="type">
+        <div class="font-bold" slot="label">Тип парку</div>
+        <ion-select-option value="1">Авто та мото</ion-select-option>
+        <ion-select-option value="4">Спец.техніка</ion-select-option>
+        <ion-select-option value="3">Водний транспорт</ion-select-option>
+      </ion-select>
+    </ion-item>
     <div class="form-input" #nameRef [appValidateInput]="nameRef">
       <div class="input-row">
         <ion-label position="static" [class.focused]="isFocused['name']">

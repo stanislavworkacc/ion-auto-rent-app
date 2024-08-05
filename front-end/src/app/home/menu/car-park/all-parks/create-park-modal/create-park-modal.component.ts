@@ -197,9 +197,10 @@ export class CreateParkModalComponent  implements OnInit, AfterViewInit {
   initForm(): void {
     this.form = this.fb.group({
       name: ['', Validators.required],
-      address: [''],
+      address: ['', Validators.required],
       logo: [this.uploadedLogoUrl()],
-      scheduler: this.parkScheduler()
+      scheduler: this.parkScheduler(),
+      type: ['', Validators.required]
     });
 
     this.assignFormControls();
