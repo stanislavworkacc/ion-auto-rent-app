@@ -44,6 +44,7 @@
 :root.ios ion-modal {
   --ion-background-color: white;
 }
+
 ion-header {
   box-shadow: none;
 }
@@ -59,6 +60,7 @@ ion-header {
   ion-header {
     border-radius: 20px 20px 0 0 !important;
     box-shadow: none;
+
     ion-toolbar {
       border-radius: 16px 16px 0 0 !important;
     }
@@ -66,7 +68,8 @@ ion-header {
 }
 
 .wide-alert {
-
+  --min-width: 90% !important;
+  --max-width: 90% !important;
 }
 
 semi-wide-alert {
@@ -144,6 +147,7 @@ ion-popover {
         --background: #212c40;
       }
     }
+
     .list-md {
       background: #212c40;
     }
@@ -156,6 +160,7 @@ ion-list {
   ion-item {
     --background: transparent !important;
   }
+
   ion-radio {
     --border-radius: 4px;
     --inner-border-radius: 4px;
@@ -200,6 +205,7 @@ ion-button {
 .slide-down-animation {
   animation: slide-down 0.2s ease-out forwards;
 }
+
 @keyframes slide-down {
   from {
     transform: translateY(-100%);
