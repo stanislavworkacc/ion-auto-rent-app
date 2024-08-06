@@ -13,7 +13,7 @@
         <div class="font-bold" slot="label">Тип парку</div>
         <ion-select-option value="1">Автомобілі та мотоцикли</ion-select-option>
         <ion-select-option value="3">Водний транспорт</ion-select-option>
-        <ion-select-option value="4">Спец.техніка</ion-select-option>
+        <ion-select-option value="4">Спец.техніка (вкл. автобуси та причепи)</ion-select-option>
       </ion-select>
     </ion-item>
     <div class="form-input" #nameRef [appValidateInput]="nameRef">
@@ -97,7 +97,11 @@
     <div class="flex items-center gap-1">
       <div class="form-input relative min-w-[86%]" [class.!min-w-[100%]]="!uploadedLogoUrl()">
         <div class="input-row">
-          <input #fileInput type="file" accept="image/*" (change)="handleFileUpload($event)"
+          <input #fileInput
+                 type="file"
+                 accept="image/*"
+                 formControlName="logo"
+                 (change)="handleFileUpload($event)"
                  class="opacity-0 absolute left-0 right-0 top-0 bottom-0 w-full"
           >
           <ion-text class="flex items-center gap-2 font-[300] justify-center w-full py-1">

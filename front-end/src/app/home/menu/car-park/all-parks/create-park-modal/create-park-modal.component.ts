@@ -174,6 +174,10 @@ export class CreateParkModalComponent  implements OnInit, AfterViewInit {
               this.logoUploaded.set(true);
               this.logoUploading.set(false);
               this.uploadProgress.set(0);
+
+              this.form.patchValue({
+                logo: file
+              });
             })
           )
           .subscribe();
@@ -209,7 +213,7 @@ export class CreateParkModalComponent  implements OnInit, AfterViewInit {
     this.form = this.fb.group({
       name: ['', [Validators.required, Validators.maxLength(50)]],
       address: ['', Validators.required],
-      logo: [this.uploadedLogoUrl()],
+      logo: [null],
       scheduler: this.parkScheduler(),
       type: ['', Validators.required]
     });
@@ -219,6 +223,8 @@ export class CreateParkModalComponent  implements OnInit, AfterViewInit {
 
   submit(): void{
     const park = this.form.getRawValue();
+
+    debugger
 
     if(this.form.valid) {
       this.parkService.initParkCreation(park, this.userModel()._id).pipe(
@@ -300,13 +306,5 @@ export class CreateParkModalComponent  implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.initGooglePlaces();
-  }
-
-  constructor() {
-    effect(() => {
-      if(this.uploadedLogoUrl().length) {
-        this.form.get('logo').setValue(this.uploadedLogoUrl())
-      }
-    });
   }
 }
