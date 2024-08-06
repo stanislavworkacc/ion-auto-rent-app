@@ -45,6 +45,8 @@ const DoSingleStorage = ({
   fieldName = 'file',
 }) => {
   return async function (req, res, next) {
+    const {id} = req.params;
+
     if (!req.files || Object.keys(req.files)?.length === 0 || !req.files?.file) {
       req.body[fieldName] = null;
       next();
@@ -71,7 +73,7 @@ const DoSingleStorage = ({
 
         let _fileName = `${originalname}-${uniqueFileID}${fileExtension}`;
 
-        const filePath = `public/uploads/${entity}/${_fileName}`;
+        const filePath = `public/uploads/${entity}/${id}/${_fileName}`;
 
         let uploadParams = {
           Key: `${filePath}`,
@@ -79,6 +81,7 @@ const DoSingleStorage = ({
           ACL: 'public-read',
           Body: req.files.file.data,
         };
+
         const command = new PutObjectCommand(uploadParams);
         const s3response = await s3Client.send(command);
 

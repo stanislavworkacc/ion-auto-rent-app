@@ -9,7 +9,7 @@ const DoSingleStorage = require('../../middlewares/uploadMiddleware/DoSingleStor
 // DoSingleStorage({ entity: 'admin', fieldName: 'photo', fileType: 'image' })
 
 router.route('/create/:id').post(
-    DoSingleStorage({ entity: 'admin', fieldName: 'logo', fileType: 'image' }),
+    DoSingleStorage({ entity: 'parks', fieldName: 'logo', fileType: 'image' }),
     catchErrors(autoParks.create)
 );
 router.route('/listAll/:id').post(catchErrors(autoParks.listAll));
