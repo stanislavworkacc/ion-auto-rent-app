@@ -4,8 +4,8 @@
 
 
 // dev.rent-auto-app.site
-// export const domainName = 'https://143.198.120.163:8000';
-export const domainName = 'http://localhost:8000';
+export const domainName = 'https://143.198.120.163:8000';
+// export const domainName = 'http://localhost:8000';
 // export const domainName = 'http://dev.rent-auto-app.site:8000';
 
 export const environment = {

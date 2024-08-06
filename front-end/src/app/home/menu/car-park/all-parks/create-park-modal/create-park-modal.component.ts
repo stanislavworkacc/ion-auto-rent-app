@@ -124,6 +124,7 @@ export class CreateParkModalComponent  implements OnInit, AfterViewInit {
   public parkScheduler: WritableSignal<{ open: string, close: string }> = signal({ open: '08:00', close: '18:00' });
 
   public suggestions: WritableSignal<string[]> = signal([]);
+  private userModel: WritableSignal<{ _id: string, email: string, phone: string, userName: string, userLastName: string, ssoUser: boolean }> = signal(null);
   public parking: WritableSignal<any> = signal(
     { label: 'Назва автопарку',
       location: 'Адреса автопарку',
@@ -133,7 +134,12 @@ export class CreateParkModalComponent  implements OnInit, AfterViewInit {
       carsInRent: 0,
     },
   );
-  private userModel: WritableSignal<{ _id: string, email: string, phone: string, userName: string, userLastName: string, ssoUser: boolean }> = signal(null);
+  alertOption = {
+    subHeader: 'Встановіть вибір відповідно до типу транспортного засобу',
+    translucent: true,
+    cssClass: 'semi-wide-alert'
+  };
+
 
   @ViewChild('addressInput', { static: false }) addressInput!: IonInput;
 

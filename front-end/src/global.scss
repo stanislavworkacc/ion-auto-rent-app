@@ -66,8 +66,12 @@ ion-header {
 }
 
 .wide-alert {
-  --min-width: 90% !important;
-  --max-width: 90% !important;
+
+}
+
+semi-wide-alert {
+  --min-width: 75% !important;
+  --max-width: 75% !important;
 }
 
 
