@@ -136,18 +136,19 @@ export class CreateParkModalComponent  implements OnInit, AfterViewInit {
       carsInRent: 0,
     },
   );
-  alertOption = {
-    subHeader: 'Встановіть вибір відповідно до типу транспортного засобу',
-    translucent: true,
-    cssClass: 'semi-wide-alert',
-  };
-
+  selectedType: WritableSignal<number> = signal(0);
 
   @ViewChild('addressInput', { static: false }) addressInput!: IonInput;
 
   get parkService() {
     return this.parkModalService;
   }
+
+  selectParkType(type: number) {
+    this.selectedType.set(type);
+    this.form.patchValue({ type: this.selectedType() });
+  }
+
   onFocus(field: string): void {
     this.isFocused[field] = true;
   }

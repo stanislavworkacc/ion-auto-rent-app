@@ -8,14 +8,38 @@
   <park-card [parking]="parking()" [editMode]="false" [uploadedLogoUrl]="uploadedLogoUrl()"></park-card>
 
   <form [formGroup]="form">
-    <ion-item>
-      <ion-select placeholder="Обрати тип" formControlName="type" [interfaceOptions]="alertOption">
-        <div class="font-bold" slot="label">Тип парку</div>
-        <ion-select-option value="1">Автомобілі та мотоцикли</ion-select-option>
-        <ion-select-option value="3">Водний транспорт</ion-select-option>
-        <ion-select-option value="4">Спец.техніка (вкл. автобуси та причепи)</ion-select-option>
-      </ion-select>
-    </ion-item>
+    <div class="flex items-center justify-between">
+      <div class="flex flex-col items-center" (click)="selectParkType(1)" [class.selected]="selectedType() === 1">
+        <div class="flex items-center gap-2">
+          <img src="/assets/icon/car-type-ico.png" class="h-[25px]">
+          <img src="/assets/icon/moto-type-ico.png" class="h-[23px]">
+          <img src="/assets/icon/truck-ico.png" class="h-[18px]">
+        </div>
+
+        <ion-text class="text-xs text-gray-500 tracking-widest">Авто та мото</ion-text>
+      </div>
+
+      <div class="flex flex-col items-center" (click)="selectParkType(4)" [class.selected]="selectedType() === 4">
+        <div class="flex items-center gap-2">
+        <img src="/assets/icon/tractor-type-ico.png" class="h-[25px]">
+        <img src="/assets/icon/bus-type-ico.png" class="h-[25px]">
+        <img src="/assets/icon/trailer-type-ico.png" class="h-[25px]">
+        </div>
+
+        <ion-text class="text-xs text-gray-500 tracking-widest">Спец.техніка</ion-text>
+      </div>
+
+      <div class="flex flex-col items-center" (click)="selectParkType(3)" [class.selected]="selectedType() === 3">
+        <div class="flex items-center gap-2">
+        <img src="/assets/icon/water-vehicle-type.png" class="h-[25px]">
+        <img src="/assets/icon/yach-type-ico.png" class="h-[18px]">
+        <img src="/assets/icon/speed-yacht.png" class="h-[30px]">
+        </div>
+
+        <ion-text class="text-xs text-gray-500 tracking-widest">Водний транспорт</ion-text>
+      </div>
+    </div>
+
     <div class="form-input" #nameRef [appValidateInput]="nameRef">
       <div class="input-row">
         <ion-label position="static" [class.focused]="isFocused['name']">
