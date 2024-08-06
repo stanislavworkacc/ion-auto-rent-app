@@ -8,36 +8,25 @@
   <park-card [parking]="parking()" [editMode]="false" [uploadedLogoUrl]="uploadedLogoUrl()"></park-card>
 
   <form [formGroup]="form">
+    <ion-label class="border-r-0 font-[300] text-gray-500 flex items-center gap-1 pr-4">
+      Тип автопарку
+    </ion-label>
     <div class="flex items-center justify-between">
-      <div class="flex flex-col items-center" (click)="selectParkType(1)" [class.selected]="selectedType() === 1">
-        <div class="flex items-center gap-2">
-          <img src="/assets/icon/car-type-ico.png" class="h-[25px]">
-          <img src="/assets/icon/moto-type-ico.png" class="h-[23px]">
-          <img src="/assets/icon/truck-ico.png" class="h-[18px]">
+      @for(type of parkTypes; track type.value) {
+        <div class="flex flex-col items-center cursor-pointer relative h-[62px]"
+             [class.mb-[7px]]="type.value === 3"
+             [class.animate-pulse]="selectedType() === type.value"
+             [class.selected]="selectedType() === type.value"
+             (click)="selectParkType(type.value)">
+          <div class="flex items-center gap-2">
+            <img *ngFor="let icon of type.icons" [src]="icon.src" [ngStyle]="{ height: icon.height }">
+          </div>
+          <ion-text class="text-xs text-gray-500 tracking-widest">{{ type.label }}</ion-text>
+          @if(selectedType() === type.value){
+            <ion-icon name="checkbox-outline" class="text-[#ed520d] text-[18px]"></ion-icon>
+          }
         </div>
-
-        <ion-text class="text-xs text-gray-500 tracking-widest">Авто та мото</ion-text>
-      </div>
-
-      <div class="flex flex-col items-center" (click)="selectParkType(4)" [class.selected]="selectedType() === 4">
-        <div class="flex items-center gap-2">
-        <img src="/assets/icon/tractor-type-ico.png" class="h-[25px]">
-        <img src="/assets/icon/bus-type-ico.png" class="h-[25px]">
-        <img src="/assets/icon/trailer-type-ico.png" class="h-[25px]">
-        </div>
-
-        <ion-text class="text-xs text-gray-500 tracking-widest">Спец.техніка</ion-text>
-      </div>
-
-      <div class="flex flex-col items-center" (click)="selectParkType(3)" [class.selected]="selectedType() === 3">
-        <div class="flex items-center gap-2">
-        <img src="/assets/icon/water-vehicle-type.png" class="h-[25px]">
-        <img src="/assets/icon/yach-type-ico.png" class="h-[18px]">
-        <img src="/assets/icon/speed-yacht.png" class="h-[30px]">
-        </div>
-
-        <ion-text class="text-xs text-gray-500 tracking-widest">Водний транспорт</ion-text>
-      </div>
+      }
     </div>
 
     <div class="form-input" #nameRef [appValidateInput]="nameRef">

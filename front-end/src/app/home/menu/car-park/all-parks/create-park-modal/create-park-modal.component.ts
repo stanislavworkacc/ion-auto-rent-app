@@ -35,7 +35,7 @@ import {
   ModalController, PopoverController
 } from "@ionic/angular/standalone";
 import {SegmentsComponent} from "../../../../../shared/ui-kit/components/segments/segments.component";
-import {NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
+import {NgForOf, NgIf, NgOptimizedImage, NgStyle} from "@angular/common";
 import {ValidateInputDirective} from "../../../../../shared/directives/validate-input.directive";
 import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {of} from "rxjs/internal/observable/of";
@@ -95,7 +95,8 @@ import {ToasterService} from "../../../../../shared/components/app-toast/toaster
     IonDatetime,
     IonDatetimeButton,
     IonModal,
-    ScheduleRangeComponent
+    ScheduleRangeComponent,
+    NgStyle
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -136,6 +137,36 @@ export class CreateParkModalComponent  implements OnInit, AfterViewInit {
       carsInRent: 0,
     },
   );
+
+  parkTypes = [
+    {
+      value: 1,
+      label: 'Авто та мото',
+      icons: [
+        { src: '/assets/icon/car-type-ico.png', height: '25px' },
+        { src: '/assets/icon/moto-type-ico.png', height: '23px' },
+        { src: '/assets/icon/truck-ico.png', height: '18px' }
+      ]
+    },
+    {
+      value: 4,
+      label: 'Спец.техніка',
+      icons: [
+        { src: '/assets/icon/tractor-type-ico.png', height: '25px' },
+        { src: '/assets/icon/bus-type-ico.png', height: '25px' },
+        { src: '/assets/icon/trailer-type-ico.png', height: '25px' }
+      ]
+    },
+    {
+      value: 3,
+      label: 'Водний транспорт',
+      icons: [
+        { src: '/assets/icon/water-vehicle-type.png', height: '25px' },
+        { src: '/assets/icon/yach-type-ico.png', height: '18px' },
+        { src: '/assets/icon/speedboat.png', height: '30px' }
+      ]
+    }
+  ];
   selectedType: WritableSignal<number> = signal(0);
 
   @ViewChild('addressInput', { static: false }) addressInput!: IonInput;
