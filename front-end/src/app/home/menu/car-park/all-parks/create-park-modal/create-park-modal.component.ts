@@ -100,7 +100,7 @@ import {ToasterService} from "../../../../../shared/components/app-toast/toaster
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CreateParkModalComponent  implements OnInit, AfterViewInit {
+export class CreateParkModalComponent implements OnInit, AfterViewInit {
 
   private modalCtrl: ModalController = inject(ModalController);
   private fb: FormBuilder = inject(FormBuilder);
@@ -114,6 +114,7 @@ export class CreateParkModalComponent  implements OnInit, AfterViewInit {
   public form!: FormGroup;
   public name!: FormControl;
   public address!: FormControl;
+
   public isFocused: { [key: string]: boolean } = {
     name: false,
     address: false,
@@ -123,13 +124,20 @@ export class CreateParkModalComponent  implements OnInit, AfterViewInit {
 
   public logoUploaded: WritableSignal<boolean> = signal(false);
   public logoUploading: WritableSignal<boolean> = signal(false);
-  public uploadProgress: WritableSignal<number>  = signal(0);
-  public parkScheduler: WritableSignal<{ open: string, close: string }> = signal({ open: '08:00', close: '18:00' });
+  public uploadProgress: WritableSignal<number> = signal(0);
 
   public suggestions: WritableSignal<string[]> = signal([]);
-  private userModel: WritableSignal<{ _id: string, email: string, phone: string, userName: string, userLastName: string, ssoUser: boolean }> = signal(null);
+  private userModel: WritableSignal<{
+    _id: string,
+    email: string,
+    phone: string,
+    userName: string,
+    userLastName: string,
+    ssoUser: boolean
+  }> = signal(null);
   public parking: WritableSignal<any> = signal(
-    { label: 'Назва автопарку',
+    {
+      label: 'Назва автопарку',
       location: 'Адреса автопарку',
       contact: '+1234567890',
       schedule: '24/7',
@@ -143,41 +151,45 @@ export class CreateParkModalComponent  implements OnInit, AfterViewInit {
       value: 1,
       label: 'Авто та мото',
       icons: [
-        { src: '/assets/icon/car-type-ico.png', height: '25px' },
-        { src: '/assets/icon/moto-type-ico.png', height: '23px' },
-        { src: '/assets/icon/truck-ico.png', height: '18px' }
+        {src: '/assets/icon/car-type-ico.png', height: '25px'},
+        {src: '/assets/icon/moto-type-ico.png', height: '23px'},
+        {src: '/assets/icon/truck-ico.png', height: '18px'}
       ]
     },
     {
       value: 4,
       label: 'Спец.техніка',
       icons: [
-        { src: '/assets/icon/tractor-type-ico.png', height: '25px' },
-        { src: '/assets/icon/bus-type-ico.png', height: '25px' },
-        { src: '/assets/icon/trailer-type-ico.png', height: '25px' }
+        {src: '/assets/icon/tractor-type-ico.png', height: '25px'},
+        {src: '/assets/icon/bus-type-ico.png', height: '25px'},
+        {src: '/assets/icon/trailer-type-ico.png', height: '25px'}
       ]
     },
     {
       value: 3,
       label: 'Водний транспорт',
       icons: [
-        { src: '/assets/icon/water-vehicle-type.png', height: '25px' },
-        { src: '/assets/icon/yach-type-ico.png', height: '18px' },
-        { src: '/assets/icon/speedboat.png', height: '30px' }
+        {src: '/assets/icon/water-vehicle-type.png', height: '25px'},
+        {src: '/assets/icon/yach-type-ico.png', height: '18px'},
+        {src: '/assets/icon/speedboat.png', height: '30px'}
       ]
     }
   ];
   selectedType: WritableSignal<number> = signal(0);
 
-  @ViewChild('addressInput', { static: false }) addressInput!: IonInput;
+  @ViewChild('addressInput', {static: false}) addressInput!: IonInput;
 
   get parkService() {
     return this.parkModalService;
   }
 
+  get scheduler() {
+    return this.form.get('scheduler') as FormGroup;
+  }
+
   selectParkType(type: number) {
     this.selectedType.set(type);
-    this.form.patchValue({ type: this.selectedType() });
+    this.form.patchValue({type: this.selectedType()});
   }
 
   onFocus(field: string): void {
@@ -191,6 +203,7 @@ export class CreateParkModalComponent  implements OnInit, AfterViewInit {
   closeModal(): void {
     this.modalCtrl.dismiss()
   }
+
   handleFileUpload(event: any): void {
     const file = event.target.files[0];
     if (file) {
@@ -246,19 +259,22 @@ export class CreateParkModalComponent  implements OnInit, AfterViewInit {
       name: ['', [Validators.required, Validators.maxLength(50)]],
       address: ['', Validators.required],
       logo: [null],
-      scheduler: this.parkScheduler(),
+      scheduler: this.fb.group({
+        open: ['08:00'],
+        close: ['18:00']
+      }),
       type: ['', Validators.required]
     });
 
     this.assignFormControls();
   }
 
-  submit(): void{
+  submit(): void {
     const park = this.form.getRawValue();
 
     debugger
 
-    if(this.form.valid) {
+    if (this.form.valid) {
       this.parkService.initParkCreation(park, this.userModel()._id).pipe(
         tap(() => {
           debugger
@@ -323,7 +339,7 @@ export class CreateParkModalComponent  implements OnInit, AfterViewInit {
   fetchSuggestions(query: any): void {
     //@ts-ignore
     const autocompleteService = new google.maps.places.AutocompleteService();
-    autocompleteService.getPlacePredictions({ input: query }, (predictions, status) => {
+    autocompleteService.getPlacePredictions({input: query}, (predictions, status) => {
       //@ts-ignore
       if (status === google.maps.places.PlacesServiceStatus.OK && predictions) {
         this.suggestions.set(predictions.map(prediction => prediction.description));
@@ -339,4 +355,6 @@ export class CreateParkModalComponent  implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.initGooglePlaces();
   }
+
+  protected readonly FormControl = FormControl;
 }

@@ -18,8 +18,10 @@
         <ion-datetime class="min-w-full"
                       id="start"
                       presentation="time"
-                      [value]="parkScheduler().open"
-                      [preferWheel]="true">
+                      [value]="control?.get('open').value"
+                      [preferWheel]="true"
+                      (ionChange)="onSchedulerChange($event.target.value, 'open')"
+        >
         </ion-datetime>
       </ng-template>
     </ion-modal>
@@ -43,7 +45,8 @@
         <ion-datetime id="end"
                       class="min-w-full"
                       presentation="time"
-                      [value]="parkScheduler().close"
+                      [value]="control?.get('close').value"
+                      (ionChange)="onSchedulerChange($event.target.value, 'close')"
                       [preferWheel]="true">
         </ion-datetime>
       </ng-template>

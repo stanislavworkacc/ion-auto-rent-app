@@ -11,6 +11,8 @@ import {
   IonTitle,
   IonToolbar
 } from "@ionic/angular/standalone";
+import {JsonPipe} from "@angular/common";
+import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 
 @Component({
   selector: 'schedule-range',
@@ -31,16 +33,32 @@ import {
     IonButton,
     IonText,
     IonRadio,
-    IonCheckbox
+    IonCheckbox,
+    JsonPipe,
+    ReactiveFormsModule
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ScheduleRangeComponent  implements OnInit {
+export class ScheduleRangeComponent implements OnInit {
 
-  @Input({ required: false }) parkScheduler: WritableSignal<{ open: string, close: string }> = signal({ open: '08:00', close: '18:00' });
+  @Input() control: FormGroup;
   @Input() disable: boolean;
-  constructor() { }
 
-  ngOnInit() {}
+  onSchedulerChange(ev, range): void {
+    switch (range) {
+      case 'open':
+        this.control.get('open').setValue(ev);
+        break;
+      case 'close':
+        this.control.get('close').setValue(ev);
+        break;
+    }
+  }
+
+  constructor() {
+  }
+
+  ngOnInit() {
+  }
 
 }
