@@ -40,30 +40,41 @@ import {NgClass, NgIf} from "@angular/common";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ParkCardComponent  implements OnInit, AfterViewInit {
-  private renderer: Renderer2 = inject(Renderer2);
-
   @Input() selectParking: () => void;
   @Input() editMode: boolean = true;
   @Input() uploadedLogoUrl: string = '';
   @Input() parking: { label: string, location: string, contact: string, schedule: string, freeCars: number, carsInRent: number };
 
   @ViewChild('title', { static: false }) title: ElementRef;
-  isExpanded: WritableSignal<boolean> = signal(false);
-  isTruncated: WritableSignal<boolean> = signal(false);
+  @ViewChild('subtitle', { static: false }) subtitle: ElementRef;
 
-  toggleExpand(): void {
-    this.isExpanded.set(!this.isExpanded());
+  isTitleExpanded: WritableSignal<boolean> = signal(false);
+  isSubtitleExpanded: WritableSignal<boolean> = signal(false);
+  isTitleTruncated: WritableSignal<boolean> = signal(false);
+  isSubtitleTruncated: WritableSignal<boolean> = signal(false);
+
+  toggleTitleExpand(): void {
+    this.isTitleExpanded.set(!this.isTitleExpanded());
+  }
+  toggleSubtitleExpand(): void {
+    this.isSubtitleExpanded.set(!this.isSubtitleExpanded());
   }
 
-  checkTruncated(): void {
-    const el = this.title?.nativeElement;
-    if(el) {
-      this.isTruncated.set(el.scrollWidth > el.clientWidth)
+  checkTitlesTruncated(): void {
+    const title = this.title?.nativeElement;
+    if(title) {
+      this.isTitleTruncated.set(title.scrollWidth > title.clientWidth)
     }
+
+    const subtitle = this.subtitle?.nativeElement;
+    if(subtitle) {
+      this.isSubtitleTruncated.set(subtitle.scrollWidth > subtitle.clientWidth)
+    }
+
   }
 
   ngOnInit() {}
   ngAfterViewInit() {
-    this.checkTruncated();
+    this.checkTitlesTruncated();
   }
 }

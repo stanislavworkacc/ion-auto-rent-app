@@ -2,13 +2,20 @@
   <ion-card-header class="p-[10px] !flex" >
     <div class="flex items-center gap-2 max-w-[75%]">
       <div class="flex flex-col w-full">
-        <ion-card-subtitle class="">{{ parking.location }}</ion-card-subtitle>
+        <ion-card-subtitle #subtitle
+                           [ngClass]="{'truncate-title': !isSubtitleExpanded(), 'expand-title': isSubtitleExpanded()}"
+                           (click)="toggleSubtitleExpand()"
+        >{{ parking.location }}
+          @if(isSubtitleTruncated()) {
+          <ion-icon name="caret-down-outline"></ion-icon>
+          }
+        </ion-card-subtitle>
         <ion-card-title #title
                         class="text-sm capitalize"
-                        [ngClass]="{'truncate-title': !isExpanded(), 'expand-title': isExpanded()}"
-                        (click)="toggleExpand()">
+                        [ngClass]="{'truncate-title': !isTitleExpanded(), 'expand-title': isTitleExpanded()}"
+                        (click)="toggleTitleExpand()">
           {{ parking.label }}
-          @if(isTruncated()) {
+          @if(isTitleTruncated()) {
             <ion-icon name="caret-down-outline"></ion-icon>
           }
         </ion-card-title>
