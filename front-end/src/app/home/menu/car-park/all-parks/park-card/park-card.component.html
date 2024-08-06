@@ -1,9 +1,9 @@
 <ion-card (click)="selectParking()">
   <ion-card-header class="p-[10px] !flex" >
-    <div class="flex items-center gap-2">
-      <div class="flex flex-col">
-        <ion-card-subtitle>{{ parking.location }}</ion-card-subtitle>
-        <ion-card-title class="text-sm capitalize">{{ parking.label }}</ion-card-title>
+    <div class="flex items-center gap-2 max-w-[75%]">
+      <div class="flex flex-col w-full">
+        <ion-card-subtitle class="">{{ parking.location }}</ion-card-subtitle>
+        <ion-card-title class="text-sm capitalize truncate-title">{{ parking.label }}</ion-card-title>
       </div>
     </div>
 

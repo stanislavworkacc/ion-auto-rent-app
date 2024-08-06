@@ -9,11 +9,11 @@
 
   <form [formGroup]="form">
     <ion-item>
-      <ion-select placeholder="Обрати тип" formControlName="type" [interfaceOptions]="alertOption" interface="alert">
+      <ion-select placeholder="Обрати тип" formControlName="type" [interfaceOptions]="alertOption">
         <div class="font-bold" slot="label">Тип парку</div>
         <ion-select-option value="1">Автомобілі та мотоцикли</ion-select-option>
-        <ion-select-option value="4">Спец.техніка</ion-select-option>
         <ion-select-option value="3">Водний транспорт</ion-select-option>
+        <ion-select-option value="4">Спец.техніка</ion-select-option>
       </ion-select>
     </ion-item>
     <div class="form-input" #nameRef [appValidateInput]="nameRef">

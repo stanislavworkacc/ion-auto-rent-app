@@ -50,6 +50,7 @@ import {ParkCardComponent} from "../park-card/park-card.component";
 import {ScheduleRangeComponent} from "./schedule-range/schedule-range.component";
 import {CreateEditParkModalService} from "./create-edit-park-modal.service";
 import {StorageService} from "../../../../../shared/services/storage.service";
+import {ToasterService} from "../../../../../shared/components/app-toast/toaster.service";
 
 @Component({
   selector: 'app-create-park-modal',
@@ -107,6 +108,7 @@ export class CreateParkModalComponent  implements OnInit, AfterViewInit {
   private renderer: Renderer2 = inject(Renderer2);
   private parkModalService: CreateEditParkModalService = inject(CreateEditParkModalService);
   private storage: StorageService = inject(StorageService);
+  private toaster: ToasterService = inject(ToasterService);
 
   public form!: FormGroup;
   public name!: FormControl;
@@ -137,7 +139,7 @@ export class CreateParkModalComponent  implements OnInit, AfterViewInit {
   alertOption = {
     subHeader: 'Встановіть вибір відповідно до типу транспортного засобу',
     translucent: true,
-    cssClass: 'semi-wide-alert'
+    cssClass: 'semi-wide-alert',
   };
 
 
@@ -205,7 +207,7 @@ export class CreateParkModalComponent  implements OnInit, AfterViewInit {
 
   initForm(): void {
     this.form = this.fb.group({
-      name: ['', Validators.required],
+      name: ['', [Validators.required, Validators.maxLength(50)]],
       address: ['', Validators.required],
       logo: [this.uploadedLogoUrl()],
       scheduler: this.parkScheduler(),
@@ -215,11 +217,22 @@ export class CreateParkModalComponent  implements OnInit, AfterViewInit {
     this.assignFormControls();
   }
 
-  submit(){
-    this.form.getRawValue();
+  submit(): void{
+    const park = this.form.getRawValue();
 
-    debugger
-    this.parkService.initParkCreation(this.form.getRawValue(), this.userModel()._id)
+    if(this.form.valid) {
+      this.parkService.initParkCreation(park, this.userModel()._id).pipe(
+        tap(() => {
+          debugger
+        })
+      ).subscribe()
+    } else {
+      this.toaster.show(
+        {
+          type: 'warning',
+          message: 'Будь ласка, заповінть усі необіхідні поля, щоб зареєструватись в системі.'
+        })
+    }
   }
 
   formSubscription() {
