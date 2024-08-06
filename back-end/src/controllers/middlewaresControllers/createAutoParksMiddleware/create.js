@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Joi = require("joi");
+const {fileSchema, base64Type} = require("@/dto/common");
 
 const create = async (req, res, {autoParksModelName}) => {
     const AutoParksModel = mongoose.model(autoParksModelName);
@@ -13,7 +14,7 @@ const create = async (req, res, {autoParksModelName}) => {
 
     const objectSchema = Joi.object({
         address: Joi.string(),
-        logo: Joi.string(),
+        logo: base64Type,
         name: Joi.string().required(),
         scheduler: Joi.object({
             close: Joi.string(),

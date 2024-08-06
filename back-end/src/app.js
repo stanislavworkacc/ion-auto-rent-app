@@ -17,6 +17,7 @@ const errorHandlers = require('./handlers/errorHandlers');
 const erpApiRouter = require('./routes/appRoutes/appApi');
 
 const fileUpload = require('express-fileupload');
+const bodyParser = require('body-parser');
 // create our Express server
 const app = express();
 
@@ -32,8 +33,13 @@ app.use(express.json({
     limit: '50mb'
 }));
 app.use(express.urlencoded({ extended: true , limit: '50mb'}));
-
+app.use(fileUpload({}))
 app.use(compression());
+
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded());
+// in latest body-parser use like below.
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // // default options
 // server.use(fileUpload());

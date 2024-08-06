@@ -221,7 +221,7 @@ export class CreateParkModalComponent implements OnInit, AfterViewInit {
               this.uploadProgress.set(0);
 
               this.form.patchValue({
-                logo: file
+                files: file
               });
             })
           )
@@ -258,7 +258,7 @@ export class CreateParkModalComponent implements OnInit, AfterViewInit {
     this.form = this.fb.group({
       name: ['', [Validators.required, Validators.maxLength(50)]],
       address: ['', Validators.required],
-      logo: [null],
+      files: [null],
       scheduler: this.fb.group({
         open: ['08:00'],
         close: ['18:00']
@@ -269,14 +269,28 @@ export class CreateParkModalComponent implements OnInit, AfterViewInit {
     this.assignFormControls();
   }
 
-  submit(): void {
-    const park = this.form.getRawValue();
+  createFormData(formValue): FormData {
+    const formData = new FormData();
+    formData.append('name', formValue.name);
+    formData.append('address', formValue.address);
+    if (formValue.files) {
+      formData.append('file', formValue.files, 'files');
+    }
+    formData.append('open', formValue.scheduler.open);
+    formData.append('close', formValue.scheduler.close);
+    formData.append('type', formValue.type);
+    return formData;
+  }
 
-    debugger
+  submit(): void {
+    // const park = this.form.getRawValue();
+    const park = this.createFormData(this.form.value);
+    // const park = this.form.value;
+
 
     if (this.form.valid) {
       this.parkService.initParkCreation(park, this.userModel()._id).pipe(
-        tap(() => {
+        tap((data) => {
           debugger
         })
       ).subscribe()

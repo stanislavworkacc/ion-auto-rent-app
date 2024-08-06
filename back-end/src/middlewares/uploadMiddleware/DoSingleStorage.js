@@ -1,3 +1,5 @@
+const {Agent} = require("node:https");
+
 require('dotenv').config({ path: '.env' });
 require('dotenv').config({ path: '.env.local' });
 
@@ -6,18 +8,33 @@ const { slugify } = require('transliteration');
 const fileFilterMiddleware = require('./utils/fileFilterMiddleware');
 
 const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3');
-const secretAccessKey = process.env.DO_SPACES_SECRET;
-const accessKeyId = process.env.DO_SPACES_KEY;
-const endpoint = 'https://' + process.env.DO_SPACES_URL;
-const region = process.env.REGION;
+const { NodeHttpHandler } = require('@aws-sdk/node-http-handler');
+// const secretAccessKey = process.env.DO_SPACES_SECRET;
+// const accessKeyId = process.env.DO_SPACES_KEY;
+// const endpoint = 'https://' + process.env.DO_SPACES_URL;
+// const region = process.env.REGION;
+
+// const clientParams = {
+//   endpoint: endpoint,
+//   region: region,
+//   credentials: {
+//     accessKeyId,
+//     secretAccessKey,
+//   },
+// };
 
 const clientParams = {
-  endpoint: endpoint,
-  region: region,
+  endpoint: 'https://vsu-backet.s3.amazonaws.com/',
+  region: 'us-east-1',
   credentials: {
-    accessKeyId,
-    secretAccessKey,
+    accessKeyId: 'AKIA5FTZCQO7IXZGZXWA',
+    secretAccessKey: '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',
   },
+  requestHandler: new NodeHttpHandler({
+    httpsAgent: new Agent({
+      rejectUnauthorized: false,
+    }),
+  }),
 };
 
 
