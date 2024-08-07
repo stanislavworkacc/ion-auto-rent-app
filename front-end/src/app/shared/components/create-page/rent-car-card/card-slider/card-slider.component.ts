@@ -18,19 +18,10 @@ import {ModalController} from "@ionic/angular/standalone";
   changeDetection: ChangeDetectionStrategy.OnPush,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class CardSliderComponent  implements OnInit {
+export class CardSliderComponent implements OnInit {
+  images: InputSignal<any[]> = input([])
 
-  private modalCtrl: ModalController = inject(ModalController);
-
-  images : InputSignal<any[]> = input([])
-  async openImagePreview() {
-    const modal = await this.modalCtrl.create({
-      component: SliderFullPreviewComponent,
-      componentProps: this.images,
-      cssClass: 'full-screen-modal'
-    });
-    await modal.present();
+  ngOnInit() {
   }
-  ngOnInit() {}
 
 }
