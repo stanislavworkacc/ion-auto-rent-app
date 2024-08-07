@@ -25,16 +25,20 @@
       </div>
     </div>
 
-    <ion-card-subtitle>BMW X5 M</ion-card-subtitle>
+    <div class="flex flex-col w-full px-1">
+      <ion-card-subtitle>СANADA torronto</ion-card-subtitle>
+      <ion-card-title class="text-xs">BMW X5 M</ion-card-title>
 
-    <days-rent-range [ranges]="ranges"></days-rent-range>
+      <days-rent-range [ranges]="ranges"></days-rent-range>
 
-    <!--          <ion-icon-->
-    <!--            class=" flex justify-center text-[20px]"-->
-    <!--            [name]="rentCard.isCharacteristicsAccordionOpen() ? 'chevron-up-outline' : 'chevron-down-outline'"-->
-    <!--            (click)="toggleAccordion()"-->
-    <!--          >-->
-    <!--          </ion-icon>-->
+      <!--          <ion-icon-->
+      <!--            class=" flex justify-center text-[20px]"-->
+      <!--            [name]="rentCard.isCharacteristicsAccordionOpen() ? 'chevron-up-outline' : 'chevron-down-outline'"-->
+      <!--            (click)="toggleAccordion()"-->
+      <!--          >-->
+      <!--          </ion-icon>-->
+    </div>
+
 
     <ion-accordion-group #accordionGroup>
       <ion-accordion value="characteristics">
