@@ -78,7 +78,7 @@ import {RouterOutlet} from "@angular/router";
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CarParkComponent  implements OnInit {
+export class CarParkComponent implements OnInit {
 
   private navCtrl: NavController = inject(NavController);
   private menuDataService: MenuDataService = inject(MenuDataService);
@@ -110,7 +110,7 @@ export class CarParkComponent  implements OnInit {
       eventDetail.collapsedBreadcrumbs,
       this.carDataService.excludedRoutes(),
       this.carDataService.additionalRoutes()
-      );
+    );
 
     this.popover.event = e;
     this.isBreadCrumbPopoverOpen.set(true);
@@ -118,7 +118,7 @@ export class CarParkComponent  implements OnInit {
 
   setSegmentOptions(): void {
     this.carDataService.options.set([
-      {value: SelectedSegment.ALL, icon: '/assets/icon/all-cars-ico.png', label: 'Всі', isVisible: true},
+      {value: SelectedSegment.ALL, icon: '/assets/icon/all-cars-ico.png', label: 'Всі авто', isVisible: true},
       {value: SelectedSegment.IN_RENT, icon: '/assets/icon/car-in-rent-ico.png', label: 'В оренді', isVisible: true},
     ])
   }
@@ -127,6 +127,7 @@ export class CarParkComponent  implements OnInit {
     this.carDataService.selectedSegment.update(() => event.detail.value);
     this.navCtrl.navigateForward([`home/menu/car-park/${this.carDataService.selectedSegment()}`])
   }
+
   ngOnInit(): void {
     this.setSegmentOptions();
     this.carDataService.routes.set(['/home', '/home/menu/car-park']);

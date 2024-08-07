@@ -1,4 +1,4 @@
-<ion-header class="shadow-none">
+<ion-header>
   <ion-toolbar class="px-2 !py-2">
     <app-back-button
       [styles]="'!text-[20px] !text-black'"
@@ -12,7 +12,7 @@
 <app-header-parks [create]="createPark.bind(this)"></app-header-parks>
 
 <div class="h-full overflow-y-auto mx-[16px]">
-  @for(parking of parkings; track parking.label) {
+  @for (parking of parkings; track parking.label) {
     <park-card
       [selectParking]="selectParking.bind(this)"
       [parking]="parking"

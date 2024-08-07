@@ -1,13 +1,13 @@
 <ion-card (click)="selectParking()">
-  <ion-card-header class="p-[10px] !flex" >
+  <ion-card-header class="p-[10px] !flex">
     <div class="flex items-center gap-2 max-w-[75%]">
       <div class="flex flex-col w-full">
         <ion-card-subtitle #subtitle
                            [ngClass]="{'truncate-title': !isSubtitleExpanded(), 'expand-title': isSubtitleExpanded()}"
                            (click)="toggleSubtitleExpand()"
         >{{ parking.location }}
-          @if(isSubtitleTruncated()) {
-          <ion-icon name="caret-down-outline"></ion-icon>
+          @if (isSubtitleTruncated()) {
+            <ion-icon name="caret-down-outline"></ion-icon>
           }
         </ion-card-subtitle>
         <ion-card-title #title
@@ -15,7 +15,7 @@
                         [ngClass]="{'truncate-title': !isTitleExpanded(), 'expand-title': isTitleExpanded()}"
                         (click)="toggleTitleExpand()">
           {{ parking.label }}
-          @if(isTitleTruncated()) {
+          @if (isTitleTruncated()) {
             <ion-icon name="caret-down-outline"></ion-icon>
           }
         </ion-card-title>
@@ -51,27 +51,23 @@
 
     <hr>
 
-    <div  class="absolute bottom-[-20px] left-[3%]">
-<!--      <schedule-range [disable]="true"></schedule-range>-->
+    <div class="absolute bottom-[-20px] left-[3%]">
+      <!--      <schedule-range [disable]="true"></schedule-range>-->
     </div>
 
     @if (editMode) {
-      <ion-buttons class="absolute bottom-[-23px] right-[3%] flex items-center gap-0">
-        <ion-button fill="clear" class="text-xs">
-          <div class="flex flex-col items-center border rounded p-1">
-            <img src="assets/icon/svg/edit-svg.svg" class="h-[20px]">
-          </div>
-        </ion-button>
-        <ion-button fill="clear" class="text-xs">
-          <div class="flex flex-col items-center border rounded p-1">
-            <img src="assets/icon/svg/delete.svg" class="h-[20px]">
-          </div>
-        </ion-button>
-      </ion-buttons>
+      <div class="absolute bottom-[-15px] right-[5%] flex items-center gap-2">
+        <div class="flex flex-col items-centerv bg-[#ededee] border rounded p-1">
+          <img src="assets/icon/svg/edit-svg.svg" class="h-[20px]">
+        </div>
+        <div class="flex flex-col items-center bg-[#ededee] border rounded p-1">
+          <img src="assets/icon/svg/delete.svg" class="h-[20px]">
+        </div>
+      </div>
     } @else {
-      <div class="absolute bottom-[-23px] right-[5%] flex items-center gap-2">
-        <ion-icon name="chatbubble" class="text-[24px] border rounded p-1"></ion-icon>
-        <ion-icon name="person-circle" class="text-[25px] text-[#ed520d] border rounded p-1"></ion-icon>
+      <div class="absolute bottom-[-16px] right-[5%] flex items-center gap-2">
+        <ion-icon name="chatbubble" class="text-[22px] border rounded p-1"></ion-icon>
+        <ion-icon name="person-circle" class="text-[23px] text-[#ed520d] border rounded p-1"></ion-icon>
       </div>
     }
 

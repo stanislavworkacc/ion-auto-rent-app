@@ -1,4 +1,13 @@
+:host {
+  width: 100%;
+}
+
 ion-segment {
   border-radius: 10px;
-  ion-segment-button {}
+
+  ion-segment-button {
+    --indicator-color: #182130;
+    --color-checked: white;
+
+  }
 }

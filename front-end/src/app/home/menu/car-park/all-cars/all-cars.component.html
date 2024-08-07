@@ -1,55 +1,23 @@
-<ion-header class="!shadow-none">
-  <ion-toolbar class="bg-[#182130] sticky top-[-2px] z-50 px-[10px]">
-    <div class="flex flex-col w-full">
-      <div class="flex w-full items-center justify-between">
-        <div class="flex justify-start">
-          <app-back-button
-            [styles]="'!text-[20px]'"
-            [navigateBack]="navigateBack.bind(this)"
-          ></app-back-button>
-        </div>
-        <div class="flex items-center w-full justify-between">
-          <in-rent-all-segment class="mx-auto"></in-rent-all-segment>
-          <div class="flex-none">
-            <ion-button (click)="vehicleCreation()" class="rounded flex items-center bg-[#e8edfc] px-2 py-2 border"
-            >
-              <ion-label class="text-xs uppercase text-black mr-1">Додати</ion-label>
-              <ion-icon
-                name="add-outline"
-                class="text-black text-[18px]"
-              >
-              </ion-icon>
-            </ion-button>
-          </div>
-        </div>
+<ion-header>
+  <ion-toolbar class="px-2 !py-2">
+    <div class="flex items-center w-full">
+      <app-back-button
+        [styles]="'!text-[20px] !text-black'"
+        [title]="''"
+        [titleStyles]="'!text-black'"
+        [navigateBack]="navigateBack.bind(this)"
+      ></app-back-button>
+      <div class="flex items-center w-full px-4">
+        <in-rent-all-segment class="mx-auto"></in-rent-all-segment>
       </div>
-<!--      <div class="flex items-center !flex-row w-full justify-between pr-[10px] py-1">-->
-<!--        <div class="chip-container flex !flex-nowrap">-->
-<!--          @for (chip of allCarsData.chips(); track chip.value) {-->
-<!--          <ion-chip outline="outline" class="!flex !justify-center !rounded-[4px]"-->
-<!--            [class.selected-chip]="chip?.value === allCarsData.selectedChip()?.value"-->
-<!--            [class.archive-chip]="chip?.value === AllCarsChip.RENT_ARCHIVE"-->
-<!--            [class.review-chip]="chip?.value === AllCarsChip.REVIEWS"-->
-<!--            (click)="chipSelected(chip)"-->
-<!--          >-->
-<!--            <ion-label>{{ chip.label }}</ion-label>-->
-<!--          </ion-chip>-->
-<!--          }-->
-<!--        </div>-->
-<!--        <ion-buttons slot="end" class="flex flex-col gap-1 w-[15%]">-->
-<!--          <ion-button class="flex justify-end">-->
-<!--            <div class="flex flex-col items-center">-->
-<!--              <ion-icon name="funnel-outline" class=""></ion-icon>-->
-<!--              <ion-label class="text-xs">Фільтр</ion-label>-->
-<!--            </div>-->
-<!--          </ion-button>-->
-<!--        </ion-buttons>-->
-<!--      </div>-->
     </div>
-
   </ion-toolbar>
 </ion-header>
 
 <ion-list lines="none">
   <router-outlet></router-outlet>
 </ion-list>
+<div class="sticky bottom-0">
+  <main-action-btn [title]="'Додати авто'" [action]="vehicleCreation.bind(this)"
+                   [styles]="'mx-[14px]'"></main-action-btn>
+</div>
