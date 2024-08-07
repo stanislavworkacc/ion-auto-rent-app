@@ -6,9 +6,6 @@
                         [value]="option.value"
                         [hidden]="!option.isVisible"
     >
-      @if (platform.is('ios')) {
-        <img [src]="option.icon" class="h-[20px]">
-      }
       <ion-label
         [class.text-black]="!platform.is('ios')"
       >

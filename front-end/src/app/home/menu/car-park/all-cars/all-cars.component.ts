@@ -13,18 +13,17 @@ import {
   IonCardSubtitle,
   IonCardTitle, IonChip, IonContent, IonHeader, IonIcon,
   IonItem, IonLabel,
-  IonList, IonSegment, IonSegmentButton, IonTitle, IonToolbar, ModalController
+  IonList, IonSegment, IonSegmentButton, IonText, IonTitle, IonToolbar, ModalController
 } from "@ionic/angular/standalone";
 import {NgClass, NgForOf} from "@angular/common";
 import {AllCarsService} from "./all-cars.service";
-// import { register } from 'swiper/element/bundle';
 import {CarParkDataService} from "../car-park-data.service";
-import {NavController, Platform} from "@ionic/angular";
+import {NavController} from "@ionic/angular";
 import {InRentAllSegmentComponent} from "../in-rent-all-segment/in-rent-all-segment.component";
 import {RouterOutlet} from "@angular/router";
 import {AllCarsChip, AllCarsSegment} from "./all-cars.enums";
 import {BackButtonComponent} from "../../../../shared/ui-kit/components/back-button/back-button.component";
-import {MenuSection} from "../../menu-enums";
+import {MainActionComponent} from "../../../../shared/components/buttons/main-action/main-action.component";
 
 // register();
 @Component({
@@ -57,10 +56,12 @@ import {MenuSection} from "../../menu-enums";
     IonContent,
     InRentAllSegmentComponent,
     RouterOutlet,
-    BackButtonComponent
+    BackButtonComponent,
+    IonText,
+    MainActionComponent
   ]
 })
-export class AllCarsComponent  implements OnInit {
+export class AllCarsComponent implements OnInit {
 
   private allCarsService: AllCarsService = inject(AllCarsService);
   private carParkDataService: CarParkDataService = inject(CarParkDataService);
@@ -78,18 +79,18 @@ export class AllCarsComponent  implements OnInit {
 
   setChips(): void {
     this.allCarsData.chips.set([
-      { value: AllCarsChip.INFO, label: 'Деталі', icon: '/assets/icon/detail-car-icon.png' },
-      { value: AllCarsChip.REVIEWS, label: 'Відгуки', icon: '/assets/icon/reviews-ico.png' },
-      { value: AllCarsChip.RENT_ARCHIVE, label: 'Архів оренд', icon: '/assets/icon/archive-ico.png' },
+      {value: AllCarsChip.INFO, label: 'Деталі', icon: '/assets/icon/detail-car-icon.png'},
+      {value: AllCarsChip.REVIEWS, label: 'Відгуки', icon: '/assets/icon/reviews-ico.png'},
+      {value: AllCarsChip.RENT_ARCHIVE, label: 'Архів оренд', icon: '/assets/icon/archive-ico.png'},
     ])
   }
 
   chipSelected(chip: { value: string, label: string, icon: string }): void {
-    if(chip === this.allCarsData.selectedChip()) {
+    if (chip === this.allCarsData.selectedChip()) {
       this.closeSelectedChip()
     } else {
       this.allCarsData.selectedChip.set(chip);
-      this.navCtrl.navigateForward([`/home/menu/car-park/all-cars/${ chip.value }`])
+      this.navCtrl.navigateForward([`/home/menu/car-park/all-cars/${chip.value}`])
     }
 
   }
@@ -101,7 +102,7 @@ export class AllCarsComponent  implements OnInit {
 
   handleBreadCrubms(): void {
     this.carDataService.routes.set(['/home', '/home/menu/car-park', '/home/menu/car-park/all-cars']);
-    this.carDataService.newRoutes.set([ { url: '/home/menu/car-park', label: 'Автопарки' } ])
+    this.carDataService.newRoutes.set([{url: '/home/menu/car-park', label: 'Автопарки'}])
   }
 
   setParkData(): void {
@@ -120,6 +121,7 @@ export class AllCarsComponent  implements OnInit {
     this.setParkData();
     this.handleBreadCrubms();
   }
+
   constructor() {
 
     effect((): void => {
