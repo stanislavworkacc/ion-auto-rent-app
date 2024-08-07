@@ -2,6 +2,7 @@ import {ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, inject, OnIn
 import {IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonItem} from "@ionic/angular/standalone";
 import {AllCarsService} from "../all-cars.service";
 import {NgFor} from "@angular/common";
+import {RentCarCardComponent} from "../../../../../shared/components/create-page/rent-car-card/rent-car-card.component";
 
 @Component({
   selector: 'app-car-list',
@@ -9,19 +10,16 @@ import {NgFor} from "@angular/common";
   styleUrls: ['./car-list.component.scss'],
   standalone: true,
   imports: [
-    IonItem,
-    IonCard,
-    IonCardHeader,
-    IonCardTitle,
-    IonCardSubtitle,
-    NgFor
+    RentCarCardComponent
+
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CarListComponent  implements OnInit {
+export class CarListComponent implements OnInit {
 
   private allCarsService: AllCarsService = inject(AllCarsService);
+
   get allCarsData() {
     return this.allCarsService;
   }
@@ -75,7 +73,9 @@ export class CarListComponent  implements OnInit {
     ]);
 
   }
-  constructor() { }
+
+  constructor() {
+  }
 
   ngOnInit(): void {
     this.setAllCars();

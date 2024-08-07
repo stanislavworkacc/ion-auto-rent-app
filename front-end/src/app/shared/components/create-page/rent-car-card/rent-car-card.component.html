@@ -1,7 +1,7 @@
 <ion-card class="bg-white m-0">
-<!--  @if(!editMode) {-->
-<!--    <bookmark-rate [rate]="''"></bookmark-rate>-->
-<!--  }-->
+  <!--  @if(!editMode) {-->
+  <!--    <bookmark-rate [rate]="''"></bookmark-rate>-->
+  <!--  }-->
 
   @if (rentCard.pdfCreated()) {
     <generated-pdf [generatingContract]="rentCard.generatingContract" [openPdf]="openPdf.bind(this)"></generated-pdf>
@@ -11,22 +11,22 @@
   </ion-card-header>
 
   <ion-card-content>
-    <div class="flex justify-between gap-[10px] h-[160px] max-h-[160px]">
+    <div class="flex justify-between gap-[5px] h-[160px] max-h-[160px]">
       <div class="flex flex-col justify-end"
            [class.justify-center]="!platform.is('ios')"
       >
-       <app-card-slider [images]="rentCard.images"></app-card-slider>
+        <app-card-slider [images]="rentCard.images"></app-card-slider>
       </div>
 
       <div class="flex flex-col h-full items-center justify-between">
-        @for(item of rentCard.carPreviewDetails; track item.text) {
+        @for (item of rentCard.carPreviewDetails; track item.text) {
           <div class="flex flex-col items-center">
             <img [src]="item.icon" [class]="item.class">
             <span class="text-[10px]">{{ item.text }}</span>
           </div>
         }
 
-      <ion-icon
+        <ion-icon
           class=" flex justify-center text-[20px]"
           [name]="rentCard.isCharacteristicsAccordionOpen() ? 'chevron-up-circle-outline' : 'chevron-down-circle-outline'"
           (click)="toggleAccordion()"
@@ -34,10 +34,9 @@
         </ion-icon>
       </div>
     </div>
-
+    
     <ion-accordion-group #accordionGroup>
       <ion-accordion value="characteristics">
-        <div class="ion-padding bg-white" slot="content">First Content</div>
       </ion-accordion>
     </ion-accordion-group>
 
@@ -49,28 +48,29 @@
         </ion-item>
         <div slot="content">
           <div class="rounded my-4 relative border-[0.1px] border-[#929292] p-2">
-            <ion-label class="text-[#333333] flex items-center gap-1 text-sm font-[300] absolute -top-[9px] left-[12px] bg-white rounded-[12px] px-2">
+            <ion-label
+              class="text-[#333333] flex items-center gap-1 text-sm font-[300] absolute -top-[9px] left-[12px] bg-white rounded-[12px] px-2">
               Тип орендної плати
               <ion-icon name="information-circle-outline" class="text-[16px]"></ion-icon>
             </ion-label>
-            @for(type of rentCard.rentTypes(); track type.value) {
-            <div class="flex justify-between items-center w-full p-1 mt-1">
-              <ion-label class="font-[300] text-sm ">Орендна плата:
-                <span class="font-[500]" [class.text-black]="type.checked">{{ type.label }}</span>
-            </ion-label>
+            @for (type of rentCard.rentTypes(); track type.value) {
+              <div class="flex justify-between items-center w-full p-1 mt-1">
+                <ion-label class="font-[300] text-sm ">Орендна плата:
+                  <span class="font-[500]" [class.text-black]="type.checked">{{ type.label }}</span>
+                </ion-label>
 
-            <ion-checkbox
-              [value]="type.value"
-              [checked]="type.checked"
-              (ionChange)="onRentTypeChange($event.target.value)"
-            >
-            </ion-checkbox>
-          </div>
+                <ion-checkbox
+                  [value]="type.value"
+                  [checked]="type.checked"
+                  (ionChange)="onRentTypeChange($event.target.value)"
+                >
+                </ion-checkbox>
+              </div>
             }
             @if (rentCard.selectedRentType() === RentRange.DAYS) {
-            <days-rent-range [ranges]="ranges"></days-rent-range>
+              <days-rent-range [ranges]="ranges"></days-rent-range>
             } @else {
-            <hour-rate-range></hour-rate-range>
+              <hour-rate-range></hour-rate-range>
             }
             <deposit-payment></deposit-payment>
             <car-with-driver></car-with-driver>
@@ -86,7 +86,8 @@
         <div slot="content">
           <div class="my-5 relative">
             <app-address-info></app-address-info>
-            <ion-label class="text-[#333333] flex items-center gap-1 text-sm font-[300] absolute -top-[9px] left-[12px] bg-white rounded-[12px] px-2">
+            <ion-label
+              class="text-[#333333] flex items-center gap-1 text-sm font-[300] absolute -top-[9px] left-[12px] bg-white rounded-[12px] px-2">
               Місцезнаходження транспорту
               <ion-icon name="information-circle-outline" class="text-[16px]" id="address-info"></ion-icon>
             </ion-label>
@@ -101,36 +102,37 @@
         </ion-item>
         <div slot="content">
           <div class="rounded mt-4 relative border-[0.1px] border-[#929292] p-2">
-            <ion-label class="text-[#333333] flex items-center gap-1 text-sm font-[300] absolute -top-[9px] left-[12px] bg-white rounded-[12px] px-2">
+            <ion-label
+              class="text-[#333333] flex items-center gap-1 text-sm font-[300] absolute -top-[9px] left-[12px] bg-white rounded-[12px] px-2">
               Страхування транспорту
               <ion-icon name="information-circle-outline" class="text-[16px]"></ion-icon>
             </ion-label>
-            @for(type of rentCard.insuranceTypes(); track type.value) {
-            <div class="flex justify-between items-center w-full p-1">
-              <ion-label class="font-[300] text-sm">
-                <span class="font-[500]" [class.text-black]="type.checked">{{ type.label }}</span>
-            </ion-label>
+            @for (type of rentCard.insuranceTypes(); track type.value) {
+              <div class="flex justify-between items-center w-full p-1">
+                <ion-label class="font-[300] text-sm">
+                  <span class="font-[500]" [class.text-black]="type.checked">{{ type.label }}</span>
+                </ion-label>
 
-            <ion-checkbox
-              [value]="type.value"
-              [checked]="type.checked"
-              (ionChange)="insuranceTypeChange($event.target.value)"
-            >
-            </ion-checkbox>
-          </div>
+                <ion-checkbox
+                  [value]="type.value"
+                  [checked]="type.checked"
+                  (ionChange)="insuranceTypeChange($event.target.value)"
+                >
+                </ion-checkbox>
+              </div>
             }
           </div>
         </div>
       </ion-accordion>
     </ion-accordion-group>
 
-    @if (!rentCard.pdfCreated()) {
-      <ripple-btn
-        [title]="'Згенерувати договір'"
-        [styles]="'text-white !border-none bg-[#182130] text-[16px] font-[300] !mt-[10px] !h-[40px]'"
-        (click)="generateCarContract()"
-      >
-      </ripple-btn>
-    }
+    <!--    @if (!rentCard.pdfCreated()) {-->
+    <!--      <ripple-btn-->
+    <!--        [title]="'Згенерувати договір'"-->
+    <!--        [styles]="'text-white !border-none bg-[#182130] text-[16px] font-[300] !mt-[10px] !h-[40px]'"-->
+    <!--        (click)="generateCarContract()"-->
+    <!--      >-->
+    <!--      </ripple-btn>-->
+    <!--    }-->
   </ion-card-content>
 </ion-card>

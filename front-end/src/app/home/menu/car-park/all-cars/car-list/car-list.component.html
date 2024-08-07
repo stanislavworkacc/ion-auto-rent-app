@@ -1,19 +1,5 @@
-@for(card of allCarsData.getAllCars(); track card.content) {
-  <ion-item>
-    <ion-card>
-      <swiper-container class="mySwiper" pagination="true" effect="coverflow" grab-cursor="true" centered-slides="true"
-                        slides-per-view="auto" coverflow-effect-rotate="50" coverflow-effect-stretch="0" coverflow-effect-depth="100"
-                        coverflow-effect-modifier="1" coverflow-effect-slide-shadows="true">
-
-        <swiper-slide *ngFor="let image of card.images">
-          <img [src]="image" />
-        </swiper-slide>
-
-      </swiper-container>
-      <ion-card-header>
-        <ion-card-title>{{ card.title }}</ion-card-title>
-        <ion-card-subtitle>{{ card.subtitle }}</ion-card-subtitle>
-      </ion-card-header>
-    </ion-card>
-  </ion-item>
+@for (card of allCarsData.getAllCars(); track card.content) {
+  <div class="px-1 mb-1">
+    <rent-car-card></rent-car-card>
+  </div>
 }
