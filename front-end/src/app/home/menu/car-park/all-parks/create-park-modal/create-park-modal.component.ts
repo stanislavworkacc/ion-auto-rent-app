@@ -274,7 +274,7 @@ export class CreateParkModalComponent implements OnInit, AfterViewInit {
     formData.append('name', formValue.name);
     formData.append('address', formValue.address);
     if (formValue.files) {
-      formData.append('file', formValue.files, 'files');
+      formData.append('file', formValue.files,  formValue.files.name);
     }
     formData.append('open', formValue.scheduler.open);
     formData.append('close', formValue.scheduler.close);

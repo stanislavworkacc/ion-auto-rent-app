@@ -14,7 +14,7 @@ const create = async (req, res, {autoParksModelName}) => {
 
     const objectSchema = Joi.object({
         address: Joi.string(),
-        logo: base64Type,
+        logo: Joi.string(),
         name: Joi.string().required(),
         scheduler: Joi.object({
             close: Joi.string(),

@@ -72,12 +72,12 @@ const DoSingleStorage = ({
         }
 
         let _fileName = `${originalname}-${uniqueFileID}${fileExtension}`;
-
         const filePath = `public/uploads/${entity}/${id}/${_fileName}`;
 
         let uploadParams = {
           Key: `${filePath}`,
-          Bucket: process.env.DO_SPACES_NAME,
+          // Bucket: process.env.DO_SPACES_NAME,
+          Bucket: 'vsu-backet.s3.amazonaws.com',
           ACL: 'public-read',
           Body: req.files.file.data,
         };
@@ -96,13 +96,14 @@ const DoSingleStorage = ({
             filePath: filePath,
           };
 
-          req.body[fieldName] = filePath;
+          req.body[fieldName] = `https://vsu-backet.s3.amazonaws.com/vsu-backet.s3.amazonaws.com/${filePath}`;
           next();
         }
       } catch (error) {
+        console.log('error', error);
         return res.status(403).json({
           success: false,
-          result: null,
+          result: error,
           controller: 'DoSingleStorage.ts',
           message: 'Error on uploading file',
         });
