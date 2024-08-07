@@ -25,7 +25,7 @@ import {CarWithDriverComponent} from "./car-with-driver/car-with-driver.componen
 import {Platform} from "@ionic/angular";
 import {HourRateRangeComponent} from "./hour-rate-range/hour-rate-range.component";
 import {FormsModule} from "@angular/forms";
-import {NgIf} from "@angular/common";
+import {JsonPipe, NgIf} from "@angular/common";
 import {INSURANCE_TYPE, RentRange} from "./rent-card.enums";
 import {AddressInfoComponent} from "../address-info/address-info.component";
 import {CardSliderComponent} from "./card-slider/card-slider.component";
@@ -63,11 +63,12 @@ import {RentCardService} from "./rent-card.service";
     CardSliderComponent,
     CarContractComponent,
     RippleBtnComponent,
-    GeneratedPdfComponent
+    GeneratedPdfComponent,
+    JsonPipe
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RentCarCardComponent  implements OnInit {
+export class RentCarCardComponent implements OnInit {
 
   private rentCardService: RentCardService = inject(RentCardService);
   public platform: Platform = inject(Platform);
@@ -75,13 +76,14 @@ export class RentCarCardComponent  implements OnInit {
   @Input() ranges: WritableSignal<{ label: string, value: number | null }[]> = signal([]);
   @Input() editMode: boolean;
 
-  @ViewChild('accordionGroup', { static: true }) accordionGroup: IonAccordionGroup;
+  @ViewChild('accordionGroup', {static: true}) accordionGroup: IonAccordionGroup;
 
   RentRange = RentRange;
 
   get rentCard() {
     return this.rentCardService;
   }
+
   onRentTypeChange(selectedType: string): void {
     this.rentCard.onRentTypeChange(selectedType);
   }
@@ -101,5 +103,7 @@ export class RentCarCardComponent  implements OnInit {
   async openPdf(): Promise<void> {
     await this.rentCard.openPdf();
   }
-  ngOnInit() {}
+
+  ngOnInit() {
+  }
 }

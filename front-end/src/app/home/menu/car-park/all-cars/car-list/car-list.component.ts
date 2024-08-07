@@ -1,4 +1,11 @@
-import {ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, inject, OnInit} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  inject,
+  OnInit, signal,
+  WritableSignal
+} from '@angular/core';
 import {IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonItem} from "@ionic/angular/standalone";
 import {AllCarsService} from "../all-cars.service";
 import {NgFor} from "@angular/common";
@@ -19,6 +26,13 @@ import {RentCarCardComponent} from "../../../../../shared/components/create-page
 export class CarListComponent implements OnInit {
 
   private allCarsService: AllCarsService = inject(AllCarsService);
+
+  public rentInfoRanges: WritableSignal<{ label: string, value: number | null }[]> = signal([
+    {label: '1-2', value: null},
+    {label: '3-7', value: null},
+    {label: '8+', value: null},
+    {label: '30+', value: null}
+  ]);
 
   get allCarsData() {
     return this.allCarsService;

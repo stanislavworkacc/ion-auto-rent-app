@@ -12,7 +12,7 @@
       Тип автопарку
     </ion-label>
     <div class="flex items-center justify-between">
-      @for(type of parkTypes; track type.value) {
+      @for (type of parkTypes; track type.value) {
         <div class="flex flex-col items-center cursor-pointer relative h-[62px]"
              [class.mb-[7px]]="type.value === 3"
              [class.animate-pulse]="selectedType() === type.value"
@@ -22,7 +22,7 @@
             <img *ngFor="let icon of type.icons" [src]="icon.src" [ngStyle]="{ height: icon.height }">
           </div>
           <ion-text class="text-xs text-gray-500 tracking-widest">{{ type.label }}</ion-text>
-          @if(selectedType() === type.value){
+          @if (selectedType() === type.value) {
             <ion-icon name="checkbox-outline" class="text-[#ed520d] text-[18px]"></ion-icon>
           }
         </div>
@@ -78,13 +78,13 @@
         </ion-label>
 
         <ion-input #addressInput
-          type="text"
-          class="aligned-input"
-          placeholder="Додайте адресу автопарку"
-          [formControl]="address"
-          (ionInput)="fetchSuggestions($event.target.value)"
-          (ionFocus)="fetchSuggestions(address.value)"
-          (ionBlur)="onBlur('address')"
+                   type="text"
+                   class="aligned-input"
+                   placeholder="Додайте адресу автопарку"
+                   [formControl]="address"
+                   (ionInput)="fetchSuggestions($event.target.value)"
+                   (ionFocus)="fetchSuggestions(address.value)"
+                   (ionBlur)="onBlur('address')"
         ></ion-input>
       </div>
 
@@ -94,9 +94,9 @@
 
       @if (address.value) {
         <google-places
-        [suggestions]="suggestions()"
-        [selectSuggestion]="selectSuggestion.bind(this)"
-        [control]="address"
+          [suggestions]="suggestions()"
+          [selectSuggestion]="selectSuggestion.bind(this)"
+          [control]="address"
         >
         </google-places>
       }

@@ -1,5 +1,5 @@
 @for (card of allCarsData.getAllCars(); track card.content) {
   <div class="px-1 mb-1">
-    <rent-car-card></rent-car-card>
+    <rent-car-card [ranges]="rentInfoRanges" [editMode]="false"></rent-car-card>
   </div>
 }
