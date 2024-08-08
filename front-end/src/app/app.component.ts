@@ -9,6 +9,7 @@ import {TranslateService} from "@ngx-translate/core";
 import {
   AppToastContainerComponent
 } from "./shared/components/app-toast/app-toast-container/app-toast-container.component";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-root',
@@ -18,13 +19,23 @@ import {
 })
 export class AppComponent {
 
-  constructor(private translate: TranslateService) {
+  constructor(
+    private translate: TranslateService,
+    private http: HttpClient
+  ) {
     this.initializeApp();
   }
 
   initializeApp() {
     this.translate.addLangs(['en', 'uk']);
     this.translate.setDefaultLang('uk');
+
+    this.http.post('https://rent-auto.xyz/api/autoParks/listAll/66aa7d010c4955a08c64095f', {}, {
+      headers: {
+        'Accept': 'application/json',
+        "Access-Control-Allow-Origin": '**'
+      }
+    }).subscribe()
 
     const browserLang = this.translate.getBrowserLang();
     if (browserLang) {

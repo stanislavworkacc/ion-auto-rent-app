@@ -33,12 +33,12 @@ const corsOptions = {
         return callback(null, true);
     },
     methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
-    credentials: true, // Дозволяє передавати куки
-    allowedHeaders: ['Content-Type', 'Authorization'] // Дозволяє заголовки Content-Type і Authorization
+    credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization']
 };
 
 app.use(cors(corsOptions));
-app.options('*', cors(corsOptions)); // Дозволяє обробку preflight запитів
+app.options('*', cors(corsOptions)); // Дозвіл preflight запитів для всіх маршрутів
 
 app.use(cookieParser());
 app.use(express.json({
@@ -57,6 +57,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // server.use(fileUpload());
 
 // Here our API Routes
+
+app.get('/api/login-google-sso/test', (req, res) => {
+    res.json({ success: true, message: "Login successful" });
+});
 
 app.use('/api', coreAuthRouter);
 app.use('/api/cars',  carsApiRouter);
