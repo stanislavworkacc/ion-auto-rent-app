@@ -21,12 +21,15 @@ const bodyParser = require('body-parser');
 // create our Express server
 const app = express();
 
-app.use(cors({
+const corsOptions = {
     origin: 'http://localhost:4200',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true,
-    allowedHeaders: 'Content-Type, Authorization'
-}));
+    credentials: true, // Дозволяє передавати куки
+    allowedHeaders: ['Content-Type', 'Authorization'] // Дозволяє заголовки Content-Type і Authorization
+};
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions)); // Дозволяє обробку preflight запитів
 
 app.use(cookieParser());
 app.use(express.json({
