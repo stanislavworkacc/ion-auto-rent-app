@@ -152,6 +152,7 @@ export class ProfileFormComponent implements OnInit {
     }
 
     if (this.passwordBlurred()) {
+
       await this.auth.confirmPassword(this.userModel()._id)
         .then((confirmed: boolean): void => {
           switch (confirmed) {

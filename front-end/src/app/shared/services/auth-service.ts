@@ -23,9 +23,6 @@ export class AuthService {
   registerEntity!: PostEntityModel;
   loginGoogleSsoEntity!: PostEntityModel;
   changePasswordEntity!: Item;
-  confirmPasswordEntity!: Item;
-
-  loading: WritableSignal<boolean> = signal(false);
 
   get toaster() {
     return this.toasterService;
@@ -106,13 +103,14 @@ export class AuthService {
                   tap(async ({data}): Promise<void> => {
                     switch (data.result.matchPassword) {
                       case true:
-                        await alert.dismiss();
                         resolve(true);
+
+                        await alert.dismiss();
                         this.toaster.show({type: 'success', message: 'Пароль успішно підтверджено.'});
                         break;
                       case false:
-                        this.toaster.show({type: 'error', message: 'Пароль введено невірно, будь ласка спробуйте ще.'})
                         resolve(false);
+                        this.toaster.show({type: 'error', message: 'Пароль введено невірно, будь ласка спробуйте ще.'})
                         break;
                     }
                   })
