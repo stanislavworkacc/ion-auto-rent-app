@@ -58,7 +58,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Here our API Routes
 
-app.get('/api/login-google-sso/test16', (req, res) => {
+app.get('/api/login-google-sso/test17', (req, res) => {
     res.json({ success: true, message: "Login successful" });
 });
 
