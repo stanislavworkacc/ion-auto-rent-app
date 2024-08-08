@@ -2,7 +2,7 @@
 >
   <ion-text class="text-xs uppercase text-white mr-1">{{ title }}</ion-text>
   <ion-icon
-    name="add-outline"
+    [name]="icon ? icon : 'add-outline'"
     class="text-white text-[18px]"
   >
   </ion-icon>

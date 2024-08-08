@@ -10,7 +10,7 @@ import {NavController, Platform} from "@ionic/angular";
 import {FormBuilder, FormGroup, FormsModule, Validators} from "@angular/forms";
 import {CloseBtnComponent} from "../../../shared/ui-kit/components/close-btn/close-btn.component";
 import {SignUpFormComponent} from "../sign-up-form/sign-up-form.component";
-import {NgForOf, NgIf} from "@angular/common";
+import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
 import {SegmentsComponent} from "../../../shared/ui-kit/components/segments/segments.component";
 import {BackButtonComponent} from "../../../shared/ui-kit/components/back-button/back-button.component";
 import {SegmentType} from "./auth-enums";
@@ -23,12 +23,15 @@ import {
   IonButtons, IonContent,
   IonFab,
   IonFabButton, IonFabList, IonFooter,
-  IonHeader, IonIcon, IonLabel, IonSegment, IonSegmentButton, IonText,
+  IonHeader, IonIcon, IonLabel, IonProgressBar, IonSegment, IonSegmentButton, IonText,
   IonToolbar,
   ModalController
 } from "@ionic/angular/standalone";
 import {LogOutComponent} from "../../../home/menu/menu-profile/log-out/log-out.component";
 import {CompaniesMarqueeComponent} from "./companies-marquee/companies-marquee.component";
+import {AuthService} from "../../../shared/services/auth-service";
+import {map} from "rxjs/operators";
+import {combineLatest, Observable} from "rxjs";
 
 @Component({
   selector: 'auth-form-wrapper',
@@ -63,6 +66,8 @@ import {CompaniesMarqueeComponent} from "./companies-marquee/companies-marquee.c
     IonFooter,
     LogOutComponent,
     CompaniesMarqueeComponent,
+    IonProgressBar,
+    AsyncPipe,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
@@ -73,6 +78,7 @@ export class AuthFormWrapperComponent implements OnInit, AfterViewInit {
   private modalCtrl: ModalController = inject(ModalController);
   private fb: FormBuilder = inject(FormBuilder);
   private platform: Platform = inject(Platform);
+  private authService: AuthService = inject(AuthService);
 
   public isLogin: WritableSignal<boolean> = signal(false);
   public selectedSegment: WritableSignal<string> = signal(SegmentType.STANTDART);
@@ -82,12 +88,22 @@ export class AuthFormWrapperComponent implements OnInit, AfterViewInit {
   public signUpForm!: FormGroup;
   public fabItems!: { icon: string, action: () => void }[];
 
+  loading$: Observable<boolean>;
+
   defaultRegister(): void {
     this.selectedSegment.set(SegmentType.STANTDART);
     if (this.selectedSegment() === SegmentType.STANTDART) {
       this.updateOptionLabel('standard', 'Реєстрація');
       this.isLogin.set(false);
     }
+  }
+
+  get auth() {
+    return this.authService;
+  }
+
+  get isLoading(): Observable<boolean> {
+    return this.loading$;
   }
 
   handleFab(): void {
@@ -197,5 +213,17 @@ export class AuthFormWrapperComponent implements OnInit, AfterViewInit {
         return option;
       });
     });
+  }
+
+  constructor() {
+    this.loading$ = combineLatest([
+      this.auth.loginEntity.loading$,
+      this.auth.registerEntity.loading$,
+      this.auth.loginGoogleSsoEntity.loading$
+    ]).pipe(
+      map(([loginLoading, registerLoading, googleSsoLoading]) =>
+        loginLoading || registerLoading || googleSsoLoading
+      )
+    );
   }
 }

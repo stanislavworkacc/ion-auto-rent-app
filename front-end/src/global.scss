@@ -45,8 +45,17 @@
   --ion-background-color: white;
 }
 
+.alert-message.sc-ion-alert-md {
+  text-align: center;
+  padding-bottom: 0 !important;
+}
+
+.alert-message.sc-ion-alert-ios {
+  padding-bottom: 0 !important;
+}
+
 ion-header {
-  box-shadow: none;
+  box-shadow: none !important;
 }
 
 .auth-modal {

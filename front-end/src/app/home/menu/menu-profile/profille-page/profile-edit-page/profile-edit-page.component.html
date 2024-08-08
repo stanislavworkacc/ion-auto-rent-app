@@ -5,6 +5,13 @@
 </ion-header>
 
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="chevron-down-circle-outline"
+      refreshingSpinner="bubbles"
+    >
+    </ion-refresher-content>
+  </ion-refresher>
   <profile-form [isBlurred]="isBlurred"></profile-form>
 
   <ion-fab slot="fixed" vertical="bottom" horizontal="end" [edge]="false" (click)="openActionSheet()">

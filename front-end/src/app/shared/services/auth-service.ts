@@ -1,26 +1,33 @@
-import {ChangeDetectorRef, inject, Injectable} from "@angular/core";
+import {inject, Injectable} from "@angular/core";
 import {PostEntityModel} from "../../../../libs/collection/src/lib/models/post-entity.model";
 import {CrudService} from "../../../../libs/collection/src/lib/crud.service";
 import {environment} from "../../../environments/environment";
-import {Observable, take, tap} from "rxjs";
+import {BehaviorSubject, finalize, Observable, take, tap} from "rxjs";
 import {StorageService} from "./storage.service";
 import {AlertController} from "@ionic/angular/standalone";
 import {Item} from "../../../../libs/collection/src/lib/entity-item";
+import {ToasterService} from "../components/app-toast/toaster.service";
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  private storageService: StorageService = inject(StorageService);
+  private alertCtrl: AlertController = inject(AlertController);
+  private toasterService: ToasterService = inject(ToasterService);
+
   loginEntity!: PostEntityModel;
   logoutEntity!: PostEntityModel;
   registerEntity!: PostEntityModel;
   loginGoogleSsoEntity!: PostEntityModel;
   changePasswordEntity!: Item;
-  confirmPasswordEntity!: Item;
 
-  private storageService: StorageService = inject(StorageService);
-  private alertCtrl: AlertController = inject(AlertController);
+  dynamicItemLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  get toaster() {
+    return this.toasterService;
+  }
 
   login(data: any): Observable<any> {
     return this.loginEntity.save({
@@ -47,7 +54,7 @@ export class AuthService {
   }
 
   setStorageData(res): void {
-    const keys: string[] = ['_id', 'email', 'phone', 'ssoUser', 'userName', 'userLastName','ssoUser'];
+    const keys: string[] = ['_id', 'email', 'phone', 'ssoUser', 'userName', 'userLastName', 'ssoUser'];
     const userData: {} = {};
 
     keys.forEach((key: string): void => {
@@ -68,7 +75,7 @@ export class AuthService {
   async confirmPassword(id?): Promise<boolean> {
     return new Promise(async (resolve): Promise<void> => {
       const alert: HTMLIonAlertElement = await this.alertCtrl.create({
-        header: 'Введіть пароль',
+        header: 'Підтвердити пароль',
         inputs: [
           {
             name: 'password',
@@ -87,17 +94,41 @@ export class AuthService {
           {
             text: 'Підтвердити',
             role: 'confirm',
-            handler: ({password}) => {
-              const name = `${environment.matchPassword}/${id}`;
+            handler: async ({password}): Promise<boolean> => {
+              const spinner: HTMLIonSpinnerElement = document.createElement('ion-spinner');
+              spinner.name = 'dots';
+
+              const content: HTMLElement = alert.querySelector('.alert-message') as HTMLElement;
+              if (content) {
+                content.appendChild(spinner);
+              }
+
+              const name: string = `${environment.matchPassword}/${id}`;
 
               this.createDynamicItem(name, {
                 password,
               }).pipe(
-                take(1),
-                tap(({data}) => {
-                  resolve(data.result.matchPassword);
+                tap(async ({data}): Promise<void> => {
+                  switch (data.result.matchPassword) {
+                    case true:
+                      resolve(true);
+
+                      this.toaster.show({type: 'success', message: 'Пароль успішно підтверджено.'});
+                      await alert.dismiss();
+                      break;
+                    case false:
+                      resolve(false);
+                      this.toaster.show({type: 'error', message: 'Пароль введено невірно, будь ласка спробуйте ще.'})
+                      break;
+                    default:
+                  }
+
+                  if (content) {
+                    content.removeChild(spinner);
+                  }
                 })
-              ).subscribe()
+              ).subscribe();
+              return false;
             }
           },
         ]
@@ -108,16 +139,20 @@ export class AuthService {
   }
 
   createDynamicItem(name, payload): Observable<any> {
+    this.dynamicItemLoading$.next(true);
+
     const item = new Item({
       api: this._crud.createPostEntity({
         name
       })
     })
 
+
     return item.createItem({
       data: payload
     }).pipe(
       take(1),
+      finalize(() => this.dynamicItemLoading$.next(false))
     )
   }
 
@@ -135,12 +170,6 @@ export class AuthService {
     this.changePasswordEntity = new Item({
       api: this._crud.createPostEntity({
         name: environment.changePassword,
-      })
-    })
-
-    this.confirmPasswordEntity = new Item({
-      api: this._crud.createPostEntity({
-        name: '',
       })
     })
   }

@@ -4,11 +4,11 @@ import {
   IonButton,
   IonContent, IonFab, IonFabButton, IonFabList,
   IonHeader, IonIcon,
-  IonLabel,
+  IonLabel, IonRefresher, IonRefresherContent,
   IonTitle,
   IonToolbar
 } from "@ionic/angular/standalone";
-import {ActionSheetController } from "@ionic/angular";
+import {ActionSheetController} from "@ionic/angular";
 import {ProfileEditService} from "./profile-edit.service";
 import {ProfileFormComponent} from "./profile-form/profile-form.component";
 import {EditPageHeaderComponent} from "./edit-page-header/edit-page-header.component";
@@ -32,6 +32,8 @@ import {EditPageHeaderComponent} from "./edit-page-header/edit-page-header.compo
     IonFab,
     IonFabButton,
     IonFabList,
+    IonRefresher,
+    IonRefresherContent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -74,11 +76,17 @@ export class ProfileEditPage implements OnInit {
     await actionSheet.present();
   }
 
+  handleRefresh(event) {
+    setTimeout(() => {
+      event.target.complete();
+    }, 2000);
+  }
+
   async deleteAccount(): Promise<void> {
     await this.profile.deleteAccount()
   }
 
-   ngOnInit() {
+  ngOnInit() {
 
   }
 }
