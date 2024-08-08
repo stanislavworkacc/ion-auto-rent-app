@@ -190,7 +190,7 @@
     }
     <ion-label class="text-[#1f2937] !border-none flex !justify-start font-bold">Зміна пароля</ion-label>
 
-    <div (click)="confirmEditPassword()">
+    <div (click)="confirmEditPassword(passwordInput)">
       <div #passRef [appValidateInput]="passRef" class="form-input"
            [class.pointer-events-none]="passwordBlurred() && !userModel()?.ssoUser">
         <div class="input-row">
@@ -210,13 +210,13 @@
 
           </ion-label>
 
-          <ion-input
-            (ionBlur)="onBlur('lockOpen')"
-            (ionFocus)="onFocus('lockOpen')"
-            [formControl]="password"
-            [type]="showPassword ? 'text' : 'password'"
-            class="aligned-input"
-            placeholder="Новий пароль"
+          <ion-input #passwordInput
+                     (ionBlur)="onBlur('lockOpen')"
+                     (ionFocus)="onFocus('lockOpen')"
+                     [formControl]="password"
+                     [type]="showPassword ? 'text' : 'password'"
+                     class="aligned-input"
+                     placeholder="Новий пароль"
           ></ion-input>
 
           <ion-icon (click)="toggleShowPassword()"

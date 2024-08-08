@@ -145,7 +145,7 @@ export class ProfileFormComponent implements OnInit {
     this.showConfirmPassword = !this.showConfirmPassword;
   }
 
-  async confirmEditPassword(): Promise<void> {
+  async confirmEditPassword(input): Promise<void> {
     if (this.userModel().ssoUser) {
       this.passwordBlurred.set(false);
       return;
@@ -158,6 +158,7 @@ export class ProfileFormComponent implements OnInit {
           switch (confirmed) {
             case true:
               this.passwordBlurred.set(false);
+              input.setFocus()
               break;
             case false:
               this.passwordBlurred.set(true);
