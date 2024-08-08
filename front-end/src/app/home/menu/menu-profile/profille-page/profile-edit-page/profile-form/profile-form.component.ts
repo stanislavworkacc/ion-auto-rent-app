@@ -90,7 +90,7 @@ export class ProfileFormComponent implements OnInit {
     phone: string,
     userName: string,
     userLastName: string,
-    ssoUser: boolean
+    sso: any
   }> = signal(null);
   public countryPhone: WritableSignal<string> = signal('+380');
 
@@ -158,7 +158,7 @@ export class ProfileFormComponent implements OnInit {
   }
 
   updateStorageData = (res): void => {
-    const keys: string[] = ['_id', 'email', 'phone', 'ssoUser', 'userName', 'userLastName', 'ssoUser'];
+    const keys: string[] = ['_id', 'email', 'phone', 'sso', 'userName', 'userLastName'];
     const userData: {} = {};
 
     keys.forEach((key: string): void => {
@@ -180,7 +180,7 @@ export class ProfileFormComponent implements OnInit {
   }
 
   async confirmEditPassword(input): Promise<void> {
-    if (this.userModel().ssoUser) {
+    if (this.userModel()['sso']['ssoUser']) {
       this.passwordBlurred.set(false);
       return;
     }

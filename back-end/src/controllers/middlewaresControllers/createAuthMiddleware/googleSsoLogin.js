@@ -31,7 +31,10 @@ const googleSsoLogin = async (req, res, {userModel}) => {
             userName: parsedCredentialsUser.given_name,
             userLastName: parsedCredentialsUser.family_name,
             enabled: true,
-            ssoUser: true,
+            sso: {
+                firstSsoLogin: true,
+                ssoUser: true,
+            },
         });
 
         const googleSsoDefaultPassword = '';

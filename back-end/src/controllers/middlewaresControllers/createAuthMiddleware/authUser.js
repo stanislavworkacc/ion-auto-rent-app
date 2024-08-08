@@ -55,7 +55,7 @@ const authUser = async (req, res, {user, databasePassword, password, UserPasswor
                     phoneCode: user?.phoneCode,
                     phone: user?.phone,
                     email: user.email,
-                    ssoUser: user.ssoUser,
+                    sso: user.sso,
                 },
                 message: 'Successfully login user',
             });
@@ -106,7 +106,7 @@ const ssoAuthUser = async (req, res, {user, UserPasswordModel}) => {
                 phoneCode: user?.phoneCode,
                 phone: user?.phone,
                 email: user.email,
-                ssoUser: user.ssoUser,
+                sso: user.sso,
             },
             message: 'Successfully login user',
         });

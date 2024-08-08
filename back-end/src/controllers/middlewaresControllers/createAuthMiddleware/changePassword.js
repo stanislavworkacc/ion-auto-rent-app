@@ -22,11 +22,19 @@ const changePassword = async (req, res, { userModel }) => {
         $set: updatedPasswordData,
     }, { new: true });
 
+    const prevUserModel = await UserModel.findById({
+        _id: id
+    });
+    console.log('prevUserModel', prevUserModel);
+
 
     const updatedUserModel = await UserModel.findOneAndUpdate({
         _id: id
     }, {
-        ssoUser: false,
+        sso: {
+            ssoUser: false,
+            firstSsoLogin: prevUserModel.sso.firstSsoLogin
+        },
     }, {
         new: true,
     }).exec();
@@ -42,7 +50,7 @@ const changePassword = async (req, res, { userModel }) => {
                 phoneCode: updatedUserModel?.phoneCode,
                 phone: updatedUserModel?.phone,
                 email: updatedUserModel.email,
-                ssoUser: updatedUserModel.ssoUser,
+                sso: updatedUserModel.sso,
             },
             message: 'Password updated successfully',
         })

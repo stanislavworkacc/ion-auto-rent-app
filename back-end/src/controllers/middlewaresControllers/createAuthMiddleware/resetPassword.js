@@ -131,7 +131,7 @@ const resetPassword = async (req, res, { userModel }) => {
           phoneCode: user?.phoneCode,
           phone: user?.phone,
           email: user.email,
-          ssoUser: user.ssoUser,
+          ssoUser: user.sso,
         },
         message: 'Successfully resetPassword user',
       });

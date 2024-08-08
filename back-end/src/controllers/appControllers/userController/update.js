@@ -27,7 +27,7 @@ const update = async (Model, req, res) => {
         phoneCode: userModel?.phoneCode,
         phone: userModel?.phone,
         email: userModel.email,
-        ssoUser: userModel.ssoUser,
+        sso: userModel.sso,
       },
       message: 'Successfully updated this document',
     });

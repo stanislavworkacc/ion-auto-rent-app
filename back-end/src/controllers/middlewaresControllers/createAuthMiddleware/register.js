@@ -43,7 +43,10 @@ async function register(req, res, { userModel }) {
             email,
             userName,
             enabled: true,
-            ssoUser: false,
+            sso: {
+                ssoUser: false,
+                firstSsoLogin: false,
+            },
             phone: null,
             userSurname: '',
         });

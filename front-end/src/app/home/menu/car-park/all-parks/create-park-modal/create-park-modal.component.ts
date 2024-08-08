@@ -133,7 +133,7 @@ export class CreateParkModalComponent implements OnInit, AfterViewInit {
     phone: string,
     userName: string,
     userLastName: string,
-    ssoUser: boolean
+    sso: any
   }> = signal(null);
   public parking: WritableSignal<any> = signal(
     {
