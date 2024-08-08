@@ -10,14 +10,10 @@ import {take} from "rxjs";
 @Injectable({
   providedIn: 'root'
 })
-export class ProfileEditService implements OnInit {
+export class ProfileEditService {
 
-  private crud: CrudService = inject(CrudService);
   private alertCtrl: AlertController = inject(AlertController);
   private modalCtrl: ModalController = inject(ModalController);
-  private storage: StorageService = inject(StorageService);
-
-  editEntity: PostEntityModel;
 
   public alertButtons = [
     {
@@ -36,8 +32,8 @@ export class ProfileEditService implements OnInit {
     },
   ];
 
-  editUser(userData, id) {
-    return this.editEntity.save(
+  editUser(userData, id, editEntity) {
+    return editEntity.save(
       {data: userData, name: environment.editUser + '/' + id}
     ).pipe(
       take(1)
@@ -109,19 +105,6 @@ export class ProfileEditService implements OnInit {
       initialBreakpoint: 1,
     })
 
-     return modal;
-  }
-
-   constructor () {
-    this.ngOnInit();
-  }
-
-  // eslint-disable-next-line @angular-eslint/contextual-lifecycle
-  async ngOnInit() {
-    const user = await this.storage.getObject('user');
-
-    this.editEntity = this.crud.createPostEntity({
-      name: environment.editUser + '/' + user._id,
-    })
+    return modal;
   }
 }

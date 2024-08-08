@@ -1,7 +1,6 @@
-import {ChangeDetectionStrategy, Component, inject, Input, OnInit, signal, WritableSignal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, Input, OnInit, Signal, signal, WritableSignal} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {
-  AlertController, IonButton,
   IonFab,
   IonFabButton,
   IonIcon,
@@ -29,6 +28,11 @@ import {
 import {codes} from "../../../../../../shared/utils/phone-codes";
 import {MainActionComponent} from "../../../../../../shared/components/buttons/main-action/main-action.component";
 import {AsyncPipe, JsonPipe} from "@angular/common";
+import {LocatorLoaderComponent} from "../../../../../locator/locator-loader/locator-loader.component";
+import {PostEntityModel} from "../../../../../../../../libs/collection/src/lib/models/post-entity.model";
+import {environment} from "../../../../../../../environments/environment";
+import {CrudService} from "../../../../../../../../libs/collection/src/lib/crud.service";
+import {toSignal} from "@angular/core/rxjs-interop";
 
 @Component({
   selector: 'profile-form',
@@ -49,17 +53,16 @@ import {AsyncPipe, JsonPipe} from "@angular/common";
     PassportComponent,
     InnComponent,
     DriverLicenceComponent,
-    IonButton,
     RippleBtnComponent,
     MainActionComponent,
     JsonPipe,
-    AsyncPipe
+    AsyncPipe,
+    LocatorLoaderComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProfileFormComponent implements OnInit {
   protected readonly DOC_TYPE = DOC_TYPE;
-
   @Input() isBlurred: WritableSignal<boolean> = signal(true)
 
   private storage: StorageService = inject(StorageService);
@@ -68,10 +71,12 @@ export class ProfileFormComponent implements OnInit {
   private authService: AuthService = inject(AuthService);
   private toasterService: ToasterService = inject(ToasterService);
   private popoverCtrl: PopoverController = inject(PopoverController);
+  private crud: CrudService = inject(CrudService);
+
+  editEntity: PostEntityModel;
 
   public passwordBlurred: WritableSignal<boolean> = signal(true);
   private clearPasswords: WritableSignal<boolean> = signal(false);
-  private clearSubmitBtn: WritableSignal<boolean> = signal(false)
   public userModel: WritableSignal<{
     _id: string,
     email: string,
@@ -197,7 +202,7 @@ export class ProfileFormComponent implements OnInit {
       this.phone.valid &&
       this.email.valid
     ) {
-      this.profile.editUser(this.form.getRawValue(), this.userModel()._id).pipe(
+      this.profile.editUser(this.form.getRawValue(), this.userModel()._id, this.editEntity).pipe(
         filter((res) => res['data'].success),
         tap(this.updateStorageData),
         tap(this.initToaster),
@@ -313,8 +318,18 @@ export class ProfileFormComponent implements OnInit {
     this.assignFormControls();
   }
 
+
   async ngOnInit(): Promise<void> {
     this.initForm();
     await this.setUserData();
+
+    this.editEntity = this.crud.createPostEntity({
+      name: environment.editUser + '/' + this.userModel()._id,
+    })
+
+  }
+
+  constructor() {
+
   }
 }
