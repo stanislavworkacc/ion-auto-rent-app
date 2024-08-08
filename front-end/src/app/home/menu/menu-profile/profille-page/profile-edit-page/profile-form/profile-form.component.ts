@@ -141,10 +141,6 @@ export class ProfileFormComponent implements OnInit {
       this.form.get('confirmPassword').dirty) && !this.clearPasswords()
   }
 
-  get loading() {
-    return this.editEntity?.loading$
-  }
-
   onFocus(field: string): void {
     this.isFocused[field] = true;
   }

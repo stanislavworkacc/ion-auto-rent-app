@@ -1,4 +1,4 @@
-@if (loading | async) {
+@if (((editEntity?.loading$) | async) || (auth.dynamicItemLoading$ | async)) {
   <ion-progress-bar type="indeterminate"></ion-progress-bar>
 }
 <form [formGroup]="form" class="px-3 my-3">

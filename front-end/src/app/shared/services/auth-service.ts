@@ -1,8 +1,8 @@
-import {ChangeDetectorRef, inject, Injectable, signal, WritableSignal} from "@angular/core";
+import {inject, Injectable} from "@angular/core";
 import {PostEntityModel} from "../../../../libs/collection/src/lib/models/post-entity.model";
 import {CrudService} from "../../../../libs/collection/src/lib/crud.service";
 import {environment} from "../../../environments/environment";
-import {Observable, take, tap} from "rxjs";
+import {BehaviorSubject, finalize, Observable, take, tap} from "rxjs";
 import {StorageService} from "./storage.service";
 import {AlertController} from "@ionic/angular/standalone";
 import {Item} from "../../../../libs/collection/src/lib/entity-item";
@@ -23,6 +23,8 @@ export class AuthService {
   registerEntity!: PostEntityModel;
   loginGoogleSsoEntity!: PostEntityModel;
   changePasswordEntity!: Item;
+
+  dynamicItemLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   get toaster() {
     return this.toasterService;
@@ -138,16 +140,20 @@ export class AuthService {
   }
 
   createDynamicItem(name, payload): Observable<any> {
+    this.dynamicItemLoading$.next(true);
+
     const item = new Item({
       api: this._crud.createPostEntity({
         name
       })
     })
 
+
     return item.createItem({
       data: payload
     }).pipe(
       take(1),
+      finalize(() => this.dynamicItemLoading$.next(false))
     )
   }
 
