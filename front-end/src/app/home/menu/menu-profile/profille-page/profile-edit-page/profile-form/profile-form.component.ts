@@ -1,11 +1,20 @@
-import {ChangeDetectionStrategy, Component, inject, Input, OnInit, Signal, signal, WritableSignal} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  inject,
+  Input,
+  OnInit,
+  signal,
+  WritableSignal
+} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {
   IonFab,
   IonFabButton,
   IonIcon,
   IonInput,
-  IonLabel,
+  IonLabel, IonProgressBar,
   IonSpinner, PopoverController
 } from "@ionic/angular/standalone";
 import {PhoneNumberFormatterDirective} from "../../../../../../shared/directives/phone-formatter.directive";
@@ -27,12 +36,10 @@ import {
 } from "../../../../../../shared/components/filters/modals/phone-codes/phone-codes.component";
 import {codes} from "../../../../../../shared/utils/phone-codes";
 import {MainActionComponent} from "../../../../../../shared/components/buttons/main-action/main-action.component";
-import {AsyncPipe, JsonPipe} from "@angular/common";
-import {LocatorLoaderComponent} from "../../../../../locator/locator-loader/locator-loader.component";
+import {AsyncPipe} from "@angular/common";
 import {PostEntityModel} from "../../../../../../../../libs/collection/src/lib/models/post-entity.model";
 import {environment} from "../../../../../../../environments/environment";
 import {CrudService} from "../../../../../../../../libs/collection/src/lib/crud.service";
-import {toSignal} from "@angular/core/rxjs-interop";
 
 @Component({
   selector: 'profile-form',
@@ -55,9 +62,8 @@ import {toSignal} from "@angular/core/rxjs-interop";
     DriverLicenceComponent,
     RippleBtnComponent,
     MainActionComponent,
-    JsonPipe,
     AsyncPipe,
-    LocatorLoaderComponent
+    IonProgressBar,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -72,6 +78,7 @@ export class ProfileFormComponent implements OnInit {
   private toasterService: ToasterService = inject(ToasterService);
   private popoverCtrl: PopoverController = inject(PopoverController);
   private crud: CrudService = inject(CrudService);
+  private destroyRef: DestroyRef = inject(DestroyRef);
 
   editEntity: PostEntityModel;
 
@@ -132,6 +139,10 @@ export class ProfileFormComponent implements OnInit {
   get userPasswordDirty() {
     return (this.form.get('password').dirty ||
       this.form.get('confirmPassword').dirty) && !this.clearPasswords()
+  }
+
+  get loading() {
+    return this.editEntity?.loading$
   }
 
   onFocus(field: string): void {
@@ -318,7 +329,6 @@ export class ProfileFormComponent implements OnInit {
     this.assignFormControls();
   }
 
-
   async ngOnInit(): Promise<void> {
     this.initForm();
     await this.setUserData();
@@ -326,10 +336,5 @@ export class ProfileFormComponent implements OnInit {
     this.editEntity = this.crud.createPostEntity({
       name: environment.editUser + '/' + this.userModel()._id,
     })
-
-  }
-
-  constructor() {
-
   }
 }

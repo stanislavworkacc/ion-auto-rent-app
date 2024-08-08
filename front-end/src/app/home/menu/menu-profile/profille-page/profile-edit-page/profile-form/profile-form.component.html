@@ -1,5 +1,5 @@
-@if (false) {
-  <locator-loader></locator-loader>
+@if (loading | async) {
+  <ion-progress-bar type="indeterminate"></ion-progress-bar>
 }
 <form [formGroup]="form" class="px-3 my-3">
   <div class="flex justify-between items-center">
