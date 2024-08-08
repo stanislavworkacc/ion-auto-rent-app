@@ -74,7 +74,7 @@ export class AuthService {
   async confirmPassword(id?): Promise<boolean> {
     return new Promise(async (resolve): Promise<void> => {
       const alert: HTMLIonAlertElement = await this.alertCtrl.create({
-        header: 'Введіть пароль',
+        header: 'Підтвердити пароль',
         inputs: [
           {
             name: 'password',
@@ -112,8 +112,8 @@ export class AuthService {
                     case true:
                       resolve(true);
 
-                      await alert.dismiss();
                       this.toaster.show({type: 'success', message: 'Пароль успішно підтверджено.'});
+                      await alert.dismiss();
                       break;
                     case false:
                       resolve(false);
