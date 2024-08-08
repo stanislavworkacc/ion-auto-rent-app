@@ -21,12 +21,12 @@ const bodyParser = require('body-parser');
 // create our Express server
 const app = express();
 
-app.use(
-  cors({
-    origin: true,
+app.use(cors({
+    origin: 'http://localhost:4200',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
-  })
-);
+    allowedHeaders: 'Content-Type, Authorization'
+}));
 
 app.use(cookieParser());
 app.use(express.json({
