@@ -181,12 +181,9 @@
     </div>
 
     @if (userInfoDirty) {
-      <ripple-btn
-        [title]="'Зберегти зміни'"
-        [styles]="'text-[#646565] text-white !border-none bg-[#182130]  text-[16px] font-[300] !mt-[10px]'"
-        (click)="initEditUser()"
-      >
-      </ripple-btn>
+      <main-action-btn [title]="'Зберегти зміни'" [styles]="'py-1'"
+                       [action]="initEditUser.bind(this)"></main-action-btn>
+
     }
     <ion-label class="text-[#1f2937] !border-none flex !justify-start font-bold">Зміна пароля</ion-label>
 
@@ -272,7 +269,7 @@
     </div>
 
     @if (userPasswordDirty) {
-      <main-action-btn [title]="'Оновити пароль'" [icon]="'refresh-outline'"
+      <main-action-btn [title]="'Оновити пароль'" [icon]="'refresh-outline'" [styles]="'py-1'"
                        [action]="changePassword.bind(this)"></main-action-btn>
     }
   </div>

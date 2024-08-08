@@ -145,6 +145,28 @@ export class ProfileFormComponent implements OnInit {
     this.showConfirmPassword = !this.showConfirmPassword;
   }
 
+  updateStorageData = (res): void => {
+    const keys: string[] = ['_id', 'email', 'phone', 'ssoUser', 'userName', 'userLastName', 'ssoUser'];
+    const userData: {} = {};
+
+    keys.forEach((key: string): void => {
+      userData[key] = res?.data?.result?.[key];
+    });
+
+    this.storage.setObject('user', userData);
+  }
+
+  initToaster = (res) => {
+    switch (res?.data?.success) {
+      case true:
+        this.toaster.show({type: 'success', message: 'Зміни успішно внесено.'});
+        break;
+      case false:
+        this.toaster.show({type: 'error', message: 'Не вдалося внести зміни.'});
+        break;
+    }
+  }
+
   async confirmEditPassword(input): Promise<void> {
     if (this.userModel().ssoUser) {
       this.passwordBlurred.set(false);
@@ -175,41 +197,13 @@ export class ProfileFormComponent implements OnInit {
       this.phone.valid &&
       this.email.valid
     ) {
-      this.form.get('phone').setValue(this.countryPhone() + this.phone.value)
       this.profile.editUser(this.form.getRawValue(), this.userModel()._id).pipe(
-        filter(({success}) => success),
-        tap((res): void => {
-
-          // debugger
-          //reset storage;
-        }),
-        tap((): void => this.toaster.show({type: 'success', message: 'Зміни успішно внесено.'})
-        )
+        filter((res) => res['data'].success),
+        tap(this.updateStorageData),
+        tap(this.initToaster),
       ).subscribe()
     } else {
       this.toaster.show({type: 'warning', message: 'Будь ласка, переконайтеся, що всі поля заповнені коректно'})
-    }
-  }
-
-  updateStorageData = (res): void => {
-    const keys: string[] = ['_id', 'email', 'phone', 'ssoUser', 'userName', 'userLastName', 'ssoUser'];
-    const userData: {} = {};
-
-    keys.forEach((key: string): void => {
-      userData[key] = res?.data?.result?.[key];
-    });
-
-    this.storage.setObject('user', userData);
-  }
-
-  initToaster = (res) => {
-    switch (res?.data?.success) {
-      case true:
-        this.toaster.show({type: 'success', message: 'Зміни успішно внесено.'});
-        break;
-      case false:
-        this.toaster.show({type: 'error', message: 'Не вдалося внести зміни.'});
-        break;
     }
   }
 
@@ -308,7 +302,7 @@ export class ProfileFormComponent implements OnInit {
       userLastName: [''],
       userSurname: [''],
       // passport: ['', Validators.required],
-      phone: ['', [Validators.minLength(14)]],
+      phone: [''],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', [Validators.required]]
