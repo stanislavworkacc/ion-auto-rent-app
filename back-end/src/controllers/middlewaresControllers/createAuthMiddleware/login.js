@@ -24,7 +24,10 @@ const login = async (req, res, { userModel }) => {
     phoneLogin: Joi.string().allow(''),
   });
 
-  const { error, value } = objectSchema.validate({ email, password, phoneLogin: phone });
+  const { error, value } = email ?
+      objectSchema.validate({ email, password }) :
+      objectSchema.validate({  password, phoneLogin: phone });
+
   if (error) {
     return res.status(409).json({
       success: false,
