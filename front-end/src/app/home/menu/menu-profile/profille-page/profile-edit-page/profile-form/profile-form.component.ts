@@ -265,6 +265,7 @@ export class ProfileFormComponent implements OnInit {
     const {data} = await popover.onDidDismiss();
     if (data) {
       this.countryPhone.set(data.code);
+      this.form.get('phoneCode').setValue(data.code)
       this.form.get('phone').markAsDirty();
       this.form.get('phone').markAsTouched();
     }
@@ -303,6 +304,7 @@ export class ProfileFormComponent implements OnInit {
       userSurname: [''],
       // passport: ['', Validators.required],
       phone: [''],
+      phoneCode: [this.countryPhone()],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', [Validators.required]]
