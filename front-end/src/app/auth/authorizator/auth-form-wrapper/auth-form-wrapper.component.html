@@ -1,11 +1,11 @@
 <ion-header>
   @if (!isLogin()) {
-  <ion-toolbar>
-    <app-back-button
-      [styles]="'text-[20px] !text-black'"
-      [navigateBack]="navigateBack.bind(this)"
-    ></app-back-button>
-  </ion-toolbar>
+    <ion-toolbar>
+      <app-back-button
+        [styles]="'text-[20px] !text-black'"
+        [navigateBack]="navigateBack.bind(this)"
+      ></app-back-button>
+    </ion-toolbar>
   }
 
   <app-segments
@@ -14,6 +14,10 @@
   ></app-segments>
 
 </ion-header>
+
+@if (isLoading | async) {
+  <ion-progress-bar type="indeterminate"></ion-progress-bar>
+}
 
 <ion-content class="ion-padding" [scrollEvents]="true">
   @switch (selectedSegment()) {
@@ -43,11 +47,11 @@
     @case (SegmentType.GOOGLE) {
       <app-google-sso [isLogin]="isLogin()"></app-google-sso>
     }
-<!--    @case (SegmentType.APPLE) {-->
-<!--      <app-apple-ios [isLogin]="isLogin()"></app-apple-ios>-->
-<!--    }-->
-<!--    @case (SegmentType.ANDROID) {-->
-<!--      <app-android-form [isLogin]="isLogin()"></app-android-form>-->
-<!--    }-->
+    <!--    @case (SegmentType.APPLE) {-->
+      <!--      <app-apple-ios [isLogin]="isLogin()"></app-apple-ios>-->
+      <!--    }-->
+      <!--    @case (SegmentType.ANDROID) {-->
+      <!--      <app-android-form [isLogin]="isLogin()"></app-android-form>-->
+      <!--    }-->
   }
 </ion-content>

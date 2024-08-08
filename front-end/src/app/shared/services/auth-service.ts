@@ -13,7 +13,6 @@ import {ToasterService} from "../components/app-toast/toaster.service";
   providedIn: 'root'
 })
 export class AuthService {
-
   private storageService: StorageService = inject(StorageService);
   private alertCtrl: AlertController = inject(AlertController);
   private toasterService: ToasterService = inject(ToasterService);
