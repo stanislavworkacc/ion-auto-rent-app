@@ -7,7 +7,9 @@ const schema = new mongoose.Schema({
     enabled: { type: Boolean, default: true, required: true},
     userLastName: { type: String, default: '', required: false},
     ssoUser: { type: Boolean, default: false, required: false},
-    phone: { type: String, unique: true, required: false, trim: true, default: null },
+    phone: { type: String, unique: false, required: false, trim: true, default: null },
+    phoneCode: { type: String, unique: false, required: false, trim: false, default: '' },
+    phoneLogin: { type: String, unique: true, required: false, trim: true, default: '' },
     userSurname: {type: String, default: '', required: false, trim: true},
 });
 

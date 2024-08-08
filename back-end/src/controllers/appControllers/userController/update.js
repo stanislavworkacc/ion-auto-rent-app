@@ -7,7 +7,8 @@ const update = async (Model, req, res) => {
   const userModel = await Model.findOneAndUpdate(
       { _id: id },
       {
-        ...req.body
+        ...req.body,
+        phoneLogin: req.body?.phoneCode + req.body?.phone,
       },
       {
         new: true,
@@ -18,7 +19,16 @@ const update = async (Model, req, res) => {
   if(userModel) {
     return res.status(200).json({
       success: true,
-      result: userModel,
+      result: {
+        _id: userModel._id,
+        userName: userModel.userName,
+        userLastName: userModel?.userLastName,
+        userSurname: userModel?.userSurname,
+        phoneCode: userModel?.phoneCode,
+        phone: userModel?.phone,
+        email: userModel.email,
+        ssoUser: userModel.ssoUser,
+      },
       message: 'Successfully updated this document',
     });
   }

@@ -21,10 +21,10 @@ const login = async (req, res, { userModel }) => {
     email: Joi.string()
         .email({ tlds: { allow: true } }).allow(null),
     password: Joi.string().required(),
-    phone: Joi.string().allow(null),
+    phoneLogin: Joi.string().allow(null),
   });
 
-  const { error, value } = objectSchema.validate({ email, password, phone });
+  const { error, value } = objectSchema.validate({ email, password, phoneLogin: phone });
   if (error) {
     return res.status(409).json({
       success: false,
@@ -35,7 +35,7 @@ const login = async (req, res, { userModel }) => {
     });
   }
 
-  const user = await UserModel.findOne(email ? { email: email } : {phone: phone });
+  const user = await UserModel.findOne(email ? { email: email } : {phoneLogin: phone });
   // const user = await UserModel.findOne({ email: email, phone: phone });
 
 

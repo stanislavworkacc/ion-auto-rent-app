@@ -34,7 +34,16 @@ const changePassword = async (req, res, { userModel }) => {
     if(updatedPasswordModel && updatedUserModel) {
         return res.status(200).json({
             success: true,
-            result: updatedUserModel,
+            result: {
+                _id: updatedUserModel._id,
+                userName: updatedUserModel.userName,
+                userLastName: updatedUserModel?.userLastName,
+                userSurname: updatedUserModel?.userSurname,
+                phoneCode: updatedUserModel?.phoneCode,
+                phone: updatedUserModel?.phone,
+                email: updatedUserModel.email,
+                ssoUser: updatedUserModel.ssoUser,
+            },
             message: 'Password updated successfully',
         })
     }
