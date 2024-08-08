@@ -94,28 +94,39 @@ export class AuthService {
             text: 'Підтвердити',
             role: 'confirm',
             handler: async ({password}): Promise<boolean> => {
+              const spinner: HTMLIonSpinnerElement = document.createElement('ion-spinner');
+              spinner.name = 'dots';
+
+              const content: HTMLElement = alert.querySelector('.alert-message') as HTMLElement;
+              if (content) {
+                content.appendChild(spinner);
+              }
+
               const name: string = `${environment.matchPassword}/${id}`;
 
-              if (password) {
-                this.createDynamicItem(name, {
-                  password,
-                }).pipe(
-                  tap(async ({data}): Promise<void> => {
-                    switch (data.result.matchPassword) {
-                      case true:
-                        resolve(true);
+              this.createDynamicItem(name, {
+                password,
+              }).pipe(
+                tap(async ({data}): Promise<void> => {
+                  switch (data.result.matchPassword) {
+                    case true:
+                      resolve(true);
 
-                        await alert.dismiss();
-                        this.toaster.show({type: 'success', message: 'Пароль успішно підтверджено.'});
-                        break;
-                      case false:
-                        resolve(false);
-                        this.toaster.show({type: 'error', message: 'Пароль введено невірно, будь ласка спробуйте ще.'})
-                        break;
-                    }
-                  })
-                ).subscribe();
-              }
+                      await alert.dismiss();
+                      this.toaster.show({type: 'success', message: 'Пароль успішно підтверджено.'});
+                      break;
+                    case false:
+                      resolve(false);
+                      this.toaster.show({type: 'error', message: 'Пароль введено невірно, будь ласка спробуйте ще.'})
+                      break;
+                    default:
+                  }
+
+                  if (content) {
+                    content.removeChild(spinner);
+                  }
+                })
+              ).subscribe();
               return false;
             }
           },
