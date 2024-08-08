@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, inject, Injectable} from "@angular/core";
+import {ChangeDetectorRef, inject, Injectable, signal, WritableSignal} from "@angular/core";
 import {PostEntityModel} from "../../../../libs/collection/src/lib/models/post-entity.model";
 import {CrudService} from "../../../../libs/collection/src/lib/crud.service";
 import {environment} from "../../../environments/environment";
@@ -13,6 +13,11 @@ import {ToasterService} from "../components/app-toast/toaster.service";
   providedIn: 'root'
 })
 export class AuthService {
+
+  private storageService: StorageService = inject(StorageService);
+  private alertCtrl: AlertController = inject(AlertController);
+  private toasterService: ToasterService = inject(ToasterService);
+
   loginEntity!: PostEntityModel;
   logoutEntity!: PostEntityModel;
   registerEntity!: PostEntityModel;
@@ -20,9 +25,7 @@ export class AuthService {
   changePasswordEntity!: Item;
   confirmPasswordEntity!: Item;
 
-  private storageService: StorageService = inject(StorageService);
-  private alertCtrl: AlertController = inject(AlertController);
-  private toasterService: ToasterService = inject(ToasterService);
+  loading: WritableSignal<boolean> = signal(false);
 
   get toaster() {
     return this.toasterService;
@@ -93,20 +96,14 @@ export class AuthService {
           {
             text: 'Підтвердити',
             role: 'confirm',
-            handler: async ({password}) => {
-              const name = `${environment.matchPassword}/${id}`;
+            handler: async ({password}): Promise<boolean> => {
+              const name: string = `${environment.matchPassword}/${id}`;
 
               if (password) {
                 this.createDynamicItem(name, {
                   password,
                 }).pipe(
-                  tap(async ({data}) => {
-                    // if (data.result.matchPassword) {
-                    //
-                    // } else {
-                    //   resolve(false);
-                    // }
-
+                  tap(async ({data}): Promise<void> => {
                     switch (data.result.matchPassword) {
                       case true:
                         await alert.dismiss();
@@ -121,7 +118,6 @@ export class AuthService {
                   })
                 ).subscribe();
               }
-
               return false;
             }
           },
@@ -131,7 +127,6 @@ export class AuthService {
       await alert.present();
     });
   }
-
 
   createDynamicItem(name, payload): Observable<any> {
     const item = new Item({
@@ -161,12 +156,6 @@ export class AuthService {
     this.changePasswordEntity = new Item({
       api: this._crud.createPostEntity({
         name: environment.changePassword,
-      })
-    })
-
-    this.confirmPasswordEntity = new Item({
-      api: this._crud.createPostEntity({
-        name: '',
       })
     })
   }

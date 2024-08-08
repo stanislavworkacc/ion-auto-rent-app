@@ -189,9 +189,7 @@
       </ripple-btn>
     }
     <ion-label class="text-[#1f2937] !border-none flex !justify-start font-bold">Зміна пароля</ion-label>
-
-
-    {{ passwordBlurred() }}
+    
     <div (click)="confirmEditPassword()">
       <div #passRef [appValidateInput]="passRef" class="form-input"
            [class.pointer-events-none]="passwordBlurred() && !userModel()?.ssoUser">

@@ -28,6 +28,7 @@ import {
 } from "../../../../../../shared/components/filters/modals/phone-codes/phone-codes.component";
 import {codes} from "../../../../../../shared/utils/phone-codes";
 import {MainActionComponent} from "../../../../../../shared/components/buttons/main-action/main-action.component";
+import {AsyncPipe, JsonPipe} from "@angular/common";
 
 @Component({
   selector: 'profile-form',
@@ -50,7 +51,9 @@ import {MainActionComponent} from "../../../../../../shared/components/buttons/m
     DriverLicenceComponent,
     IonButton,
     RippleBtnComponent,
-    MainActionComponent
+    MainActionComponent,
+    JsonPipe,
+    AsyncPipe
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
