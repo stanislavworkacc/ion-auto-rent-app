@@ -21,12 +21,13 @@ import {DOC_TYPE} from "./profile-form.enums";
 import {AuthService} from "../../../../../../shared/services/auth-service";
 import {RippleBtnComponent} from "../../../../../../shared/components/buttons/ripple-btn/ripple-btn.component";
 import {ToasterService} from "../../../../../../shared/components/app-toast/toaster.service";
-import {tap} from "rxjs";
+import {take, tap} from "rxjs";
 import {filter} from "rxjs/operators";
 import {
   PhoneCodesComponent
 } from "../../../../../../shared/components/filters/modals/phone-codes/phone-codes.component";
 import {codes} from "../../../../../../shared/utils/phone-codes";
+import {MainActionComponent} from "../../../../../../shared/components/buttons/main-action/main-action.component";
 
 @Component({
   selector: 'profile-form',
@@ -48,11 +49,12 @@ import {codes} from "../../../../../../shared/utils/phone-codes";
     InnComponent,
     DriverLicenceComponent,
     IonButton,
-    RippleBtnComponent
+    RippleBtnComponent,
+    MainActionComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProfileFormComponent  implements OnInit {
+export class ProfileFormComponent implements OnInit {
   protected readonly DOC_TYPE = DOC_TYPE;
 
   @Input() isBlurred: WritableSignal<boolean> = signal(true)
@@ -64,11 +66,17 @@ export class ProfileFormComponent  implements OnInit {
   private toasterService: ToasterService = inject(ToasterService);
   private popoverCtrl: PopoverController = inject(PopoverController);
 
-
   public passwordBlurred: WritableSignal<boolean> = signal(true);
   private clearPasswords: WritableSignal<boolean> = signal(false);
   private clearSubmitBtn: WritableSignal<boolean> = signal(false)
-  private userModel: WritableSignal<{ _id: string, email: string, phone: string, userName: string, userLastName: string, ssoUser: boolean }> = signal(null);
+  public userModel: WritableSignal<{
+    _id: string,
+    email: string,
+    phone: string,
+    userName: string,
+    userLastName: string,
+    ssoUser: boolean
+  }> = signal(null);
   public countryPhone: WritableSignal<string> = signal('+380');
 
   public form!: FormGroup;
@@ -135,14 +143,28 @@ export class ProfileFormComponent  implements OnInit {
   }
 
   async confirmEditPassword(): Promise<void> {
-    await this.auth.confirmPassword(this.userModel()._id)
-      .then((confirmed: boolean): void => {
-        this.isBlurred.set(confirmed);
-      })
+    if (this.userModel().ssoUser) {
+      this.passwordBlurred.set(false);
+      return;
+    }
+
+    if (this.passwordBlurred()) {
+      await this.auth.confirmPassword(this.userModel()._id)
+        .then((confirmed: boolean): void => {
+          switch (confirmed) {
+            case true:
+              this.passwordBlurred.set(false);
+              break;
+            case false:
+              this.passwordBlurred.set(true);
+              break;
+          }
+        })
+    }
   }
 
   initEditUser(): void {
-    if(this.userName.valid &&
+    if (this.userName.valid &&
       this.userLastName.valid &&
       this.userSurname.valid &&
       this.phone.valid &&
@@ -150,29 +172,54 @@ export class ProfileFormComponent  implements OnInit {
     ) {
       this.form.get('phone').setValue(this.countryPhone() + this.phone.value)
       this.profile.editUser(this.form.getRawValue(), this.userModel()._id).pipe(
-        filter(({ success }) => success),
+        filter(({success}) => success),
         tap((res): void => {
 
           // debugger
           //reset storage;
         }),
-        tap((): void => this.toaster.show({ type: 'success', message: 'Зміни успішно внесено.' })
+        tap((): void => this.toaster.show({type: 'success', message: 'Зміни успішно внесено.'})
         )
       ).subscribe()
     } else {
-      this.toaster.show({ type: 'warning', message: 'Будь ласка, переконайтеся, що всі поля заповнені коректно' })
+      this.toaster.show({type: 'warning', message: 'Будь ласка, переконайтеся, що всі поля заповнені коректно'})
+    }
+  }
+
+  updateStorageData = (res): void => {
+    const keys: string[] = ['_id', 'email', 'phone', 'ssoUser', 'userName', 'userLastName', 'ssoUser'];
+    const userData: {} = {};
+
+    keys.forEach((key: string): void => {
+      userData[key] = res?.data?.result?.[key];
+    });
+
+    this.storage.setObject('user', userData);
+  }
+
+  initToaster = (res) => {
+    switch (res?.data?.success) {
+      case true:
+        this.toaster.show({type: 'success', message: 'Зміни успішно внесено.'});
+        break;
+      case false:
+        this.toaster.show({type: 'error', message: 'Не вдалося внести зміни.'});
+        break;
     }
   }
 
   async changePassword(): Promise<void> {
-    if(this.password.valid && this.confirmPassword.valid) {
+    if (this.password.valid && this.confirmPassword.valid) {
       this.auth.initPasswordChange(this.password.value, this.userModel()._id)
         .pipe(
-          filter(({ success }) => success),
+          take(1),
+          filter((res) => res.data.success),
+          tap(this.updateStorageData),
+          tap(this.initToaster),
           tap(() => this.resetPasswords()))
         .subscribe()
     } else {
-      this.toaster.show({ type: 'warning', message: 'Будь ласка, переконайтеся, що поля паролю заповнені коректно'})
+      this.toaster.show({type: 'warning', message: 'Будь ласка, переконайтеся, що поля паролю заповнені коректно'})
     }
   }
 
@@ -211,12 +258,12 @@ export class ProfileFormComponent  implements OnInit {
       cssClass: 'phones-popover',
       event: ev,
       translucent: true,
-      componentProps: { codes },
+      componentProps: {codes},
     });
 
     await popover.present();
 
-    const { data } = await popover.onDidDismiss();
+    const {data} = await popover.onDidDismiss();
     if (data) {
       this.countryPhone.set(data.code);
       this.form.get('phone').markAsDirty();
@@ -240,7 +287,7 @@ export class ProfileFormComponent  implements OnInit {
     this.userModel.set(user);
 
     if (this.userModel()) {
-      const { userName, userLastName, email, phone  } = this.userModel();
+      const {userName, userLastName, email, phone} = this.userModel();
       this.form.patchValue({
         userName,
         userLastName,
@@ -264,6 +311,7 @@ export class ProfileFormComponent  implements OnInit {
 
     this.assignFormControls();
   }
+
   async ngOnInit(): Promise<void> {
     this.initForm();
     await this.setUserData();

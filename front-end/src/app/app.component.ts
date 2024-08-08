@@ -30,12 +30,12 @@ export class AppComponent {
     this.translate.addLangs(['en', 'uk']);
     this.translate.setDefaultLang('uk');
 
-    this.http.post('https://rent-auto.xyz/api/autoParks/listAll/66aa7d010c4955a08c64095f', {}, {
-      headers: {
-        'Accept': 'application/json',
-        "Access-Control-Allow-Origin": '**'
-      }
-    }).subscribe()
+    // this.http.post('https://rent-auto.xyz/api/autoParks/listAll/66aa7d010c4955a08c64095f', {}, {
+    //   headers: {
+    //     'Accept': 'application/json',
+    //     "Access-Control-Allow-Origin": '**'
+    //   }
+    // }).subscribe()
 
     const browserLang = this.translate.getBrowserLang();
     if (browserLang) {

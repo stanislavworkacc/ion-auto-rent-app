@@ -6,6 +6,7 @@ import {Observable, take, tap} from "rxjs";
 import {StorageService} from "./storage.service";
 import {AlertController} from "@ionic/angular/standalone";
 import {Item} from "../../../../libs/collection/src/lib/entity-item";
+import {ToasterService} from "../components/app-toast/toaster.service";
 
 
 @Injectable({
@@ -21,6 +22,11 @@ export class AuthService {
 
   private storageService: StorageService = inject(StorageService);
   private alertCtrl: AlertController = inject(AlertController);
+  private toasterService: ToasterService = inject(ToasterService);
+
+  get toaster() {
+    return this.toasterService;
+  }
 
   login(data: any): Observable<any> {
     return this.loginEntity.save({
@@ -47,7 +53,7 @@ export class AuthService {
   }
 
   setStorageData(res): void {
-    const keys: string[] = ['_id', 'email', 'phone', 'ssoUser', 'userName', 'userLastName','ssoUser'];
+    const keys: string[] = ['_id', 'email', 'phone', 'ssoUser', 'userName', 'userLastName', 'ssoUser'];
     const userData: {} = {};
 
     keys.forEach((key: string): void => {
@@ -87,17 +93,36 @@ export class AuthService {
           {
             text: 'Підтвердити',
             role: 'confirm',
-            handler: ({password}) => {
+            handler: async ({password}) => {
               const name = `${environment.matchPassword}/${id}`;
 
-              this.createDynamicItem(name, {
-                password,
-              }).pipe(
-                take(1),
-                tap(({data}) => {
-                  resolve(data.result.matchPassword);
-                })
-              ).subscribe()
+              if (password) {
+                this.createDynamicItem(name, {
+                  password,
+                }).pipe(
+                  tap(async ({data}) => {
+                    // if (data.result.matchPassword) {
+                    //
+                    // } else {
+                    //   resolve(false);
+                    // }
+
+                    switch (data.result.matchPassword) {
+                      case true:
+                        await alert.dismiss();
+                        resolve(true);
+                        this.toaster.show({type: 'success', message: 'Пароль успішно підтверджено.'});
+                        break;
+                      case false:
+                        this.toaster.show({type: 'error', message: 'Пароль введено невірно, будь ласка спробуйте ще.'})
+                        resolve(false);
+                        break;
+                    }
+                  })
+                ).subscribe();
+              }
+
+              return false;
             }
           },
         ]
@@ -106,6 +131,7 @@ export class AuthService {
       await alert.present();
     });
   }
+
 
   createDynamicItem(name, payload): Observable<any> {
     const item = new Item({

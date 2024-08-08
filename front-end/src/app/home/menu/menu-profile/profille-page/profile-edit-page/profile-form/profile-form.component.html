@@ -180,39 +180,7 @@
       <driver-licence (click)="openDoc(DOC_TYPE.DRIVER_LICENCE)"></driver-licence>
     </div>
 
-<!--    <div class="form-input" #passportRef [appValidateInput]="passportRef">-->
-
-<!--      <div class="input-row">-->
-
-<!--        <ion-label position="static" [class.focused]="isFocused['passport']" class="flex !justify-center">-->
-<!--          @if (!isFocused['passport'] || passport.valid) {-->
-<!--            <ion-icon name="logo-google"></ion-icon>-->
-<!--          }-->
-
-<!--          @if (passport.valid) {-->
-<!--            <ion-icon name="checkmark-circle-outline" class="checkmark-icon"></ion-icon>-->
-<!--          }-->
-
-<!--          @if (isFocused['passport'] && !passport.valid) {-->
-<!--            <ion-spinner name="dots" color="primary"></ion-spinner>-->
-<!--          }-->
-<!--        </ion-label>-->
-
-<!--        <ion-input-->
-<!--          type="text"-->
-<!--          class="aligned-input"-->
-<!--          [formControl]="passport"-->
-<!--          (ionFocus)="onFocus('passport')"-->
-<!--          (ionBlur)="onBlur('passport')"-->
-<!--        ></ion-input>-->
-<!--      </div>-->
-
-<!--      <div [appValidateInput]="passportRef" [control]="passport" class="error-container">-->
-<!--        &lt;!&ndash; Контейнер для помилки &ndash;&gt;-->
-<!--      </div>-->
-<!--    </div>-->
-
-    @if(userInfoDirty) {
+    @if (userInfoDirty) {
       <ripple-btn
         [title]="'Зберегти зміни'"
         [styles]="'text-[#646565] text-white !border-none bg-[#182130]  text-[16px] font-[300] !mt-[10px]'"
@@ -222,99 +190,94 @@
     }
     <ion-label class="text-[#1f2937] !border-none flex !justify-start font-bold">Зміна пароля</ion-label>
 
-<!--    (click)="confirmEditPassword()"-->
-    <div>
-        <div #passRef [appValidateInput]="passRef" class="form-input">
-<!--          [class.pointer-events-none]="isBlurred()"-->
-          <div class="input-row">
-            <ion-label [class.focused]="isFocused['lockOpen']" position="static" class="flex !justify-center">
 
-              @if (!isFocused['lockOpen'] || password.valid) {
-                <ion-icon name="lock-open-outline"></ion-icon>
-              }
+    {{ passwordBlurred() }}
+    <div (click)="confirmEditPassword()">
+      <div #passRef [appValidateInput]="passRef" class="form-input"
+           [class.pointer-events-none]="passwordBlurred() && !userModel()?.ssoUser">
+        <div class="input-row">
+          <ion-label [class.focused]="isFocused['lockOpen']" position="static" class="flex !justify-center">
 
-              @if (password.valid) {
-                <ion-icon class="checkmark-icon" name="checkmark-circle-outline"></ion-icon>
-              }
+            @if (!isFocused['lockOpen'] || password.valid) {
+              <ion-icon name="lock-open-outline"></ion-icon>
+            }
 
-              @if (isFocused['lockOpen'] && !password.valid) {
-                <ion-spinner name="dots" color="primary"></ion-spinner>
-              }
+            @if (password.valid) {
+              <ion-icon class="checkmark-icon" name="checkmark-circle-outline"></ion-icon>
+            }
 
-            </ion-label>
+            @if (isFocused['lockOpen'] && !password.valid) {
+              <ion-spinner name="dots" color="primary"></ion-spinner>
+            }
 
-            <ion-input
-              (ionBlur)="onBlur('lockOpen')"
-              (ionFocus)="onFocus('lockOpen')"
-              [formControl]="password"
-              [type]="showPassword ? 'text' : 'password'"
-              class="aligned-input"
-              placeholder="Новий пароль"
-            ></ion-input>
+          </ion-label>
 
-            <ion-icon (click)="toggleShowPassword()"
-                      [name]="showPassword ? 'eye-outline' : 'eye-off-outline'"
-                      class="eye-icon"
-            >
-            </ion-icon>
-          </div>
+          <ion-input
+            (ionBlur)="onBlur('lockOpen')"
+            (ionFocus)="onFocus('lockOpen')"
+            [formControl]="password"
+            [type]="showPassword ? 'text' : 'password'"
+            class="aligned-input"
+            placeholder="Новий пароль"
+          ></ion-input>
 
-          <div [appValidateInput]="passRef" [control]="password" class="error-container">
-            <!-- Контейнер для помилки -->
-          </div>
+          <ion-icon (click)="toggleShowPassword()"
+                    [name]="showPassword ? 'eye-outline' : 'eye-off-outline'"
+                    class="eye-icon"
+          >
+          </ion-icon>
         </div>
 
-
-<!--      pointer-events-none-->
-        <div class="form-input" #confirmRef [appValidateInput]="confirmRef">
-          <div class="input-row">
-            <ion-label position="static" [class.focused]="isFocused['lockClosed']" class="flex !justify-center">
-
-              @if (!isFocused['lockClosed'] || confirmPassword.valid) {
-                <ion-icon name="lock-closed-outline"></ion-icon>
-              }
-
-              @if (confirmPassword.valid) {
-                <ion-icon class="checkmark-icon" name="checkmark-circle-outline"></ion-icon>
-              }
-
-              @if (isFocused['lockClosed'] && !confirmPassword.valid) {
-                <ion-spinner name="dots" color="primary"></ion-spinner>
-              }
-
-            </ion-label>
-
-            <ion-input
-              [type]="showConfirmPassword ? 'text' : 'password'"
-              class="aligned-input"
-              placeholder="Підтвердити пароль"
-              [formControl]="confirmPassword"
-              (ionFocus)="onFocus('lockClosed')"
-              (ionBlur)="onBlur('lockClosed')"
-            ></ion-input>
-
-            <ion-icon class="eye-icon"
-                      [name]="showConfirmPassword ? 'eye-outline' : 'eye-off-outline'"
-                      (click)="toggleShowConfirmPassword()">
-            </ion-icon>
-          </div>
-
-          <div [appValidateInput]="confirmRef" [control]="confirmPassword" class="error-container">
-            <!-- Контейнер для помилки -->
-          </div>
+        <div [appValidateInput]="passRef" [control]="password" class="error-container">
+          <!-- Контейнер для помилки -->
         </div>
+      </div>
+
+      <div class="form-input" #confirmRef [appValidateInput]="confirmRef"
+           [class.pointer-events-none]="passwordBlurred() && !userModel()?.ssoUser">
+        <div class="input-row">
+          <ion-label position="static" [class.focused]="isFocused['lockClosed']" class="flex !justify-center">
+
+            @if (!isFocused['lockClosed'] || confirmPassword.valid) {
+              <ion-icon name="lock-closed-outline"></ion-icon>
+            }
+
+            @if (confirmPassword.valid) {
+              <ion-icon class="checkmark-icon" name="checkmark-circle-outline"></ion-icon>
+            }
+
+            @if (isFocused['lockClosed'] && !confirmPassword.valid) {
+              <ion-spinner name="dots" color="primary"></ion-spinner>
+            }
+
+          </ion-label>
+
+          <ion-input
+            [type]="showConfirmPassword ? 'text' : 'password'"
+            class="aligned-input"
+            placeholder="Підтвердити пароль"
+            [formControl]="confirmPassword"
+            (ionFocus)="onFocus('lockClosed')"
+            (ionBlur)="onBlur('lockClosed')"
+          ></ion-input>
+
+          <ion-icon class="eye-icon"
+                    [name]="showConfirmPassword ? 'eye-outline' : 'eye-off-outline'"
+                    (click)="toggleShowConfirmPassword()">
+          </ion-icon>
+        </div>
+
+        <div [appValidateInput]="confirmRef" [control]="confirmPassword" class="error-container">
+          <!-- Контейнер для помилки -->
+        </div>
+      </div>
     </div>
 
-    @if(userPasswordDirty) {
-      <ripple-btn
-        [title]="'Оновити пароль'"
-        [styles]="'text-[#646565] text-white !border-none bg-[#182130]  text-[16px] font-[300] !mt-[10px]'"
-        (click)="changePassword()"
-      >
-      </ripple-btn>
+    @if (userPasswordDirty) {
+      <main-action-btn [title]="'Оновити пароль'" [icon]="'refresh-outline'"
+                       [action]="changePassword.bind(this)"></main-action-btn>
     }
   </div>
 </form>
-
 
 

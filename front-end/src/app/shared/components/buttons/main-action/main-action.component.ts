@@ -14,13 +14,17 @@ import {IonButton, IonIcon, IonLabel, IonText} from "@ionic/angular/standalone";
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MainActionComponent  implements OnInit {
+export class MainActionComponent implements OnInit {
 
-  @Input({ required: true }) title: string;
-  @Input({ required: false }) action: () => void;
-  @Input({ required: false }) styles: string;
-  constructor() { }
+  @Input({required: true}) title: string;
+  @Input({required: false}) action: () => void;
+  @Input({required: false}) styles: string;
+  @Input({required: false}) icon: string;
 
-  ngOnInit() {}
+  constructor() {
+  }
+
+  ngOnInit() {
+  }
 
 }
