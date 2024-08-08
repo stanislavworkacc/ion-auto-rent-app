@@ -22,7 +22,7 @@ const bodyParser = require('body-parser');
 const app = express();
 
 const corsOptions = {
-    origin: 'http://localhost:4200',
+    origin: 'http://localhost',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true, // Дозволяє передавати куки
     allowedHeaders: ['Content-Type', 'Authorization'] // Дозволяє заголовки Content-Type і Authorization
