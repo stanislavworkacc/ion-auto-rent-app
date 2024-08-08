@@ -87,7 +87,7 @@ const ssoAuthUser = async (req, res, {user, UserPasswordModel}) => {
         .status(200)
         .cookie('token', token, {
             maxAge: req.body.remember ? 365 * 24 * 60 * 60 * 1000 : null,
-            sameSite: 'Lax',
+            sameSite: 'None',
             httpOnly: true,
             secure: false,
             domain: req.hostname,
