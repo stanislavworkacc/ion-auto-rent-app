@@ -21,7 +21,7 @@ const login = async (req, res, { userModel }) => {
     email: Joi.string()
         .email({ tlds: { allow: true } }).allow(null),
     password: Joi.string().required(),
-    phoneLogin: Joi.string().allow(null),
+    phoneLogin: Joi.string().allow(''),
   });
 
   const { error, value } = objectSchema.validate({ email, password, phoneLogin: phone });
