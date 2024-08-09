@@ -163,7 +163,7 @@ export class ProfileFormComponent implements OnInit {
   }
 
   updateStorageData = (res): void => {
-    const keys: string[] = ['_id', 'email', 'phone', 'ssoUser', 'userName', 'userLastName', 'firstSsoLogin'];
+    const keys: string[] = ['_id', 'email', 'phone', 'phoneCode', 'ssoUser', 'userName', 'userLastName', 'firstSsoLogin', 'userSurname'];
     const userData: { [key: string]: any } = {};
 
     keys.forEach((key: string): void => {
@@ -317,7 +317,6 @@ export class ProfileFormComponent implements OnInit {
     this.userLastName = this.form.get('userLastName') as FormControl;
     this.userSurname = this.form.get('userSurname') as FormControl;
     this.email = this.form.get('email') as FormControl;
-    // this.passport = this.form.get('passport') as FormControl;
     this.phone = this.form.get('phone') as FormControl;
     this.password = this.form.get('password') as FormControl;
     this.confirmPassword = this.form.get('confirmPassword') as FormControl;
@@ -328,13 +327,17 @@ export class ProfileFormComponent implements OnInit {
     this.userModel.set(user);
 
     if (this.userModel()) {
-      const {userName, userLastName, email, phone} = this.userModel();
+      const {userName, userLastName, email, phone, userSurname, phoneCode} = this.userModel();
       this.form.patchValue({
         userName,
         userLastName,
+        userSurname,
         email,
         phone,
+        phoneCode
       });
+
+      this.countryPhone.set(phoneCode)
     }
   }
 
@@ -343,7 +346,6 @@ export class ProfileFormComponent implements OnInit {
       userName: ['', Validators.required],
       userLastName: [''],
       userSurname: [''],
-      // passport: ['', Validators.required],
       phone: [''],
       phoneCode: [this.countryPhone()],
       email: ['', [Validators.required, Validators.email]],

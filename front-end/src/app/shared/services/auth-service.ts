@@ -54,7 +54,7 @@ export class AuthService {
   }
 
   setStorageData(res): void {
-    const keys: string[] = ['_id', 'email', 'phone', 'ssoUser', 'userName', 'userLastName', 'firstSsoLogin'];
+    const keys: string[] = ['_id', 'email', 'phone', 'phoneCode', 'ssoUser', 'userName', 'userLastName', 'firstSsoLogin', 'userSurname'];
     const userData: { [key: string]: any } = {};
 
     keys.forEach((key: string): void => {
