@@ -84,13 +84,15 @@ export class ProfileFormComponent implements OnInit {
   editEntity: PostEntityModel;
 
   public passwordBlurred: WritableSignal<boolean> = signal(true);
-  private clearPasswords: WritableSignal<boolean> = signal(false);
+  clearPasswords: WritableSignal<boolean> = signal(false);
   public userModel: WritableSignal<{
     _id: string,
     email: string,
     phone: string,
+    phoneCode: string,
     userName: string,
     userLastName: string,
+    userSurname: string,
     ssoUser: boolean,
     firstSsoLogin: boolean
 
@@ -187,7 +189,7 @@ export class ProfileFormComponent implements OnInit {
     }
   }
 
-  async confirmEditPassword(input): Promise<void> {
+  async confirmEditPassword(): Promise<void> {
     if (this.userModel().ssoUser) {
       this.passwordBlurred.set(false);
       return;
@@ -200,7 +202,7 @@ export class ProfileFormComponent implements OnInit {
           switch (confirmed) {
             case true:
               this.passwordBlurred.set(false);
-              input.setFocus()
+              this.clearPasswords.set(false);
               break;
             case false:
               this.passwordBlurred.set(true);
@@ -233,12 +235,31 @@ export class ProfileFormComponent implements OnInit {
         .pipe(
           take(1),
           filter((res) => res.data.success),
+          tap((res) => this.passwordBlurHandler(res)),
           tap(this.updateStorageData),
           tap(this.initToaster),
           tap(() => this.resetPasswords()))
         .subscribe()
     } else {
       this.toaster.show({type: 'warning', message: 'Будь ласка, переконайтеся, що поля паролю заповнені коректно'})
+    }
+  }
+
+  passwordBlurHandler(res): void {
+    this.userModel.update((model) => {
+      return {
+        ...model,
+        ssoUser: res.data.result.sso.ssoUser
+      }
+    })
+
+    switch (res.data.result.sso.ssoUser) {
+      case true:
+        this.passwordBlurred.set(false)
+        break;
+      case false:
+        this.passwordBlurred.set(true)
+        break;
     }
   }
 
