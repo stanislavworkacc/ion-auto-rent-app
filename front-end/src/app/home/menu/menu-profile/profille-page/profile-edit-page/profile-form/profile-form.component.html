@@ -144,8 +144,7 @@
     </div>
 
     <div #emailRef [appValidateInput]="emailRef"
-         class="form-input" [class.disabled-input]="userModel()?.firstSsoLogin"
-         (click)="emailEditHandler(userModel()?.firstSsoLogin, emailInput)">
+         class="form-input" [class.disabled-input]="userModel()?.firstSsoLogin">
       <div class="input-row">
 
         <ion-label position="static" [class.focused]="isFocused['google']" class="flex !justify-center">
@@ -166,7 +165,7 @@
                    type="text"
                    placeholder="Введіть поштову адресу"
                    [formControl]="email"
-                   (ionFocus)="onFocus('google')"
+                   (ionFocus)="onFocus('google', emailInput)"
                    (ionBlur)="onBlur('google')"
         ></ion-input>
 

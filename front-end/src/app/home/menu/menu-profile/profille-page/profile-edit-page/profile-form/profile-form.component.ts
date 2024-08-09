@@ -147,8 +147,9 @@ export class ProfileFormComponent implements OnInit {
       this.form.get('confirmPassword').dirty) && !this.clearPasswords()
   }
 
-  onFocus(field: string): void {
+  async onFocus(field: string, input?): Promise<void> {
     this.isFocused[field] = true;
+    await this.emailEditHandler(input);
   }
 
   onBlur(field: string): void {
@@ -264,8 +265,10 @@ export class ProfileFormComponent implements OnInit {
     }
   }
 
-  async emailEditHandler(ssoLogin: boolean, emailInput: IonInput): Promise<void> {
-    if (ssoLogin) {
+  async emailEditHandler(emailInput: IonInput): Promise<void> {
+    debugger
+    if (this.userModel()?.firstSsoLogin) {
+      emailInput.getInputElement().then(input => input.blur());
       const alert: HTMLIonAlertElement = await this.alertCtrl.create({
         header: 'Обмеження зміни електронної пошти',
         subHeader: 'Профіль створений за допомогою Google не дозволяє змінювати електронну пошту.',
@@ -274,11 +277,6 @@ export class ProfileFormComponent implements OnInit {
       });
 
       await alert.present()
-
-      alert.onDidDismiss().then((): void => {
-        emailInput.getInputElement().then(input => input.blur());
-      })
-
     }
   }
 
