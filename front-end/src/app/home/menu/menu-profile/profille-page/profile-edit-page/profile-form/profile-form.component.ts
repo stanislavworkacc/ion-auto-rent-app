@@ -36,7 +36,7 @@ import {
 } from "../../../../../../shared/components/filters/modals/phone-codes/phone-codes.component";
 import {codes} from "../../../../../../shared/utils/phone-codes";
 import {MainActionComponent} from "../../../../../../shared/components/buttons/main-action/main-action.component";
-import {AsyncPipe} from "@angular/common";
+import {AsyncPipe, JsonPipe} from "@angular/common";
 import {PostEntityModel} from "../../../../../../../../libs/collection/src/lib/models/post-entity.model";
 import {environment} from "../../../../../../../environments/environment";
 import {CrudService} from "../../../../../../../../libs/collection/src/lib/crud.service";
@@ -64,6 +64,7 @@ import {CrudService} from "../../../../../../../../libs/collection/src/lib/crud.
     MainActionComponent,
     AsyncPipe,
     IonProgressBar,
+    JsonPipe,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -90,7 +91,9 @@ export class ProfileFormComponent implements OnInit {
     phone: string,
     userName: string,
     userLastName: string,
-    sso: any
+    ssoUser: boolean,
+    firstSsoLogin: boolean
+
   }> = signal(null);
   public countryPhone: WritableSignal<string> = signal('+380');
 
@@ -158,15 +161,20 @@ export class ProfileFormComponent implements OnInit {
   }
 
   updateStorageData = (res): void => {
-    const keys: string[] = ['_id', 'email', 'phone', 'sso', 'userName', 'userLastName'];
-    const userData: {} = {};
+    const keys: string[] = ['_id', 'email', 'phone', 'ssoUser', 'userName', 'userLastName', 'firstSsoLogin'];
+    const userData: { [key: string]: any } = {};
 
     keys.forEach((key: string): void => {
-      userData[key] = res?.data?.result?.[key];
+      if (key === 'ssoUser' || key === 'firstSsoLogin') {
+        userData[key] = res?.data?.result?.sso?.[key];
+      } else {
+        userData[key] = res?.data?.result?.[key];
+      }
     });
 
     this.storage.setObject('user', userData);
   }
+
 
   initToaster = (res) => {
     switch (res?.data?.success) {
@@ -180,7 +188,7 @@ export class ProfileFormComponent implements OnInit {
   }
 
   async confirmEditPassword(input): Promise<void> {
-    if (this.userModel()['sso']['ssoUser']) {
+    if (this.userModel().ssoUser) {
       this.passwordBlurred.set(false);
       return;
     }

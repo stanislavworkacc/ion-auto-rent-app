@@ -54,11 +54,15 @@ export class AuthService {
   }
 
   setStorageData(res): void {
-    const keys: string[] = ['_id', 'email', 'phone', 'ssoUser', 'userName', 'userLastName', 'ssoUser'];
-    const userData: {} = {};
+    const keys: string[] = ['_id', 'email', 'phone', 'ssoUser', 'userName', 'userLastName', 'firstSsoLogin'];
+    const userData: { [key: string]: any } = {};
 
     keys.forEach((key: string): void => {
-      userData[key] = res?.data?.result?.[key];
+      if (key === 'ssoUser' || key === 'firstSsoLogin') {
+        userData[key] = res?.data?.result?.sso?.[key];
+      } else {
+        userData[key] = res?.data?.result?.[key];
+      }
     });
 
     this.storageService.setObject('user', userData);

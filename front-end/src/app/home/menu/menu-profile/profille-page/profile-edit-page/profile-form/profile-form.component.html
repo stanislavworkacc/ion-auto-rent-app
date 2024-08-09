@@ -190,9 +190,10 @@
     }
     <ion-label class="text-[#1f2937] !border-none flex !justify-start font-bold">Зміна пароля</ion-label>
 
+    {{ userModel() | json }}
     <div (click)="confirmEditPassword(passwordInput)">
       <div #passRef [appValidateInput]="passRef" class="form-input"
-           [class.pointer-events-none]="passwordBlurred() && !userModel()['sso']['ssoUser']">
+           [class.pointer-events-none]="passwordBlurred() && !userModel()?.ssoUser">
         <div class="input-row">
           <ion-label [class.focused]="isFocused['lockOpen']" position="static" class="flex !justify-center">
 
@@ -232,7 +233,7 @@
       </div>
 
       <div class="form-input" #confirmRef [appValidateInput]="confirmRef"
-           [class.pointer-events-none]="passwordBlurred() && !userModel()['sso']['ssoUser']">
+           [class.pointer-events-none]="passwordBlurred() && !userModel()?.ssoUser">
         <div class="input-row">
           <ion-label position="static" [class.focused]="isFocused['lockClosed']" class="flex !justify-center">
 
