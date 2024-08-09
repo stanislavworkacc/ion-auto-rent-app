@@ -35,7 +35,7 @@ import {
   ModalController, PopoverController
 } from "@ionic/angular/standalone";
 import {SegmentsComponent} from "../../../../../shared/ui-kit/components/segments/segments.component";
-import {NgForOf, NgIf, NgOptimizedImage, NgStyle} from "@angular/common";
+import {AsyncPipe, NgForOf, NgIf, NgOptimizedImage, NgStyle} from "@angular/common";
 import {ValidateInputDirective} from "../../../../../shared/directives/validate-input.directive";
 import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {of} from "rxjs/internal/observable/of";
@@ -96,7 +96,8 @@ import {ToasterService} from "../../../../../shared/components/app-toast/toaster
     IonDatetimeButton,
     IonModal,
     ScheduleRangeComponent,
-    NgStyle
+    NgStyle,
+    AsyncPipe
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -274,7 +275,7 @@ export class CreateParkModalComponent implements OnInit, AfterViewInit {
     formData.append('name', formValue.name);
     formData.append('address', formValue.address);
     if (formValue.files) {
-      formData.append('file', formValue.files,  formValue.files.name);
+      formData.append('file', formValue.files, formValue.files.name);
     }
     formData.append('open', formValue.scheduler.open);
     formData.append('close', formValue.scheduler.close);

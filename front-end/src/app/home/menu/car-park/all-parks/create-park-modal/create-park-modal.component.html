@@ -4,6 +4,9 @@
   </ion-toolbar>
 </ion-header>
 
+@if (parkService.dynamicLoading()) {
+  <ion-progress-bar type="indeterminate"></ion-progress-bar>
+}
 <ion-content class="ion-padding">
   <park-card [parking]="parking()" [editMode]="false" [uploadedLogoUrl]="uploadedLogoUrl()"></park-card>
 
