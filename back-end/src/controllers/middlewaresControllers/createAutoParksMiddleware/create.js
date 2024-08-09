@@ -7,20 +7,21 @@ const create = async (req, res, {autoParksModelName}) => {
     const {id} = req.params;
     const {
         address,
-        logo,
+        logo = null,
         name,
         scheduler
     } = req.body;
 
     const objectSchema = Joi.object({
         address: Joi.string(),
-        logo: Joi.string(),
+        logo: Joi.string().allow(null),
         name: Joi.string().required(),
         scheduler: Joi.object({
             close: Joi.string(),
             open: Joi.string()
         })
     });
+
 
     const {error, value} = objectSchema.validate({
         address,
