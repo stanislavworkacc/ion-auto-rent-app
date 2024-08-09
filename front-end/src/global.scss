@@ -147,6 +147,10 @@ form {
   }
 }
 
+.disabled-input {
+  background: #e7e7e7 !important;
+  opacity: 0.5;
+}
 
 //breadcrumb popover
 ion-popover {

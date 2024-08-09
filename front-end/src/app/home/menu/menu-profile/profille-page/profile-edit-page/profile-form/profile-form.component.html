@@ -143,7 +143,9 @@
       </div>
     </div>
 
-    <div class="form-input" #emailRef [appValidateInput]="emailRef">
+    <div #emailRef [appValidateInput]="emailRef"
+         class="form-input" [class.disabled-input]="userModel()?.firstSsoLogin"
+         (click)="emailEditHandler(userModel()?.firstSsoLogin, emailInput)">
       <div class="input-row">
 
         <ion-label position="static" [class.focused]="isFocused['google']" class="flex !justify-center">
@@ -160,15 +162,16 @@
           }
         </ion-label>
 
-        <ion-input
-          type="text"
-          class="aligned-input"
-          placeholder="Введіть поштову адресу"
-          [formControl]="email"
-          (ionFocus)="onFocus('google')"
-          (ionBlur)="onBlur('google')"
+        <ion-input class="aligned-input" #emailInput
+                   type="text"
+                   placeholder="Введіть поштову адресу"
+                   [formControl]="email"
+                   (ionFocus)="onFocus('google')"
+                   (ionBlur)="onBlur('google')"
         ></ion-input>
+
       </div>
+
 
       <div [appValidateInput]="emailRef" [control]="email" class="error-container">
         <!-- Контейнер для помилки -->

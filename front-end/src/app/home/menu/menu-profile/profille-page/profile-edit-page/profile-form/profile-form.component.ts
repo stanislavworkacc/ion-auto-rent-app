@@ -1,7 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  DestroyRef,
+  DestroyRef, ElementRef,
   inject,
   Input,
   OnInit,
@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {
+  AlertController,
   IonFab,
   IonFabButton,
   IonIcon,
@@ -79,7 +80,7 @@ export class ProfileFormComponent implements OnInit {
   private toasterService: ToasterService = inject(ToasterService);
   private popoverCtrl: PopoverController = inject(PopoverController);
   private crud: CrudService = inject(CrudService);
-  private destroyRef: DestroyRef = inject(DestroyRef);
+  private alertCtrl: AlertController = inject(AlertController);
 
   editEntity: PostEntityModel;
 
@@ -260,6 +261,24 @@ export class ProfileFormComponent implements OnInit {
       case false:
         this.passwordBlurred.set(true)
         break;
+    }
+  }
+
+  async emailEditHandler(ssoLogin: boolean, emailInput: IonInput): Promise<void> {
+    if (ssoLogin) {
+      const alert: HTMLIonAlertElement = await this.alertCtrl.create({
+        header: 'Обмеження зміни електронної пошти',
+        subHeader: 'Профіль створений за допомогою Google не дозволяє змінювати електронну пошту.',
+        message: 'Ваш профіль був створений за допомогою Google, змінити електронну пошту неможливо.',
+        buttons: ['Зрозуміло']
+      });
+
+      await alert.present()
+
+      alert.onDidDismiss().then((): void => {
+        emailInput.getInputElement().then(input => input.blur());
+      })
+
     }
   }
 
