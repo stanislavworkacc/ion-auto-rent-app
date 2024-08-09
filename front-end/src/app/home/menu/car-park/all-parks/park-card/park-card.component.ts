@@ -18,6 +18,7 @@ import {
 } from "@ionic/angular/standalone";
 import {ScheduleRangeComponent} from "../create-park-modal/schedule-range/schedule-range.component";
 import {NgClass, NgIf} from "@angular/common";
+import {Platform} from "@ionic/angular";
 
 @Component({
   selector: 'park-card',
@@ -39,14 +40,22 @@ import {NgClass, NgIf} from "@angular/common";
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ParkCardComponent  implements OnInit, AfterViewInit {
+export class ParkCardComponent implements OnInit, AfterViewInit {
+  public platform: Platform = inject(Platform);
   @Input() selectParking: () => void;
   @Input() editMode: boolean = true;
   @Input() uploadedLogoUrl: string = '';
-  @Input() parking: { label: string, location: string, contact: string, schedule: string, freeCars: number, carsInRent: number };
+  @Input() parking: {
+    label: string,
+    location: string,
+    contact: string,
+    schedule: string,
+    freeCars: number,
+    carsInRent: number
+  };
 
-  @ViewChild('title', { static: false }) title: ElementRef;
-  @ViewChild('subtitle', { static: false }) subtitle: ElementRef;
+  @ViewChild('title', {static: false}) title: ElementRef;
+  @ViewChild('subtitle', {static: false}) subtitle: ElementRef;
 
   isTitleExpanded: WritableSignal<boolean> = signal(false);
   isSubtitleExpanded: WritableSignal<boolean> = signal(false);
@@ -56,24 +65,27 @@ export class ParkCardComponent  implements OnInit, AfterViewInit {
   toggleTitleExpand(): void {
     this.isTitleExpanded.set(!this.isTitleExpanded());
   }
+
   toggleSubtitleExpand(): void {
     this.isSubtitleExpanded.set(!this.isSubtitleExpanded());
   }
 
   checkTitlesTruncated(): void {
     const title = this.title?.nativeElement;
-    if(title) {
+    if (title) {
       this.isTitleTruncated.set(title.scrollWidth > title.clientWidth)
     }
 
     const subtitle = this.subtitle?.nativeElement;
-    if(subtitle) {
+    if (subtitle) {
       this.isSubtitleTruncated.set(subtitle.scrollWidth > subtitle.clientWidth)
     }
 
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
+
   ngAfterViewInit() {
     this.checkTitlesTruncated();
   }

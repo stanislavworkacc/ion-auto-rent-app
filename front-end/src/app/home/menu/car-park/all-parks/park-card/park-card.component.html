@@ -51,7 +51,9 @@
     </div>
 
     @if (editMode) {
-      <div class="absolute bottom-[-15px] right-[5%] flex items-center gap-2">
+      <div class="absolute bottom-[-15px] right-[5%] flex items-center gap-2"
+           [class.bottom-[-22px]]="!platform.is('ios')"
+      >
         <div class="flex flex-col items-centerv bg-[#ededee] border rounded p-1">
           <img src="assets/icon/svg/edit-svg.svg" class="h-[20px]">
         </div>
