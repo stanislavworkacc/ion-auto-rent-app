@@ -152,27 +152,27 @@ export class CreateParkModalComponent implements OnInit, AfterViewInit {
       value: 1,
       label: 'Авто та мото',
       icons: [
-        {src: '/assets/icon/car-type-ico.png', height: '25px'},
-        {src: '/assets/icon/moto-type-ico.png', height: '23px'},
-        {src: '/assets/icon/truck-ico.png', height: '18px'}
+        {src: '/assets/icon/car-type-2.png', height: '117px'},
+        {src: '/assets/icon/moto-type.png', height: '135px'},
+        {src: '/assets/icon/truck.png', height: '125px'},
       ]
     },
     {
       value: 4,
       label: 'Спец.техніка',
       icons: [
-        {src: '/assets/icon/tractor-type-ico.png', height: '25px'},
-        {src: '/assets/icon/bus-type-ico.png', height: '25px'},
-        {src: '/assets/icon/trailer-type-ico.png', height: '25px'}
+        {src: '/assets/icon/combain.png', height: '125px'},
+        {src: '/assets/icon/excalator-car.png', height: '83px'},
+        {src: '/assets/icon/trailer-type-ico.png', height: '100px'},
       ]
     },
     {
       value: 3,
       label: 'Водний транспорт',
       icons: [
-        {src: '/assets/icon/water-vehicle-type.png', height: '25px'},
-        {src: '/assets/icon/yach-type-ico.png', height: '18px'},
-        {src: '/assets/icon/speedboat.png', height: '30px'}
+        {src: '/assets/icon/water-moto.png', height: '125px'},
+        {src: '/assets/icon/boat-1.png', height: '130px'},
+        {src: '/assets/icon/speed-boat.png', height: '118px'},
       ]
     }
   ];

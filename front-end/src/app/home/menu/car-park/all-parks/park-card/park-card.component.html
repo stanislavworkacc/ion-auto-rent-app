@@ -1,6 +1,9 @@
 <ion-card (click)="selectParking()">
   <ion-card-header class="p-[10px] !flex">
     <div class="flex items-center gap-2 max-w-[75%]">
+      @if (uploadedLogoUrl) {
+        <img [src]="uploadedLogoUrl" class="h-[40px] w-[40px]">
+      }
       <div class="flex flex-col w-full">
         <ion-card-subtitle #subtitle
                            [ngClass]="{'truncate-title': !isSubtitleExpanded(), 'expand-title': isSubtitleExpanded()}"
@@ -20,14 +23,6 @@
           }
         </ion-card-title>
       </div>
-    </div>
-
-    <div class="absolute top-[10%] right-[5%]">
-      @if (!uploadedLogoUrl) {
-        <img src="assets/icon/default-img.png" class="h-[50px] w-[50px]">
-      } @else {
-        <img [src]="uploadedLogoUrl" class="h-[60px] w-[60px]">
-      }
     </div>
   </ion-card-header>
 

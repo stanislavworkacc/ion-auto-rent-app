@@ -11,22 +11,25 @@
   <park-card [parking]="parking()" [editMode]="false" [uploadedLogoUrl]="uploadedLogoUrl()"></park-card>
 
   <form [formGroup]="form">
-    <ion-label class="border-r-0 font-[300] text-gray-500 flex items-center gap-1 pr-4">
+    <ion-label class="border-r-0 font-[600] text-[#ed520d] flex justify-start">
       Тип автопарку
     </ion-label>
-    <div class="flex items-center justify-between">
+    <div class="flex items-center justify-between w-full overflow-x-auto">
       @for (type of parkTypes; track type.value) {
-        <div class="flex flex-col items-center cursor-pointer relative h-[62px]"
-             [class.mb-[7px]]="type.value === 3"
-             [class.animate-pulse]="selectedType() === type.value"
+        <div class="flex flex-col items-center cursor-pointer relative h-full min-w-full"
              [class.selected]="selectedType() === type.value"
              (click)="selectParkType(type.value)">
-          <div class="flex items-center gap-2">
-            <img *ngFor="let icon of type.icons" [src]="icon.src" [ngStyle]="{ height: icon.height }">
+          <ion-text class="text-[14px] text-gray-500 tracking-widest">{{ type.label }}</ion-text>
+          <div class="flex items-center justify-center gap-2 w-full">
+            <img *ngFor="let icon of type.icons" [src]="icon.src"
+                 [ngStyle]="{
+                  height: icon.height,
+                  paddingTop: icon.src === '/assets/icon/moto-type.png' ? '18px' : '',
+                  paddingBottom: icon.src === '/assets/icon/boat-1.png' ? '24px' : ''
+                  }">
           </div>
-          <ion-text class="text-xs text-gray-500 tracking-widest">{{ type.label }}</ion-text>
           @if (selectedType() === type.value) {
-            <ion-icon name="checkbox-outline" class="text-[#ed520d] text-[18px]"></ion-icon>
+            <ion-icon name="checkbox-outline" class="text-[#ed520d] text-[24px] absolute bottom-0"></ion-icon>
           }
         </div>
       }
