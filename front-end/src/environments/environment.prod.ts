@@ -19,6 +19,7 @@ export const environment = {
   matchPassword: 'api/matchPassword',
   changePassword: 'api/changePassword',
   deleteAccount: 'api/deleteAccount',
+  autoParkCreate: 'api/autoParks/create',
   // RIA
   autoRIAEntity: 'https://developers.ria.com/auto/new'
 };
