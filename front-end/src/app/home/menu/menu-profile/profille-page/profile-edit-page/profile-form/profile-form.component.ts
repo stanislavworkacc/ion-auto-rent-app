@@ -353,10 +353,10 @@ export class ProfileFormComponent implements OnInit {
         userSurname,
         email,
         phone,
-        phoneCode
+        phoneCode: phoneCode ? phoneCode : '+380'
       });
 
-      this.countryPhone.set(phoneCode)
+      this.countryPhone.set(phoneCode ? phoneCode : '+380')
     }
   }
 
