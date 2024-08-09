@@ -8,13 +8,16 @@
   <ion-progress-bar type="indeterminate"></ion-progress-bar>
 }
 <ion-content class="ion-padding">
-  <park-card [parking]="parking()" [editMode]="false" [uploadedLogoUrl]="uploadedLogoUrl()"></park-card>
+  <!--  <park-card [parking]="parking()" [editMode]="false" [uploadedLogoUrl]="uploadedLogoUrl()"></park-card>-->
 
   <form [formGroup]="form">
     <ion-label class="border-r-0 font-[600] text-[#ed520d] flex justify-start">
       Тип автопарку
     </ion-label>
-    <div class="flex items-center justify-between w-full overflow-x-auto">
+    @if (uploadedLogoUrl()) {
+      <img [src]="uploadedLogoUrl()" class="h-[40px] w-[40px] absolute right-[16px] top-[5px]">
+    }
+    <div class="flex items-center justify-between w-full overflow-x-auto border mb-2">
       @for (type of parkTypes; track type.value) {
         <div class="flex flex-col items-center cursor-pointer relative h-full min-w-full"
              [class.selected]="selectedType() === type.value"
@@ -135,13 +138,14 @@
 
       @if (uploadedLogoUrl()) {
         <ion-button fill="clear" class="text-xs w-full mb-2.5" (click)="clearSelectedLogo()">
-          <div class="flex flex-col items-center border rounded py-2 px-3 border-red-300">
+          <div class="flex flex-col items-center border rounded py-2 px-3 border-[#ed520d]">
             <img src="assets/icon/svg/delete.svg" class="h-[25px]">
           </div>
         </ion-button>
       }
     </div>
 
-    <main-action-btn [title]="'Створити автопарк'" [styles]="'py-3'" [action]="submit.bind(this)"></main-action-btn>
+    <main-action-btn [title]="'Створити автопарк'" [styles]="'py-3 bg-[#ed520d]'"
+                     [action]="submit.bind(this)"></main-action-btn>
   </form>
 </ion-content>
